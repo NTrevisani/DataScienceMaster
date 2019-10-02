@@ -3,12 +3,10 @@ URL=${1:-http://swcarpentry.github.io/shell-novice/data/data-shell.zip}
 DOWNLOAD_NAME=${2:-data-shell.zip}
 OUTPUT_FOLDER=${3:-elements_by_atomic_number}
 # downloading the zip file
-#curl http://swcarpentry.github.io/shell-novice/data/data-shell.zip -o data-shell.zip
 curl $URL -o $DOWNLOAD_NAME
 # unzipping
 unzip data-shell.zip
 # creating destination folder
-#OUTPUT_FOLDER=elements_by_atomic_number
 mkdir -p $OUTPUT_FOLDER
 # counting how many xml files we have
 initialFilesNumber=$(find data-shell -name *.xml | wc -l)
@@ -49,6 +47,7 @@ if [ $finalFilesNumber -eq $initialFilesNumber ]; then
 else
     echo Something went wrong! :\'\(
 fi
+# some final suggestions
 echo ===========
 echo I am downloading the $URL url, unzipping it into the $DOWNLOAD_NAME folder, and copying the xml files, with the requested name, in $OUTPUT_FOLDER
 echo ===========
