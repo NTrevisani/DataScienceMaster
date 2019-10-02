@@ -49,9 +49,9 @@ else
 fi
 # some final suggestions
 echo ===========
-echo I am downloading the $URL url, unzipping it into the $DOWNLOAD_NAME folder, and copying the xml files, with the requested name, in $OUTPUT_FOLDER
+echo I am copying the $URL url into the $DOWNLOAD_NAME file, and copying the xml files, with the requested name, in the $OUTPUT_FOLDER folder
 echo ===========
-echo You can change these settings by introducing different url, unzipping folder name, and output folder, when running this script, as:
+echo You can change these settings by introducing different url, zip file name, and output folder, when running this script, like this:
 echo bash elements.sh \<URL\> \<DOWNLOAD_NAME\> \<OUTPUT_FOLDER\>
 echo e.g. 
 echo bash elements.sh $URL $DOWNLOAD_NAME $OUTPUT_FOLDER
