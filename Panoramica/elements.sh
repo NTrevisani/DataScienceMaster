@@ -6,6 +6,8 @@ unzip data-shell.zip
 # creating destination folder
 outputFolder=elements_by_atomic_number
 mkdir -p $outputFolder
+# counting how many xml files we have
+initialFilesNumber=$(find data-shell -name *.xml | wc -l)
 # loop over all the xml files to modify their names
 for element in $(find data-shell -name *.xml)
 do
@@ -33,6 +35,12 @@ done
 # removing unnecessary stuff
 rm data-shell.zip
 rm -r data-shell
-# checking everything is in the new folder
-ls -lrt elements_by_atomic_number
-echo All done!
+# showing elements in the new folder
+ls -1 elements_by_atomic_number
+# counting how many xml files have been copied to the new folder
+finalFilesNumber=$(ls -1 elements_by_atomic_number | wc -l)
+if [ $finalFilesNumber -eq $initialFilesNumber ]; then
+    echo All done!
+else
+    echo Something went wrong! :\'\(
+fi
