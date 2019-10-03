@@ -4,6 +4,10 @@
 term_N_0 = 0
 term_N_1 = 1
 
+# Let's print them
+print(term_N_0)
+print(term_N_1)
+
 # Initialize the (N-2)-th and the (N-1)-th terms used to calculate the N-th term of the sequence
 term_N_minus_2 = term_N_0
 term_N_minus_1 = term_N_1
