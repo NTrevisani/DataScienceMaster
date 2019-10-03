@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# input variables
 URL=${1:-http://swcarpentry.github.io/shell-novice/data/data-shell.zip}
 DOWNLOAD_NAME=${2:-data-shell.zip}
 OUTPUT_FOLDER=${3:-elements_by_atomic_number}
