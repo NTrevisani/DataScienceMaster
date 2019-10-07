@@ -1,3 +1,5 @@
+# SOME USEFUL COMMANDS
+
 To update:
 
     conda update conda
