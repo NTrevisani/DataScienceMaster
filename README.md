@@ -1,7 +1,7 @@
 SOME USEFUL COMMANDS
 ====================
 
-## Conda
+## 1. Conda
 
 To update:
 
@@ -39,7 +39,7 @@ To install m2-base:
 
     conda install -c msys2 m2-base
 
-## Jupyter
+## 2. Jupyter
 
 To launch jupyter:
 
