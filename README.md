@@ -5,7 +5,7 @@ SOME USEFUL COMMANDS
 
 To install, visit https://docs.conda.io/en/latest/miniconda.html and download the package that fits your operative system, then (in case of MacOSX):
 
-   bash Miniconda2-latest-MacOSX-x86_64.sh
+    bash Miniconda2-latest-MacOSX-x86_64.sh
 
 To update:
 
