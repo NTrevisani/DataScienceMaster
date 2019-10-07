@@ -1,4 +1,4 @@
-# SOME USEFUL COMMANDS
+SOME USEFUL COMMANDS
 ====================
 
 ## Conda
