@@ -1,47 +1,47 @@
 To update:
 
-   conda update conda
+    conda update conda
 
 To list all the installed packages:
 
-   conda list
+    conda list
 
 To install new packages:
 
-   conda install <package>
+    conda install <package>
 
 To create a python2 environment:
 
-   conda create -n py2 python=2
+    conda create -n py2 python=2
    
-   conda activate py2
+    conda activate py2
 
 To go back to 'base' environment:
 
-   conda deactivate
+    conda deactivate
 
 To create an environment with r:
 
-   conda create -n Estadistica --channel r r-base
+    conda create -n Estadistica --channel r r-base
 
-   conda activate Estadistica
+    conda activate Estadistica
 
 To install a Jupyter notebook on conda:
 
-   conda install jupyter
+    conda install jupyter
 
 To launch jupyter:
 
-   jupyter console
+    jupyter console
 
 To open a jupyter notebook:
 
-   jupyter notebook
+    jupyter notebook
 
 To see the list of jupyter notebooks open:
 
-   jupyter notebook list
+    jupyter notebook list
 
 To install m2-base:
 
-   conda install -c msys2 m2-base
+    conda install -c msys2 m2-base
