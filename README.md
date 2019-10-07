@@ -45,7 +45,7 @@ To launch jupyter:
 
     jupyter console
 
-To open a jupyter notebook:
+To open a jupyter notebook, enter the directory where your notebook is stored and use the following command:
 
     jupyter notebook
 
