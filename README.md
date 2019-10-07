@@ -1,4 +1,7 @@
-# SOME USEFUL COMMANDS
+SOME USEFUL COMMANDS
+====================
+
+# Conda
 
 To update:
 
@@ -32,6 +35,12 @@ To install a Jupyter notebook on conda:
 
     conda install jupyter
 
+To install m2-base:
+
+    conda install -c msys2 m2-base
+
+# Jupyter
+
 To launch jupyter:
 
     jupyter console
@@ -44,6 +53,3 @@ To see the list of jupyter notebooks open:
 
     jupyter notebook list
 
-To install m2-base:
-
-    conda install -c msys2 m2-base
