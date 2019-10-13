@@ -56,4 +56,15 @@ To open a jupyter notebook, enter the directory where your notebook is stored an
 To see the list of jupyter notebooks open:
 
     jupyter notebook list
+    
+To install R kernel on Jupyter (reference: https://irkernel.github.io/installation/):
+    
+    install.packages('IRkernel')
+    
+    IRkernel::installspec()
+
+or, to install for all the users of the system: 
+
+    IRkernel::installspec(user = FALSE)
+    
 
