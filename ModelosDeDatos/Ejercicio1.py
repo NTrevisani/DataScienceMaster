@@ -21,11 +21,11 @@
 # ### Lists
 # 
 
-# Regarding lists, I would like to mention a feature of the _slicing_ that I did not think about until we saw it in the lectures.
+# Regarding lists, I would like to mention a feature of the _slicing_ that I did not think it was possible until we saw it in the lectures.
 # 
-# Using the *slicing*, it is in fact possible to insert new element in a list in a specific position.
+# Using the *slicing*, it is in fact possible to insert new elements in a list in a specific position.
 
-# In[ ]:
+# In[1]:
 
 
 colors = ['red', 'blue', 'green', 'black', 'white']
@@ -39,7 +39,7 @@ colors
 
 # But also replace one (or more) element with an arbitrary number of new elements.
 
-# In[ ]:
+# In[2]:
 
 
 colors = ['red', 'blue', 'green', 'black', 'white']
@@ -53,11 +53,11 @@ colors
 
 # ### Control flow
 
-# Also for control flow, I try to put here examples of aspects of the code I was not expecting.
+# Also for control flow, I try to put here examples of aspects of python I was not expecting.
 # 
-# The first thing is the structure of the _for_ iteration, which can be "closed" with an else.
+# The first thing is the structure of the _for_ iteration, which can be *closed* with an else.
 
-# In[ ]:
+# In[3]:
 
 
 # In this case, the 'for' ends with an 'else' statement
@@ -67,7 +67,7 @@ else:
     print("But also many more things")
 
 
-# In[ ]:
+# In[4]:
 
 
 # Here, the 'else' statement is skipped, since the 'for'
@@ -80,9 +80,9 @@ else:
     print("But also many more things")    
 
 
-# I found interesting also the _enumerate_ function, which allows to easily iterate over the index and the item of a list.
+# I found interesting also the _enumerate_ function, which allows to easily iterate over the indics and the items of a list.
 
-# In[ ]:
+# In[5]:
 
 
 words = ('cool', 'powerful', 'readable')
@@ -92,13 +92,12 @@ for index, item in enumerate(words):
 
 # ### Functions
 
-# Again, some examples of counterintuitive (at least for me) behaviour of functions in python.
+# Again, some examples of counterintuitive (at least to me) behaviours of functions in python.
 # 
-# Default values are evaluated when the function is defined, not when it is called.
-# 
-# This produces different results when the _default value_ is mutable or immutable. 
+# First of all, default values are evaluated when the function is defined, not when it is called.
+# This fact produces different results when the _default value_ is mutable or immutable. 
 
-# In[ ]:
+# In[6]:
 
 
 # Using an immutable object (int)
@@ -118,9 +117,9 @@ print(double_it(1e9))
 # This means that when double_it is called without passing it any explicit value, it uses the value of bigx it got when it was defined.
 # Of course, if the new value of bigx is explicitly given to the function, it uses the new one.
 
-# Using mutable type in a keyword argument (and modifying it inside the function body) on the other hand produces a different result
+# On the other hand, using a mutable type object in a keyword argument (and modifying it inside the function body) produces a different result.
 
-# In[ ]:
+# In[7]:
 
 
 def add_to_dict(args={'a': 1, 'b': 2}):
@@ -135,15 +134,13 @@ add_to_dict()
 
 # Since dictionaries are mutable objects, their values can actually be modified permanently by the function.
 
-# A similar example is given by this exercise.
+# A similar example is given by the following exercise.
 # 
 # In general, when a variable is passed to a function, python gives the reference to the object to which the variable refers (value), not the variable itself.
 # 
-# This means that if the value passed to a function is immutable, the function does not modify the variable. 
-# 
-# If the value is mutable, the function may modify the variable.
+# This means that if the value passed to a function is immutable, the function does not modify the variable. On the other hand, if the value is mutable, the function may modify the variable.
 
-# In[ ]:
+# In[8]:
 
 
 def try_to_modify(x, y, z):
@@ -169,12 +166,12 @@ print("c:",c)
 
 # In this example:
 # - a = 77: an int is an immutable object and cannot be modified by the function;
-# - b = [99]: a list is a mutable object, so that _appending_ a new value to y inside the function actually modify also b;
-# - c = [28]: also c is a list, so that it is a mutable object. On the other hand, z gets a new value _inside_ the function. In this case, z 'lives' only inside the scope of the function, so that outside c keeps the value it was originally assigned.
+# - b = [99]: a list is a mutable object, so that _appending_ a new value to y inside the function actually modifies also b;
+# - c = [28]: also c is a list, so that it is a mutable object. On the other hand, z gets assigned a new value _inside_ the function. In this case, z 'lives' only inside the scope of the function, so that outside c keeps the value it was originally assigned.
 
 # In general, variables declared outside the function can be referenced within the function.
 
-# In[ ]:
+# In[9]:
 
 
 x = 5
@@ -187,7 +184,7 @@ addx(10)
 
 # These variables can be modified inside the function, but the changes are not propagted outside it. For example:
 
-# In[ ]:
+# In[10]:
 
 
 x = 5
@@ -202,7 +199,7 @@ print(x)
 
 # If we really want to do so, we need to decalre the variables as **global** inside the function.
 
-# In[ ]:
+# In[11]:
 
 
 x = 5
@@ -226,7 +223,7 @@ print(x)
 
 # I decided to implement it by using a simple _for_ iteration, as follows:
 
-# In[ ]:
+# In[16]:
 
 
 import math
@@ -238,18 +235,29 @@ math_pi = math.pi
 pi = 2
 
 # Asking how many iterations the user would like to use for pi estimation
-up_to = int(input("Please tell me how many products to you want to compute: "))
+up_to = input("Please tell me how many products to you want to compute: ")
 print("\n")
 
-# Actual calculation
-for i in range(1,up_to):
-    pi *= 4*(i**2) / (4*(i**2) - 1)
-# Just printing the result once the iterations are done
-else:
-    print("After {0} iterations, I get the following value for pi: {1:.6f}".format(up_to, pi))
-    print("Comparing with the value of pi I get from python (%.6f)," %(math_pi))
-    precision = 100. * (math_pi - pi) / (math_pi)
-    print("I can say I reached a precision of %.6f%%" %(precision))
+# Check if the 'up_to' parameter is an int
+try:
+    up_to = int(up_to)
+    # Check if 'up_to' is positive
+    if up_to > 0:
+        # Actual calculation
+        for i in range(1,up_to):
+            pi *= 4*(i**2) / (4*(i**2) - 1)
+        # Just printing the result once the iterations are done
+        else:
+            print("After {0} iterations, I get the following value for pi: {1:.6f}".format(up_to, pi))
+            print("Comparing with the value of pi I get from python (%.6f)," %(math_pi))
+            precision = 100. * (math_pi - pi) / (math_pi)
+            print("I can say I reached a precision of %.6f%%" %(precision))
+    else:
+        print("I need a positive number as input:") 
+        print(up_to, "is not a positive number")        
+except ValueError:
+    print("I need an integer number as input:") 
+    print(up_to, "is not an integer number")
 
 
 # After some tests, it seems that the precision of the algorithm, defined as the _relative distance_ between the result and the actual value of $\pi$, goes as $\frac{25}{n}$%.
@@ -385,7 +393,7 @@ fibonacci(n_terms)
 
 # While the acual python implementation is here:
 
-# In[ ]:
+# In[48]:
 
 
 # Function to select a pivot, and:
@@ -405,7 +413,7 @@ def partition(array, low, high):
     is returned.
     """
 
-    # index of smaller element
+    # index of greater element
     i = low - 1          
 
     # pivot is the last element of the array
@@ -466,20 +474,22 @@ def quicksort(array,low,high):
         
 
 
-# In[ ]:
+# In[72]:
 
 
 from random import randint
 
 arr=[]
-for p in range(10):
+for i in range(10):
     arr.append(randint(1, 100))
+
+# Just for testing with lists of
+# non-real numbers
+#arr.append(2j)
+#arr = "pizza"
 
 print("Original array:")
 print(arr)
-
-#arr.append(2j)
-#arr = "pizza"
 
 print()
 
@@ -504,7 +514,7 @@ except TypeError:
 # 
 # The i and the j indices are moved toward each other, until a pair of elements, one greater than or equal to the pivot and one smaller than or equal to the pivot are found in the wrong positions and swapped.
 # Once the indices get the same value, the algorithm stops and returns the indices value, which is used to further split the array in two parts, on which the algorithms operates iteratively until it is sorted.
-# Thanks to the fact that the two indices look for a pair of elements in the _wrong_ position, this partition scheme allows to reduce the number of swaps with respect to the Lomuto one, so that it is more efficient.
+# Thanks to the fact that the two indices look for a pair of elements in the _wrong_ position, this partition scheme allows to reduce the number of swaps with respect to the Lomuto one, so that it is, in principle, more efficient.
 
 # A description in pseudo-code is given here:
 
@@ -531,7 +541,7 @@ except TypeError:
 
 # While the acual python implementation follows:
 
-# In[ ]:
+# In[50]:
 
 
 def partition2(array, low, high):
@@ -613,13 +623,13 @@ def quicksort2(array, low, high):
         quicksort2(array, pi + 1, high)
 
 
-# In[ ]:
+# In[71]:
 
 
 from random import randint
 
 arr=[]
-for p in range(10):
+for i in range(10):
     arr.append(randint(1, 100))
 
 print("Original array:")
