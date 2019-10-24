@@ -13971,6 +13971,129 @@ Operating iteratively on the two subsets of elements of the array created, it is
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>The python implementation follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;This function uses quicksort to order arrays.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Check if the &#39;array&#39; parameter is a list</span>
+    <span class="c1"># of real numbers</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">test</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I need a list:&quot;</span><span class="p">)</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;is not a list&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">array</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span>
+    <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">array</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is not a list of real numebrs&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I do not know how to sort this&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Initialize three lists of elements of the array</span>
+    <span class="c1"># depending on their relative value with respect to the pivot</span>
+    <span class="n">smaller</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">greater</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Do this only if the array contains more than one element</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># The pivot is the element in the middle of the array</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="c1"># Pivot just has one value</span>
+        <span class="n">pivot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+        <span class="c1"># Scan the array and split it depending on the </span>
+        <span class="c1"># values of the elements with respect to the pivot</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">pi</span><span class="p">:</span>
+                <span class="n">smaller</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">greater</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># Return the concatenation of the three lists</span>
+        <span class="c1"># properly ordered</span>
+        <span class="k">return</span> <span class="n">quicksort</span><span class="p">(</span><span class="n">smaller</span><span class="p">)</span><span class="o">+</span><span class="n">pivot</span><span class="o">+</span><span class="n">quicksort</span><span class="p">(</span><span class="n">greater</span><span class="p">)</span>  
+    <span class="c1"># If the array has just one element,</span>
+    <span class="c1"># directly return it</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">array</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
+
+<span class="n">arr</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># Just for testing with lists of</span>
+<span class="c1"># non-real numbers</span>
+<span class="c1">#arr.append(2j)</span>
+<span class="c1">#arr = &quot;pizza&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original array:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Check if the &#39;array&#39; parameter is a list</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">new_arr</span> <span class="o">=</span> <span class="n">quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Sorted array:&quot;</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">new_arr</span><span class="p">)</span>    
+<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I need a list:&quot;</span><span class="p">)</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="s2">&quot;is not a list&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Original array:
+[94, 15, 26, 72, 65, 41, 53, 20, 36, 74]
+
+Sorted array:
+[20, 20, 36, 36, 41, 41, 41, 53, 74, 74]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Nevertheless, two schemes are typically followed to implement the quicksort algortihm:</p>
 <ul>
 <li>the Lomuto partition scheme;</li>
@@ -14045,14 +14168,14 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Function to select a pivot, and:</span>
 <span class="c1"># puts all the smaller elements to its left</span>
 <span class="c1"># puts all the greater elements to its right</span>
 <span class="c1"># returns the pivot position</span>
-<span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span> 
+<span class="k">def</span> <span class="nf">partition2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span> 
     <span class="sd">&quot;&quot;&quot; This function uses Lomuto partition scheme to order arrays.</span>
 
 <span class="sd">    Given an array, a starting position low, and </span>
@@ -14090,7 +14213,7 @@ algorithm quicksort(A, lo, hi) is
 
 
 <span class="c1"># Actual sorting</span>
-<span class="k">def</span> <span class="nf">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">quicksort2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This function performs the quicksort algorithm following the Lomuto partition scheme.</span>
 <span class="sd">    </span>
 <span class="sd">    The implementation relies on the &#39;partition&#39; function, which</span>
@@ -14117,12 +14240,12 @@ algorithm quicksort(A, lo, hi) is
   
         <span class="c1"># Order the array with respect to the pivot</span>
         <span class="c1"># and return the correct pivot position</span>
-        <span class="n">pi</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">)</span> 
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">partition2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">)</span> 
   
         <span class="c1"># Separately sort elements smaller  </span>
         <span class="c1"># and greater than the pivot</span>
-        <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">pi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
-        <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span> 
+        <span class="n">quicksort2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">pi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
+        <span class="n">quicksort2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span> 
         
 </pre></div>
 
@@ -14133,7 +14256,7 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
@@ -14156,7 +14279,7 @@ algorithm quicksort(A, lo, hi) is
 <span class="k">try</span><span class="p">:</span>
     <span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
     <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-    <span class="n">quicksort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">quicksort2</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Sorted array:&quot;</span><span class="p">)</span> 
     <span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>    
 <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
@@ -14179,10 +14302,10 @@ algorithm quicksort(A, lo, hi) is
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Original array:
-[2, 96, 22, 74, 53, 1, 25, 1, 46, 85]
+[94, 50, 76, 59, 9, 97, 53, 20, 73, 43]
 
 Sorted array:
-[1, 1, 2, 22, 25, 46, 53, 74, 85, 96]
+[9, 20, 43, 50, 53, 59, 73, 76, 94, 97]
 </pre>
 </div>
 </div>
@@ -14259,10 +14382,10 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">partition2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">partition3</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This function orders arrays using the Hoare partition scheme.</span>
 
 <span class="sd">    Given an array, a starting position (low), and </span>
@@ -14305,7 +14428,7 @@ algorithm quicksort(A, lo, hi) is
 
 
 <span class="c1"># Actual sorting        </span>
-<span class="k">def</span> <span class="nf">quicksort2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">quicksort3</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This function performs the quicksort algorithm following the Hoare partition scheme.</span>
 <span class="sd">    </span>
 <span class="sd">    The implementation relies on the &#39;partition2&#39; function, which</span>
@@ -14332,13 +14455,13 @@ algorithm quicksort(A, lo, hi) is
         
         <span class="c1"># Order the array with respect to the pivot</span>
         <span class="c1"># and return the correct pivot position</span>
-        <span class="n">pi</span> <span class="o">=</span> <span class="n">partition2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span> 
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">partition3</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span> 
           
         <span class="c1"># Separately sort elements at the left</span>
         <span class="c1"># and at the right with respect to the &#39;pi&#39;</span>
         <span class="c1"># element given by the previous iteration</span>
-        <span class="n">quicksort2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
-        <span class="n">quicksort2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
+        <span class="n">quicksort3</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
+        <span class="n">quicksort3</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14348,7 +14471,7 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
@@ -14369,7 +14492,7 @@ algorithm quicksort(A, lo, hi) is
 <span class="k">try</span><span class="p">:</span>
     <span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
     <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-    <span class="n">quicksort2</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">quicksort3</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Sorted array:&quot;</span><span class="p">)</span> 
     <span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>    
 <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
@@ -14392,10 +14515,10 @@ algorithm quicksort(A, lo, hi) is
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Original array:
-[47, 72, 27, 80, 83, 79, 8, 38, 35, 88]
+[52, 25, 78, 76, 52, 71, 25, 88, 66, 51]
 
 Sorted array:
-[8, 27, 35, 38, 47, 72, 79, 80, 83, 88]
+[25, 25, 51, 52, 52, 66, 71, 76, 78, 88]
 </pre>
 </div>
 </div>

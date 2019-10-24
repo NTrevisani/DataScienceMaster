@@ -356,6 +356,87 @@ fibonacci(n_terms)
 #             else append x to greater
 #         return concatenate(quicksort(less), pivot, quicksort(greater))
 
+# The python implementation follows:
+
+# In[14]:
+
+
+def quicksort(array): 
+    """This function uses quicksort to order arrays."""
+
+    # Check if the 'array' parameter is a list
+    # of real numbers
+    try:
+        test = list(array)
+    except TypeError:
+        print("I need a list:") 
+        print(array, "is not a list")
+        return
+
+    if (all(isinstance(x, int) for x in array) == False
+    and all(isinstance(x, float) for x in array) == False): 
+        print("This is not a list of real numebrs")
+        print("I do not know how to sort this")
+        return
+
+    # Initialize three lists of elements of the array
+    # depending on their relative value with respect to the pivot
+    smaller = []
+    pivot = []
+    greater = []
+
+    # Do this only if the array contains more than one element
+    if len(array) > 1:
+        # The pivot is the element in the middle of the array
+        pi = array[len(array) // 2]
+        # Pivot just has one value
+        pivot.append(pi)
+        # Scan the array and split it depending on the 
+        # values of the elements with respect to the pivot
+        for x in array[1:]:
+            if x < pi:
+                smaller.append(x)
+            else: 
+                greater.append(x)
+        # Return the concatenation of the three lists
+        # properly ordered
+        return quicksort(smaller)+pivot+quicksort(greater)  
+    # If the array has just one element,
+    # directly return it
+    else:
+        return array
+
+
+# In[15]:
+
+
+from random import randint
+
+arr=[]
+for i in range(10):
+    arr.append(randint(1, 100))
+
+# Just for testing with lists of
+# non-real numbers
+#arr.append(2j)
+#arr = "pizza"
+
+print("Original array:")
+print(arr)
+
+print()
+
+# Check if the 'array' parameter is a list
+try:
+    arr = list(arr)
+    new_arr = quicksort(arr)
+    print ("Sorted array:") 
+    print(new_arr)    
+except TypeError:
+    print("I need a list:") 
+    print(arr, "is not a list")
+
+
 # Nevertheless, two schemes are typically followed to implement the quicksort algortihm:
 # - the Lomuto partition scheme;
 # - the Hoare partition scheme.
@@ -393,14 +474,14 @@ fibonacci(n_terms)
 
 # While the acual python implementation is here:
 
-# In[14]:
+# In[16]:
 
 
 # Function to select a pivot, and:
 # puts all the smaller elements to its left
 # puts all the greater elements to its right
 # returns the pivot position
-def partition(array, low, high): 
+def partition2(array, low, high): 
     """ This function uses Lomuto partition scheme to order arrays.
 
     Given an array, a starting position low, and 
@@ -438,7 +519,7 @@ def partition(array, low, high):
 
 
 # Actual sorting
-def quicksort(array,low,high):
+def quicksort2(array,low,high):
     """ This function performs the quicksort algorithm following the Lomuto partition scheme.
     
     The implementation relies on the 'partition' function, which
@@ -465,16 +546,16 @@ def quicksort(array,low,high):
   
         # Order the array with respect to the pivot
         # and return the correct pivot position
-        pi = partition(array,low,high) 
+        pi = partition2(array,low,high) 
   
         # Separately sort elements smaller  
         # and greater than the pivot
-        quicksort(array, low, pi - 1) 
-        quicksort(array, pi + 1, high) 
+        quicksort2(array, low, pi - 1) 
+        quicksort2(array, pi + 1, high) 
         
 
 
-# In[15]:
+# In[17]:
 
 
 from random import randint
@@ -497,7 +578,7 @@ print()
 try:
     arr = list(arr)
     length = len(arr)
-    quicksort(arr, 0, length - 1)
+    quicksort2(arr, 0, length - 1)
     print ("Sorted array:") 
     print(arr)    
 except TypeError:
@@ -541,10 +622,10 @@ except TypeError:
 
 # While the acual python implementation follows:
 
-# In[16]:
+# In[18]:
 
 
-def partition2(array, low, high):
+def partition3(array, low, high):
     """ This function orders arrays using the Hoare partition scheme.
 
     Given an array, a starting position (low), and 
@@ -587,7 +668,7 @@ def partition2(array, low, high):
 
 
 # Actual sorting        
-def quicksort2(array, low, high):
+def quicksort3(array, low, high):
     """ This function performs the quicksort algorithm following the Hoare partition scheme.
     
     The implementation relies on the 'partition2' function, which
@@ -614,16 +695,16 @@ def quicksort2(array, low, high):
         
         # Order the array with respect to the pivot
         # and return the correct pivot position
-        pi = partition2(array, low, high) 
+        pi = partition3(array, low, high) 
           
         # Separately sort elements at the left
         # and at the right with respect to the 'pi'
         # element given by the previous iteration
-        quicksort2(array, low, pi)
-        quicksort2(array, pi + 1, high)
+        quicksort3(array, low, pi)
+        quicksort3(array, pi + 1, high)
 
 
-# In[17]:
+# In[19]:
 
 
 from random import randint
@@ -644,7 +725,7 @@ print()
 try:
     arr = list(arr)
     length = len(arr)
-    quicksort2(arr, 0, length - 1)
+    quicksort3(arr, 0, length - 1)
     print ("Sorted array:") 
     print(arr)    
 except TypeError:
