@@ -362,8 +362,17 @@ fibonacci(n_terms)
 
 
 def quicksort(array): 
-    """This function uses quicksort to order arrays."""
+    """This function uses quicksort to order arrays.
+    
+    Given an array, the function considers the first
+    element as a pivot, and splits the array in three 
+    parts: the first one with all the values smaller
+    than the pivot, the second one is the pivot itself,
+    and the third one with all the values greater than the 
+    pivot. Operating iteratively, it sorts the array.
+    """
 
+    
     # Check if the 'array' parameter is a list
     # of real numbers
     try:
@@ -387,8 +396,8 @@ def quicksort(array):
 
     # Do this only if the array contains more than one element
     if len(array) > 1:
-        # The pivot is the element in the middle of the array
-        pi = array[len(array) // 2]
+        # The pivot is the first element of the array
+        pi = array[0]
         # Pivot just has one value
         pivot.append(pi)
         # Scan the array and split it depending on the 
