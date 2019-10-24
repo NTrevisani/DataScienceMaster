@@ -13971,7 +13971,11 @@ Operating iteratively on the two subsets of elements of the array created, it is
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The python implementation follows:</p>
+<p>The python implementation follows. Here I tried to implement some protections, similarly to the previous cases:</p>
+<ul>
+<li>the input has to be a list;</li>
+<li>the element of the list have to be real numbers, so that it makes sense to order them.</li>
+</ul>
 
 </div>
 </div>
@@ -14020,14 +14024,15 @@ Operating iteratively on the two subsets of elements of the array created, it is
         <span class="n">pi</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># Pivot just has one value</span>
         <span class="n">pivot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
-        <span class="c1"># Scan the array and split it depending on the </span>
+        <span class="c1"># Scan the array (skipping the pivot) </span>
+        <span class="c1"># and split it depending on the </span>
         <span class="c1"># values of the elements with respect to the pivot</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
             <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">pi</span><span class="p">:</span>
                 <span class="n">smaller</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span> 
                 <span class="n">greater</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="c1"># Return the concatenation of the three lists</span>
+        <span class="c1"># Return the concatenation of the three lists,</span>
         <span class="c1"># properly ordered</span>
         <span class="k">return</span> <span class="n">quicksort</span><span class="p">(</span><span class="n">smaller</span><span class="p">)</span><span class="o">+</span><span class="n">pivot</span><span class="o">+</span><span class="n">quicksort</span><span class="p">(</span><span class="n">greater</span><span class="p">)</span>  
     <span class="c1"># If the array has just one element,</span>
@@ -14043,7 +14048,7 @@ Operating iteratively on the two subsets of elements of the array created, it is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
@@ -14088,14 +14093,27 @@ Operating iteratively on the two subsets of elements of the array created, it is
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Original array:
-[52, 11, 13, 60, 60, 22, 71, 89, 80, 82]
+1
 
-Sorted array:
-[11, 13, 22, 52, 60, 60, 71, 80, 82, 89]
+I need a list:
+1 is not a list
 </pre>
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
 </div>
 </div>
 

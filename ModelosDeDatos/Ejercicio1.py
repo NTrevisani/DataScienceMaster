@@ -356,7 +356,9 @@ fibonacci(n_terms)
 #             else append x to greater
 #         return concatenate(quicksort(less), pivot, quicksort(greater))
 
-# The python implementation follows:
+# The python implementation follows. Here I tried to implement some protections, similarly to the previous cases:
+# - the input has to be a list;
+# - the element of the list have to be real numbers, so that it makes sense to order them.
 
 # In[14]:
 
@@ -400,14 +402,15 @@ def quicksort(array):
         pi = array[0]
         # Pivot just has one value
         pivot.append(pi)
-        # Scan the array and split it depending on the 
+        # Scan the array (skipping the pivot) 
+        # and split it depending on the 
         # values of the elements with respect to the pivot
         for x in array[1:]:
             if x < pi:
                 smaller.append(x)
             else: 
                 greater.append(x)
-        # Return the concatenation of the three lists
+        # Return the concatenation of the three lists,
         # properly ordered
         return quicksort(smaller)+pivot+quicksort(greater)  
     # If the array has just one element,
@@ -416,7 +419,7 @@ def quicksort(array):
         return array
 
 
-# In[15]:
+# In[16]:
 
 
 from random import randint
@@ -444,4 +447,10 @@ try:
 except TypeError:
     print("I need a list:") 
     print(arr, "is not a list")
+
+
+# In[ ]:
+
+
+
 
