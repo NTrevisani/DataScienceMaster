@@ -223,7 +223,7 @@ print(x)
 
 # I decided to implement it by using a simple _for_ iteration, as follows:
 
-# In[16]:
+# In[12]:
 
 
 import math
@@ -286,7 +286,7 @@ except ValueError:
 # The same protections have been implemented in the previous exercise. In that case, on the other hand, I did not use a function to define the actual implementation of the calculation and this lead to a less readable and more complex code.
 # This can be one of the many reason to prefer modular programming.
 
-# In[ ]:
+# In[13]:
 
 
 def fibonacci(n = 10):
@@ -393,7 +393,7 @@ fibonacci(n_terms)
 
 # While the acual python implementation is here:
 
-# In[48]:
+# In[14]:
 
 
 # Function to select a pivot, and:
@@ -474,7 +474,7 @@ def quicksort(array,low,high):
         
 
 
-# In[72]:
+# In[15]:
 
 
 from random import randint
@@ -541,7 +541,7 @@ except TypeError:
 
 # While the acual python implementation follows:
 
-# In[50]:
+# In[16]:
 
 
 def partition2(array, low, high):
@@ -623,7 +623,7 @@ def quicksort2(array, low, high):
         quicksort2(array, pi + 1, high)
 
 
-# In[71]:
+# In[17]:
 
 
 from random import randint

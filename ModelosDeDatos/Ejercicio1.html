@@ -13726,7 +13726,7 @@ c: [28]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -13777,11 +13777,12 @@ c: [28]
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Please tell me how many products to you want to compute: 7+4j
+<pre>Please tell me how many products to you want to compute: 10
 
 
-I need an integer number as input:
-7+4j is not an integer number
+After 10 iterations, I get the following value for pi: 3.060035
+Comparing with the value of pi I get from python (3.141593),
+I can say I reached a precision of 2.596075%
 </pre>
 </div>
 </div>
@@ -13846,7 +13847,7 @@ This can be one of the many reason to prefer modular programming.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
@@ -13898,6 +13899,36 @@ This can be one of the many reason to prefer modular programming.</p>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Please tell me how many terms of the Fibonacci sequence you want me to print: 10
+
+The first 10 terms of the fibonacci sequence are:
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -14014,7 +14045,7 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Function to select a pivot, and:</span>
@@ -14102,7 +14133,7 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
@@ -14148,10 +14179,10 @@ algorithm quicksort(A, lo, hi) is
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Original array:
-[55, 16, 59, 39, 15, 49, 74, 27, 29, 84]
+[2, 96, 22, 74, 53, 1, 25, 1, 46, 85]
 
 Sorted array:
-[15, 16, 27, 29, 39, 49, 55, 59, 74, 84]
+[1, 1, 2, 22, 25, 46, 53, 74, 85, 96]
 </pre>
 </div>
 </div>
@@ -14228,7 +14259,7 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">partition2</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
@@ -14317,7 +14348,7 @@ algorithm quicksort(A, lo, hi) is
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
@@ -14361,10 +14392,10 @@ algorithm quicksort(A, lo, hi) is
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Original array:
-[52, 87, 20, 35, 51, 32, 89, 75, 54, 73]
+[47, 72, 27, 80, 83, 79, 8, 38, 35, 88]
 
 Sorted array:
-[20, 32, 35, 51, 52, 54, 73, 75, 87, 89]
+[8, 27, 35, 38, 47, 72, 79, 80, 83, 88]
 </pre>
 </div>
 </div>
