@@ -110,7 +110,7 @@ print("Lynx had their minimum populations in",years[j][0:2,1])
 print("Carrots had their minimum populations in",years[j][0:2,2])
 
 
-# ## Compare hare and lynx populations and check correlation.
+# ## Compare the gradient of hare population and number of lynx and check correlation.
 
 # In[11]:
 
@@ -128,11 +128,11 @@ year, hares, lynx, carrots = data.T
 # In[13]:
 
 
-# Get the gradients of hares and lynx populations
+# Get the gradient of hares population
 hares_grad = np.gradient(hares)
 
 
-# In[19]:
+# In[14]:
 
 
 # Plot the gradients
@@ -141,7 +141,7 @@ plt.plot(year, hares_grad, year, lynx)
 plt.legend(('Hare gradient', 'Lynx population'), loc=(1.05, 0.5)) 
 
 
-# In[17]:
+# In[15]:
 
 
 np.corrcoef([hares_grad, lynx])
@@ -151,3 +151,5 @@ np.corrcoef([hares_grad, lynx])
 # 
 # This can be observed both in the plot of the hare population gradient versus the lynx population and in the correlation matrix of the two variables. 
 # Here it can be seen that when the lynx population increases, the hare population starts to decrease (negative gradient) and that when there are few hares, also the linx start to decrease in number, due to the lack of preys.
+# 
+# Once the predators are less abundant, the hares start to increase in population again, creating an oscillation of the populations of the two species.

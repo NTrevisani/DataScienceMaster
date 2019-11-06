@@ -13496,7 +13496,7 @@ Carrots had their minimum populations in [1916 1903]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Compare-hare-and-lynx-populations-and-check-correlation.">Compare hare and lynx populations and check correlation.<a class="anchor-link" href="#Compare-hare-and-lynx-populations-and-check-correlation.">&#182;</a></h2>
+<h2 id="Compare-the-gradient-of-hare-population-and-number-of-lynx-and-check-correlation.">Compare the gradient of hare population and number of lynx and check correlation.<a class="anchor-link" href="#Compare-the-gradient-of-hare-population-and-number-of-lynx-and-check-correlation.">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13532,7 +13532,7 @@ Carrots had their minimum populations in [1916 1903]
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the gradients of hares and lynx populations</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the gradient of hares population</span>
 <span class="n">hares_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">hares</span><span class="p">)</span>
 </pre></div>
 
@@ -13543,7 +13543,7 @@ Carrots had their minimum populations in [1916 1903]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot the gradients</span>
@@ -13562,13 +13562,13 @@ Carrots had their minimum populations in [1916 1903]
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7fe4cba6c400&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7fcaa82b5160&gt;</pre>
 </div>
 
 </div>
@@ -13594,7 +13594,7 @@ Carrots had their minimum populations in [1916 1903]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">([</span><span class="n">hares_grad</span><span class="p">,</span> <span class="n">lynx</span><span class="p">])</span>
@@ -13610,7 +13610,7 @@ Carrots had their minimum populations in [1916 1903]
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -13632,6 +13632,7 @@ Carrots had their minimum populations in [1916 1903]
 <p>It is evident that there is a strong anti-correlation between the lynx (predator) and the hare (prey) populations.</p>
 <p>This can be observed both in the plot of the hare population gradient versus the lynx population and in the correlation matrix of the two variables. 
 Here it can be seen that when the lynx population increases, the hare population starts to decrease (negative gradient) and that when there are few hares, also the linx start to decrease in number, due to the lack of preys.</p>
+<p>Once the predators are less abundant, the hares start to increase in population again, creating an oscillation of the populations of the two species.</p>
 
 </div>
 </div>
