@@ -13081,16 +13081,19 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Importing-the-Shape-module">Importing the Shape module<a class="anchor-link" href="#Importing-the-Shape-module">&#182;</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#import importlib</span>
-
-<span class="c1">#importlib.reload(Shapes)</span>
-
-<span class="kn">from</span> <span class="nn">Shapes</span> <span class="k">import</span> <span class="n">Shape</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">,</span> <span class="n">Triangle</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">Shapes</span> <span class="k">import</span> <span class="n">Shape</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">,</span> <span class="n">Triangle</span>
 </pre></div>
 
     </div>
@@ -13100,7 +13103,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">run</span> Shapes.py
@@ -13132,31 +13135,143 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's define pairs of basic objects, to show how they work.</p>
+<h2 id="Module-structure">Module structure<a class="anchor-link" href="#Module-structure">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <em>Shapes</em> module contains 5 classes, each one defining one geometric object:</p>
+<ul>
+<li>Shape: all the other classes inherit from it;</li>
+<li>Point: a point defined by its (x,y) coordinates. Directly inherits from Shape and all the 2D-object classes inherit from Point. The point is considered as the center of those objects;</li>
+<li>Circle, Rectangle, Triangle: the actual geometric shapes.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <em>mother</em> class, Shape, is almost exclusively used as a support for the other classes that inherit from it. There, all the methods (e.g. area, perimeter, ...) raise a NotImplementedError, to force the <em>children</em> classes to explicitly define them, with few exceptions:</p>
+<ul>
+<li>area comparison methods: <ul>
+<li>__eq<em>\</em> ( == )</li>
+<li>__ne<em>\</em> ( != )</li>
+<li>__lt<em>\</em> ( &lt; ) </li>
+<li>__gt<em>\</em> ( &gt; )</li>
+<li>__le<em>\</em> ( &lt;= )</li>
+<li>__ge<em>\</em> ( &gt;= )</li>
+</ul>
+</li>
+<li>reverse operations (only the commutative ones):<ul>
+<li>__radd<em>\</em> (reverse sum)</li>
+<li>__rmul<em>\</em> (reverse product)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The area comparison methods have to be defined in the mother class, since areas can be compared among different shapes.
+They just call the actual implementation of the area() method in the children classes and compare the output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <em>reverse operation</em> methods, on the other hand, can be considered as special cases: __radd<em>\</em> and __rmul<em>\</em> allow to change the order of the operands and are particularly useful in the cases (float + shape) or (float x shape).</p>
+<p>In fact, if such methods were not implemented, the operation would return an error, even if the sum (shape + float) is correctly defined. Thanks to them, it is possible to change the order of the objects to be summed, so that (float + shape), which is not defined, becomes (shape + float), that the code can handle if  __add<em>\</em> is defined.</p>
+<p>A caveat regarding these methods is that they are not aware if an operation is commutative or not, so they just change the order of the operands: we have to be careful that it is not the same to do (float - shape) or (shape - float).</p>
+<p>To face this feature of reverse operations, __rsub<em>\</em> and __rtruedivide<em>\</em> have been specifically defined in each class, in order to correctly operate on the attributes (e.g., radius of the circle, sides of the triangle, ...) of the figures.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-about-putting-all-the-methods-in-the-mother-class?">What about putting all the methods in the mother class?<a class="anchor-link" href="#What-about-putting-all-the-methods-in-the-mother-class?">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Probably, it would have been possible to define all the methods of all the classes in the mother class Shape, through a series of <em>if</em>, <em>elif</em>, and <em>else</em> that change the behaviour of the method depending on the geometric shape to operate on, but this would have made the module incompatible with the addition of a new shape just by plugging-in an independently developed piece of code.</p>
+<p>Another possibility would have been to pass the attributes of the geometric shape (e.g. the radius of a circle) as a list: this would have allowed to directly operate all the arithmentic operations on the list of attributes.
+This means that the sum of two circles or the sum of two triangles would have been the same strcure, <em>code wise</em>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For example, this definition of sum would have been valid for all the classes:</p>
+
+<pre><code>def __add__(self, other):
+    if isinstance(other, (int,float)):
+        sum_x, sum_y = Point.half_way(self, self)
+        sum_attributes = self._attributes_list + other
+    elif (isinstance(other, type(self))):
+        sum_x, sum_y = Point.half_way(self, other)
+        sum_attributes = self._attributes_list + other._attributes_list
+    else:
+        self_class = type(self).__name__
+        other_class = type(other).__name__
+        msg = "You cannot sum a {0} and a {1}"
+        raise TypeError(msg.format(self_class, other_class))
+    return type(self)(sum_x, sum_y, sum_radius)</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Two inconvenients are implicit in this approach:</p>
+<ul>
+<li>the center of the figure (if defined) has to be treated differently with respect to the other attributes;</li>
+<li>to exploit this feature, also the <em>children</em> classes have to be defined in the same way, which may not be completely intuitive.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Instantiating-objects">Instantiating objects<a class="anchor-link" href="#Instantiating-objects">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's now instantiate pairs of basic objects, to show how they work.</p>
 <ul>
 <li>Point: this class directly inherits from Shape and is used to represent the <em>center</em> of the other geometric figures;</li>
 <li>Circle, Rectangle, and Triangle: inherit from Point and are the actual two-dimensional shapes we want.</li>
 </ul>
-<p>The <em>mother</em> class, Shape, is almost exclusively used as a support for the other classes that inherit from it. There, all the methods (e.g. area, perimeter, ...) rise a NotImplementedError, to force the <em>children</em> classes to explicitly define them, with few exceptions:</p>
-<ul>
-<li>__radd<em>\</em>;</li>
-<li>__rmul<em>\</em>;</li>
-<li>__eq<em>\</em>.</li>
-</ul>
-<p>These methods are in fact special, since __radd<em>\</em> and __rmul<em>\</em> are the <em>reverse</em> sum and product, so they just revert the order of __add<em>\</em> and __mul<em>\</em>, specifically defined in each child class.</p>
-<p>It is not the same for methods as __rsub<em>\</em> and __rtruedivide<em>\</em>, since the associated operations (subraction and division) are not commutative and I did not find a sensible way to implement them in a general way for all the shapes.
-In this case, both the operation (e.g. __sub<em>\</em>) and its <em>reverse</em> (e.g. __rsub<em>\</em>) are defined in the children classes.</p>
-<p>__eq<em>\</em>, on the other hand, defines when two figures are considered equal, in our case when they have the same area.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining two points</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Two points</span>
 
 <span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
@@ -13197,10 +13312,10 @@ Point(10,10)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining two circles</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Two circles</span>
 
 <span class="n">c1</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
@@ -13241,10 +13356,10 @@ Circle(-4,2,8)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining two triangles</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Two triangles</span>
 
 <span class="n">t1</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
@@ -13270,10 +13385,10 @@ Circle(-4,2,8)
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>A Triangle centered at (0,0) with 3 sides of length: 6, 8, 10
+<pre>A Triangle centered at (0,0) with sides of length: 6, 8, 10
 Triangle(0,0,6,8,10)
 
-A Triangle centered at (5,7) with 3 sides of length: 3, 4, 5
+A Triangle centered at (5,7) with sides of length: 3, 4, 5
 Triangle(5,7,3,4,5)
 </pre>
 </div>
@@ -13285,12 +13400,12 @@ Triangle(5,7,3,4,5)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining two rectangles</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Two rectangles</span>
 
-<span class="n">r1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">r1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">r1</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">()</span>
@@ -13314,8 +13429,8 @@ Triangle(5,7,3,4,5)
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>A Rectangle centered at (0,0) with base 12 and height 10
-Rectangle(0,0,12,10)
+<pre>A Rectangle centered at (0,0) with base 10 and height 10
+Rectangle(0,0,10,10)
 
 A Rectangle centered at (5,11) with base 4 and height 6
 Rectangle(5,11,4,6)
@@ -13337,7 +13452,7 @@ Rectangle(5,11,4,6)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Together with the definition of the geometric shapes, their <em>printable</em> version and their representation have been shown.</p>
+<p>In the previous examples, together with the definition of the geometric shapes, their <em>printable</em> version and their representations have been shown.</p>
 <p>In particular,  __str<em>\</em> has been implemented in order to return a human-readable description of the object (e.g. 'A Rectangle centered at (0,0) with base 12 and height 10'), while __repr<em>\</em> gives a more formal output ('Rectangle(0,0,12,10)'), the same used in the code to define the object itself.</p>
 
 </div>
@@ -13360,7 +13475,7 @@ Rectangle(5,11,4,6)
 <li>set_x: sets the x value of the point to a new value;</li>
 <li>set_y: sets the y value of the point to a new value;</li>
 <li>move_to: moves the point to a new pair of coordinates;</li>
-<li>half_way: returns the x and the y (as two separate numbers!) of the middle point between two Point objects;</li>
+<li>half_way: returns the x and the y (as two separate numbers, not as Point) of the middle point between two Point objects;</li>
 <li>distance: returns the distance between two points;</li>
 <li>get_center: returns the coordinates of the point;</li>
 <li>get_x: returns the x coordinate of the point;</li>
@@ -13372,43 +13487,12 @@ Rectangle(5,11,4,6)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
 <span class="n">p1</span><span class="o">.</span><span class="n">move_along_x</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-<span class="n">p2</span><span class="o">.</span><span class="n">move_along_y</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-<span class="n">p1</span><span class="o">.</span><span class="n">set_x</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x:&quot;</span><span class="p">,</span><span class="n">p1</span><span class="o">.</span><span class="n">get_x</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-<span class="n">p2</span><span class="o">.</span><span class="n">set_y</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y:&quot;</span><span class="p">,</span><span class="n">p2</span><span class="o">.</span><span class="n">get_y</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">p1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">p2</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">half_way</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">p2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13427,25 +13511,210 @@ Rectangle(5,11,4,6)
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>A Point with coordinates (0,0)
 A Point with coordinates (10,0)
+</pre>
+</div>
+</div>
 
-A Point with coordinates (10,10)
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">move_along_y</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Point with coordinates (10,10)
 A Point with coordinates (10,20)
+</pre>
+</div>
+</div>
 
-A Point with coordinates (10,0)
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">set_x</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x:&quot;</span><span class="p">,</span><span class="n">p1</span><span class="o">.</span><span class="n">get_x</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Point with coordinates (10,0)
 A Point with coordinates (15,0)
 x: 15
+</pre>
+</div>
+</div>
 
-A Point with coordinates (10,20)
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">set_y</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y:&quot;</span><span class="p">,</span><span class="n">p2</span><span class="o">.</span><span class="n">get_y</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Point with coordinates (10,20)
 A Point with coordinates (10,12)
 y: 12
+</pre>
+</div>
+</div>
 
-A Point with coordinates (0,0)
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Point with coordinates (0,0)
 A Point with coordinates (10,10)
+</pre>
+</div>
+</div>
 
-5.0 5.0
+</div>
+</div>
 
-14.142135623730951
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">half_way</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span><span class="p">)</span>
+</pre></div>
 
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5.0 5.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">p2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>14.142135623730951
 </pre>
 </div>
 </div>
@@ -13464,30 +13733,12 @@ A Point with coordinates (10,10)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 <span class="n">c1</span><span class="o">.</span><span class="n">move_along_x</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
-<span class="n">c2</span><span class="o">.</span><span class="n">move_along_y</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">c1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">c2</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">half_way</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">t2</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13506,16 +13757,169 @@ A Point with coordinates (10,10)
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>A Circle centered at (0,0) with radius 10
 A Circle centered at (10,0) with radius 10
+</pre>
+</div>
+</div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+<span class="n">t2</span><span class="o">.</span><span class="n">move_along_y</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Triangle centered at (5,7) with sides of length: 3, 4, 5
+A Triangle centered at (5,17) with sides of length: 3, 4, 5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">t2</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Circle centered at (0,0) with radius 10
 A Circle centered at (-4,2) with radius 8
-A Circle centered at (-4,12) with radius 8
+</pre>
+</div>
+</div>
 
-A Circle centered at (0,0) with radius 10
-A Circle centered at (-4,2) with radius 8
+</div>
+</div>
 
--2.0 1.0
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">half_way</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">mid_x</span><span class="p">,</span><span class="n">mid_y</span><span class="p">)</span>
+</pre></div>
 
-8.602325267042627
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2.0 1.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">t2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>4.47213595499958
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(-4, 2)
 </pre>
 </div>
 </div>
@@ -13537,8 +13941,10 @@ A Circle centered at (-4,2) with radius 8
 <p>Operation between geometric shapes are implemented as requested:</p>
 <ul>
 <li>the sum of two objects of the same class returns a new object with the parameters (e.g. radius in the case of a circle, base and height for a rectangle, ...) summed one by one. In addition, the center of the new object is the middle point between the centers of the two objects;</li>
-<li>the sum of an object with a number returns a new object with the parameters equal to the parameters of the original object, plus the number. In this case, the center of the new object is the same as the original object.</li>
-<li>The difference between two objects or between an object and a number works similarly.</li>
+<li>the sum of an object with a number returns a new object with the parameters equal to the parameters of the original object, plus the number. In this case, the center of the new object is the same as the original object;</li>
+<li>the difference, product, and division between two objects or between an object and a number work similarly;</li>
+<li>the same is true for the power of an objet elevated to a number;</li>
+<li>the power of an object elevated to another object is not accepted.</li>
 </ul>
 
 </div>
@@ -13547,40 +13953,27 @@ A Circle centered at (-4,2) with radius 8
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Circles">Circles<a class="anchor-link" href="#Circles">&#182;</a></h3>
+<p><span style="color:red">Important</span>: it is not possible to operate on objects of different classes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Some-examples">Some examples<a class="anchor-link" href="#Some-examples">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
 <span class="n">c3</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">+</span> <span class="n">c2</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">c3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">c4</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">+</span> <span class="mi">7</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">c5</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">-</span> <span class="n">c2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">c6</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">-</span> <span class="mi">4</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c6</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">c7</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">-</span> <span class="n">c2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c7</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">c8</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">*</span> <span class="n">c2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c8</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13600,17 +13993,6 @@ A Circle centered at (-4,2) with radius 8
 <pre>A Circle centered at (0,0) with radius 10
 A Circle centered at (-4,2) with radius 8
 A Circle centered at (-2.0,1.0) with radius 18
-
-A Circle centered at (0.0,0.0) with radius 17
-
-A Circle centered at (-2.0,1.0) with radius 2
-
-A Circle centered at (0.0,0.0) with radius 6
-
-A Circle centered at (-4,2) with radius 7
-
-A Circle centered at (-2.0,1.0) with radius 80
-
 </pre>
 </div>
 </div>
@@ -13619,34 +14001,14 @@ A Circle centered at (-2.0,1.0) with radius 80
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Rectangles">Rectangles<a class="anchor-link" href="#Rectangles">&#182;</a></h3>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
-<span class="n">r3</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span>
+<span class="n">r3</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">+</span> <span class="mi">7</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">r3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">r4</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">+</span> <span class="mi">7</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">r4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">r5</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">r5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">r6</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">-</span> <span class="mi">4</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">r6</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13664,14 +14026,7 @@ A Circle centered at (-2.0,1.0) with radius 80
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>A Rectangle centered at (0,0) with base 12 and height 10
-A Rectangle centered at (5,11) with base 4 and height 6
-A Rectangle centered at (2.5,5.5) with base 16 and height 16
-
 A Rectangle centered at (0.0,0.0) with base 19 and height 17
-
-A Rectangle centered at (2.5,5.5) with base 8 and height 4
-
-A Rectangle centered at (0.0,0.0) with base 8 and height 6
 </pre>
 </div>
 </div>
@@ -13680,34 +14035,15 @@ A Rectangle centered at (0.0,0.0) with base 8 and height 6
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Triangles">Triangles<a class="anchor-link" href="#Triangles">&#182;</a></h3>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
-<span class="n">t3</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t2</span>
+<span class="n">t3</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">t3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">t4</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="mi">7</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">t5</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">t6</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="mi">4</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t6</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13724,15 +14060,215 @@ A Rectangle centered at (0.0,0.0) with base 8 and height 6
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>A Triangle centered at (0,0) with 3 sides of length: 6, 8, 10
-A Triangle centered at (5,7) with 3 sides of length: 3, 4, 5
-A Triangle centered at (2.5,3.5) with 3 sides of length: 9, 12, 15
+<pre>A Triangle centered at (0,0) with sides of length: 6, 8, 10
+A Triangle centered at (-4,2) with sides of length: 3, 4, 5
+A Triangle centered at (-2.0,1.0) with sides of length: 3, 4, 5
+</pre>
+</div>
+</div>
 
-A Triangle centered at (0.0,0.0) with 3 sides of length: 13, 15, 17
+</div>
+</div>
 
-A Triangle centered at (2.5,3.5) with 3 sides of length: 3, 4, 5
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="n">c4</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">-</span> <span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c4</span><span class="p">)</span>
+</pre></div>
 
-A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Circle centered at (0,0) with radius 10
+A Circle centered at (0.0,0.0) with radius 6
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<span class="n">r4</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">-</span> <span class="n">r2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Rectangle centered at (5,11) with base 4 and height 6
+A Rectangle centered at (5,11) with base 11 and height 9
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+<span class="n">t4</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">*</span> <span class="n">t2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Triangle centered at (0,0) with sides of length: 6, 8, 10
+A Triangle centered at (-4,2) with sides of length: 3, 4, 5
+A Triangle centered at (-2.0,1.0) with sides of length: 18, 32, 50
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="n">c5</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">/</span> <span class="n">c1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Circle centered at (0,0) with radius 10
+A Circle centered at (0,0) with radius 2.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
+<span class="n">r5</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Rectangle centered at (0,0) with base 12 and height 10
+A Rectangle centered at (0.0,0.0) with base 6.0 and height 5.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="n">t5</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A Triangle centered at (0,0) with sides of length: 6, 8, 10
+A Triangle centered at (0,0) with sides of length: 36, 64, 100
 </pre>
 </div>
 </div>
@@ -13744,17 +14280,17 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Some-errors">Some errors<a class="anchor-link" href="#Some-errors">&#182;</a></h3>
+<h3 id="Some-exceptions">Some exceptions<a class="anchor-link" href="#Some-exceptions">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Some errors have been implemented to guide the user in case some object are wrongly istantiated or some operations give a non-geometric result:</p>
+<p>Some exceptions have been implemented to guide the user in case some object are wrongly istantiated or some operations give a non-geometric result:</p>
 <ul>
 <li>A <em>ValueError</em> is raised if the object is created with negative values for some attributes (radius, length of a side, ...);</li>
-<li>It is not possible to sum or subract objects of different shape (e.g. the sum of a circle and a triangle is not permitted). In this case, a <em>TypeError</em> is raised;</li>
+<li>A <em>TypeError</em> is raised if we try to operate on two objects of different classes or when we try to elevate an object to another object;</li>
 <li>A <em>ValueError</em> is issued also when the result of an operation gives a non-geometric result, namely if some of the attributes in the resulting object are negative;</li>
 <li>In the specific case of triangles, a <em>ValueError</em> is produced if one of the sides is larger than the sum of the other two.</li>
 </ul>
@@ -13764,7 +14300,7 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">err1</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
@@ -13787,15 +14323,15 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-12-bbf6d23a1eb2&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">&lt;ipython-input-28-bbf6d23a1eb2&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>err1 <span class="ansi-blue-fg">=</span> Circle<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-green-fg">~/DataScienceMaster/ModelosDeDatos/FormasGeometricas/Shapes.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, x, y, radius)</span>
-<span class="ansi-green-intense-fg ansi-bold">    180</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    181</span>         <span class="ansi-green-fg">if</span> radius <span class="ansi-blue-fg">&lt;=</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 182</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Radius must have a positive value&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    183</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    184</span>             self<span class="ansi-blue-fg">.</span>radius <span class="ansi-blue-fg">=</span> radius
+<span class="ansi-green-intense-fg ansi-bold">    271</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    272</span>         <span class="ansi-green-fg">if</span> radius <span class="ansi-blue-fg">&lt;=</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 273</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Radius must have a positive value&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    274</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    275</span>             self<span class="ansi-blue-fg">.</span>_radius <span class="ansi-blue-fg">=</span> radius
 
 <span class="ansi-red-fg">ValueError</span>: Radius must have a positive value</pre>
 </div>
@@ -13870,6 +14406,19 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">err7</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">r2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13893,239 +14442,6 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c1 area is&quot;</span><span class="p">,</span><span class="n">c1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c1 perimeter is&quot;</span><span class="p">,</span><span class="n">c1</span><span class="o">.</span><span class="n">perimeter</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r1 area is&quot;</span><span class="p">,</span><span class="n">r1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r1 perimeter is&quot;</span><span class="p">,</span><span class="n">r1</span><span class="o">.</span><span class="n">perimeter</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t1 area is&quot;</span><span class="p">,</span><span class="n">t1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t1 perimeter is&quot;</span><span class="p">,</span><span class="n">t1</span><span class="o">.</span><span class="n">perimeter</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="n">r7</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r7 area is&quot;</span><span class="p">,</span><span class="n">r7</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r7 perimeter is&quot;</span><span class="p">,</span><span class="n">r7</span><span class="o">.</span><span class="n">perimeter</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">has_same_area</span><span class="p">(</span><span class="n">fig1</span><span class="p">,</span> <span class="n">fig2</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">fig1</span> <span class="o">==</span> <span class="n">fig2</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The two figures have the same area&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The two figures have different areas&quot;</span><span class="p">)</span>
-        
-<span class="n">has_same_area</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">r7</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It is possible to have access to the other attributes of the figure through the corresponding methods:</p>
-<ul>
-<li>get_center() returns the coordinates of the center of the object;</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p1</span><span class="o">.</span><span class="n">get_center</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span><span class="o">.</span><span class="n">get_center</span><span class="p">()</span>
-<span class="n">c1</span><span class="o">.</span><span class="n">set_radius</span><span class="p">(</span><span class="o">-</span><span class="mi">115</span><span class="p">)</span>
-<span class="n">c1</span><span class="o">.</span><span class="n">get_radius</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tt</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">tt</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tt</span><span class="o">.</span><span class="n">set_side1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span> <span class="o">/</span> <span class="mi">2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span> <span class="o">/</span> <span class="n">c2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span> <span class="o">/</span> <span class="n">r2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span> <span class="o">*</span> <span class="mi">4</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span> <span class="o">/</span> <span class="mi">4</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">4</span> <span class="o">/</span> <span class="n">r1</span>
 </pre></div>
 
     </div>
@@ -14139,7 +14455,8 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
-<span class="n">r1</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r1 area is&quot;</span><span class="p">,</span><span class="n">r1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r1 perimeter is&quot;</span><span class="p">,</span><span class="n">r1</span><span class="o">.</span><span class="n">perimeter</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -14152,7 +14469,129 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t1 area is&quot;</span><span class="p">,</span><span class="n">t1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t1 perimeter is&quot;</span><span class="p">,</span><span class="n">t1</span><span class="o">.</span><span class="n">perimeter</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The areas can be compared directly using the corresponding methods.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">==</span> <span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">!=</span> <span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&gt;</span> <span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&lt;</span> <span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&gt;=</span> <span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&lt;=</span> <span class="n">t1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The areas can also be directly compared with numbers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">==</span> <span class="mi">120</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">!=</span> <span class="mi">120</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&lt;=</span> <span class="mi">120</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&gt;=</span> <span class="mi">120</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">&gt;=</span> <span class="mi">500</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="mi">500</span> <span class="o">&lt;</span> <span class="n">r1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">120</span> <span class="o">==</span> <span class="n">r1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Additionally, specific methods give access to all the attributes of a figure:</p>
+<ul>
+<li>Circle: <ul>
+<li>get_radius; </li>
+<li>set_radius;</li>
+</ul>
+</li>
+<li>Rectangle: <ul>
+<li>get_base;</li>
+<li>get_height;</li>
+<li>set_base;</li>
+<li>set_height;</li>
+</ul>
+</li>
+<li>Triangle:<ul>
+<li>get_side1;</li>
+<li>get_side2;</li>
+<li>get_side3;</li>
+<li>set_side1;</li>
+<li>set_side2;</li>
+<li>set_side3.    </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">get_radius</span><span class="p">())</span>
+
+<span class="n">c1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">c1</span><span class="o">.</span><span class="n">set_radius</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14165,7 +14604,18 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span> <span class="o">-</span> <span class="n">c1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">get_base</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span>
+
+<span class="n">r1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">set_base</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14178,7 +14628,20 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">12</span> <span class="o">-</span> <span class="n">c1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">get_side1</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">get_side2</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">get_side3</span><span class="p">())</span>
+
+<span class="n">t1</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">set_side1</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">set_side2</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">set_side3</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14186,39 +14649,30 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By defining such methods, I tried to avoid a direct access to the attributes of the figures, which are <em>private</em> variables.</p>
+<p>This is particularly important for variables as the radius of a circle or the sides of a polygon, since they cannot assume negative values.</p>
+<p>In fact, a protection against negative values for the radius, for example, is implemented in set_radius() as a ValueError, but is not present in case the radius is accessed directly.</p>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t3</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mf">9.1</span><span class="p">,</span><span class="mf">2.1</span><span class="p">)</span>
-<span class="n">t4</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Trying to access the radius of a circle:</p>
 
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">12</span> <span class="o">/</span> <span class="n">c1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span><span class="o">.</span><span class="n">radius</span>
 </pre></div>
 
     </div>
@@ -14231,27 +14685,38 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[13]:</div>
+    <div class="prompt"></div>
 
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-61-c17d7b693e8d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>c1<span class="ansi-blue-fg">.</span>radius
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Circle(0,0,1.2)</pre>
+<span class="ansi-red-fg">AttributeError</span>: &#39;Circle&#39; object has no attribute &#39;radius&#39;</pre>
+</div>
 </div>
 
 </div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now it works, but the fact that the name of the variable is _base represents a warning: it should not be directly modified or used:</p>
 
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span><span class="o">.</span><span class="n">_radius</span>
 </pre></div>
 
     </div>
@@ -14264,13 +14729,13 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt output_prompt">Out[62]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Circle(0,0,10)</pre>
+<pre>-12</pre>
 </div>
 
 </div>
@@ -14278,225 +14743,45 @@ A Triangle centered at (0.0,0.0) with 3 sides of length: 2, 4, 6
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And in fact, if we do not pay too much attention:</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c2</span> <span class="o">-</span> <span class="mi">4</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span><span class="o">.</span><span class="n">_radius</span> <span class="o">=</span> <span class="o">-</span><span class="mi">12</span>
+<span class="n">c1</span><span class="o">.</span><span class="n">perimeter</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span>
-<span class="n">c1</span> <span class="o">-</span> <span class="mi">6</span>
-</pre></div>
+<div class="output_wrapper">
+<div class="output">
 
-    </div>
-</div>
-</div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span> <span class="o">-</span> <span class="mi">4</span>
-</pre></div>
+<div class="output_area">
 
-    </div>
-</div>
+    <div class="prompt output_prompt">Out[63]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-75.39822368615503</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">12</span> <span class="o">-</span> <span class="n">c1</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">6</span> <span class="o">-</span> <span class="n">c1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c1</span> <span class="o">-</span> <span class="n">t1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">15</span> <span class="o">-</span> <span class="n">r1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r2</span> <span class="o">-</span> <span class="n">r1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">15</span> <span class="o">-</span> <span class="n">t1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span> <span class="o">-</span> <span class="mi">15</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
 </div>
 </div>
 
