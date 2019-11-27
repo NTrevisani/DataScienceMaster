@@ -50,7 +50,7 @@ values(3, 'La isla misteriosa y el Capitan Nemo', '1973-03-17', 120, 'aventura',
 -- 4 Añadir a la tabla Película una nueva columna que almacene la recaudación, que no
 -- pueda tomar un valor negativo, que no pueda ser nula, y que por defecto su valor sea 0
 
-alter table Pelicula add recaudacion int not null check (recaudacion > 0) default 0;
+alter table Pelicula add recaudacion real not null check (recaudacion >= 0) default 0;
 
 -- 5 ¿Se te ocurre un método mejor para almacenar los géneros de las películas? 
 -- Por ejemplo, ¿qué pasaría si quisiésemos ampliar los géneros posibles y añadir uno nuevo?
@@ -82,18 +82,20 @@ create table Pelicula(
     duracionMin real not null,    
     idgenero int not null,
     iddirector int not null,
+    recaudacion real not null default 0,
     check (idpelicula > 0),
     check (duracionMin > 0),
+    check (recaudacion >= 0),
     foreign key (idgenero) references Genero(idgenero),
     foreign key (iddirector) references Director(iddirector)
 );
 
-insert into Pelicula (idpelicula, titulo, fechaEstreno, duracionMin, idgenero, iddirector)
-values(1, 'REC', '2007-11-23', 78, 1, 1);
-insert into Pelicula (idpelicula, titulo, fechaEstreno, duracionMin, idgenero, iddirector)
-values(2, 'Automata', '2014-09-20', 109, 2, 2);
-insert into Pelicula (idpelicula, titulo, fechaEstreno, duracionMin, idgenero, iddirector)
-values(3, 'La isla misteriosa y el Capitan Nemo', '1973-03-17', 120, 3, 3);
+insert into Pelicula (idpelicula, titulo, fechaEstreno, duracionMin, idgenero, iddirector, recaudacion)
+values(1, 'REC', '2007-11-23', 78, 1, 1, 32.5);
+insert into Pelicula (idpelicula, titulo, fechaEstreno, duracionMin, idgenero, iddirector, recaudacion)
+values(2, 'Automata', '2014-09-20', 109, 2, 2, 0.5);
+insert into Pelicula (idpelicula, titulo, fechaEstreno, duracionMin, idgenero, iddirector, recaudacion)
+values(3, 'La isla misteriosa y el Capitan Nemo', '1973-03-17', 120, 3, 3, 11);
 
 --6 Imaginemos que, además, queremos almacenar los datos de los actores que participan
 -- en las películas, sabiendo que un actor puede participar en varias películas, y una
@@ -147,3 +149,10 @@ insert into PeliActor(idactor, idpelicula)
 values(2,2);
 insert into PeliActor(idactor, idpelicula)
 values(2,3);
+
+
+-- drop table Actor;
+-- drop table Director;
+-- drop table Genero;
+-- drop table PeliActor;
+-- drop table Pelicula;
