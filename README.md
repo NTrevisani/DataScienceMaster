@@ -11,6 +11,10 @@ To update:
 
     conda update conda
 
+To keep conda activated when you open a new terminal, add this line to your .bashrc file:
+
+    export PATH=/home/nicolo/miniconda3/bin/:$PATH
+
 To list all the installed packages:
 
     conda list
