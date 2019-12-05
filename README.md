@@ -71,4 +71,29 @@ or, to install for all the users of the system:
 
     IRkernel::installspec(user = FALSE)
     
+To automatically save your jupyter notebook in 'ipynb', 'html', and as a script of the language you are using (e.g. 'py', 'r', ...), create a configuration file for jupyter:
 
+   ./jupyter notebook --generate-config
+
+And add the following script to the config file just created (in my case, named: .jupyter/jupyter_notebook_config.py):
+
+    import os
+    from subprocess import check_call
+
+    c = get_config()
+
+    def post_save(model, os_path, contents_manager):
+    """post-save hook for converting notebooks to .py and .html files."""
+    	if model['type'] != 'notebook':
+            return # only do this for notebooks
+    	d, fname = os.path.split(os_path)
+        check_call(['ipython', 'nbconvert', '--to', 'script', fname], cwd=d)
+        check_call(['ipython', 'nbconvert', '--to', 'html', fname], cwd=d)
+
+    c.FileContentsManager.post_save_hook = post_save
+
+## 3. R
+
+Some packages you may want to add to your R:
+
+     install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))
