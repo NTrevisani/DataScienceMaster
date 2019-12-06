@@ -96,7 +96,7 @@ And add the following script to the config file just created (in my case, named:
 
 Some packages you may want to add to your R:
 
-     install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest', 'caret', 'e1071', 'ISLR','rpart','rpart.plot'))
+     install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest', 'caret', 'e1071', 'ISLR','rpart','rpart.plot','tree'))
 
 ## 4. Sqlitestudio
 
