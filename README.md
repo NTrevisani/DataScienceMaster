@@ -97,3 +97,19 @@ And add the following script to the config file just created (in my case, named:
 Some packages you may want to add to your R:
 
      install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))
+
+## 4. Sqlitestudio
+
+To download sqlitestudio, visit:
+
+    https://sqlitestudio.pl/index.rvt?act=download
+
+To install it on ubuntu 18.04, go to the folder where you downloaded the installer and:
+
+    chmod +x InstallSQLiteStudio-3.2.1
+
+    ./InstallSQLiteStudio-3.2.1
+
+To run sqlite studio from the terminal:
+
+    /opt/SQLiteStudio/sqlitestudio
