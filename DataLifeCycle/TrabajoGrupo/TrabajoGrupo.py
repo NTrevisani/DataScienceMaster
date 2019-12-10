@@ -30,6 +30,18 @@ calidad_aire.head()
 list(calidad_aire)
 
 
+# In[102]:
+
+
+# Pinto una variable numerica: BIEN
+
+calidad_aire.plot.scatter(x = 'geometry/coordinates/0/4/0', 
+            y = 'geometry/coordinates/0/4/1', 
+            c = 'properties/pm1',
+            colormap='viridis',
+            s = 5)
+
+
 # In[86]:
 
 
@@ -37,8 +49,10 @@ all_z_variables = list(calidad_aire)[3:]
 print(all_z_variables)
 
 
-# In[99]:
+# In[103]:
 
+
+# Intento hacer un loop sobre todas las variables, numericas y categoricas: MAL!
 
 for var in calidad_aire.columns[6:]:
 
