@@ -1,9 +1,9 @@
 # Set the directory to be able to read the data properly
 # rm(list=ls())
-#setwd("")
+# setwd("")
 
 #Install the necessary packages
-install.packages("R.utils")
+#install.packages("R.utils")
 
 # download data from http://yann.lecun.com/exdb/mnist/
 download.file("http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz",
@@ -131,12 +131,9 @@ out1<- predict(object=model, newdata = datt[,j]);
 outbin1 <- as.double(out1 > 0.5)
 100*sum(diag(table(datt[,1], outbin1))) / length(outbin1)
 
-# Train: 5000 imagenes escogidas aleatoriamente 
-# (me dan la misma accuracy que 10000, 
-# pero el entrenamiento tarda menos)
-
-# Test: todas las demas    
-i <- sample(1:60000, 7500)
+# Train: 10000 imagenes escogidas aleatoriamente
+# Test: todas las demas
+i <- sample(1:60000, 10000)
 
 # el numero que quiero esudiar
 N = 0
@@ -175,9 +172,11 @@ out.bin.test <- as.double(out.test > 0.5)
 # Matriz de confusion (test)
 table(my.dat.test[,1], out.bin.test)
 
-# Train: 5000 imagenes escogidas aleatoriamente
-# Test: todas las demas
-i <- sample(1:60000, 5000)
+# Train: primeras 10000 imagenes
+i <- 1:10000;
+
+# Test: imagenes de 10001 a 60000
+q <- 10001:60000
 
 my.results.vector <-c()
 
@@ -199,7 +198,7 @@ for (N in numbers){
     my.dat <- data.frame(my.y,x_train)
 
     my.dat.train <- my.dat[i,]
-    my.dat.test  <- my.dat[-i,]
+    my.dat.test  <- my.dat[q,]
 
     # Sample aleatorio de los pixeles que considero
     #j <- sample(0:784, 39)
@@ -219,12 +218,8 @@ for (N in numbers){
 names(my.results.vector) <-  numbers
 sort.int(my.results.vector, index.return = T)$x
 
-# Train: 5000 imagenes escogidas aleatoriamente
-# entre las primeras 10000
-# dejo así las otras 50000 para las 10 muestras de test
-
-# Test: todas las demas
-i <- sample(1:10000, 5000)
+# Train: primeras 10000 imagenes
+i <- 1:10000;
 
 my.results.vector <- c()
 my.results.matrix <- matrix(, nrow = 1, ncol = 0)
@@ -248,7 +243,8 @@ for (N in numbers){
 
     my.dat.train <- my.dat[i,]
 
-    # Considero 1 de cada 20 pixeles
+    # Sample aleatorio de los pixeles que considero
+    #j <- sample(0:784, 39)
     j <- seq(1,784,20)
 
     # Entrenamiento del modelo
@@ -289,13 +285,11 @@ arrows(numbers, my.mean.values - my.sd / 2, numbers, my.mean.values + my.sd / 2,
 
 library("AUC")
 
-# Aquí solo copio las instrucciones dadas para entender con un ejemplo como funciona AUC
-
 roc<-roc(out,as.factor(datT[,1]))
 auc(roc)
 plot(roc)
 
-i <- sample(1:10000, 5000)
+i<- 1:5000;
 q <- 10001:60000
 
 for (N in numbers){
@@ -324,12 +318,10 @@ for (N in numbers){
 
     # Tasa de acierto (test)
     out.test<- predict(object=my.model, newdata = my.dat.test);
-    #out.bin.test <- as.double(out.test > 0.5)
+    out.bin.test <- as.double(out.test > 0.5)
 
     roc<-roc(out.test,as.factor(my.dat.test[,1]))
     auc(roc)
     plot(roc,
     main = paste("ROC curve digit",N))
 }
-
-
