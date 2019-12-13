@@ -26,6 +26,7 @@ select cl.* from Clientes cl
     where (cl.nombre like ('G%') or cl.nombre like ('J%'))
         and cl.observaciones is not null;
 
+
 -- 4. Devolver el id e importe de las pizzas junto con el id y descripción de todos sus
 -- ingredientes, siempre que el importe de estas pizzas sea mayor de 3 (1 pto).
 
@@ -34,6 +35,7 @@ select pi.idpizza, pi.importeBase, ingrp.idingrediente, ingr.descripcion from Pi
     inner join Ingredientes ingr on ingrp.idingrediente = ingr.idingrediente
     where pi.importeBase > 3;
 
+
 -- 5. Mostrar los datos de todas las pizzas que no hayan sido nunca pedidas, ordenados
 -- por id ascendentemente (1 pto).
 
@@ -41,17 +43,18 @@ select pi.* from Pizzas pi
     where pi.idpizza not in (select li.idpizza from LineasPedidos li)
             order by pi.idpizza asc;
 
+
 -- 6. Devolver los datos de las bases, junto con los datos de las pizzas en las que están
 -- presentes, incluyendo los datos de las bases que no están en ninguna pizza (0.5 ptos)
 
 select ba.*, pi.idpizza, pi.importeBase from Bases ba
     left join Pizzas pi on ba.idbase = pi.idbase;
 
+
 -- 7. Retornar los datos de los pedidos realizados por el cliente con id 1, junto con los
 -- datos de sus líneas y de las pizzas pedidas, siempre que el precio unitario en la línea
 -- sea menor que el importe base de la pizza. (1.5 ptos)
 
---- ESTO NO ME CONVENCE. HAY QUE VOLVER A MIRARLO!!
 select ped.*, lin.*, piz.* from Pedidos ped
     inner join LineasPedidos lin on lin.idpedido = ped.idpedido
     inner join Pizzas piz on piz.idpizza = lin.idpizza
@@ -68,6 +71,7 @@ select pe.idcliente, cl.nif, count(*) numero_pedidos from Clientes cl
         group by(pe.idcliente)
             having numero_pedidos > 1;
 
+
 -- 9. Sumar 0.5 al importe base de todas las pizzas que contengan el ingrediente con id
 -- ‘JAM’ (0.75 pto).
 
@@ -78,19 +82,14 @@ update Pizzas set importeBase = importeBase + 0.5
                 where ingrp.idingrediente = 'JAM');
 
 
---select pi.idpizza, pi.importeBase, ingrp.idingrediente from Pizzas pi
---    inner join IngredienteDePizza ingrp on pi.idpizza = ingrp.idpizza
---        where ingrp.idingrediente = 'JAM';
-
 -- 10. Eliminar las líneas de los pedidos anteriores a 2018 (0.75 pto).
-
--- select pe.* from Pedidos pe;
 
 delete from LineasPedidos where idpedido in (
     select pe.idpedido from Pedidos pe 
         where fechaHoraPedido < '2018-01-01 00:00'); 
 
 delete from Pedidos where fechaHoraPedido < '2018-01-01 00:00'; 
+
 
 -- 11. BONUS para el 10: Realizar una consulta que devuelva el número de pizzas totales
 -- pedidas por cada cliente. En la consulta deberán aparecer el id y nif de los clientes,
