@@ -331,5 +331,3 @@ for (N in numbers){
     plot(roc,
     main = paste("ROC curve digit",N))
 }
-
-
