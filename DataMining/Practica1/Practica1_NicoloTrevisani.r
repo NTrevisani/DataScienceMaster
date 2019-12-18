@@ -121,6 +121,9 @@ mushrooms.test = mushrooms[-indtrain, ]
 nrow(mushrooms.train)
 nrow(mushrooms.test)
 
+head(mushrooms.test)
+head(mushrooms.train)
+
 trainCV <- trainControl(method = "repeatedcv",
                         ## 3-fold CV
                         number = 3,
@@ -130,40 +133,54 @@ trainCV <- trainControl(method = "repeatedcv",
 my.train <- train(class ~ ., data = mushrooms.train, 
                  method = "rpart2", 
                  trControl = trainCV,
-                 # test tree depth in 1:15
-                 tuneLength = 15)
+                 # test tree depth in 1:10
+                 tuneLength = 10)
 
 
 plot(my.train)
+
+library(rattle)
+fancyRpartPlot(my.train$finalModel)
+
+sort(my.train$finalModel$variable.importance, decreasing = T)
 
 pred.train = predict(my.train, newdata = mushrooms.train)
 print("Accuracy medida en la muestra de entrenamiento:")
 sum(diag(table(pred.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
 
-pred = predict(my.train, newdata = mushrooms.test)
+pred.test = predict(my.train, newdata = mushrooms.test)
 print("Accuracy medida en la muestra de test:")
-sum(diag(table(pred, mushrooms.test$class))) / dim(mushrooms.test)[1]
+sum(diag(table(pred.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
 
-library(ISLR)
-library(rpart)
-library(rpart.plot)
+table(pred.test, mushrooms.test$class)
+table(pred.train, mushrooms.train$class)
 
-t.rpart = rpart(formula = class ~ ., data = mushrooms.train, maxdepth = 10)
-rpart.plot(t.rpart)
+t.caret <- train(class ~ ., data = mushrooms.train, 
+                 method = "rpart2",
+                 tuneLength = 10)
+                 
+fancyRpartPlot(t.caret$finalModel)
 
-pred.rpart.train = predict(t.rpart,  newdata = mushrooms.train, type = "class")
+sort(t.caret$finalModel$variable.importance, decreasing = T)
+
+pred.caret.train = predict(t.caret, newdata = mushrooms.train)
 print("Accuracy medida en la muestra de entrenamiento:")
-sum(diag(table(pred.rpart.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
+sum(diag(table(pred.caret.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
 
-pred.rpart.test = predict(t.rpart,  newdata = mushrooms.test, type = "class")
+pred.caret.test = predict(t.caret, newdata = mushrooms.test)
 print("Accuracy medida en la muestra de test:")
-sum(diag(table(pred.rpart.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
+sum(diag(table(pred.caret.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
+
+table(pred.caret.test, mushrooms.test$class)
+table(pred.caret.train, mushrooms.train$class)
 
 library(tree)
 
-t.tree = tree(formula = class~.,data = mushrooms.train, minsize = 1)
+t.tree = tree(formula = class~.,data = mushrooms.train, mindev = 0, minsize = 2)
 plot(t.tree)
 text(t.tree, pretty = F)
+
+t.tree$frame
 
 pred.tree.train = predict(t.tree,  newdata = mushrooms.train, type = "class")
 print("Accuracy medida en la muestra de entrenamiento:")
@@ -173,18 +190,28 @@ pred.tree.test = predict(t.tree,  newdata = mushrooms.test, type = "class")
 print("Accuracy medida en la muestra de test:")
 sum(diag(table(pred.tree.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
 
-t.rpart.2.var <- rpart(formula = class ~ odor + spore.print.color, data = mushrooms.train, minsplit = 1, minbucket = 1 )
-rpart.plot(t.rpart.2.var)
+table(pred.tree.test, mushrooms.test$class)
+table(pred.tree.train, mushrooms.train$class)
 
-pred.rpart.2.var.test = predict(t.rpart.2.var,  newdata = mushrooms.test, type = "class")
-print("Accuracy medida en la muestra de test:")
-sum(diag(table(pred.rpart.2.var.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
+t.caret.2.var <- train(class ~ odor + spore.print.color, data = mushrooms.train, 
+                 method = "rpart2")
 
-pred.rpart.2.var.train = predict(t.rpart.2.var,  newdata = mushrooms.train, type = "class")
+fancyRpartPlot(t.caret.2.var$finalModel)
+
+sort(t.caret.2.var$finalModel$variable.importance, decreasing = T)
+
+pred.caret.2.var.train = predict(t.caret.2.var, newdata = mushrooms.train)
 print("Accuracy medida en la muestra de entrenamiento:")
-sum(diag(table(pred.rpart.2.var.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
+sum(diag(table(pred.caret.2.var.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
 
-t.tree.2.var = tree(formula = class~ odor + spore.print.color,data = mushrooms.train, minsize = 1)
+pred.caret.2.var.test = predict(t.caret.2.var, newdata = mushrooms.test)
+print("Accuracy medida en la muestra de test:")
+sum(diag(table(pred.caret.2.var.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
+
+table(pred.caret.2.var.test, mushrooms.test$class)
+table(pred.caret.2.var.train, mushrooms.train$class)
+
+t.tree.2.var = tree(formula = class~ odor + spore.print.color,data = mushrooms.train, minsize = 2, mindev = 0)
 plot(t.tree.2.var)
 text(t.tree.2.var, pretty = F)
 
@@ -196,20 +223,28 @@ pred.tree.2.var.train = predict(t.tree.2.var,  newdata = mushrooms.train, type =
 print("Accuracy medida en la muestra de entrenamiento:")
 sum(diag(table(pred.tree.2.var.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
 
-t.rpart.2.other.var <- rpart(formula = class ~ gill.size + bruises, data = mushrooms.train, minsplit = 1, minbucket = 1 )
-rpart.plot(t.rpart.2.other.var)
+table(pred.tree.2.var.test, mushrooms.test$class)
+table(pred.tree.2.var.train, mushrooms.train$class)
 
-pred.rpart.2.other.var.train = predict(t.rpart.2.other.var,  newdata = mushrooms.train, type = "class")
+t.caret.2.other.var <- train(class ~ gill.size + bruises, data = mushrooms.train, 
+                 method = "rpart2")
+
+fancyRpartPlot(t.caret.2.other.var$finalModel)
+
+sort(t.caret.2.other.var$finalModel$variable.importance, decreasing = T)
+
+pred.caret.2.other.var.train = predict(t.caret.2.other.var, newdata = mushrooms.train)
 print("Accuracy medida en la muestra de entrenamiento:")
-sum(diag(table(pred.rpart.2.other.var.train, mushrooms.train$class))) / dim(mushrooms.train)[1]
+sum(diag(table(pred.train.2.other.var, mushrooms.train$class))) / dim(mushrooms.train)[1]
 
-pred.rpart.2.other.var.test = predict(t.rpart.2.other.var,  newdata = mushrooms.test, type = "class")
+pred.caret.2.other.var.test = predict(t.caret.2.other.var, newdata = mushrooms.test)
 print("Accuracy medida en la muestra de test:")
-sum(diag(table(pred.rpart.2.other.var.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
+sum(diag(table(pred.test.2.other.var, mushrooms.test$class))) / dim(mushrooms.test)[1]
 
-table(pred.rpart.2.other.var.train, mushrooms.train$class)
+table(pred.caret.2.other.var.test, mushrooms.test$class)
+table(pred.caret.2.other.var.train, mushrooms.train$class)
 
-t.tree.2.other.var = tree(formula = class~ gill.size + bruises, data = mushrooms.train, minsize = 1)
+t.tree.2.other.var = tree(formula = class~ gill.size + bruises, data = mushrooms.train, minsize = 2, mindev = 0)
 plot(t.tree.2.other.var)
 text(t.tree.2.other.var, pretty = F)
 
@@ -221,4 +256,5 @@ pred.tree.2.other.var.test = predict(t.tree.2.other.var,  newdata = mushrooms.te
 print("Accuracy medida en la muestra de test:")
 sum(diag(table(pred.tree.2.other.var.test, mushrooms.test$class))) / dim(mushrooms.test)[1]
 
+table(pred.tree.2.other.var.test, mushrooms.test$class)
 table(pred.tree.2.other.var.train, mushrooms.train$class)
