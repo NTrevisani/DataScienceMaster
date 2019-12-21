@@ -3,7 +3,7 @@
 
 # # Populations
 
-# In[51]:
+# In[91]:
 
 
 import pandas as pd
@@ -19,64 +19,72 @@ df.head()
 
 # ## The mean and std of the populations of each species for the years in the period
 
-# In[6]:
+# In[64]:
 
 
-means = df.apply(np.mean)
-means
+df.mean(axis=0)
 
 
-# In[7]:
+# In[65]:
 
 
-st_dev = df.apply(np.std)
-st_dev
+df.apply(np.mean)
+
+
+# In[66]:
+
+
+df.std(axis=0)
+
+
+# In[69]:
+
+
+# numpy uses by default the biased definition of variance
+df.apply(np.std, ddof=1)
 
 
 # ## Which year each species had the largest population
 
-# In[8]:
+# In[78]:
 
 
-max_years = df.apply(np.argmax)
-max_years
+df.idxmax(axis = 0)
+
+
+# In[75]:
+
+
+df.apply(np.argmax)
 
 
 # ## Which species has the largest population for each year. (Hint: rank and idxmin)
 
-# In[9]:
+# In[77]:
 
 
-max_species = df.idxmax(axis=1)
-max_species
+df.idxmax(axis = 1)
 
 
 # ## Which years any of the populations is above 50000. (Hint: any)
 
-# In[19]:
+# In[79]:
 
 
-large_years = df[df > 50000].dropna(how='all').index
-large_years
+df[df > 50000].dropna(how='all').index
 
 
 # ## The top 2 years for each species when they had the lowest populations. (Hint: rank)
 
-# In[76]:
+# In[92]:
 
 
-df.apply(lambda x: x.rank()).idxmin()
-
-
-# In[72]:
-
-
-df.apply(lambda x: pd.Series(x.nsmallest(2).index))
+df.apply(lambda x: x.rank().nsmallest(2).index)
 
 
 # ## Compare (plot) the change in hare population (see help(np.gradient)) and the number of lynxes. Check correlation (see help(df.corr))
 
-# In[71]:
+# In[9]:
 
 
 import numpy as np
@@ -85,7 +93,7 @@ import matplotlib as plt
 get_ipython().run_line_magic('matplotlib', 'inline')
 
 
-# In[99]:
+# In[10]:
 
 
 df['hare_gradient'] = np.gradient(df['hare'])
@@ -94,8 +102,9 @@ df['lynx'].plot()
 df['hare_gradient'].plot()
 
 
-# In[100]:
+# In[11]:
 
 
-df.corr()
+df_corr = df[['lynx','hare_gradient']]
+df_corr.corr()
 
