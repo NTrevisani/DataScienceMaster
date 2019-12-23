@@ -13086,7 +13086,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -13100,7 +13100,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Cargo el dataset</span>
@@ -13118,7 +13118,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt output_prompt">Out[2]:</div>
 
 
 
@@ -13354,7 +13354,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;company.name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Zara&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;company.name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Microsoft&quot;</span><span class="p">)]</span> 
@@ -13370,7 +13370,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13774,7 +13774,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
@@ -13790,7 +13790,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -13819,7 +13819,7 @@ Length: 2077, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># equivalente a</span>
@@ -13836,23 +13836,23 @@ Length: 2077, dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Warren Buffett                   3
-Gustavo Cisneros                 3
-Eliodoro Matte                   3
-Richard DeVos                    3
-Ananda Krishnan                  3
-                                ..
-Peter Lim                        1
-Scott McNealy                    1
-Dulce Pugliese de Godoy Bueno    1
-Roger Penske                     1
-Boonsong Asavabhokhin            1
+<pre>Lee Bass                                  3
+Richard Branson                           3
+Richard Rainwater                         3
+Emilio Azcarraga Jean                     3
+Stephan Schmidheiny                       3
+                                         ..
+Sjamsul Nursalim                          1
+Jose and Francisco Jose Calderon Rojas    1
+Stephen Bisciotti                         1
+Andrew Cherng                             1
+Sze Man Bok                               1
 Name: name, Length: 2077, dtype: int64</pre>
 </div>
 
@@ -13871,7 +13871,7 @@ Name: name, Length: 2077, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;company.sector&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
@@ -13887,7 +13887,7 @@ Name: name, Length: 2077, dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -13923,7 +13923,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[181]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
@@ -13948,7 +13948,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[182]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13964,7 +13964,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[182]:</div>
+    <div class="prompt output_prompt">Out[33]:</div>
 
 
 
@@ -14131,9 +14131,153 @@ dtype: int64</pre>
       <td>True</td>
       <td>True</td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Forrest Mars, Jr.</td>
+      <td>31</td>
+      <td>2014</td>
+      <td>1911</td>
+      <td>Mars, Incorperated</td>
+      <td>relation</td>
+      <td>candy</td>
+      <td>new</td>
+      <td>82</td>
+      <td>male</td>
+      <td>...</td>
+      <td>0</td>
+      <td>North America</td>
+      <td>inherited</td>
+      <td>20.0</td>
+      <td>Traded Sectors</td>
+      <td>True</td>
+      <td>Consumer</td>
+      <td>3rd generation</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>Jacqueline Mars</td>
+      <td>31</td>
+      <td>2014</td>
+      <td>1911</td>
+      <td>Mars, Incorperated</td>
+      <td>relation</td>
+      <td>candy</td>
+      <td>new</td>
+      <td>74</td>
+      <td>female</td>
+      <td>...</td>
+      <td>0</td>
+      <td>North America</td>
+      <td>inherited</td>
+      <td>20.0</td>
+      <td>Traded Sectors</td>
+      <td>True</td>
+      <td>Consumer</td>
+      <td>3rd generation</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>John Mars</td>
+      <td>31</td>
+      <td>2014</td>
+      <td>1911</td>
+      <td>Mars, Incorperated</td>
+      <td>relation</td>
+      <td>candy</td>
+      <td>new</td>
+      <td>77</td>
+      <td>male</td>
+      <td>...</td>
+      <td>0</td>
+      <td>North America</td>
+      <td>inherited</td>
+      <td>20.0</td>
+      <td>Traded Sectors</td>
+      <td>True</td>
+      <td>Consumer</td>
+      <td>3rd generation</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>Eka Tjipta Widjaja</td>
+      <td>32</td>
+      <td>1996</td>
+      <td>1962</td>
+      <td>Sinar Mas Group</td>
+      <td>founder</td>
+      <td>banking</td>
+      <td>new</td>
+      <td>0</td>
+      <td>male</td>
+      <td>...</td>
+      <td>227000000000</td>
+      <td>East Asia</td>
+      <td>self-made finance</td>
+      <td>5.1</td>
+      <td>Financial</td>
+      <td>True</td>
+      <td>Diversified financial</td>
+      <td>not inherited</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>Liliane Bettencourt</td>
+      <td>33</td>
+      <td>1996</td>
+      <td>1909</td>
+      <td>L'Oreal</td>
+      <td>relation</td>
+      <td>cosmetics</td>
+      <td>new</td>
+      <td>73</td>
+      <td>female</td>
+      <td>...</td>
+      <td>1610000000000</td>
+      <td>Europe</td>
+      <td>inherited</td>
+      <td>5.0</td>
+      <td>Traded Sectors</td>
+      <td>True</td>
+      <td>Consumer</td>
+      <td>father</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
   </tbody>
 </table>
-<p>5 rows × 22 columns</p>
+<p>100 rows × 22 columns</p>
 </div>
 </div>
 
@@ -14145,7 +14289,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[183]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tabla de personas</span>
@@ -14160,10 +14304,10 @@ dtype: int64</pre>
 <span class="n">df_people</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">keep</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df_people</span> <span class="o">=</span> <span class="n">df_people</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">people_columns_name</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;people_number&quot;</span><span class="p">,</span><span class="s2">&quot;person_name&quot;</span><span class="p">,</span><span class="s2">&quot;region&quot;</span><span class="p">,</span><span class="s2">&quot;born&quot;</span><span class="p">]</span> 
+<span class="n">people_columns_name</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;person_number&quot;</span><span class="p">,</span><span class="s2">&quot;person_name&quot;</span><span class="p">,</span><span class="s2">&quot;region&quot;</span><span class="p">,</span><span class="s2">&quot;born&quot;</span><span class="p">]</span> 
 <span class="n">df_people</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">people_columns_name</span>
 
-<span class="n">df_people</span><span class="p">[</span><span class="s1">&#39;id_people&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_people</span><span class="o">.</span><span class="n">index</span>
+<span class="n">df_people</span><span class="p">[</span><span class="s1">&#39;id_person&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_people</span><span class="o">.</span><span class="n">index</span>
 <span class="c1">#df_people = df_people[0:10]</span>
 <span class="c1">#df_people</span>
 </pre></div>
@@ -14198,7 +14342,7 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[184]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tabla de empresas</span>
@@ -14208,7 +14352,7 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 
 <span class="n">df_company</span><span class="o">=</span> <span class="n">df_company</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="n">company_columns_name</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id_people&quot;</span><span class="p">,</span><span class="s2">&quot;founded&quot;</span><span class="p">,</span><span class="s2">&quot;company_name&quot;</span><span class="p">,</span><span class="s2">&quot;sector&quot;</span><span class="p">,</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;company_relationship&quot;</span><span class="p">]</span> 
+<span class="n">company_columns_name</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id_person&quot;</span><span class="p">,</span><span class="s2">&quot;founded&quot;</span><span class="p">,</span><span class="s2">&quot;company_name&quot;</span><span class="p">,</span><span class="s2">&quot;sector&quot;</span><span class="p">,</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;company_relationship&quot;</span><span class="p">]</span> 
 <span class="n">df_company</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">company_columns_name</span>
 
 <span class="n">df_company</span><span class="p">[</span><span class="s1">&#39;id_company&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_company</span><span class="o">.</span><span class="n">index</span>
@@ -14245,13 +14389,13 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[185]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Construyo la tabla de relaciones entre personas y empresas </span>
 <span class="c1"># a través de un merge de las dos tablas anteriores</span>
 
-<span class="n">df_relationship</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_people</span><span class="p">,</span> <span class="n">df_company</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;people_number&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;id_people&#39;</span><span class="p">)</span>
+<span class="n">df_relationship</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_people</span><span class="p">,</span> <span class="n">df_company</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;person_number&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;id_person&#39;</span><span class="p">)</span>
 <span class="c1">#df_relationship</span>
 </pre></div>
 
@@ -14262,22 +14406,22 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[186]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Ahora &#39;limpio&#39; las tablas para que tengan solo las informaciones necesarias</span>
-<span class="n">people_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;people_number&#39;</span><span class="p">,</span><span class="s1">&#39;person_name&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;born&#39;</span><span class="p">]</span>
+<span class="n">people_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;person_number&#39;</span><span class="p">,</span><span class="s1">&#39;person_name&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;born&#39;</span><span class="p">]</span>
 <span class="n">df_people</span> <span class="o">=</span> <span class="n">df_people</span><span class="p">[</span><span class="n">people_columns</span><span class="p">]</span>
-<span class="n">df_people</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id_people&#39;</span><span class="p">,</span><span class="s1">&#39;person_name&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;born&#39;</span><span class="p">]</span>
+<span class="n">df_people</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id_person&#39;</span><span class="p">,</span><span class="s1">&#39;person_name&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="s1">&#39;born&#39;</span><span class="p">]</span>
 <span class="c1">#print(df_people)</span>
 
-<span class="n">company_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id_people&#39;</span><span class="p">,</span><span class="s1">&#39;founded&#39;</span><span class="p">,</span> <span class="s1">&#39;company_name&#39;</span><span class="p">,</span> <span class="s1">&#39;sector&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;id_company&#39;</span><span class="p">]</span>
+<span class="n">company_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id_person&#39;</span><span class="p">,</span><span class="s1">&#39;founded&#39;</span><span class="p">,</span> <span class="s1">&#39;company_name&#39;</span><span class="p">,</span> <span class="s1">&#39;sector&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;id_company&#39;</span><span class="p">]</span>
 <span class="n">df_company</span> <span class="o">=</span> <span class="n">df_company</span><span class="p">[</span><span class="n">company_columns</span><span class="p">]</span>
 <span class="c1">#print(df_company)</span>
 
-<span class="n">relationship_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;people_number&#39;</span><span class="p">,</span><span class="s1">&#39;id_company&#39;</span><span class="p">,</span><span class="s1">&#39;company_relationship&#39;</span><span class="p">]</span>
+<span class="n">relationship_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;person_number&#39;</span><span class="p">,</span><span class="s1">&#39;id_company&#39;</span><span class="p">,</span><span class="s1">&#39;company_relationship&#39;</span><span class="p">]</span>
 <span class="n">df_relationship</span> <span class="o">=</span> <span class="n">df_relationship</span><span class="p">[</span><span class="n">relationship_columns</span><span class="p">]</span>
-<span class="n">df_relationship</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id_people&#39;</span><span class="p">,</span><span class="s1">&#39;id_company&#39;</span><span class="p">,</span><span class="s1">&#39;company_relationship&#39;</span><span class="p">]</span>
+<span class="n">df_relationship</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id_person&#39;</span><span class="p">,</span><span class="s1">&#39;id_company&#39;</span><span class="p">,</span><span class="s1">&#39;company_relationship&#39;</span><span class="p">]</span>
 <span class="c1">#print(df_relationship)</span>
 </pre></div>
 
@@ -14288,13 +14432,13 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[187]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Paso los data_frames a tablas de SQL</span>
-<span class="n">df_people</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;people&#39;</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span> <span class="o">=</span> <span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">df_company</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;company&#39;</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span> <span class="o">=</span> <span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">df_relationship</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;relationship&#39;</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span> <span class="o">=</span> <span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">df_people</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;Person&#39;</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span> <span class="o">=</span> <span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">df_company</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span> <span class="o">=</span> <span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">df_relationship</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;Relationship&#39;</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="n">engine</span><span class="p">,</span> <span class="n">if_exists</span> <span class="o">=</span> <span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14311,88 +14455,38 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2019-12-22 21:23:15,309 INFO sqlalchemy.engine.base.Engine SELECT CAST(&#39;test plain returns&#39; AS VARCHAR(60)) AS anon_1
-2019-12-22 21:23:15,311 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,313 INFO sqlalchemy.engine.base.Engine SELECT CAST(&#39;test unicode returns&#39; AS VARCHAR(60)) AS anon_1
-2019-12-22 21:23:15,314 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,316 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;people&#34;)
-2019-12-22 21:23:15,316 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,320 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;people&#34;)
-2019-12-22 21:23:15,321 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,323 INFO sqlalchemy.engine.base.Engine SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name
-2019-12-22 21:23:15,324 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,327 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;people&#34;)
-2019-12-22 21:23:15,328 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,330 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;people&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,333 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,335 INFO sqlalchemy.engine.base.Engine PRAGMA main.foreign_key_list(&#34;people&#34;)
-2019-12-22 21:23:15,336 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,337 INFO sqlalchemy.engine.base.Engine PRAGMA temp.foreign_key_list(&#34;people&#34;)
-2019-12-22 21:23:15,338 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,339 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;people&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,339 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,341 INFO sqlalchemy.engine.base.Engine PRAGMA main.index_list(&#34;people&#34;)
-2019-12-22 21:23:15,342 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,344 INFO sqlalchemy.engine.base.Engine PRAGMA temp.index_list(&#34;people&#34;)
-2019-12-22 21:23:15,345 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,346 INFO sqlalchemy.engine.base.Engine PRAGMA main.index_list(&#34;people&#34;)
-2019-12-22 21:23:15,347 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,349 INFO sqlalchemy.engine.base.Engine PRAGMA temp.index_list(&#34;people&#34;)
-2019-12-22 21:23:15,349 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,351 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;people&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,351 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,353 INFO sqlalchemy.engine.base.Engine 
-DROP TABLE people
-2019-12-22 21:23:15,354 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,374 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,379 INFO sqlalchemy.engine.base.Engine 
-CREATE TABLE people (
-	id_people BIGINT, 
+<pre>2019-12-23 11:30:00,063 INFO sqlalchemy.engine.base.Engine SELECT CAST(&#39;test plain returns&#39; AS VARCHAR(60)) AS anon_1
+2019-12-23 11:30:00,064 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,066 INFO sqlalchemy.engine.base.Engine SELECT CAST(&#39;test unicode returns&#39; AS VARCHAR(60)) AS anon_1
+2019-12-23 11:30:00,069 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,071 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;Person&#34;)
+2019-12-23 11:30:00,073 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,076 INFO sqlalchemy.engine.base.Engine PRAGMA temp.table_info(&#34;Person&#34;)
+2019-12-23 11:30:00,078 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,081 INFO sqlalchemy.engine.base.Engine 
+CREATE TABLE &#34;Person&#34; (
+	id_person BIGINT, 
 	person_name TEXT, 
 	region TEXT, 
 	born BIGINT
 )
 
 
-2019-12-22 21:23:15,380 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,398 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,401 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
-2019-12-22 21:23:15,432 INFO sqlalchemy.engine.base.Engine INSERT INTO people (id_people, person_name, region, born) VALUES (?, ?, ?, ?)
-2019-12-22 21:23:15,433 INFO sqlalchemy.engine.base.Engine ((0, &#39;Bill Gates&#39;, &#39;North America&#39;, 1956), (3, &#39;Warren Buffett&#39;, &#39;North America&#39;, 1931), (5, &#39;Carlos Slim Helu&#39;, &#39;Latin America&#39;, 1940), (6, &#39;Oeri Hoffman and Sacher&#39;, &#39;Europe&#39;, 1996), (7, &#39;Paul Allen&#39;, &#39;North America&#39;, 1953), (8, &#39;Amancio Ortega&#39;, &#39;Europe&#39;, 1937), (9, &#39;Lee Shau Kee&#39;, &#39;East Asia&#39;, 1928), (10, &#39;Larry Ellison&#39;, &#39;North America&#39;, 1945)  ... displaying 10 of 2216 total bound parameter sets ...  (2612, &#39;Zdenek Bakala&#39;, &#39;Europe&#39;, 1961), (2613, &#39;Zhu Wenchen&#39;, &#39;East Asia&#39;, 1966))
-2019-12-22 21:23:15,442 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,468 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;company&#34;)
-2019-12-22 21:23:15,469 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,472 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;company&#34;)
-2019-12-22 21:23:15,474 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,477 INFO sqlalchemy.engine.base.Engine SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name
-2019-12-22 21:23:15,478 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,485 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;company&#34;)
-2019-12-22 21:23:15,486 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,488 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;company&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,489 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,491 INFO sqlalchemy.engine.base.Engine PRAGMA main.foreign_key_list(&#34;company&#34;)
-2019-12-22 21:23:15,491 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,493 INFO sqlalchemy.engine.base.Engine PRAGMA temp.foreign_key_list(&#34;company&#34;)
-2019-12-22 21:23:15,494 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,495 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;company&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,495 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,497 INFO sqlalchemy.engine.base.Engine PRAGMA main.index_list(&#34;company&#34;)
-2019-12-22 21:23:15,497 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,499 INFO sqlalchemy.engine.base.Engine PRAGMA temp.index_list(&#34;company&#34;)
-2019-12-22 21:23:15,500 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,503 INFO sqlalchemy.engine.base.Engine PRAGMA main.index_list(&#34;company&#34;)
-2019-12-22 21:23:15,504 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,506 INFO sqlalchemy.engine.base.Engine PRAGMA temp.index_list(&#34;company&#34;)
-2019-12-22 21:23:15,507 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,509 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;company&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,510 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,513 INFO sqlalchemy.engine.base.Engine 
-DROP TABLE company
-2019-12-22 21:23:15,514 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,538 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,543 INFO sqlalchemy.engine.base.Engine 
-CREATE TABLE company (
-	id_people BIGINT, 
+2019-12-23 11:30:00,082 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,105 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,109 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2019-12-23 11:30:00,127 INFO sqlalchemy.engine.base.Engine INSERT INTO &#34;Person&#34; (id_person, person_name, region, born) VALUES (?, ?, ?, ?)
+2019-12-23 11:30:00,132 INFO sqlalchemy.engine.base.Engine ((0, &#39;Bill Gates&#39;, &#39;North America&#39;, 1956), (3, &#39;Warren Buffett&#39;, &#39;North America&#39;, 1931), (5, &#39;Carlos Slim Helu&#39;, &#39;Latin America&#39;, 1940), (6, &#39;Oeri Hoffman and Sacher&#39;, &#39;Europe&#39;, 1996), (7, &#39;Paul Allen&#39;, &#39;North America&#39;, 1953), (8, &#39;Amancio Ortega&#39;, &#39;Europe&#39;, 1937), (9, &#39;Lee Shau Kee&#39;, &#39;East Asia&#39;, 1928), (10, &#39;Larry Ellison&#39;, &#39;North America&#39;, 1945)  ... displaying 10 of 2216 total bound parameter sets ...  (2612, &#39;Zdenek Bakala&#39;, &#39;Europe&#39;, 1961), (2613, &#39;Zhu Wenchen&#39;, &#39;East Asia&#39;, 1966))
+2019-12-23 11:30:00,140 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,166 INFO sqlalchemy.engine.base.Engine SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name
+2019-12-23 11:30:00,168 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,177 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;Company&#34;)
+2019-12-23 11:30:00,179 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,180 INFO sqlalchemy.engine.base.Engine PRAGMA temp.table_info(&#34;Company&#34;)
+2019-12-23 11:30:00,181 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,184 INFO sqlalchemy.engine.base.Engine 
+CREATE TABLE &#34;Company&#34; (
+	id_person BIGINT, 
 	founded BIGINT, 
 	company_name TEXT, 
 	sector TEXT, 
@@ -14401,56 +14495,34 @@ CREATE TABLE company (
 )
 
 
-2019-12-22 21:23:15,544 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,566 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,570 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
-2019-12-22 21:23:15,601 INFO sqlalchemy.engine.base.Engine INSERT INTO company (id_people, founded, company_name, sector, type, id_company) VALUES (?, ?, ?, ?, ?, ?)
-2019-12-22 21:23:15,602 INFO sqlalchemy.engine.base.Engine ((0, 1975, &#39;Microsoft&#39;, &#39; Software&#39;, &#39;new&#39;, 0), (3, 1962, &#39;Berkshire Hathaway&#39;, &#39; Finance&#39;, &#39;new&#39;, 1), (5, 1990, &#39;Telmex&#39;, &#39; Communications&#39;, &#39;privatization&#39;, 2), (6, 1896, &#39;F. Hoffmann-La Roche&#39;, &#39;pharmaceuticals&#39;, &#39;new&#39;, 3), (7, 1975, &#39;Microsoft&#39;, &#39;technology&#39;, &#39;new&#39;, 4), (8, 1975, &#39;Zara&#39;, &#39;Fashion&#39;, &#39;new&#39;, 5), (9, 1976, &#39;Henderson Land Development&#39;, &#39;real estate&#39;, &#39;new&#39;, 6), (10, 1977, &#39;Oracle&#39;, &#39; software&#39;, &#39; new&#39;, 7)  ... displaying 10 of 1723 total bound parameter sets ...  (2612, 1994, &#39;Patria Finance&#39;, &#39;coal&#39;, &#39;new&#39;, 1721), (2613, 1999, &#39;Furen Pharmaceutical Group&#39;, &#39;pharmaceuticals&#39;, &#39;new&#39;, 1722))
-2019-12-22 21:23:15,610 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,634 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;relationship&#34;)
-2019-12-22 21:23:15,635 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,637 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;relationship&#34;)
-2019-12-22 21:23:15,638 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,641 INFO sqlalchemy.engine.base.Engine SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name
-2019-12-22 21:23:15,642 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,646 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;relationship&#34;)
-2019-12-22 21:23:15,647 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,650 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;relationship&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,655 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,657 INFO sqlalchemy.engine.base.Engine PRAGMA main.foreign_key_list(&#34;relationship&#34;)
-2019-12-22 21:23:15,658 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,659 INFO sqlalchemy.engine.base.Engine PRAGMA temp.foreign_key_list(&#34;relationship&#34;)
-2019-12-22 21:23:15,660 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,661 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;relationship&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,662 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,665 INFO sqlalchemy.engine.base.Engine PRAGMA main.index_list(&#34;relationship&#34;)
-2019-12-22 21:23:15,666 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,669 INFO sqlalchemy.engine.base.Engine PRAGMA temp.index_list(&#34;relationship&#34;)
-2019-12-22 21:23:15,673 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,675 INFO sqlalchemy.engine.base.Engine PRAGMA main.index_list(&#34;relationship&#34;)
-2019-12-22 21:23:15,676 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,679 INFO sqlalchemy.engine.base.Engine PRAGMA temp.index_list(&#34;relationship&#34;)
-2019-12-22 21:23:15,681 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,683 INFO sqlalchemy.engine.base.Engine SELECT sql FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE name = &#39;relationship&#39; AND type = &#39;table&#39;
-2019-12-22 21:23:15,685 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,688 INFO sqlalchemy.engine.base.Engine 
-DROP TABLE relationship
-2019-12-22 21:23:15,690 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,707 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,710 INFO sqlalchemy.engine.base.Engine 
-CREATE TABLE relationship (
-	id_people BIGINT, 
+2019-12-23 11:30:00,185 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,207 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,210 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2019-12-23 11:30:00,237 INFO sqlalchemy.engine.base.Engine INSERT INTO &#34;Company&#34; (id_person, founded, company_name, sector, type, id_company) VALUES (?, ?, ?, ?, ?, ?)
+2019-12-23 11:30:00,239 INFO sqlalchemy.engine.base.Engine ((0, 1975, &#39;Microsoft&#39;, &#39; Software&#39;, &#39;new&#39;, 0), (3, 1962, &#39;Berkshire Hathaway&#39;, &#39; Finance&#39;, &#39;new&#39;, 1), (5, 1990, &#39;Telmex&#39;, &#39; Communications&#39;, &#39;privatization&#39;, 2), (6, 1896, &#39;F. Hoffmann-La Roche&#39;, &#39;pharmaceuticals&#39;, &#39;new&#39;, 3), (7, 1975, &#39;Microsoft&#39;, &#39;technology&#39;, &#39;new&#39;, 4), (8, 1975, &#39;Zara&#39;, &#39;Fashion&#39;, &#39;new&#39;, 5), (9, 1976, &#39;Henderson Land Development&#39;, &#39;real estate&#39;, &#39;new&#39;, 6), (10, 1977, &#39;Oracle&#39;, &#39; software&#39;, &#39; new&#39;, 7)  ... displaying 10 of 1723 total bound parameter sets ...  (2612, 1994, &#39;Patria Finance&#39;, &#39;coal&#39;, &#39;new&#39;, 1721), (2613, 1999, &#39;Furen Pharmaceutical Group&#39;, &#39;pharmaceuticals&#39;, &#39;new&#39;, 1722))
+2019-12-23 11:30:00,247 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,271 INFO sqlalchemy.engine.base.Engine SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name
+2019-12-23 11:30:00,272 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,280 INFO sqlalchemy.engine.base.Engine PRAGMA main.table_info(&#34;Relationship&#34;)
+2019-12-23 11:30:00,281 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,284 INFO sqlalchemy.engine.base.Engine PRAGMA temp.table_info(&#34;Relationship&#34;)
+2019-12-23 11:30:00,285 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,289 INFO sqlalchemy.engine.base.Engine 
+CREATE TABLE &#34;Relationship&#34; (
+	id_person BIGINT, 
 	id_company BIGINT, 
 	company_relationship TEXT
 )
 
 
-2019-12-22 21:23:15,711 INFO sqlalchemy.engine.base.Engine ()
-2019-12-22 21:23:15,728 INFO sqlalchemy.engine.base.Engine COMMIT
-2019-12-22 21:23:15,731 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
-2019-12-22 21:23:15,744 INFO sqlalchemy.engine.base.Engine INSERT INTO relationship (id_people, id_company, company_relationship) VALUES (?, ?, ?)
-2019-12-22 21:23:15,745 INFO sqlalchemy.engine.base.Engine ((0, 0, &#39;founder&#39;), (3, 1, &#39;founder&#39;), (5, 2, &#39;founder&#39;), (6, 3, None), (7, 4, &#39;founder&#39;), (8, 5, &#39;founder&#39;), (9, 6, &#39;founder/chairman&#39;), (10, 7, &#39;founder&#39;)  ... displaying 10 of 1713 total bound parameter sets ...  (2612, 1721, &#39;founder&#39;), (2613, 1722, &#39;chairman&#39;))
-2019-12-22 21:23:15,750 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,290 INFO sqlalchemy.engine.base.Engine ()
+2019-12-23 11:30:00,312 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,316 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2019-12-23 11:30:00,325 INFO sqlalchemy.engine.base.Engine INSERT INTO &#34;Relationship&#34; (id_person, id_company, company_relationship) VALUES (?, ?, ?)
+2019-12-23 11:30:00,326 INFO sqlalchemy.engine.base.Engine ((0, 0, &#39;founder&#39;), (3, 1, &#39;founder&#39;), (5, 2, &#39;founder&#39;), (6, 3, None), (7, 4, &#39;founder&#39;), (8, 5, &#39;founder&#39;), (9, 6, &#39;founder/chairman&#39;), (10, 7, &#39;founder&#39;)  ... displaying 10 of 1713 total bound parameter sets ...  (2612, 1721, &#39;founder&#39;), (2613, 1722, &#39;chairman&#39;))
+2019-12-23 11:30:00,333 INFO sqlalchemy.engine.base.Engine COMMIT
+2019-12-23 11:30:00,354 INFO sqlalchemy.engine.base.Engine SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name
+2019-12-23 11:30:00,355 INFO sqlalchemy.engine.base.Engine ()
 </pre>
 </div>
 </div>
@@ -14473,7 +14545,7 @@ CREATE TABLE relationship (
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[203]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
@@ -14485,1183 +14557,60 @@ CREATE TABLE relationship (
 <span class="n">c</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
 <span class="s1">    </span>
 <span class="s1">    </span>
-<span class="s1">    /* Table people */</span>
+<span class="s1">    /* Table Person */</span>
 <span class="s1">    BEGIN TRANSACTION;</span>
-<span class="s1">    ALTER TABLE people RENAME TO old_table;</span>
+<span class="s1">    ALTER TABLE Person RENAME TO old_table;</span>
 
-<span class="s1">    CREATE TABLE people (id_people int not null primary key,</span>
+<span class="s1">    CREATE TABLE Person (id_person int not null primary key,</span>
 <span class="s1">                        person_name char not null,</span>
 <span class="s1">                        region char,</span>
 <span class="s1">                        born char); </span>
 <span class="s1">    </span>
-<span class="s1">    INSERT INTO people SELECT * FROM old_table;</span>
+<span class="s1">    INSERT INTO Person SELECT * FROM old_table;</span>
 
 <span class="s1">    DROP TABLE old_table;</span>
 <span class="s1">    COMMIT TRANSACTION;</span>
 <span class="s1">    </span>
 <span class="s1">    </span>
-<span class="s1">    /* Table company */</span>
+<span class="s1">    /* Table Company */</span>
 <span class="s1">    BEGIN TRANSACTION;</span>
-<span class="s1">    ALTER TABLE company RENAME TO old_table;</span>
+<span class="s1">    ALTER TABLE Company RENAME TO old_table;</span>
 
-<span class="s1">    CREATE TABLE company (id_people,</span>
-<span class="s1">                         founded, </span>
-<span class="s1">                         company_name, </span>
-<span class="s1">                         sector, </span>
-<span class="s1">                         type, </span>
-<span class="s1">                         id_company); </span>
+<span class="s1">    CREATE TABLE Company (id_person int not null,</span>
+<span class="s1">                         founded int, </span>
+<span class="s1">                         company_name char, </span>
+<span class="s1">                         sector char, </span>
+<span class="s1">                         type char,</span>
+<span class="s1">                         id_company int not null primary key,</span>
+<span class="s1">                         foreign key (id_person) references Person(id_person)); </span>
 <span class="s1">    </span>
-<span class="s1">    INSERT INTO people SELECT * FROM old_table;</span>
+<span class="s1">    INSERT INTO Company SELECT * FROM old_table;</span>
 
 <span class="s1">    DROP TABLE old_table;</span>
 <span class="s1">    COMMIT TRANSACTION;</span>
 
+
+<span class="s1">    /* Table Relationship */</span>
+<span class="s1">    BEGIN TRANSACTION;</span>
+<span class="s1">    ALTER TABLE Relationship RENAME TO old_table;</span>
+
+<span class="s1">    CREATE TABLE Relationship (id_person int not null,</span>
+<span class="s1">                              id_company int not null,</span>
+<span class="s1">                              company_relationship char,</span>
+<span class="s1">                              foreign key (id_person) references Person(id_person),</span>
+<span class="s1">                              foreign key (id_company) references Company(id_company),</span>
+<span class="s1">                              primary key (id_person, id_company)); </span>
+<span class="s1">    </span>
+<span class="s1">    INSERT INTO Relationship SELECT * FROM old_table;</span>
+
+<span class="s1">    DROP TABLE old_table;</span>
+<span class="s1">    COMMIT TRANSACTION;</span>
+<span class="s1">    </span>
 <span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
     
 <span class="c1">#close out the connection</span>
 <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[189]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Miro el contenido de la tabla people</span>
-<span class="n">engine</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM people&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2019-12-22 21:23:16,352 INFO sqlalchemy.engine.base.Engine SELECT * FROM people
-2019-12-22 21:23:16,354 INFO sqlalchemy.engine.base.Engine ()
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[189]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(0, &#39;Bill Gates&#39;, &#39;North America&#39;, 1956),
- (3, &#39;Warren Buffett&#39;, &#39;North America&#39;, 1931),
- (5, &#39;Carlos Slim Helu&#39;, &#39;Latin America&#39;, 1940),
- (6, &#39;Oeri Hoffman and Sacher&#39;, &#39;Europe&#39;, 1996),
- (7, &#39;Paul Allen&#39;, &#39;North America&#39;, 1953),
- (8, &#39;Amancio Ortega&#39;, &#39;Europe&#39;, 1937),
- (9, &#39;Lee Shau Kee&#39;, &#39;East Asia&#39;, 1928),
- (10, &#39;Larry Ellison&#39;, &#39;North America&#39;, 1945),
- (12, &#39;Tsai Wan-lin&#39;, &#39;East Asia&#39;, 1925),
- (13, &#39;Theo and Karl Albrecht&#39;, &#39;Europe&#39;, 2001),
- (15, &#39;Walter Thomas and Raymond Kwok&#39;, &#39;East Asia&#39;, 1996),
- (16, &#39;Prince Alwaleed Bin Talal Alsaud&#39;, &#39;Middle East/North Africa&#39;, 1957),
- (17, &#39;Charles Koch&#39;, &#39;North America&#39;, 1936),
- (18, &#39;David Koch&#39;, &#39;North America&#39;, 1941),
- (19, &#39;Li Ka-shing&#39;, &#39;East Asia&#39;, 1929),
- (20, &#39;Jim Walton&#39;, &#39;North America&#39;, 1948),
- (21, &#39;Yoshiaki Tsutsumi&#39;, &#39;East Asia&#39;, 1935),
- (22, &#39;John Walton&#39;, &#39;North America&#39;, 1946),
- (23, &#39;Sheldon Adelson&#39;, &#39;North America&#39;, 1934),
- (24, &#39;Theo and Karl Albrecht&#39;, &#39;Europe&#39;, 1996),
- (25, &#39;S Robson Walton&#39;, &#39;North America&#39;, 1944),
- (26, &#39;Christy Walton&#39;, &#39;North America&#39;, 1955),
- (27, &#39;Hans and Gad Rausing&#39;, &#39;Europe&#39;, 1996),
- (28, &#39;Alice Walton&#39;, &#39;North America&#39;, 1949),
- (29, &#39;Helen Walton&#39;, &#39;North America&#39;, 1920),
- (31, &#39;Johanna Quandt&#39;, &#39;Europe&#39;, 1928),
- (32, &#39;Liliane Bettencourt&#39;, &#39;Europe&#39;, 1923),
- (33, &#39;Haniel family&#39;, &#39;Europe&#39;, 1996),
- (35, &#39;Stefan Persson&#39;, &#39;Europe&#39;, 1948),
- (37, &#39;Steven Ballmer&#39;, &#39;North America&#39;, 1957),
- (38, &#39;Alice Walton&#39;, &#39;North America&#39;, 1950),
- (39, &#39;Kenneth Thomson&#39;, &#39;North America&#39;, 1924),
- (41, &#39;S. Robson Walton&#39;, &#39;North America&#39;, 1944),
- (42, &#39;John Kluge&#39;, &#39;North America&#39;, 1915),
- (44, &#39;Bernard Arnault&#39;, &#39;Europe&#39;, 1950),
- (45, &#39;Tan Yu&#39;, &#39;East Asia&#39;, 1996),
- (46, &#39;Philip Anschutz&#39;, &#39;North America&#39;, 1940),
- (47, &#39;Michael Bloomberg&#39;, &#39;North America&#39;, 1942),
- (48, &#39;Wonowidjojo family&#39;, &#39;East Asia&#39;, 1996),
- (49, &#39;Ingvar Kamprad&#39;, &#39;Europe&#39;, 1927),
- (50, &#39;Larry Page&#39;, &#39;North America&#39;, 1974),
- (53, &#39;Sumner Redstone&#39;, &#39;North America&#39;, 1924),
- (54, &#39;Jeff Bezos&#39;, &#39;North America&#39;, 1964),
- (56, &#39;Sergey Brin&#39;, &#39;North America&#39;, 1974),
- (57, &#39;Chung Ju-yung&#39;, &#39;East Asia&#39;, 1996),
- (58, &#39;Leo Kirch&#39;, &#39;Europe&#39;, 2001),
- (60, &#39;Gerard Mulliez&#39;, &#39;Europe&#39;, 1996),
- (61, &#39;Anne Cox Chambers&#39;, &#39;North America&#39;, 1920),
- (62, &#39;Barbara Cox Anthony&#39;, &#39;North America&#39;, 1924),
- (63, &#39;Mark Zuckerberg&#39;, &#39;North America&#39;, 1985),
- (64, &#39;Robert Kuok&#39;, &#39;East Asia&#39;, 1923),
- (65, &#39;Michele Ferrero&#39;, &#39;Europe&#39;, 1926),
- (66, &#39;Kwek Leng Beng&#39;, &#39;East Asia&#39;, 1941),
- (67, &#39;Walter Thomas and Raymond Kwok&#39;, &#39;East Asia&#39;, 2001),
- (68, &#39;Aliko Dangote&#39;, &#39;Sub-Saharan Africa&#39;, 1958),
- (69, &#39;Karl Albrecht&#39;, &#39;Europe&#39;, 1920),
- (70, &#39;Cheng Yu-tung&#39;, &#39;East Asia&#39;, 1926),
- (72, &#39;Walter Haefner&#39;, &#39;Europe&#39;, 1911),
- (74, &#39;Carl Icahn&#39;, &#39;North America&#39;, 1936),
- (75, &#39;Philip Knight&#39;, &#39;North America&#39;, 1938),
- (76, &#39;Bernard Arnault&#39;, &#39;Europe&#39;, 1949),
- (77, &#39;George Soros&#39;, &#39;North America&#39;, 1931),
- (78, &#39;Michael Otto&#39;, &#39;Europe&#39;, 1944),
- (79, &#39;Ernesto Bertarelli&#39;, &#39;Europe&#39;, 1966),
- (80, &#39;Michael Dell&#39;, &#39;North America&#39;, 1965),
- (81, &#39;David Thomson&#39;, &#39;North America&#39;, 1958),
- (82, &#39;Fong Teng&#39;, &#39;East Asia&#39;, 1996),
- (83, &#39;Lui Che Woo&#39;, &#39;East Asia&#39;, 1930),
- (84, &#39;Robert and Ten Fong Ng&#39;, &#39;East Asia&#39;, 1996),
- (85, &#39;Silvio Berlusconi&#39;, &#39;Europe&#39;, 1937),
- (86, &#39;Dieter Schwarz&#39;, &#39;Europe&#39;, 1940),
- (87, &#39;Yasuo Takei&#39;, &#39;East Asia&#39;, 1930),
- (88, &#39;Abigail Johnson&#39;, &#39;North America&#39;, 1962),
- (89, &#39;Prince Alwaleed Bin Talal Alsaud&#39;, &#39;Middle East/North Africa&#39;, 1956),
- (90, &#39;Antonio Ermirio de Moraes&#39;, &#39;Latin America&#39;, 1996),
- (91, &#39;Forrest Mars Jr&#39;, &#39;North America&#39;, 1932),
- (92, &#39;Jacqueline Mars&#39;, &#39;North America&#39;, 2001),
- (93, &#39;John Mars&#39;, &#39;North America&#39;, 1937),
- (94, &#39;Kirsten Rausing&#39;, &#39;Europe&#39;, 2001),
- (95, &#39;Forrest Mars, Jr.&#39;, &#39;North America&#39;, 1932),
- (96, &#39;Jacqueline Mars&#39;, &#39;North America&#39;, 1940),
- (98, &#39;Eka Tjipta Widjaja&#39;, &#39;East Asia&#39;, 1996),
- (100, &#39;Merck family&#39;, &#39;Europe&#39;, 1996),
- (101, &#39;Jorge Paulo Lemann&#39;, &#39;Latin America&#39;, 1940),
- (103, &#39;Charles Ergen&#39;, &#39;North America&#39;, 1953),
- (104, &#39;Ted Turner&#39;, &#39;North America&#39;, 1939),
- (106, &#39;Mohamed Salim Bin Mahfouz&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (107, &#39;Steve Ballmer&#39;, &#39;North America&#39;, 1957),
- (108, &#39;Theo Albrecht, Jr.&#39;, &#39;Europe&#39;, 1951),
- (109, &#39;Lee Kun-Hee&#39;, &#39;East Asia&#39;, 1996),
- (112, &#39;Suliman Olayan&#39;, &#39;Middle East/North Africa&#39;, 2001),
- (113, &#39;Leonardo Del Vecchio&#39;, &#39;Europe&#39;, 1936),
- (115, &#39;Rupert Murdoch&#39;, &#39;North America&#39;, 1931),
- (116, &#39;Len Blavatnik&#39;, &#39;North America&#39;, 1958),
- (118, &#39;Hans Rausing&#39;, &#39;Europe&#39;, 1927),
- (119, &#39;Nobutada Saji&#39;, &#39;East Asia&#39;, 1946),
- (120, &#39;Alisher Usmanov&#39;, &#39;Europe&#39;, 1954),
- (121, &#39;Mukesh Ambani&#39;, &#39;South Asia&#39;, 1958),
- (124, &#39;Azim Premji&#39;, &#39;South Asia&#39;, 1946),
- (125, &#39;Masayoshi Son&#39;, &#39;East Asia&#39;, 1958),
- (127, &#39;Phil Knight&#39;, &#39;North America&#39;, 1938),
- (128, &#39;Henkel family&#39;, &#39;Europe&#39;, 1996),
- (129, &#39;Amancio Ortega&#39;, &#39;Europe&#39;, 1936),
- (132, &#39;Friedrich Flick&#39;, &#39;Europe&#39;, 1927),
- (133, &#39;Gerald Cavendish Grosvenor&#39;, &#39;Europe&#39;, 1952),
- (134, &#39;Tadashi Yanai&#39;, &#39;East Asia&#39;, 1949),
- (135, &#39;Liem Sioe Liong&#39;, &#39;East Asia&#39;, 1996),
- (136, &#39;Kirk Kerkorian&#39;, &#39;North America&#39;, 1918),
- (137, &#39;Gina Rinehart&#39;, &#39;North America&#39;, 1954),
- (138, &#39;Pierre Landolt&#39;, &#39;Europe&#39;, 1996),
- (139, &#39;Charles Schwab&#39;, &#39;North America&#39;, 1938),
- (140, &#39;Francois Pinault&#39;, &#39;Europe&#39;, 1937),
- (141, &#39;Mikhail Fridman&#39;, &#39;Europe&#39;, 1965),
- (142, &#39;Donald Newhouse&#39;, &#39;North America&#39;, 1930),
- (144, &#39;Samuel Newhouse&#39;, &#39;North America&#39;, 1928),
- (145, &#39;Pierre Landolt&#39;, &#39;Europe&#39;, 2001),
- (146, &#39;Susanne Klatten&#39;, &#39;Europe&#39;, 1963),
- (147, &#39;Dhanin Chearavanont&#39;, &#39;East Asia&#39;, 1940),
- (149, &#39;Nasser Al-Kharafi&#39;, &#39;Middle East/North Africa&#39;, 1944),
- (151, &#39;Boehringer family&#39;, &#39;Europe&#39;, 1996),
- (152, &#39;Viktor Vekselberg&#39;, &#39;Europe&#39;, 1958),
- (153, &#39;David Sainsbury&#39;, &#39;Europe&#39;, 1941),
- (155, &#39;Lakshmi Mittal&#39;, &#39;South Asia&#39;, 1951),
- (156, &#39;Seydoux/Schlumberger families&#39;, &#39;Europe&#39;, 1996),
- (157, &#39;Eli Broad&#39;, &#39;North America&#39;, 1934),
- (158, &#39;Vladimir Lisin&#39;, &#39;Europe&#39;, 1957),
- (159, &#39;Masatoshi Ito&#39;, &#39;East Asia&#39;, 1925),
- (160, &#39;James Goodnight&#39;, &#39;North America&#39;, 1943),
- (162, &#39;Fukuzo Iwasaki&#39;, &#39;East Asia&#39;, 1925),
- (163, &#39;Kyosuke Kinoshita&#39;, &#39;East Asia&#39;, 1941),
- (165, &#39;Joseph Safra&#39;, &#39;Latin America&#39;, 1939),
- (166, &#39;Mustafa Rahmi Koc&#39;, &#39;Middle East/North Africa&#39;, 1931),
- (169, &#39;Luciano Benetton&#39;, &#39;Europe&#39;, 1936),
- (170, &#39;Robert Pritzker&#39;, &#39;North America&#39;, 1927),
- (171, &#39;Thomas Pritzker&#39;, &#39;North America&#39;, 1951),
- (172, &#39;Leonid Mikhelson&#39;, &#39;Europe&#39;, 1956),
- (176, &#39;Iris Fontbona&#39;, &#39;Latin America&#39;, 1943),
- (177, &#39;Ronald Perelman&#39;, &#39;North America&#39;, 1943),
- (178, &#39;Akira Mori&#39;, &#39;East Asia&#39;, 1930),
- (179, &#39;Curt Engelhorn&#39;, &#39;Europe&#39;, 1927),
- (180, &#39;Gordon Moore&#39;, &#39;North America&#39;, 1929),
- (181, &#39;Hasso Plattner&#39;, &#39;Europe&#39;, 1944),
- (182, &#39;Paul-Louis Halley&#39;, &#39;Europe&#39;, 2001),
- (183, &#39;Otto Beisheim&#39;, &#39;Europe&#39;, 1924),
- (185, &#39;Gennady Timchenko&#39;, &#39;Europe&#39;, 1953),
- (186, &#39;Mohammad Al Amoudi&#39;, &#39;Middle East/North Africa&#39;, 1947),
- (187, &#39;Madeleine Schickedanz&#39;, &#39;Europe&#39;, 1944),
- (188, &#39;Brenninkmeijer family&#39;, &#39;Europe&#39;, 1996),
- (191, &#39;Gustavo Cisneros&#39;, &#39;Latin America&#39;, 1946),
- (194, &#39;Wang Jianlin&#39;, &#39;East Asia&#39;, 1955),
- (195, &#39;Walter Annenberg&#39;, &#39;North America&#39;, 1996),
- (198, &#39;Stefan Quandt&#39;, &#39;Europe&#39;, 1967),
- (199, &#39;Gregorio Perez Companc&#39;, &#39;Latin America&#39;, 1935),
- (200, &#39;German Larrea Mota Velasco&#39;, &#39;Latin America&#39;, 1954),
- (202, &#39;Yoshitaka Fukuda&#39;, &#39;East Asia&#39;, 1948),
- (203, &#39;Harold Hamm&#39;, &#39;North America&#39;, 1946),
- (204, &#39;Shin Kyuk-Ho&#39;, &#39;East Asia&#39;, 1996),
- (205, &#39;Alfred Lerner&#39;, &#39;North America&#39;, 2001),
- (206, &#39;Donald Bren&#39;, &#39;North America&#39;, 1933),
- (207, &#39;Ray Dalio&#39;, &#39;North America&#39;, 1950),
- (208, &#39;James Arthur and John Irving&#39;, &#39;North America&#39;, 1996),
- (209, &#39;Alain Wertheimer&#39;, &#39;Europe&#39;, 2001),
- (210, &#39;August von Finck&#39;, &#39;Europe&#39;, 1931),
- (214, &#39;Philip Niarchos&#39;, &#39;Europe&#39;, 1954),
- (215, &#39;Georg Schaeffler&#39;, &#39;Europe&#39;, 1965),
- (216, &#39;Wang Yue-che&#39;, &#39;East Asia&#39;, 1917),
- (217, &#39;Luis Carlos Sarmiento&#39;, &#39;Latin America&#39;, 1933),
- (218, &#39;Sakip Sabanci&#39;, &#39;Middle East/North Africa&#39;, 1933),
- (219, &#39;Laurene Powell Jobs&#39;, &#39;North America&#39;, 1964),
- (221, &#39;Serge Dassault&#39;, &#39;Europe&#39;, 1926),
- (222, &#39;Erivan Haub&#39;, &#39;Europe&#39;, 1933),
- (223, &#39;Tiong Hiew King&#39;, &#39;East Asia&#39;, 1936),
- (224, &#39;Serge Dassault&#39;, &#39;Europe&#39;, 1925),
- (226, &#39;Gunter Herz&#39;, &#39;Europe&#39;, 1941),
- (228, &#39;John Fredriksen&#39;, &#39;Europe&#39;, 1945),
- (229, &#39;Vagit Alekperov&#39;, &#39;Europe&#39;, 1951),
- (231, &#39;Denis Defforey&#39;, &#39;Europe&#39;, 1996),
- (232, &#39;Rolf Gerling&#39;, &#39;Europe&#39;, 1955),
- (233, &#39;John Paulson&#39;, &#39;North America&#39;, 1956),
- (234, &#39;Rupert Murdoch&#39;, &#39;North America&#39;, 1932),
- (236, &#39;Dieter von Holtzbrinck&#39;, &#39;Europe&#39;, 1942),
- (237, &#39;Edward Johnson&#39;, &#39;North America&#39;, 1931),
- (238, &#39;Spiro Latsis&#39;, &#39;Europe&#39;, 1947),
- (239, &#39;Nina Wang&#39;, &#39;East Asia&#39;, 1996),
- (240, &#39;Ma Huateng&#39;, &#39;East Asia&#39;, 1972),
- (241, &#39;Quek Leng Chan&#39;, &#39;East Asia&#39;, 1941),
- (243, &#39;Garry Weston&#39;, &#39;Europe&#39;, 1996),
- (244, &#39;Lorenzo Mendoza&#39;, &#39;Latin America&#39;, 1966),
- (245, &#39;Marvin Davis&#39;, &#39;North America&#39;, 1926),
- (247, &#39;Michael Bloomberg&#39;, &#39;North America&#39;, 1943),
- (248, &#39;Nicky Oppenheimer&#39;, &#39;Sub-Saharan Africa&#39;, 1946),
- (249, &#39;Pierre Omidyar&#39;, &#39;North America&#39;, 1968),
- (250, &#39;Reinhard Mohn&#39;, &#39;Europe&#39;, 1922),
- (251, &#39;Samuel Johnson&#39;, &#39;North America&#39;, 1929),
- (252, &#39;Dilip Shanghvi&#39;, &#39;South Asia&#39;, 1956),
- (253, &#39;Jack Taylor&#39;, &#39;North America&#39;, 1923),
- (254, &#39;Johanna Quandt&#39;, &#39;Europe&#39;, 1927),
- (255, &#39;Pallonji Mistry&#39;, &#39;Europe&#39;, 1930),
- (256, &#39;Henry Ross Perot Sr&#39;, &#39;North America&#39;, 1996),
- (257, &#39;Keizo Saji&#39;, &#39;East Asia&#39;, 1996),
- (259, &#39;Richard DeVos&#39;, &#39;North America&#39;, 1926),
- (260, &#39;Thomas and Raymond Kwok&#39;, &#39;East Asia&#39;, 2014),
- (261, &#39;Vladimir Potanin&#39;, &#39;Europe&#39;, 1961),
- (262, &#39;Jay Van Andel&#39;, &#39;North America&#39;, 1925),
- (264, &#39;James Simons&#39;, &#39;North America&#39;, 1939),
- (265, &#39;Rinat Akhmetov&#39;, &#39;Europe&#39;, 1967),
- (266, &#39;Michael and Rainer Schmidt-Ruthenbeck&#39;, &#39;Europe&#39;, 1996),
- (267, &#39;Stanley Ho&#39;, &#39;East Asia&#39;, 1922),
- (268, &#39;James Arthur and John Irving&#39;, &#39;North America&#39;, 2001),
- (269, &#39;Rudolf Oetker&#39;, &#39;Europe&#39;, 2001),
- (270, &#39;Alberto Bailleres Gonzalez&#39;, &#39;Latin America&#39;, 1932),
- (272, &#39;Robin Li&#39;, &#39;East Asia&#39;, 1969),
- (273, &#39;Chatri Sophonpanich&#39;, &#39;East Asia&#39;, 1996),
- (274, &#39;Lee Bass&#39;, &#39;North America&#39;, 1957),
- (275, &#39;Maurice Greenberg&#39;, &#39;North America&#39;, 1926),
- (279, &#39;Peter Haas Sr&#39;, &#39;North America&#39;, 1996),
- (280, &#39;Lemos family&#39;, &#39;Europe&#39;, 1996),
- (281, &#39;Zong Qinghou&#39;, &#39;East Asia&#39;, 1946),
- (282, &#39;Jassim Al-Kharafi&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (284, &#39;David &amp; Simon Reuben&#39;, &#39;Europe&#39;, 1943),
- (285, &#39;Robert Kuok&#39;, &#39;East Asia&#39;, 1924),
- (286, &#39;Suliman Olayan&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (287, &#39;Micky Arison&#39;, &#39;North America&#39;, 1950),
- (288, &#39;Patrick Wang&#39;, &#39;East Asia&#39;, 1951),
- (289, &#39;Khoo Teck Puat&#39;, &#39;East Asia&#39;, 1917),
- (290, &#39;Andrey Melnichenko&#39;, &#39;Europe&#39;, 1973),
- (292, &#39;Henry Sy&#39;, &#39;East Asia&#39;, 1925),
- (294, &#39;Alfred Heineken&#39;, &#39;Europe&#39;, 2001),
- (297, &#39;Galen Weston&#39;, &#39;North America&#39;, 1941),
- (298, &#39;Ty Warner&#39;, &#39;North America&#39;, 1944),
- (299, &#39;Walter Annenberg&#39;, &#39;North America&#39;, 2001),
- (300, &#39;Jacqueline Mars&#39;, &#39;North America&#39;, 1996),
- (301, &#39;Jay and Arthur Pritzker&#39;, &#39;North America&#39;, 1996),
- (302, &#39;Ananda Krishnan&#39;, &#39;East Asia&#39;, 1939),
- (303, &#39;German Khan&#39;, &#39;Europe&#39;, 1962),
- (305, &#39;Forrest Mars Sr&#39;, &#39;North America&#39;, 1996),
- (306, &#39;Alejandro Santo Domingo Davila&#39;, &#39;Latin America&#39;, 1977),
- (307, &#39;Lee Kun-Hee&#39;, &#39;East Asia&#39;, 1942),
- (308, &#39;Miuccia Prada&#39;, &#39;Europe&#39;, 1950),
- (309, &#39;Shiv Nadar&#39;, &#39;South Asia&#39;, 1946),
- (311, &#39;Rudolf Oetker&#39;, &#39;Europe&#39;, 1996),
- (312, &#39;Henry Ross Perot Sr&#39;, &#39;North America&#39;, 2001),
- (313, &#39;Jon Huntsman&#39;, &#39;North America&#39;, 1938),
- (314, &#39;Leonard Lauder&#39;, &#39;North America&#39;, 1934),
- (315, &#39;Sid Bass&#39;, &#39;North America&#39;, 1943),
- (317, &#39;Koo Cha-kyung&#39;, &#39;East Asia&#39;, 1996),
- (318, &#39;William Hewlett&#39;, &#39;North America&#39;, 1996),
- (319, &#39;Petr Kellner&#39;, &#39;Europe&#39;, 1965),
- (320, &#39;Robert &amp; Philip Ng&#39;, &#39;East Asia&#39;, 2014),
- (321, &#39;Steve Cohen&#39;, &#39;North America&#39;, 1956),
- (322, &#39;Karl-Heinz Kipp&#39;, &#39;Europe&#39;, 1924),
- (323, &#39;Putera Sampoerna&#39;, &#39;East Asia&#39;, 1996),
- (324, &#39;Gianni Agnelli&#39;, &#39;Europe&#39;, 1996),
- (326, &#39;Mehmet Karamehmet&#39;, &#39;Middle East/North Africa&#39;, 1945),
- (327, &#39;Nina Wang&#39;, &#39;East Asia&#39;, 2001),
- (329, &#39;Sanjiv Sidhu&#39;, &#39;North America&#39;, 2001),
- (330, &#39;Shari Arison&#39;, &#39;Middle East/North Africa&#39;, 1958),
- (331, &#39;Andrew Beal&#39;, &#39;North America&#39;, 1953),
- (332, &#39;Mikhail Prokhorov&#39;, &#39;Europe&#39;, 1966),
- (333, &#39;Chey Jong-hyon&#39;, &#39;East Asia&#39;, 1996),
- (334, &#39;Jean-Louis Dumas&#39;, &#39;Europe&#39;, 1939),
- (335, &#39;Alexei Mordashov&#39;, &#39;Europe&#39;, 1966),
- (336, &#39;Hansjoerg Wyss&#39;, &#39;Europe&#39;, 1935),
- (337, &#39;Dietmar Hopp&#39;, &#39;Europe&#39;, 1941),
- (339, &#39;Charlene de Carvalho-Heineken&#39;, &#39;Europe&#39;, 1955),
- (340, &#39;Klaus-Michael Kuehne&#39;, &#39;Europe&#39;, 1938),
- (342, &#39;Stefano Pessina&#39;, &#39;Europe&#39;, 1942),
- (343, &#39;Lim Goh Tong&#39;, &#39;East Asia&#39;, 1918),
- (344, &#39;Eugene Wu&#39;, &#39;East Asia&#39;, 1996),
- (345, &#39;John Simplot&#39;, &#39;North America&#39;, 1909),
- (346, &#39;Edgar Bronfman&#39;, &#39;North America&#39;, 1929),
- (347, &#39;Antonio Ermirio de Moraes&#39;, &#39;Latin America&#39;, 2001),
- (348, &#39;Craig McCaw&#39;, &#39;North America&#39;, 1950),
- (349, &#39;Kazuo Okada&#39;, &#39;East Asia&#39;, 1943),
- (350, &#39;Ng Teng Fong&#39;, &#39;East Asia&#39;, 1929),
- (351, &#39;Nicolas Hayek&#39;, &#39;Europe&#39;, 1929),
- (352, &#39;Reinhold Wuerth&#39;, &#39;Europe&#39;, 2001),
- (354, &#39;Stephan Schmidheiny&#39;, &#39;Europe&#39;, 1948),
- (355, &#39;Charles Bronfman&#39;, &#39;North America&#39;, 1932),
- (356, &#39;Li Hejun&#39;, &#39;East Asia&#39;, 1968),
- (357, &#39;Sergei Galitsky&#39;, &#39;Europe&#39;, 1968),
- (358, &#39;Leo Kirch&#39;, &#39;Europe&#39;, 1996),
- (359, &#39;Von Siemens family&#39;, &#39;Europe&#39;, 1996),
- (360, &#39;Kjeld Kirk Kristiansen&#39;, &#39;Europe&#39;, 1948),
- (361, &#39;Marcel Herrmann Telles&#39;, &#39;Latin America&#39;, 1950),
- (362, &#39;John Latsis&#39;, &#39;Europe&#39;, 1996),
- (363, &#39;Yaw Teck-seng&#39;, &#39;East Asia&#39;, 1996),
- (364, &#39;Charles Butt&#39;, &#39;North America&#39;, 1938),
- (365, &#39;Alfred Heineken&#39;, &#39;Europe&#39;, 1996),
- (366, &#39;Carrie Perrodo&#39;, &#39;Europe&#39;, 1951),
- (367, &#39;David Tepper&#39;, &#39;North America&#39;, 1958),
- (368, &#39;George Kaiser&#39;, &#39;North America&#39;, 1943),
- (369, &#39;Hinduja Brothers&#39;, &#39;Europe&#39;, 2014),
- (370, &#39;Jack Ma&#39;, &#39;East Asia&#39;, 1965),
- (371, &#39;Patrick Soon-Shiong&#39;, &#39;North America&#39;, 1952),
- (372, &#39;Stephen Schwarzman&#39;, &#39;North America&#39;, 1947),
- (373, &#39;Jaime Augusto Zobel de Ayala&#39;, &#39;East Asia&#39;, 1996),
- (374, &#39;George Ty&#39;, &#39;East Asia&#39;, 1996),
- (375, &#39;Ann Kroenke&#39;, &#39;North America&#39;, 2001),
- (377, &#39;David Geffen&#39;, &#39;North America&#39;, 1943),
- (378, &#39;Dhirubhai Ambani&#39;, &#39;South Asia&#39;, 2001),
- (379, &#39;Gerard Louis-Dreyfus&#39;, &#39;Europe&#39;, 1933),
- (380, &#39;James Sorenson&#39;, &#39;North America&#39;, 1922),
- (382, &#39;Henry Hillman&#39;, &#39;North America&#39;, 1919),
- (383, &#39;Julio Bozano&#39;, &#39;Latin America&#39;, 1936),
- (384, &#39;Porsche family&#39;, &#39;Europe&#39;, 1996),
- (385, &#39;Peter Livanos&#39;, &#39;Europe&#39;, 1996),
- (386, &#39;Giorgio Armani&#39;, &#39;Europe&#39;, 1935),
- (387, &#39;Michael Kadoorie&#39;, &#39;East Asia&#39;, 1941),
- (388, &#39;Akira Mori&#39;, &#39;East Asia&#39;, 1935),
- (389, &#39;Amos Hosetter Jr&#39;, &#39;North America&#39;, 1937),
- (390, &#39;Bernard Marcus&#39;, &#39;North America&#39;, 1930),
- (392, &#39;Eitaro Itoyama&#39;, &#39;East Asia&#39;, 1943),
- (393, &#39;Martin Ebner&#39;, &#39;Europe&#39;, 2001),
- (395, &#39;Ryoichi Jinnai&#39;, &#39;East Asia&#39;, 1927),
- (396, &#39;Richard Kinder&#39;, &#39;North America&#39;, 1945),
- (397, &#39;Tsai Eng-Meng&#39;, &#39;East Asia&#39;, 1957),
- (398, &#39;Henry Fok&#39;, &#39;East Asia&#39;, 1924),
- (399, &#39;Goroemon Yoshimoto&#39;, &#39;East Asia&#39;, 1996),
- (400, &#39;Edward Johnson, III.&#39;, &#39;North America&#39;, 1931),
- (401, &#39;Eric Schmidt&#39;, &#39;North America&#39;, 1956),
- (402, &#39;Hiroshi Mikitani&#39;, &#39;East Asia&#39;, 1965),
- (403, &#39;Samuel Newhouse, Jr.&#39;, &#39;North America&#39;, 1928),
- (404, &#39;Rinji Shino&#39;, &#39;East Asia&#39;, 1996),
- (405, &#39;Yasuyuki Nambu&#39;, &#39;East Asia&#39;, 1996),
- (406, &#39;Rafik Al-Hariri&#39;, &#39;Middle East/North Africa&#39;, 1944),
- (407, &#39;Alejo Peralta&#39;, &#39;Latin America&#39;, 1996),
- (408, &#39;Dietrich Mateschitz&#39;, &#39;Europe&#39;, 1945),
- (409, &#39;John van Vlissingen&#39;, &#39;Europe&#39;, 1939),
- (410, &#39;Joao Roberto Marinho&#39;, &#39;Latin America&#39;, 1954),
- (411, &#39;Jose Roberto Marinho&#39;, &#39;Latin America&#39;, 1956),
- (412, &#39;Roberto Marinho&#39;, &#39;Latin America&#39;, 1948),
- (413, &#39;Roman Abramovich&#39;, &#39;Europe&#39;, 1967),
- (414, &#39;Sheikh Saleh Bin Abdul Aziz Al-rajhi&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (417, &#39;Donald Fisher&#39;, &#39;North America&#39;, 1929),
- (418, &#39;Doris Fisher&#39;, &#39;North America&#39;, 1931),
- (420, &#39;Philippe Foriel-Destezet&#39;, &#39;Europe&#39;, 1936),
- (421, &#39;Preston Tisch&#39;, &#39;North America&#39;, 1927),
- (422, &#39;Ronald Lauder&#39;, &#39;North America&#39;, 1942),
- (423, &#39;Mohammed Jameel&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (424, &#39;Maersk McKinney Moller&#39;, &#39;Europe&#39;, 1914),
- (426, &#39;Alain Wertheimer&#39;, &#39;Europe&#39;, 1949),
- (427, &#39;Charoen Sirivadhanabhakdi&#39;, &#39;East Asia&#39;, 1945),
- (428, &#39;Gerard Wertheimer&#39;, &#39;Europe&#39;, 1951),
- (430, &#39;Vladimir Yevtushenkov&#39;, &#39;Europe&#39;, 1949),
- (432, &#39;Banyong Lamsam&#39;, &#39;East Asia&#39;, 1996),
- (436, &#39;Ennio Doris&#39;, &#39;Europe&#39;, 1941),
- (437, &#39;Gianni Agnelli&#39;, &#39;Europe&#39;, 2001),
- (438, &#39;Lester Crown&#39;, &#39;North America&#39;, 1926),
- (440, &#39;William Wrigley&#39;, &#39;North America&#39;, 1964),
- (441, &#39;Carlos Alberto Sicupira&#39;, &#39;Latin America&#39;, 1948),
- (442, &#39;Hisakazu Yamaguchi&#39;, &#39;East Asia&#39;, 1996),
- (443, &#39;Alexei Kuzmichev&#39;, &#39;Europe&#39;, 1963),
- (444, &#39;Dmitry Rybolovlev&#39;, &#39;Europe&#39;, 1967),
- (445, &#39;Elaine Marshall&#39;, &#39;North America&#39;, 1943),
- (447, &#39;Thomas Peterffy&#39;, &#39;North America&#39;, 1945),
- (448, &#39;Kanichiro Ishibashi&#39;, &#39;East Asia&#39;, 1996),
- (449, &#39;Andrew Gotianun&#39;, &#39;East Asia&#39;, 1996),
- (450, &#39;Anacleto Angelini&#39;, &#39;Latin America&#39;, 1914),
- (451, &#39;Dieter Schwarz&#39;, &#39;Europe&#39;, 1996),
- (452, &#39;A Jerrold Perenchio&#39;, &#39;North America&#39;, 1931),
- (453, &#39;Emilio Azcarraga Jean&#39;, &#39;Latin America&#39;, 1968),
- (454, &#39;George Lucas&#39;, &#39;North America&#39;, 1945),
- (457, &#39;Mohammed Jameel&#39;, &#39;Middle East/North Africa&#39;, 2001),
- (458, &#39;Ricardo Salinas Pliego&#39;, &#39;Latin America&#39;, 1956),
- (459, &#39;Riley Bechtel&#39;, &#39;North America&#39;, 1953),
- (460, &#39;Robert Bass&#39;, &#39;North America&#39;, 1948),
- (461, &#39;Saleh Kamel&#39;, &#39;Middle East/North Africa&#39;, 1942),
- (462, &#39;Stephen Bechtel&#39;, &#39;North America&#39;, 1926),
- (463, &#39;Ciputra&#39;, &#39;East Asia&#39;, 1996),
- (464, &#39;Ludwig Merckle&#39;, &#39;Europe&#39;, 1965),
- (466, &#39;Antonia Johnson&#39;, &#39;Europe&#39;, 1944),
- (469, &#39;Hank &amp; Doug Meijer&#39;, &#39;North America&#39;, 2014),
- (470, &#39;Michael Kadoorie&#39;, &#39;East Asia&#39;, 1942),
- (471, &#39;Michele Ferrero&#39;, &#39;Europe&#39;, 1927),
- (473, &#39;Akio Morita&#39;, &#39;East Asia&#39;, 1996),
- (474, &#39;Kim Woo-choong&#39;, &#39;East Asia&#39;, 1996),
- (476, &#39;Elon Musk&#39;, &#39;North America&#39;, 1972),
- (477, &#39;Joseph Lau&#39;, &#39;East Asia&#39;, 1952),
- (482, &#39;Andronico Luksic&#39;, &#39;Latin America&#39;, 1927),
- (483, &#39;Adrian and John Swire&#39;, &#39;East Asia&#39;, 1996),
- (485, &#39;Hiroshi Yamauchi&#39;, &#39;East Asia&#39;, 1928),
- (486, &#39;Joseph and Moise Safra&#39;, &#39;Latin America&#39;, 2001),
- (487, &#39;Leslie Wexner&#39;, &#39;North America&#39;, 1942),
- (488, &#39;Lorenzo Zambrano&#39;, &#39;Latin America&#39;, 1945),
- (489, &#39;Andrei Skoch&#39;, &#39;Europe&#39;, 1966),
- (491, &#39;Xavier Niel&#39;, &#39;Europe&#39;, 1968),
- (492, &#39;Prajogo Pangestu&#39;, &#39;East Asia&#39;, 1996),
- (493, &#39;Akihiko Otsuka&#39;, &#39;East Asia&#39;, 1996),
- (494, &#39;Kazuo Matsuda&#39;, &#39;East Asia&#39;, 1996),
- (495, &#39;Margarita Louis-Dreyfus&#39;, &#39;Europe&#39;, 1964),
- (496, &#39;Lucio Tan&#39;, &#39;East Asia&#39;, 1935),
- (497, &#39;Pierre Castel&#39;, &#39;Europe&#39;, 1927),
- (499, &#39;Aloysio de Andrade Faria&#39;, &#39;Latin America&#39;, 1921),
- (500, &#39;Charles Dolan&#39;, &#39;North America&#39;, 1927),
- (501, &#39;Jack Taylor&#39;, &#39;North America&#39;, 2001),
- (502, &#39;John Sall&#39;, &#39;North America&#39;, 1947),
- (503, &#39;Klaus Jacobs&#39;, &#39;Europe&#39;, 2001),
- (504, &#39;Steven Udvar-Hazy&#39;, &#39;North America&#39;, 1946),
- (506, &#39;Emmanuel Besnier&#39;, &#39;Europe&#39;, 1971),
- (508, &#39;Blair Parry-Okeden&#39;, &#39;North America&#39;, 1951),
- (509, &#39;David Duffield&#39;, &#39;North America&#39;, 1941),
- (510, &#39;Jean-Claude Decaux&#39;, &#39;Europe&#39;, 1938),
- (511, &#39;Jim Kennedy&#39;, &#39;North America&#39;, 1948),
- (512, &#39;Reinhold Wuerth&#39;, &#39;Europe&#39;, 1936),
- (514, &#39;Roberto Marinho&#39;, &#39;Latin America&#39;, 1996),
- (515, &#39;Philippe Bouriez&#39;, &#39;Europe&#39;, 1996),
- (516, &#39;Stefan Schoerghuber&#39;, &#39;Europe&#39;, 1962),
- (517, &#39;Anneliese Brost&#39;, &#39;Europe&#39;, 1921),
- (518, &#39;Jacques Servier&#39;, &#39;Europe&#39;, 1922),
- (519, &#39;Johann Rupert&#39;, &#39;Sub-Saharan Africa&#39;, 1951),
- (520, &#39;R Budi Hartono&#39;, &#39;East Asia&#39;, 1941),
- (521, &#39;Tsai Wan-Tsai&#39;, &#39;East Asia&#39;, 1930),
- (522, &#39;Funke family&#39;, &#39;Europe&#39;, 1996),
- (523, &#39;Bruno Schroder&#39;, &#39;Europe&#39;, 1933),
- (525, &#39;Jeffrey Skoll&#39;, &#39;North America&#39;, 1965),
- (526, &#39;Samuel LeFrak&#39;, &#39;North America&#39;, 2001),
- (528, &#39;Kumar Birla&#39;, &#39;South Asia&#39;, 1968),
- (529, &#39;Masahiro Ohga&#39;, &#39;East Asia&#39;, 1996),
- (531, &#39;Charles Johnson&#39;, &#39;North America&#39;, 1933),
- (533, &#39;John Malone&#39;, &#39;North America&#39;, 1942),
- (534, &#39;John Menard, Jr.&#39;, &#39;North America&#39;, 1940),
- (535, &#39;Klaus Tschira&#39;, &#39;Europe&#39;, 1941),
- (537, &#39;Lee Seng Wee&#39;, &#39;East Asia&#39;, 1925),
- (538, &#39;Jeffrey Koo Sr&#39;, &#39;East Asia&#39;, 1996),
- (539, &#39;Den Fujita&#39;, &#39;East Asia&#39;, 1926),
- (541, &#39;Thomas Schmidheiny&#39;, &#39;Europe&#39;, 1946),
- (542, &#39;Thaksin Shinawatra&#39;, &#39;East Asia&#39;, 1996),
- (544, &#39;Ronald Lauder&#39;, &#39;North America&#39;, 1937),
- (545, &#39;Alan Gerry&#39;, &#39;North America&#39;, 1930),
- (546, &#39;Bernard Ecclestone&#39;, &#39;Europe&#39;, 1931),
- (547, &#39;David Rockefeller&#39;, &#39;North America&#39;, 1916),
- (548, &#39;Eugenio Garza Lagnera&#39;, &#39;Latin America&#39;, 2001),
- (549, &#39;Joan Kroc&#39;, &#39;North America&#39;, 2001),
- (550, &#39;John Malone&#39;, &#39;North America&#39;, 1941),
- (551, &#39;Kerry Packer&#39;, &#39;North America&#39;, 1938),
- (552, &#39;Michael and Rainer Schmidt-Ruthenbeck&#39;, &#39;Europe&#39;, 2001),
- (555, &#39;Robert Rowling&#39;, &#39;North America&#39;, 1954),
- (556, &#39;Takemitsu Takizaki&#39;, &#39;East Asia&#39;, 1946),
- (558, &#39;Vincent Bollore&#39;, &#39;Europe&#39;, 1953),
- (559, &#39;Michel Fribourg&#39;, &#39;North America&#39;, 1996),
- (560, &#39;Jim Pattison&#39;, &#39;North America&#39;, 1929),
- (561, &#39;Michael Hartono&#39;, &#39;East Asia&#39;, 1940),
- (562, &#39;Roberto Rocca&#39;, &#39;Latin America&#39;, 1996),
- (563, &#39;Dirce Navarro Camargo&#39;, &#39;Latin America&#39;, 1996),
- (564, &#39;Augusto &amp; Giorgio Perfetti&#39;, &#39;Europe&#39;, 2014),
- (565, &#39;Heinz Hermann Thiele&#39;, &#39;Europe&#39;, 1942),
- (566, &#39;Johann Graf&#39;, &#39;Europe&#39;, 1947),
- (567, &#39;Peter Woo&#39;, &#39;East Asia&#39;, 1946),
- (568, &#39;Alain Wertheimer&#39;, &#39;Europe&#39;, 1996),
- (569, &#39;Jacques Servier&#39;, &#39;Europe&#39;, 1996),
- (570, &#39;Verspieren family&#39;, &#39;Europe&#39;, 1996),
- (571, &#39;Alfred von Oppenheim&#39;, &#39;Europe&#39;, 1996),
- (572, &#39;He Xiangjian&#39;, &#39;East Asia&#39;, 1943),
- (575, &#39;Eyal Ofer&#39;, &#39;Middle East/North Africa&#39;, 1951),
- (576, &#39;Graeme Hart&#39;, &#39;North America&#39;, 1956),
- (578, &#39;Ralph Lauren&#39;, &#39;North America&#39;, 1940),
- (579, &#39;Djuhar Sutanto&#39;, &#39;East Asia&#39;, 1996),
- (580, &#39;Theodore Arison&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (582, &#39;Henry Nicholas&#39;, &#39;North America&#39;, 1962),
- (583, &#39;Laurence Tisch&#39;, &#39;North America&#39;, 2001),
- (584, &#39;Leonard Stern&#39;, &#39;North America&#39;, 1939),
- (585, &#39;Mikhail Khodorkovsky&#39;, &#39;Europe&#39;, 1964),
- (587, &#39;John Gokongwei&#39;, &#39;East Asia&#39;, 1996),
- (588, &#39;Charles Cadogan&#39;, &#39;Europe&#39;, 1938),
- (591, &#39;Suleiman Kerimov&#39;, &#39;Europe&#39;, 1967),
- (592, &#39;Wei Jianjun&#39;, &#39;East Asia&#39;, 1964),
- (593, &#39;Yang Huiyan&#39;, &#39;East Asia&#39;, 1982),
- (595, &#39;Manuel Villar&#39;, &#39;East Asia&#39;, 1996),
- (597, &#39;Gordon Getty&#39;, &#39;North America&#39;, 1941),
- (598, &#39;Henry Samueli&#39;, &#39;North America&#39;, 1955),
- (599, &#39;Martin Bouygues&#39;, &#39;Europe&#39;, 1952),
- (600, &#39;Ralph Lauren&#39;, &#39;North America&#39;, 1939),
- (601, &#39;Ray Hunt&#39;, &#39;North America&#39;, 1943),
- (602, &#39;Richard Schulze&#39;, &#39;North America&#39;, 1941),
- (603, &#39;Robert Bosch Jr&#39;, &#39;Europe&#39;, 1928),
- (604, &#39;Susan Thompson Buffett&#39;, &#39;North America&#39;, 1933),
- (605, &#39;Terry Gou&#39;, &#39;East Asia&#39;, 2001),
- (606, &#39;William Davidson&#39;, &#39;North America&#39;, 1923),
- (607, &#39;Emilio Botin&#39;, &#39;Europe&#39;, 1935),
- (611, &#39;Chung Mong-Koo&#39;, &#39;East Asia&#39;, 1939),
- (612, &#39;Dustin Moskovitz&#39;, &#39;North America&#39;, 1985),
- (613, &#39;Jan Koum&#39;, &#39;North America&#39;, 1976),
- (617, &#39;Nassef Sawiris&#39;, &#39;Europe&#39;, 1961),
- (619, &#39;Martha Ingram&#39;, &#39;North America&#39;, 1936),
- (623, &#39;James Packer&#39;, &#39;North America&#39;, 1968),
- (624, &#39;Leonid Fedun&#39;, &#39;Europe&#39;, 1957),
- (626, &#39;Oleg Deripaska&#39;, &#39;Europe&#39;, 1968),
- (627, &#39;Laurence Tisch&#39;, &#39;North America&#39;, 1996),
- (628, &#39;Barbara Piasecka Johnson&#39;, &#39;North America&#39;, 1937),
- (629, &#39;Bernard Sherman&#39;, &#39;North America&#39;, 1942),
- (631, &#39;Frank Lowy&#39;, &#39;North America&#39;, 1931),
- (632, &#39;H Wayne Huizenga&#39;, &#39;North America&#39;, 1938),
- (633, &#39;James Kim&#39;, &#39;North America&#39;, 1936),
- (637, &#39;Nancy Walton Laurie&#39;, &#39;North America&#39;, 1952),
- (639, &#39;Tadahiro Yoshida&#39;, &#39;East Asia&#39;, 1947),
- (640, &#39;Thomas Siebel&#39;, &#39;North America&#39;, 1953),
- (642, &#39;Shoji Uehara&#39;, &#39;East Asia&#39;, 1996),
- (643, &#39;Chaijudh Karnasuta&#39;, &#39;East Asia&#39;, 1996),
- (644, &#39;Eva Gonda Rivera&#39;, &#39;Latin America&#39;, 2014),
- (645, &#39;Pansy Ho&#39;, &#39;East Asia&#39;, 1963),
- (646, &#39;Quek Leng Chan&#39;, &#39;East Asia&#39;, 1944),
- (648, &#39;Mary Alice Dorrance Malone&#39;, &#39;North America&#39;, 1950),
- (650, &#39;Dannine Avara&#39;, &#39;North America&#39;, 1964),
- (651, &#39;Herbert Kohler, Jr.&#39;, &#39;North America&#39;, 1939),
- (652, &#39;Ivan Glasenberg&#39;, &#39;North America&#39;, 1957),
- (653, &#39;Milane Frantz&#39;, &#39;North America&#39;, 1970),
- (654, &#39;Paolo &amp; Gianfelice Mario Rocca&#39;, &#39;Europe&#39;, 2014),
- (655, &#39;Patrick Drahi&#39;, &#39;Europe&#39;, 1964),
- (656, &#39;Randa Williams&#39;, &#39;North America&#39;, 1962),
- (657, &#39;Scott Duncan&#39;, &#39;North America&#39;, 1983),
- (662, &#39;Hugo Mann&#39;, &#39;Europe&#39;, 1914),
- (663, &#39;Lee Hon Chiu&#39;, &#39;East Asia&#39;, 1996),
- (664, &#39;Lorenzo Rossi di Montelera&#39;, &#39;Europe&#39;, 1996),
- (665, &#39;Abdullah Al Rajhi&#39;, &#39;Middle East/North Africa&#39;, 2001),
- (666, &#39;Achille Maramotti&#39;, &#39;Europe&#39;, 1927),
- (667, &#39;Adolf Merckle&#39;, &#39;Europe&#39;, 1935),
- (668, &#39;Adrian Swire&#39;, &#39;Europe&#39;, 1931),
- (670, &#39;Edmund Wattis Littlefield&#39;, &#39;North America&#39;, 2001),
- (671, &#39;Ernest Stempel&#39;, &#39;0&#39;, 1917),
- (672, &#39;John Dorrance&#39;, &#39;Europe&#39;, 1944),
- (673, &#39;Louis Gonda&#39;, &#39;North America&#39;, 1949),
- (674, &#39;Sammy Ofer&#39;, &#39;Middle East/North Africa&#39;, 2001),
- (675, &#39;Sergio Mantegazza&#39;, &#39;Europe&#39;, 1928),
- (676, &#39;Steven Spielberg&#39;, &#39;North America&#39;, 1947),
- (677, &#39;Edmond Safra&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (678, &#39;Teh Hong Piow&#39;, &#39;East Asia&#39;, 1940),
- (679, &#39;Rupert Johnson, Jr.&#39;, &#39;North America&#39;, 1942),
- (680, &#39;S. Truett Cathy&#39;, &#39;North America&#39;, 1922),
- (682, &#39;Alberto Bailleres Gonzalez&#39;, &#39;Latin America&#39;, 1933),
- (683, &#39;Huang Shi-hui&#39;, &#39;East Asia&#39;, 1996),
- (684, &#39;Moores family&#39;, &#39;Europe&#39;, 1996),
- (686, &#39;Iskander Makhmudov&#39;, &#39;Europe&#39;, 1964),
- (688, &#39;Pyotr Aven&#39;, &#39;Europe&#39;, 1956),
- (689, &#39;Richard LeFrak&#39;, &#39;North America&#39;, 1946),
- (690, &#39;Sandra Ortega Mera&#39;, &#39;Europe&#39;, 1969),
- (691, &#39;Thomas Frist, Jr.&#39;, &#39;North America&#39;, 1939),
- (692, &#39;Bennett Dorrance&#39;, &#39;North America&#39;, 1933),
- (693, &#39;Stanley Hubbard&#39;, &#39;North America&#39;, 1934),
- (694, &#39;Eliodoro Matte&#39;, &#39;Latin America&#39;, 1946),
- (695, &#39;Goulandris family&#39;, &#39;Europe&#39;, 1996),
- (697, &#39;Masakuni Osano&#39;, &#39;East Asia&#39;, 1996),
- (699, &#39;Antonio Champalimaud&#39;, &#39;Europe&#39;, 1919),
- (700, &#39;Ayhan Sahenk&#39;, &#39;Middle East/North Africa&#39;, 2001),
- (701, &#39;Edward Gaylord&#39;, &#39;North America&#39;, 2001),
- (702, &#39;Fayez Sarofim&#39;, &#39;North America&#39;, 1929),
- (703, &#39;Gary Winnick&#39;, &#39;North America&#39;, 2001),
- (704, &#39;Georg Thyssen-Bornemisza&#39;, &#39;Europe&#39;, 2001),
- (705, &#39;Hubert Burda&#39;, &#39;Europe&#39;, 1940),
- (707, &#39;Jeffrey Bezos&#39;, &#39;North America&#39;, 1964),
- (708, &#39;John Menard&#39;, &#39;North America&#39;, 1940),
- (709, &#39;John Morgridge&#39;, &#39;North America&#39;, 1934),
- (710, &#39;Patrick McGovern&#39;, &#39;North America&#39;, 1938),
- (711, &#39;Peter Kellogg&#39;, &#39;North America&#39;, 1943),
- (712, &#39;Richard Egan&#39;, &#39;North America&#39;, 1936),
- (713, &#39;Richard Li&#39;, &#39;East Asia&#39;, 1967),
- (714, &#39;Robert Naify&#39;, &#39;North America&#39;, 1922),
- (715, &#39;Theodore Waitt&#39;, &#39;North America&#39;, 1963),
- (716, &#39;Chan Laiwa&#39;, &#39;East Asia&#39;, 1941),
- (717, &#34;Denis O&#39;Brien&#34;, &#39;Europe&#39;, 1959),
- (718, &#39;Filaret Galchev&#39;, &#39;Europe&#39;, 1964),
- (719, &#39;Ira Rennert&#39;, &#39;North America&#39;, 1935),
- (720, &#39;James Irving&#39;, &#39;North America&#39;, 1929),
- (721, &#39;Patrizio Bertelli&#39;, &#39;Europe&#39;, 1946),
- (722, &#39;Piya Bhirombhakdi&#39;, &#39;East Asia&#39;, 1996),
- (723, &#39;Boonchai Bencharongkul&#39;, &#39;East Asia&#39;, 1996),
- (724, &#39;Gordon Getty&#39;, &#39;North America&#39;, 1951),
- (726, &#39;Harry Brakemann Helmsley&#39;, &#39;North America&#39;, 1996),
- (727, &#39;Joan Kroc&#39;, &#39;North America&#39;, 1996),
- (729, &#39;Dennis Washington&#39;, &#39;North America&#39;, 1935),
- (730, &#39;Gayle Cook&#39;, &#39;North America&#39;, 1934),
- (731, &#39;Leon Black&#39;, &#39;North America&#39;, 1952),
- (733, &#39;Luis Carlos Sarmiento Angulo&#39;, &#39;Latin America&#39;, 1933),
- (734, &#39;Paul-Louis Halley&#39;, &#39;Europe&#39;, 1996),
- (735, &#39;Rochling family&#39;, &#39;Europe&#39;, 1996),
- (736, &#39;Hui Ka Yan&#39;, &#39;East Asia&#39;, 1959),
- (737, &#39;Hui Wing Mau&#39;, &#39;East Asia&#39;, 1951),
- (738, &#39;Idan Ofer&#39;, &#39;Middle East/North Africa&#39;, 1956),
- (739, &#39;Isak Andic&#39;, &#39;Europe&#39;, 1954),
- (740, &#39;Jorn Rausing&#39;, &#39;Europe&#39;, 1960),
- (741, &#39;Leslie Wexner&#39;, &#39;North America&#39;, 1938),
- (743, &#39;Sunil Mittal&#39;, &#39;South Asia&#39;, 1958),
- (745, &#39;Lo Ying Shek&#39;, &#39;East Asia&#39;, 1996),
- (747, &#39;Kenkichi Nakajima&#39;, &#39;East Asia&#39;, 1996),
- (748, &#39;Kunio Busujima&#39;, &#39;East Asia&#39;, 2038),
- (749, &#39;Anton Rupert&#39;, &#39;Sub-Saharan Africa&#39;, 1996),
- (751, &#39;Abdul Aziz Al Ghurair&#39;, &#39;Middle East/North Africa&#39;, 1954),
- (752, &#39;Akihiko Otsuka&#39;, &#39;East Asia&#39;, 2001),
- (754, &#39;Arthur Blank&#39;, &#39;North America&#39;, 1943),
- (755, &#39;Glen Taylor&#39;, &#39;North America&#39;, 1942),
- (757, &#39;John Hargreaves&#39;, &#39;Europe&#39;, 1944),
- (758, &#39;John Jahr&#39;, &#39;Europe&#39;, 2001),
- (759, &#39;Khalid Bin Mahfouz&#39;, &#39;Middle East/North Africa&#39;, 1947),
- (761, &#39;Leona Helmsley&#39;, &#39;North America&#39;, 1920),
- (762, &#39;Lowry Mays&#39;, &#39;North America&#39;, 2001),
- (763, &#39;Masao Morita&#39;, &#39;East Asia&#39;, 2001),
- (764, &#39;Michael Krasny&#39;, &#39;North America&#39;, 1954),
- (765, &#39;Paolo Bulgari&#39;, &#39;Europe&#39;, 2001),
- (766, &#39;Richard Rainwater&#39;, &#39;North America&#39;, 1945),
- (767, &#39;Robert Fisher&#39;, &#39;North America&#39;, 1954),
- (768, &#39;Sam Zell&#39;, &#39;North America&#39;, 1942),
- (769, &#39;Stefan Schoerghuber&#39;, &#39;Europe&#39;, 2001),
- (770, &#39;Terence Matthews&#39;, &#39;North America&#39;, 2001),
- (771, &#39;Yasuyuki Nambu&#39;, &#39;East Asia&#39;, 2001),
- (773, &#39;Peter Nicholas&#39;, &#39;North America&#39;, 1941),
- (774, &#39;Ray Lee Hunt&#39;, &#39;North America&#39;, 1943),
- (775, &#39;Stanley Kroenke&#39;, &#39;North America&#39;, 1948),
- (776, &#39;Teh Hong Piow&#39;, &#39;East Asia&#39;, 1931),
- (778, &#39;Peugeot family&#39;, &#39;Europe&#39;, 1996),
- (779, &#39;Karl Diehl&#39;, &#39;Europe&#39;, 1996),
- (780, &#39;Arthur Irving&#39;, &#39;North America&#39;, 1930),
- (782, &#39;Carlos and Alejandro Bulgheroni&#39;, &#39;Latin America&#39;, 2014),
- (783, &#39;Jeffery Hildebrand&#39;, &#39;North America&#39;, 1960),
- (784, &#39;Liu Yongxing&#39;, &#39;East Asia&#39;, 1949),
- (785, &#39;Michael Ashley&#39;, &#39;Europe&#39;, 1965),
- (787, &#39;Simon family&#39;, &#39;Europe&#39;, 1996),
- (788, &#39;Albert von Thurn und Taxis&#39;, &#39;Europe&#39;, 1984),
- (789, &#39;John Jahr&#39;, &#39;Europe&#39;, 1996),
- (790, &#39;Freudenberg family&#39;, &#39;Europe&#39;, 1996),
- (792, &#39;Kenshin Oshima&#39;, &#39;East Asia&#39;, 1948),
- (793, &#39;Martin Hilti&#39;, &#39;Europe&#39;, 1996),
- (794, &#39;Melker Schorling&#39;, &#39;Europe&#39;, 1948),
- (795, &#39;Sergei Popov&#39;, &#39;Europe&#39;, 1972),
- (796, &#39;Stephen Ross&#39;, &#39;North America&#39;, 1941),
- (797, &#39;Terry Gou&#39;, &#39;East Asia&#39;, 1951),
- (798, &#39;Yeoh Tiong Lay&#39;, &#39;East Asia&#39;, 1996),
- (800, &#39;Bernardo Garza Sada&#39;, &#39;Latin America&#39;, 1996),
- (801, &#39;Juffali family&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (802, &#39;Americo Amorim&#39;, &#39;Europe&#39;, 1935),
- (803, &#39;Anders Holch Povlsen&#39;, &#39;Europe&#39;, 1973),
- (804, &#39;Stef Wertheimer&#39;, &#39;Middle East/North Africa&#39;, 1927),
- (805, &#39;Willi and Isolde Liebherr&#39;, &#39;Europe&#39;, 1996),
- (806, &#39;Martin Ebner&#39;, &#39;Europe&#39;, 1996),
- (808, &#39;Andrew Forrest&#39;, &#39;North America&#39;, 1962),
- (809, &#39;Bidzina Ivanishvili&#39;, &#39;Europe&#39;, 1956),
- (811, &#39;Ken Griffin&#39;, &#39;North America&#39;, 1969),
- (812, &#39;Kwee brothers&#39;, &#39;East Asia&#39;, 1945),
- (813, &#39;Maria Asuncion Aramburuzabala&#39;, &#39;Latin America&#39;, 1964),
- (814, &#39;Wee Cho Yaw&#39;, &#39;East Asia&#39;, 1929),
- (815, &#39;Shi Wen-long&#39;, &#39;East Asia&#39;, 1996),
- (816, &#39;Prachai Leophairatana&#39;, &#39;East Asia&#39;, 1996),
- (817, &#39;Blase Golisano&#39;, &#39;North America&#39;, 1942),
- (818, &#39;Carl Pohlad&#39;, &#39;North America&#39;, 1916),
- (819, &#39;Charles Butt&#39;, &#39;North America&#39;, 1939),
- (820, &#39;Daniel Abraham&#39;, &#39;North America&#39;, 2001),
- (821, &#39;Donald Hall&#39;, &#39;North America&#39;, 1929),
- (822, &#39;Herbert Allen&#39;, &#39;North America&#39;, 1940),
- (823, &#39;Irwin Jacobs&#39;, &#39;North America&#39;, 1934),
- (824, &#39;Jeronimo Arango&#39;, &#39;Latin America&#39;, 1926),
- (825, &#39;John Fisher&#39;, &#39;North America&#39;, 1962),
- (826, &#39;Juan and Carlos March&#39;, &#39;Europe&#39;, 2001),
- (828, &#39;Kenichi Mabuchi&#39;, &#39;East Asia&#39;, 1953),
- (829, &#39;Lakshmi Mittal&#39;, &#39;Europe&#39;, 1951),
- (830, &#39;Leslie Gonda&#39;, &#39;North America&#39;, 1920),
- (833, &#39;Richard Branson&#39;, &#39;Europe&#39;, 1951),
- (834, &#39;Richard Farmer&#39;, &#39;North America&#39;, 1935),
- (835, &#39;Ronald Burkle&#39;, &#39;North America&#39;, 1953),
- (837, &#39;John Abele&#39;, &#39;North America&#39;, 1917),
- (838, &#39;James Cargill&#39;, &#39;North America&#39;, 1925),
- (839, &#39;Margaret Cargill&#39;, &#39;North America&#39;, 1920),
- (840, &#39;Michel David-Weill&#39;, &#39;Europe&#39;, 1996),
- (843, &#39;Finn Rausing&#39;, &#39;Europe&#39;, 1955),
- (844, &#39;Jacqueline Desmarais&#39;, &#39;North America&#39;, 1929),
- (845, &#39;Kirsten Rausing&#39;, &#39;Europe&#39;, 1953),
- (848, &#39;Tajudin Ramli&#39;, &#39;East Asia&#39;, 1996),
- (849, &#39;Anil Ambani&#39;, &#39;South Asia&#39;, 1960),
- (850, &#39;Antonio Del Valle Ruiz&#39;, &#39;Latin America&#39;, 1939),
- (851, &#39;Bruce Halle&#39;, &#39;North America&#39;, 1931),
- (852, &#39;David Green&#39;, &#39;North America&#39;, 1942),
- (853, &#39;Frederik Paulsen&#39;, &#39;Europe&#39;, 1951),
- (854, &#39;George Roberts&#39;, &#39;North America&#39;, 1944),
- (856, &#39;Harry Triguboff&#39;, &#39;North America&#39;, 1933),
- (857, &#39;Henry Kravis&#39;, &#39;North America&#39;, 1944),
- (858, &#39;Joe Lewis&#39;, &#39;Europe&#39;, 1937),
- (859, &#39;Micky Jagtiani&#39;, &#39;South Asia&#39;, 1952),
- (861, &#39;Stein Erik Hagen&#39;, &#39;Europe&#39;, 1957),
- (862, &#39;Walter Kwok&#39;, &#39;East Asia&#39;, 1951),
- (863, &#39;Alfonso Romo Garza&#39;, &#39;Latin America&#39;, 1996),
- (864, &#39;Jorge Larrea&#39;, &#39;Latin America&#39;, 1996),
- (867, &#39;Klaus Jacobs&#39;, &#39;Europe&#39;, 1996),
- (868, &#39;Krit Ratanarak&#39;, &#39;East Asia&#39;, 1947),
- (869, &#39;Ayhan Sahenk&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (873, &#39;Kenneth Troutt&#39;, &#39;North America&#39;, 1948),
- (874, &#39;Andre Kudelski&#39;, &#39;Europe&#39;, 2001),
- (875, &#39;Clayton Mathile&#39;, &#39;North America&#39;, 1941),
- (876, &#39;Clemmie Spangler Jr&#39;, &#39;North America&#39;, 1933),
- (877, &#39;Donald Trump&#39;, &#39;North America&#39;, 1946),
- (878, &#39;Eugene Melnyk&#39;, &#39;North America&#39;, 2001),
- (881, &#39;James Jannard&#39;, &#39;North America&#39;, 1950),
- (882, &#39;Jess Jackson&#39;, &#39;North America&#39;, 1930),
- (883, &#39;John Arrillaga&#39;, &#39;North America&#39;, 1938),
- (884, &#39;Kenneth Morrison&#39;, &#39;Europe&#39;, 1932),
- (886, &#39;Lawrence Flinn Jr&#39;, &#39;North America&#39;, 2001),
- (888, &#39;Rachman Halim&#39;, &#39;East Asia&#39;, 1948),
- (889, &#39;Richard Peery&#39;, &#39;North America&#39;, 1941),
- (890, &#39;Robert Rich Sr&#39;, &#39;North America&#39;, 1914),
- (891, &#39;Roger Sant&#39;, &#39;North America&#39;, 2001),
- (892, &#39;Rupert Johnson&#39;, &#39;North America&#39;, 1941),
- (893, &#39;Scott McNealy&#39;, &#39;North America&#39;, 2001),
- (895, &#39;Alfred Lerner&#39;, &#39;North America&#39;, 1996),
- (897, &#39;Albert Frere&#39;, &#39;Europe&#39;, 1926),
- (898, &#39;Cyrus Poonawalla&#39;, &#39;South Asia&#39;, 1942),
- (900, &#39;Frits Goldschmeding&#39;, &#39;Europe&#39;, 1934),
- (902, &#39;Heinz-Horst Deichmann&#39;, &#39;Europe&#39;, 1927),
- (903, &#39;Kunio Busujima&#39;, &#39;East Asia&#39;, 1926),
- (905, &#39;Savitri Jindal&#39;, &#39;South Asia&#39;, 1951),
- (906, &#39;Shashi and Ravi Ruia&#39;, &#39;South Asia&#39;, 2014),
- (907, &#39;Jose Said Saffie&#39;, &#39;Latin America&#39;, 1996),
- (908, &#39;Jaime Said Demarfa&#39;, &#39;Latin America&#39;, 1996),
- (909, &#39;Carlos Ardila Lulle&#39;, &#39;Latin America&#39;, 1996),
- (910, &#39;Julio Mario Santo Domingo&#39;, &#39;Latin America&#39;, 1924),
- (911, &#39;Hans-Werner Hector&#39;, &#39;Europe&#39;, 1940),
- (913, &#39;Baldwin and Nikolaus Knauf&#39;, &#39;Europe&#39;, 1996),
- (915, &#39;Chen Din Hwa&#39;, &#39;East Asia&#39;, 1923),
- (916, &#39;Sjamsul Nursalim&#39;, &#39;East Asia&#39;, 1996),
- (917, &#39;Abdulla bin Ahmad Al Ghurair&#39;, &#39;Middle East/North Africa&#39;, 2014),
- (918, &#39;Ann Walton Kroenke&#39;, &#39;North America&#39;, 1949),
- (919, &#39;Bruce Kovner&#39;, &#39;North America&#39;, 1945),
- (920, &#39;Daniel Ziff&#39;, &#39;North America&#39;, 1972),
- (921, &#39;Dirk Ziff&#39;, &#39;North America&#39;, 1965),
- (922, &#39;Gwendolyn Sontheim Meyer&#39;, &#39;North America&#39;, 1962),
- (923, &#39;Juan Roig&#39;, &#39;Europe&#39;, 1950),
- (924, &#39;Karl Wlaschek&#39;, &#39;Europe&#39;, 1918),
- (925, &#39;Laurence Graff&#39;, &#39;Europe&#39;, 1939),
- (926, &#39;Liselott Persson&#39;, &#39;Europe&#39;, 1950),
- (927, &#39;Pauline MacMillan Keinath&#39;, &#39;North America&#39;, 1934),
- (928, &#39;Robert Ziff&#39;, &#39;North America&#39;, 1967),
- (929, &#39;Whitney MacMillan&#39;, &#39;North America&#39;, 1929),
- (930, &#39;Zhang Zhidong&#39;, &#39;East Asia&#39;, 1972),
- (931, &#39;Mochtar Riady&#39;, &#39;East Asia&#39;, 1996),
- (934, &#39;Hiroshi Takei&#39;, &#39;East Asia&#39;, 1996),
- (935, &#39;Masafumi Miyamoto&#39;, &#39;East Asia&#39;, 1996),
- (936, &#39;Soichiro Fukutake&#39;, &#39;East Asia&#39;, 1946),
- (938, &#39;Abilio dos Santos Diniz&#39;, &#39;Latin America&#39;, 1937),
- (939, &#39;Andrew McKelvey&#39;, &#39;North America&#39;, 2001),
- (941, &#39;Dennis Bakke&#39;, &#39;North America&#39;, 2001),
- (943, &#39;Didier Primat&#39;, &#39;Europe&#39;, 1945),
- (944, &#39;Gary Magness&#39;, &#39;North America&#39;, 1954),
- (945, &#39;George Mitchell&#39;, &#39;North America&#39;, 1920),
- (946, &#39;Gil Shwed&#39;, &#39;Middle East/North Africa&#39;, 1968),
- (947, &#39;Jackson Stephens&#39;, &#39;North America&#39;, 1924),
- (949, &#39;Kemal Uzan&#39;, &#39;Middle East/North Africa&#39;, 1935),
- (952, &#39;Michael Birck&#39;, &#39;North America&#39;, 2001),
- (953, &#39;Perry Bass&#39;, &#39;North America&#39;, 1915),
- (955, &#39;Robert Johnson&#39;, &#39;North America&#39;, 1947),
- (956, &#39;Roberto Rocca&#39;, &#39;Latin America&#39;, 2001),
- (957, &#39;Sanford Weill&#39;, &#39;North America&#39;, 1933),
- (959, &#39;Tetsuro Funai&#39;, &#39;East Asia&#39;, 1927),
- (960, &#39;Vladimir Bogdanov&#39;, &#39;Europe&#39;, 1952),
- (961, &#39;William Morean&#39;, &#39;North America&#39;, 1956),
- (964, &#39;Samuel LeFrak&#39;, &#39;North America&#39;, 1996),
- (965, &#39;Leslie Wexner&#39;, &#39;North America&#39;, 1952),
- (967, &#39;Dorrance Hill Hamilton&#39;, &#39;North America&#39;, 1996),
- (969, &#39;Andrew Tan&#39;, &#39;East Asia&#39;, 1953),
- (970, &#39;Arnon Milchan&#39;, &#39;Middle East/North Africa&#39;, 1945),
- (972, &#39;Horst Paulmann&#39;, &#39;Latin America&#39;, 1935),
- (976, &#39;Roberto and Gabriel Andrade&#39;, &#39;Latin America&#39;, 1996),
- (978, &#39;Luiz Alberto Garcia&#39;, &#39;Latin America&#39;, 1996),
- (979, &#39;Michael DeGroote&#39;, &#39;North America&#39;, 1996),
- (980, &#39;Alvaro Noboa&#39;, &#39;Latin America&#39;, 1996),
- (981, &#39;Diane Hendricks&#39;, &#39;North America&#39;, 1947),
- (982, &#39;Mike Adenuga&#39;, &#39;Sub-Saharan Africa&#39;, 1954),
- (983, &#39;Pierre Bellon&#39;, &#39;Europe&#39;, 1930),
- (984, &#39;Leibbrand family&#39;, &#39;Europe&#39;, 1996),
- (985, &#39;Reimann family&#39;, &#39;Europe&#39;, 1996),
- (986, &#39;Conle famle&#39;, &#39;Europe&#39;, 1996),
- (987, &#39;David Sun&#39;, &#39;North America&#39;, 1952),
- (988, &#39;Dieter Schnabel&#39;, &#39;Europe&#39;, 1946),
- (989, &#39;James Dyson&#39;, &#39;Europe&#39;, 1948),
- (990, &#39;Jay Y. Lee&#39;, &#39;East Asia&#39;, 1969),
- (991, &#39;John A. Sobrato&#39;, &#39;North America&#39;, 1940),
- (992, &#39;John Tu&#39;, &#39;North America&#39;, 1941),
- (994, &#39;Lynn Schusterman&#39;, &#39;North America&#39;, 1939),
- (995, &#39;Majid Al Futtaim&#39;, &#39;Middle East/North Africa&#39;, 2014),
- (996, &#39;Michael Herz&#39;, &#39;Europe&#39;, 1944),
- (997, &#39;Trevor Rees-Jones&#39;, &#39;North America&#39;, 1952),
- (998, &#39;Wolfgang Herz&#39;, &#39;Europe&#39;, 1951),
- (999, &#39;Masakazu Shiiki&#39;, &#39;East Asia&#39;, 1996),
- (1002, &#39;Frances Koshland Geballe&#39;, &#39;North America&#39;, 1996),
- (1003, &#39;Josephine Haas&#39;, &#39;North America&#39;, 1996),
- (1004, &#39;Richard Goldman&#39;, &#39;North America&#39;, 1996),
- (1007, &#39;Abdul Al Rahman  Al Jeraisy&#39;, &#39;Middle East/North Africa&#39;, 2001),
- (1008, &#39;Bennett Dorrance&#39;, &#39;North America&#39;, 1943),
- (1009, &#39;Billy Joe McCombs&#39;, &#39;North America&#39;, 1928),
- (1010, &#39;Carl Berg&#39;, &#39;North America&#39;, 1938),
- (1011, &#39;Carlos Peralta&#39;, &#39;Latin America&#39;, 1952),
- (1012, &#39;Christoph Blocher&#39;, &#39;Europe&#39;, 2001),
- (1013, &#39;Enric Bernat&#39;, &#39;Europe&#39;, 2001),
- (1014, &#39;Frank Batten&#39;, &#39;North America&#39;, 1927),
- (1015, &#39;George Roberts&#39;, &#39;North America&#39;, 1945),
- (1016, &#39;Harold Simmons&#39;, &#39;North America&#39;, 1932),
- (1018, &#39;Henry Yuen&#39;, &#39;North America&#39;, 2001),
- (1019, &#39;John Sobrato&#39;, &#39;North America&#39;, 1940),
- (1021, &#39;Kim Magness&#39;, &#39;North America&#39;, 2001),
- (1022, &#39;Laurance Rockefeller&#39;, &#39;North America&#39;, 1911),
- (1024, &#39;Marius Nacht&#39;, &#39;Middle East/North Africa&#39;, 1966),
- (1025, &#39;Mitchell Rales&#39;, &#39;North America&#39;, 1957),
- (1026, &#39;Rem Viakhirev&#39;, &#39;Europe&#39;, 2001),
- (1027, &#39;Richard Goldman&#39;, &#39;North America&#39;, 2001),
- (1028, &#39;Richard Kinder&#39;, &#39;North America&#39;, 1947),
- (1029, &#39;Richard Marriott&#39;, &#39;North America&#39;, 1939),
- (1030, &#39;Roberto Marinho&#39;, &#39;Latin America&#39;, 2001),
- (1031, &#39;Stelios Haji-Ioannou&#39;, &#39;Europe&#39;, 2001),
- (1032, &#39;Steven Rales&#39;, &#39;North America&#39;, 1953),
- (1035, &#39;Kathryn McCurry Albertson&#39;, &#39;North America&#39;, 1996),
- (1036, &#39;Robert Galvin&#39;, &#39;North America&#39;, 1923),
- (1038, &#39;Barbara Carlson Gage&#39;, &#39;North America&#39;, 1943),
- (1039, &#39;Guenter Herz &amp; Family&#39;, &#39;Europe&#39;, 1941),
- (1040, &#39;Kelcy Warren&#39;, &#39;North America&#39;, 1956),
- (1041, &#39;Luo Jye&#39;, &#39;East Asia&#39;, 1926),
- (1042, &#39;Marilyn Carlson Nelson&#39;, &#39;North America&#39;, 1940),
- (1046, &#39;Paul Mellon&#39;, &#39;North America&#39;, 1996),
- (1048, &#39;Dan Olsson&#39;, &#39;Europe&#39;, 1947),
- (1049, &#39;Emanuele (Lino) Saputo&#39;, &#39;North America&#39;, 1937),
- (1050, &#39;Guo Guangchang&#39;, &#39;East Asia&#39;, 1967),
- (1051, &#39;Lee Shin Cheng&#39;, &#39;East Asia&#39;, 1940),
- (1052, &#39;Liang Wengen&#39;, &#39;East Asia&#39;, 1957),
- (1053, &#39;Paul Tudor Jones, II.&#39;, &#39;North America&#39;, 1955),
- (1055, &#39;Samvel Karapetyan&#39;, &#39;Europe&#39;, 1966),
- (1056, &#39;Wang Chuanfu&#39;, &#39;East Asia&#39;, 1966),
- (1058, &#39;Peter Haas Jr&#39;, &#39;North America&#39;, 1996),
- (1059, &#39;Bemberg family&#39;, &#39;Latin America&#39;, 1996),
- (1060, &#39;Leon Feffer&#39;, &#39;Latin America&#39;, 1996),
- (1062, &#39;Run Run Shaw&#39;, &#39;East Asia&#39;, 1996),
- (1063, &#39;George Wong&#39;, &#39;East Asia&#39;, 1996),
- (1064, &#39;Dhirubhai Ambani&#39;, &#39;South Asia&#39;, 1996),
- (1065, &#39;Kenichi Mabuchi&#39;, &#39;East Asia&#39;, 2003),
- (1066, &#39;Akira Mori&#39;, &#39;East Asia&#39;, 1937),
- (1068, &#39;Elizabeth Mohn&#39;, &#39;Europe&#39;, 1941),
- (1069, &#39;Enrique Razon&#39;, &#39;East Asia&#39;, 1960),
- (1070, &#39;Friede Springer&#39;, &#39;Europe&#39;, 1943),
- (1073, &#39;Lin Rong San&#39;, &#39;East Asia&#39;, 1940),
- (1074, &#39;Malcolm Glazer&#39;, &#39;North America&#39;, 1929),
- (1075, &#39;Ralph Dommermuth&#39;, &#39;Europe&#39;, 1964),
- (1076, &#39;Ted Lerner&#39;, &#39;North America&#39;, 1926),
- (1077, &#39;Wang Wenyin&#39;, &#39;East Asia&#39;, 1968),
- (1078, &#39;William Ding&#39;, &#39;East Asia&#39;, 1972),
- (1079, &#39;Kazuo Inamori&#39;, &#39;East Asia&#39;, 1996),
- (1080, &#39;Isono family&#39;, &#39;East Asia&#39;, 1996),
- (1081, &#39;Renichi Takenaka&#39;, &#39;East Asia&#39;, 1996),
- (1082, &#39;Ryusuke Kimura&#39;, &#39;East Asia&#39;, 1996),
- (1083, &#39;Kim Suk-won&#39;, &#39;East Asia&#39;, 1996),
- (1084, &#39;Yahaya Ahmad&#39;, &#39;East Asia&#39;, 1996),
- (1085, &#39;Eugenio Garza Lagnera&#39;, &#39;Latin America&#39;, 1996),
- (1086, &#39;Roberto Gonzalez Barrera&#39;, &#39;Latin America&#39;, 1947),
- (1087, &#39;Isaac Saba Raffoul&#39;, &#39;Latin America&#39;, 1924),
- (1088, &#39;Barbara Carlson Gage&#39;, &#39;North America&#39;, 1942),
- (1090, &#39;Franklin Booth&#39;, &#39;North America&#39;, 1923),
- (1091, &#39;George Lindemann&#39;, &#39;North America&#39;, 1937),
- (1092, &#39;Gloria von Thurn und Taxis&#39;, &#39;Europe&#39;, 2001),
- (1095, &#39;Koo Chen-fu&#39;, &#39;East Asia&#39;, 2001),
- (1096, &#39;Marilyn Carlson Nelson&#39;, &#39;North America&#39;, 1939),
- (1097, &#39;Mark Cuban&#39;, &#39;North America&#39;, 1961),
- (1098, &#39;Michael Hilti&#39;, &#39;Europe&#39;, 1947),
- (1101, &#39;Rafael del Pino&#39;, &#39;Europe&#39;, 1921),
- (1102, &#39;Robert McNair&#39;, &#39;North America&#39;, 1941),
- (1105, &#39;Stanley Druckenmiller&#39;, &#39;North America&#39;, 1954),
- (1107, &#39;Stephen Case&#39;, &#39;North America&#39;, 1952),
- (1108, &#39;Thomas Frist&#39;, &#39;North America&#39;, 1939),
- (1109, &#39;Willi and Isolde Liebherr&#39;, &#39;Europe&#39;, 2001),
- (1110, &#39;William Ford&#39;, &#39;North America&#39;, 2001),
- (1111, &#39;William Kellogg&#39;, &#39;North America&#39;, 1944),
- (1112, &#39;Juan and Carlos March&#39;, &#39;Europe&#39;, 1996),
- (1113, &#39;Baron Hans Heinrich Thyssen-Bornemisza&#39;, &#39;Europe&#39;, 1996),
- (1114, &#39;Chang Yung Fa&#39;, &#39;East Asia&#39;, 1927),
- (1115, &#39;Robert Haas&#39;, &#39;North America&#39;, 1996),
- (1116, &#39;Anthony Bamford&#39;, &#39;Europe&#39;, 1946),
- (1117, &#39;Barry Lam&#39;, &#39;East Asia&#39;, 1950),
- (1118, &#39;Beny Steinmetz&#39;, &#39;Middle East/North Africa&#39;, 1957),
- (1119, &#39;Eduardo Saverin&#39;, &#39;Latin America&#39;, 1983),
- (1120, &#39;Francisco Ivens de Sa Dias Branco&#39;, &#39;Latin America&#39;, 1937),
- (1123, &#39;Shahid Khan&#39;, &#39;North America&#39;, 1951),
- (1124, &#39;Hope Hill Van Beuren&#39;, &#39;North America&#39;, 1961),
- (1125, &#39;Charlotte Colket Weber&#39;, &#39;North America&#39;, 1961),
- (1126, &#39;Evelyn Danzig Haas&#39;, &#39;North America&#39;, 1996),
- (1127, &#39;Ted Schwartz&#39;, &#39;North America&#39;, 1996),
- (1128, &#39;William Ford&#39;, &#39;North America&#39;, 1996),
- (1131, &#39;Reese Rowling&#39;, &#39;North America&#39;, 1996),
- (1132, &#39;Arkady Rotenberg&#39;, &#39;Europe&#39;, 1952),
- (1133, &#39;Bertil Hult&#39;, &#39;Europe&#39;, 1941),
- (1134, &#39;Chairul Tanjung&#39;, &#39;East Asia&#39;, 1963),
- (1136, &#39;David &amp; Frederick Barclay&#39;, &#39;Europe&#39;, 1934),
- (1137, &#39;Erich Kellerhals&#39;, &#39;Europe&#39;, 1939),
- (1138, &#39;Gustaf Douglas&#39;, &#39;Europe&#39;, 1938),
- (1140, &#39;John Morris&#39;, &#39;North America&#39;, 1949),
- (1141, &#39;Lars Larsen&#39;, &#39;Europe&#39;, 1949),
- (1142, &#39;Lei Jun&#39;, &#39;East Asia&#39;, 1970),
- (1143, &#39;Randal Kirk&#39;, &#39;North America&#39;, 1954),
- (1144, &#39;Wang Wei&#39;, &#39;East Asia&#39;, 2014),
- (1145, &#39;Curtis LeRoy Carlson&#39;, &#39;North America&#39;, 1996),
- (1148, &#39;Carl Lindner Jr&#39;, &#39;North America&#39;, 1920),
- (1150, &#39;Charles Gates Jr&#39;, &#39;North America&#39;, 1922),
- (1152, &#39;Ahmed Ali Kanoo&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (1153, &#39;Larragoiti family&#39;, &#39;Latin America&#39;, 1996),
- (1154, &#39;Norberto Odebrecht&#39;, &#39;Latin America&#39;, 1996),
- (1156, &#39;Nathaniel Rothschild&#39;, &#39;Europe&#39;, 1996),
- (1157, &#39;Alfredo Harp Helu&#39;, &#39;Latin America&#39;, 1944),
- (1160, &#39;Arthur Williams Jr&#39;, &#39;North America&#39;, 1943),
- (1161, &#39;Arturo Moreno&#39;, &#39;North America&#39;, 1947),
- (1162, &#39;Bradley Hughes&#39;, &#39;North America&#39;, 1934),
- (1163, &#39;Calisto Tanzi&#39;, &#39;Europe&#39;, 2001),
- (1164, &#39;Carlo De Benedetti&#39;, &#39;Europe&#39;, 2001),
- (1165, &#39;Charles Munger&#39;, &#39;North America&#39;, 1925),
- (1166, &#39;Donald Sturm&#39;, &#39;North America&#39;, 2001),
- (1168, &#39;Francesco Micheli&#39;, &#39;Europe&#39;, 2001),
- (1169, &#39;Germain Lamonde&#39;, &#39;North America&#39;, 2001),
- (1170, &#39;Haim Saban&#39;, &#39;North America&#39;, 1945),
- (1174, &#39;James Moran&#39;, &#39;North America&#39;, 1919),
- (1176, &#39;Kenneth Langone&#39;, &#39;North America&#39;, 1936),
- (1178, &#39;Patrick Guerrand&#39;, &#39;Europe&#39;, 2001),
- (1179, &#39;Pierce Marshall&#39;, &#39;North America&#39;, 2001),
- (1180, &#39;Putera Sampoerna&#39;, &#39;East Asia&#39;, 2001),
- (1181, &#39;Richard Pratt&#39;, &#39;North America&#39;, 1935),
- (1182, &#39;Roberto Hernandez Ramirez&#39;, &#39;Latin America&#39;, 2001),
- (1183, &#39;Rong Yiren&#39;, &#39;East Asia&#39;, 2001),
- (1184, &#39;Saleh Al Rajhi&#39;, &#39;Middle East/North Africa&#39;, 1912),
- (1185, &#39;Silvio Scaglia&#39;, &#39;Europe&#39;, 1959),
- (1186, &#39;Steven Jobs&#39;, &#39;North America&#39;, 1955),
- (1188, &#39;Vincent Smith&#39;, &#39;North America&#39;, 2001),
- (1189, &#39;Wallace McCain&#39;, &#39;North America&#39;, 1930),
- (1190, &#39;William Levine&#39;, &#39;North America&#39;, 2001),
- (1192, &#39;Bernard (Barry) Sherman&#39;, &#39;North America&#39;, 1942),
- (1193, &#39;Daniel Och&#39;, &#39;North America&#39;, 1961),
- (1194, &#39;Donald Trump&#39;, &#39;North America&#39;, 1947),
- (1195, &#39;Heinz-Georg Baus&#39;, &#39;Europe&#39;, 1934),
- (1196, &#39;John Gokongwei, Jr.&#39;, &#39;East Asia&#39;, 1928),
- (1199, &#39;Stephen Bechtel, Jr.&#39;, &#39;North America&#39;, 1926),
- (1200, &#39;Strwher family&#39;, &#39;Europe&#39;, 1996),
- (1201, &#39;Werhahn family&#39;, &#39;Europe&#39;, 1996),
- (1202, &#39;Chao Kuang-Piu&#39;, &#39;East Asia&#39;, 1996),
- (1203, &#39;Shoul Eisenberg&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (1204, &#39;Sammy Ofer&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (1205, &#39;Otani Family&#39;, &#39;East Asia&#39;, 1996),
- (1206, &#39;Shoichiro Toyoda&#39;, &#39;East Asia&#39;, 1996),
- (1207, &#39;Junichi Murata&#39;, &#39;East Asia&#39;, 1996),
- (1208, &#39;Alain Merieux&#39;, &#39;Europe&#39;, 1938),
- (1209, &#39;Alexander Abramov&#39;, &#39;Europe&#39;, 1959),
- (1210, &#39;Andreas von Bechtolsheim&#39;, &#39;Europe&#39;, 1956),
- (1212, &#39;Mark Shoen&#39;, &#39;North America&#39;, 1952),
- (1214, &#39;Odd Reitan&#39;, &#39;Europe&#39;, 1952),
- (1215, &#39;Peter Hargreaves&#39;, &#39;Europe&#39;, 1947),
- (1216, &#39;Steve Wynn&#39;, &#39;North America&#39;, 1942),
- (1217, &#39;Uday Kotak&#39;, &#39;South Asia&#39;, 1960),
- (1218, &#39;Walter Faria&#39;, &#39;Latin America&#39;, 1956),
- (1219, &#39;William Koch&#39;, &#39;North America&#39;, 1941),
- (1220, &#39;Halim Saad&#39;, &#39;East Asia&#39;, 1996),
- (1223, &#39;Autrey family&#39;, &#39;Latin America&#39;, 1996),
- (1224, &#39;Ana Maria Brescia Cafferata&#39;, &#39;Latin America&#39;, 1996),
- (1225, &#39;Eugenio Lopez&#39;, &#39;East Asia&#39;, 1996),
- (1227, &#39;Abdul Aziz Al-Sulaiman&#39;, &#39;Middle East/North Africa&#39;, 1996),
- (1228, &#39;Alicia and Esther Koplowitz&#39;, &#39;Europe&#39;, 1996),
- (1229, &#39;Henri Andre&#39;, &#39;Europe&#39;, 1996),
- (1230, &#39;Eric Andre&#39;, &#39;Europe&#39;, 1996),
- (1231, &#39;Boonsong Asavabhokhin&#39;, &#39;East Asia&#39;, 1996),
- (1232, &#39;Aloys Wobben&#39;, &#39;Europe&#39;, 1952),
- (1233, &#39;Axel Oberwelland&#39;, &#39;Europe&#39;, 1967),
- (1235, &#39;Daniel Gilbert&#39;, &#39;North America&#39;, 1962),
- (1236, &#39;Gong Hongjia&#39;, &#39;East Asia&#39;, 1965),
- (1237, &#39;Guenther Fielmann&#39;, &#39;Europe&#39;, 1940),
- (1238, &#39;Igor Kesaev&#39;, &#39;Europe&#39;, 1967),
- (1239, &#39;Isabel dos Santos&#39;, &#39;Sub-Saharan Africa&#39;, 1974),
- (1240, &#39;Jiang Bin&#39;, &#39;East Asia&#39;, 1967),
- (1241, &#39;John Sall&#39;, &#39;North America&#39;, 1949),
- (1242, &#39;Joseph Tsai&#39;, &#39;North America&#39;, 1964),
- (1243, &#39;Karen Pritzker&#39;, &#39;North America&#39;, 1958),
- (1244, &#39;Martin &amp; Olivier Bouygues&#39;, &#39;Europe&#39;, 2014),
- (1245, &#39;Michael Stoschek&#39;, &#39;Europe&#39;, 1948),
- (1246, &#39;Murat Ulker&#39;, &#39;Middle East/North Africa&#39;, 1960),
- (1247, &#39;Nathan Kirsh&#39;, &#39;Sub-Saharan Africa&#39;, 1932),
- (1248, &#39;Niels Peter Louis-Hansen&#39;, &#39;Europe&#39;, 1948),
- (1249, &#39;Ronald Lauder&#39;, &#39;North America&#39;, 1944),
- (1250, &#39;Wu Yajun&#39;, &#39;East Asia&#39;, 1964),
- (1251, &#39;Zhang Jindong&#39;, &#39;East Asia&#39;, 1964),
- (1252, &#39;Zhang Xin&#39;, &#39;East Asia&#39;, 1966),
- (1253, &#39;John Sall&#39;, &#39;North America&#39;, 1942),
- (1255, &#39;Kenneth Tuchman&#39;, &#39;North America&#39;, 1996),
- (1258, &#39;Randolph Hearst&#39;, &#39;North America&#39;, 1996),
- (1259, &#39;Fred Lennon&#39;, &#39;North America&#39;, 1996),
- (1260, &#39;Winthrop Rockefeller&#39;, &#39;North America&#39;, 1949),
- (1262, &#39;Robert Ziff&#39;, &#39;North America&#39;, 1975),
- (1265, &#39;Jack Taylor&#39;, &#39;North America&#39;, 1996),
- (1266, &#34;Anthony O&#39;Reilly&#34;, &#39;Europe&#39;, 1937),
- (1267, &#39;Archie Aldis Emmerson&#39;, &#39;North America&#39;, 1930),
- (1268, &#39;Brian Roberts&#39;, &#39;North America&#39;, 2001),
- (1270, &#39;David Bromilow&#39;, &#39;East Asia&#39;, 2001),
- (1272, &#39;Edward Bass&#39;, &#39;North America&#39;, 1945),
- (1273, &#39;Frederick Field&#39;, &#39;North America&#39;, 1953),
- (1274, &#39;Harold Lenfest&#39;, &#39;North America&#39;, 2001),
- (1275, &#39;Herbert Siegel&#39;, &#39;North America&#39;, 1928),
- (1276, &#39;Jaime Augusto Zobel de Ayala&#39;, &#39;East Asia&#39;, 2001),
- (1278, &#39;John Krehbiel Jr&#39;, &#39;North America&#39;, 2001),
- (1279, &#39;John Marriott Jr&#39;, &#39;North America&#39;, 1936),
- (1280, &#39;Jon Stryker&#39;, &#39;North America&#39;, 1959),
- (1281, &#39;Joseph Jamail Jr&#39;, &#39;North America&#39;, 1926),
- (1282, &#39;Kunio Busujima&#39;, &#39;East Asia&#39;, 1968),
- (1285, &#39;Marc Rich&#39;, &#39;Europe&#39;, 1935),
- (1286, &#39;Marguerite Harbert&#39;, &#39;North America&#39;, 1924),
- (1287, &#39;Mortimer Zuckerman&#39;, &#39;North America&#39;, 1938),
- (1289, &#39;Renato Soru&#39;, &#39;Europe&#39;, 2001),
- (1290, &#39;Richard Scaife&#39;, &#39;North America&#39;, 2001),
- ...]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">()</span>
-
-<span class="c1"># Tabla people</span>
-<span class="n">people</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;people&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;person_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;location.region&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Tabla companies</span>
-<span class="n">companies</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;companies&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;company_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;company.name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># Tabla companies</span>
-<span class="n">companies</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;companies&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;company_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;company.name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">InvalidRequestError</span>                       Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-12-47bcabbf427a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span> companies = Table(&#39;companies&#39;, metadata,
-<span class="ansi-green-intense-fg ansi-bold">     18</span>     Column<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;company_id&#39;</span><span class="ansi-blue-fg">,</span> Integer<span class="ansi-blue-fg">,</span> primary_key<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>Column<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;company.name&#39;</span><span class="ansi-blue-fg">,</span> String<span class="ansi-blue-fg">,</span> nullable<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">     20</span> )
-
-<span class="ansi-green-fg">&lt;string&gt;</span> in <span class="ansi-cyan-fg">__new__</span><span class="ansi-blue-fg">(cls, *args, **kw)</span>
-
-<span class="ansi-green-fg">~/miniconda3/lib/python3.7/site-packages/sqlalchemy/util/deprecations.py</span> in <span class="ansi-cyan-fg">warned</span><span class="ansi-blue-fg">(fn, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    126</span>                     )
-<span class="ansi-green-intense-fg ansi-bold">    127</span> 
-<span class="ansi-green-fg">--&gt; 128</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> fn<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    129</span> 
-<span class="ansi-green-intense-fg ansi-bold">    130</span>         doc <span class="ansi-blue-fg">=</span> fn<span class="ansi-blue-fg">.</span>__doc__ <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">and</span> fn<span class="ansi-blue-fg">.</span>__doc__ <span class="ansi-green-fg">or</span> <span class="ansi-blue-fg">&#34;&#34;</span>
-
-<span class="ansi-green-fg">~/miniconda3/lib/python3.7/site-packages/sqlalchemy/sql/schema.py</span> in <span class="ansi-cyan-fg">__new__</span><span class="ansi-blue-fg">(cls, *args, **kw)</span>
-<span class="ansi-green-intense-fg ansi-bold">    486</span>                     <span class="ansi-blue-fg">&#34;to redefine &#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">    487</span>                     <span class="ansi-blue-fg">&#34;options and columns on an &#34;</span>
-<span class="ansi-green-fg">--&gt; 488</span><span class="ansi-red-fg">                     </span><span class="ansi-blue-fg">&#34;existing Table object.&#34;</span> <span class="ansi-blue-fg">%</span> key
-<span class="ansi-green-intense-fg ansi-bold">    489</span>                 )
-<span class="ansi-green-intense-fg ansi-bold">    490</span>             table <span class="ansi-blue-fg">=</span> metadata<span class="ansi-blue-fg">.</span>tables<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span>
-
-<span class="ansi-red-fg">InvalidRequestError</span>: Table &#39;companies&#39; is already defined for this MetaData instance.  Specify &#39;extend_existing=True&#39; to redefine options and columns on an existing Table object.</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Save to the database:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -15685,19 +14634,6 @@ count(*)
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
     </div>
   </div>

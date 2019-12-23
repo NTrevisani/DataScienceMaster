@@ -9,14 +9,14 @@
 # 
 # SQLAlchemy: https://docs.sqlalchemy.org/en/13/core/connections.html
 
-# In[3]:
+# In[1]:
 
 
 import numpy as np
 import pandas as pd
 
 
-# In[4]:
+# In[2]:
 
 
 # Cargo el dataset
@@ -26,7 +26,7 @@ df.head(7)
 
 # ## All rows where company is Microsoft or Zara
 
-# In[5]:
+# In[3]:
 
 
 df[(df['company.name'] == "Zara") | (df['company.name'] == "Microsoft")] 
@@ -34,13 +34,13 @@ df[(df['company.name'] == "Zara") | (df['company.name'] == "Microsoft")]
 
 # ## Number of times each person appears in the database in descending order
 
-# In[6]:
+# In[4]:
 
 
 df.groupby('name').size().sort_values(ascending = False)
 
 
-# In[7]:
+# In[5]:
 
 
 # equivalente a
@@ -49,7 +49,7 @@ df['name'].value_counts(ascending = False)
 
 # ## Top ten sectors (by frequency appereance in the dataset)
 
-# In[8]:
+# In[6]:
 
 
 df.groupby('company.sector').size().sort_values(ascending = False)[0:10]
@@ -59,7 +59,7 @@ df.groupby('company.sector').size().sort_values(ascending = False)[0:10]
 # 
 # Create a database called 'billionaries' using sqlite and save the data from the dataframe using the appropiate tables. Save the information of people, companies and the relationship between people and companies (ie. company.relationship). Use the functions viewed in class.
 
-# In[181]:
+# In[14]:
 
 
 from sqlalchemy import create_engine
@@ -71,13 +71,13 @@ from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 
 # Extract necessary information:
 
-# In[182]:
+# In[33]:
 
 
 df.head()
 
 
-# In[183]:
+# In[16]:
 
 
 # Tabla de personas
@@ -92,15 +92,15 @@ df_people = df_people.drop(columns = ['year','demographics.age'])
 df_people.drop_duplicates(keep = 'first', inplace = True)
 
 df_people = df_people.reset_index()
-people_columns_name = ["people_number","person_name","region","born"] 
+people_columns_name = ["person_number","person_name","region","born"] 
 df_people.columns = people_columns_name
 
-df_people['id_people'] = df_people.index
+df_people['id_person'] = df_people.index
 #df_people = df_people[0:10]
 #df_people
 
 
-# In[184]:
+# In[17]:
 
 
 # Tabla de empresas
@@ -110,7 +110,7 @@ df_company.drop_duplicates(keep = 'first', inplace = True)
 
 df_company= df_company.reset_index()
 
-company_columns_name = ["id_people","founded","company_name","sector","type","company_relationship"] 
+company_columns_name = ["id_person","founded","company_name","sector","type","company_relationship"] 
 df_company.columns = company_columns_name
 
 df_company['id_company'] = df_company.index
@@ -118,42 +118,42 @@ df_company['id_company'] = df_company.index
 #df_company
 
 
-# In[185]:
+# In[20]:
 
 
 # Construyo la tabla de relaciones entre personas y empresas 
 # a través de un merge de las dos tablas anteriores
 
-df_relationship = pd.merge(df_people, df_company, left_on='people_number', right_on='id_people')
+df_relationship = pd.merge(df_people, df_company, left_on='person_number', right_on='id_person')
 #df_relationship
 
 
-# In[186]:
+# In[21]:
 
 
 # Ahora 'limpio' las tablas para que tengan solo las informaciones necesarias
-people_columns = ['people_number','person_name', 'region', 'born']
+people_columns = ['person_number','person_name', 'region', 'born']
 df_people = df_people[people_columns]
-df_people.columns = ['id_people','person_name', 'region', 'born']
+df_people.columns = ['id_person','person_name', 'region', 'born']
 #print(df_people)
 
-company_columns = ['id_people','founded', 'company_name', 'sector', 'type', 'id_company']
+company_columns = ['id_person','founded', 'company_name', 'sector', 'type', 'id_company']
 df_company = df_company[company_columns]
 #print(df_company)
 
-relationship_columns = ['people_number','id_company','company_relationship']
+relationship_columns = ['person_number','id_company','company_relationship']
 df_relationship = df_relationship[relationship_columns]
-df_relationship.columns = ['id_people','id_company','company_relationship']
+df_relationship.columns = ['id_person','id_company','company_relationship']
 #print(df_relationship)
 
 
-# In[187]:
+# In[22]:
 
 
 # Paso los data_frames a tablas de SQL
-df_people.to_sql('people', con = engine, if_exists = 'replace', index = False)
-df_company.to_sql('company', con = engine, if_exists = 'replace', index = False)
-df_relationship.to_sql('relationship', con = engine, if_exists = 'replace', index = False)
+df_people.to_sql('Person', con = engine, if_exists = 'replace', index = False)
+df_company.to_sql('Company', con = engine, if_exists = 'replace', index = False)
+df_relationship.to_sql('Relationship', con = engine, if_exists = 'replace', index = False)
 
 
 # Reference I used to add primary key:
@@ -166,7 +166,7 @@ df_relationship.to_sql('relationship', con = engine, if_exists = 'replace', inde
 #     defining a primary key for the desired column"
 # 
 
-# In[203]:
+# In[32]:
 
 
 import sqlite3
@@ -178,82 +178,60 @@ c = conn.cursor()
 c.executescript('''
     
     
-    /* Table people */
+    /* Table Person */
     BEGIN TRANSACTION;
-    ALTER TABLE people RENAME TO old_table;
+    ALTER TABLE Person RENAME TO old_table;
 
-    CREATE TABLE people (id_people int not null primary key,
+    CREATE TABLE Person (id_person int not null primary key,
                         person_name char not null,
                         region char,
                         born char); 
     
-    INSERT INTO people SELECT * FROM old_table;
+    INSERT INTO Person SELECT * FROM old_table;
 
     DROP TABLE old_table;
     COMMIT TRANSACTION;
     
     
-    /* Table company */
+    /* Table Company */
     BEGIN TRANSACTION;
-    ALTER TABLE company RENAME TO old_table;
+    ALTER TABLE Company RENAME TO old_table;
 
-    CREATE TABLE company (id_people,
-                         founded, 
-                         company_name, 
-                         sector, 
-                         type, 
-                         id_company); 
+    CREATE TABLE Company (id_person int not null,
+                         founded int, 
+                         company_name char, 
+                         sector char, 
+                         type char,
+                         id_company int not null primary key,
+                         foreign key (id_person) references Person(id_person)); 
     
-    INSERT INTO people SELECT * FROM old_table;
+    INSERT INTO Company SELECT * FROM old_table;
 
     DROP TABLE old_table;
     COMMIT TRANSACTION;
 
+
+    /* Table Relationship */
+    BEGIN TRANSACTION;
+    ALTER TABLE Relationship RENAME TO old_table;
+
+    CREATE TABLE Relationship (id_person int not null,
+                              id_company int not null,
+                              company_relationship char,
+                              foreign key (id_person) references Person(id_person),
+                              foreign key (id_company) references Company(id_company),
+                              primary key (id_person, id_company)); 
+    
+    INSERT INTO Relationship SELECT * FROM old_table;
+
+    DROP TABLE old_table;
+    COMMIT TRANSACTION;
+    
 ''')
     
 #close out the connection
 c.close()
 conn.close()
-
-
-# In[189]:
-
-
-# Miro el contenido de la tabla people
-engine.execute("SELECT * FROM people").fetchall()
-
-
-# In[12]:
-
-
-metadata = MetaData()
-
-# Tabla people
-people = Table('people', metadata,
-    Column('person_id', Integer, primary_key=True),
-    Column('name', String, nullable=False),
-    Column('location.region', String, nullable=False),
-)
-
-# Tabla companies
-companies = Table('companies', metadata,
-    Column('company_id', Integer, primary_key=True),
-    Column('company.name', String, nullable=False),
-)
-
-# Tabla companies
-companies = Table('companies', metadata,
-    Column('company_id', Integer, primary_key=True),
-    Column('company.name', String, nullable=False),
-)
-
-
-# Save to the database:
-
-# In[ ]:
-
-
-
 
 
 # Test query
@@ -268,9 +246,3 @@ companies = Table('companies', metadata,
 # count(*)
 # 2102
 # ```
-
-# In[ ]:
-
-
-
-
