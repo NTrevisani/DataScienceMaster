@@ -15002,7 +15002,7 @@ properties/co_M
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Quiero pasar de variables categoricas a numeros.</span>
@@ -15012,7 +15012,7 @@ properties/co_M
 <span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 
 
-<span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>  
+<span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> 
 <span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 
 <span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;good&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
@@ -15020,6 +15020,7 @@ properties/co_M
 <span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;unhealthy-low&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;unhealthy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;unhealthy-high&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
 
 
 <span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15035,7 +15036,7 @@ properties/co_M
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[107]:</div>
+    <div class="prompt output_prompt">Out[117]:</div>
 
 
 
@@ -15086,121 +15087,121 @@ properties/co_M
       <th>0</th>
       <td>-4.439850</td>
       <td>36.698456</td>
-      <td>4</td>
-      <td>2</td>
-      <td>2</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
       <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
       <td>-4.428864</td>
       <td>36.709442</td>
-      <td>4</td>
-      <td>2</td>
-      <td>2</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>4</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
       <td>...</td>
-      <td>0</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>4</td>
-      <td>2</td>
-      <td>0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>-4.340973</td>
       <td>36.717682</td>
-      <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>4</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
       <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>3</th>
       <td>-4.424744</td>
       <td>36.734161</td>
-      <td>4</td>
-      <td>0</td>
-      <td>0</td>
-      <td>4</td>
-      <td>4</td>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>...</td>
-      <td>1</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>4</td>
-      <td>2</td>
-      <td>4</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
     </tr>
     <tr>
       <th>4</th>
       <td>-4.496155</td>
       <td>36.701202</td>
-      <td>4</td>
-      <td>0</td>
-      <td>0</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>2</td>
-      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
       <td>...</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td>2</td>
-      <td>4</td>
-      <td>3</td>
-      <td>0</td>
-      <td>2</td>
-      <td>2</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>2.0</td>
     </tr>
   </tbody>
 </table>

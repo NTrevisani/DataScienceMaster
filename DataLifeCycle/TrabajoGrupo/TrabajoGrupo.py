@@ -175,7 +175,7 @@ for var in calidad_aire_obj.columns[2:]:
 calidad_aire_obj.head()
 
 
-# In[107]:
+# In[117]:
 
 
 # Quiero pasar de variables categoricas a numeros.
@@ -185,7 +185,7 @@ calidad_aire_obj_num = calidad_aire_obj.copy()
 calidad_aire_obj_num.head()
 
 
-calidad_aire_obj_num.iloc[:,2:] = 0  
+calidad_aire_obj_num.iloc[:,2:] = -1 
 calidad_aire_obj_num.head()
 
 calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'good'] = 4
@@ -193,6 +193,7 @@ calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'moderate'] = 3
 calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'unhealthy-low'] = 2
 calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'unhealthy'] = 1
 calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'unhealthy-high'] = 0
+calidad_aire_obj_num[calidad_aire_obj_num.iloc[:,2:] == -1] = np.NaN
 
 
 calidad_aire_obj_num.head()
