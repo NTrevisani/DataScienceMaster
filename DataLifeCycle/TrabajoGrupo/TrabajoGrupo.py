@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Proyecto de Ciclo de vida de los datos
+
+# ### Preparado por:
+# - Fernando
+# - Eduardo
+# - Cédric
+# - Nicolò
+
 # fichero original:
 # 
 # https://datosabiertos.malaga.eu/recursos/ambiente/calidadaire/2018.json
@@ -8,7 +16,7 @@
 # In[1]:
 
 
-# Load the Pandas libraries with alias 'pd' 
+# Load the Pandas libraries
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -50,7 +58,7 @@ calidad_aire_num = calidad_aire.drop(calidad_aire.columns[calidad_aire.dtypes ==
 calidad_aire_num.head()
 
 
-# In[5]:
+# In[101]:
 
 
 droplist = calidad_aire.dtypes != object
@@ -58,6 +66,7 @@ droplist[0:2] = False
 droplist
 
 calidad_aire_obj = calidad_aire.drop(calidad_aire.columns[droplist], axis=1)
+
 calidad_aire_obj.head()
 
 
@@ -119,7 +128,7 @@ def attribute_color(valor):
         return dictCol.get(valor)
 
 
-# In[45]:
+# In[10]:
 
 
 # Intento hacer un loop sobre todas las variables categoricas
@@ -160,7 +169,36 @@ for var in calidad_aire_obj.columns[2:]:
     #plt.scatter(x,y, c=colors[z])
 
 
-# In[11]:
+# In[106]:
+
+
+calidad_aire_obj.head()
+
+
+# In[107]:
+
+
+# Quiero pasar de variables categoricas a numeros.
+# e.g. Unhealthy-high = 0, Unhealthy = 1
+
+calidad_aire_obj_num = calidad_aire_obj.copy()
+calidad_aire_obj_num.head()
+
+
+calidad_aire_obj_num.iloc[:,2:] = 0  
+calidad_aire_obj_num.head()
+
+calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'good'] = 4
+calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'moderate'] = 3
+calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'unhealthy-low'] = 2
+calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'unhealthy'] = 1
+calidad_aire_obj_num[calidad_aire_obj.iloc[:,2:] == 'unhealthy-high'] = 0
+
+
+calidad_aire_obj_num.head()
+
+
+# In[12]:
 
 
 # Intento hacer un loop sobre todas las variables categoricas
@@ -195,6 +233,15 @@ for var in calidad_aire_obj.columns[2:]:
 
 
 
+
+
+# In[ ]:
+
+
+uso_bici = pd.read_csv("bici_pc.csv",
+                       sep = ';',
+                       skiprows = 4)
+uso_bici
 
 
 # In[ ]:

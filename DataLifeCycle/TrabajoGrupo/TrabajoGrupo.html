@@ -13077,6 +13077,26 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Proyecto-de-Ciclo-de-vida-de-los-datos">Proyecto de Ciclo de vida de los datos<a class="anchor-link" href="#Proyecto-de-Ciclo-de-vida-de-los-datos">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Preparado-por:">Preparado por:<a class="anchor-link" href="#Preparado-por:">&#182;</a></h3><ul>
+<li>Fernando</li>
+<li>Eduardo</li>
+<li>Cédric</li>
+<li>Nicolò</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>fichero original:</p>
 <p><a href="https://datosabiertos.malaga.eu/recursos/ambiente/calidadaire/2018.json">https://datosabiertos.malaga.eu/recursos/ambiente/calidadaire/2018.json</a></p>
 
@@ -13088,7 +13108,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the Pandas libraries with alias &#39;pd&#39; </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the Pandas libraries</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -13665,7 +13685,7 @@ dtype: bool</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">droplist</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">!=</span> <span class="nb">object</span>
@@ -13673,6 +13693,7 @@ dtype: bool</pre>
 <span class="n">droplist</span>
 
 <span class="n">calidad_aire_obj</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">calidad_aire</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">droplist</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
 <span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -13686,7 +13707,7 @@ dtype: bool</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[101]:</div>
 
 
 
@@ -13895,7 +13916,7 @@ dtype: bool</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f5efe7d6f90&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff9946b5650&gt;</pre>
 </div>
 
 </div>
@@ -14327,7 +14348,7 @@ properties/co_M
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Intento hacer un loop sobre todas las variables categoricas</span>
@@ -14784,7 +14805,418 @@ properties/co_M
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[106]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[106]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry/coordinates/0/4/0</th>
+      <th>geometry/coordinates/0/4/1</th>
+      <th>properties/co_F_level</th>
+      <th>properties/pm1_F_level</th>
+      <th>properties/pm1_level</th>
+      <th>properties/co_level</th>
+      <th>properties/o3_level</th>
+      <th>properties/pm10_F_level</th>
+      <th>properties/iuca.level_F_global</th>
+      <th>properties/pm25_F_level</th>
+      <th>...</th>
+      <th>properties/iuca.level_APP_global</th>
+      <th>properties/pm25_M_level</th>
+      <th>properties/o3_M_level</th>
+      <th>properties/co_M_level</th>
+      <th>properties/iaq_APP_level</th>
+      <th>properties/pm10_APP_level</th>
+      <th>properties/iuca.level_M_global</th>
+      <th>properties/pm10_M_level</th>
+      <th>properties/pm1_M_level</th>
+      <th>properties/co_APP_level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-4.439850</td>
+      <td>36.698456</td>
+      <td>good</td>
+      <td>unhealthy-low</td>
+      <td>unhealthy-low</td>
+      <td>good</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>moderate</td>
+      <td>moderate</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-4.428864</td>
+      <td>36.709442</td>
+      <td>good</td>
+      <td>unhealthy-low</td>
+      <td>unhealthy-low</td>
+      <td>good</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>...</td>
+      <td>unhealthy-high</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>good</td>
+      <td>good</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>unhealthy-low</td>
+      <td>unhealthy-high</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-4.340973</td>
+      <td>36.717682</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-4.424744</td>
+      <td>36.734161</td>
+      <td>good</td>
+      <td>unhealthy-high</td>
+      <td>unhealthy-high</td>
+      <td>good</td>
+      <td>good</td>
+      <td>unhealthy-low</td>
+      <td>unhealthy-high</td>
+      <td>unhealthy-high</td>
+      <td>...</td>
+      <td>unhealthy</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>good</td>
+      <td>good</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>unhealthy-low</td>
+      <td>good</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-4.496155</td>
+      <td>36.701202</td>
+      <td>good</td>
+      <td>NaN</td>
+      <td>unhealthy-high</td>
+      <td>good</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>unhealthy-low</td>
+      <td>unhealthy-low</td>
+      <td>...</td>
+      <td>unhealthy-low</td>
+      <td>moderate</td>
+      <td>good</td>
+      <td>good</td>
+      <td>unhealthy-low</td>
+      <td>good</td>
+      <td>moderate</td>
+      <td>NaN</td>
+      <td>unhealthy-low</td>
+      <td>unhealthy-low</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Quiero pasar de variables categoricas a numeros.</span>
+<span class="c1"># e.g. Unhealthy-high = 0, Unhealthy = 1</span>
+
+<span class="n">calidad_aire_obj_num</span> <span class="o">=</span> <span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+
+<span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>  
+<span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;good&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;moderate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;unhealthy-low&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;unhealthy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">calidad_aire_obj_num</span><span class="p">[</span><span class="n">calidad_aire_obj</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;unhealthy-high&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[107]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry/coordinates/0/4/0</th>
+      <th>geometry/coordinates/0/4/1</th>
+      <th>properties/co_F_level</th>
+      <th>properties/pm1_F_level</th>
+      <th>properties/pm1_level</th>
+      <th>properties/co_level</th>
+      <th>properties/o3_level</th>
+      <th>properties/pm10_F_level</th>
+      <th>properties/iuca.level_F_global</th>
+      <th>properties/pm25_F_level</th>
+      <th>...</th>
+      <th>properties/iuca.level_APP_global</th>
+      <th>properties/pm25_M_level</th>
+      <th>properties/o3_M_level</th>
+      <th>properties/co_M_level</th>
+      <th>properties/iaq_APP_level</th>
+      <th>properties/pm10_APP_level</th>
+      <th>properties/iuca.level_M_global</th>
+      <th>properties/pm10_M_level</th>
+      <th>properties/pm1_M_level</th>
+      <th>properties/co_APP_level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-4.439850</td>
+      <td>36.698456</td>
+      <td>4</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-4.428864</td>
+      <td>36.709442</td>
+      <td>4</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-4.340973</td>
+      <td>36.717682</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-4.424744</td>
+      <td>36.734161</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>4</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-4.496155</td>
+      <td>36.701202</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>...</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>2</td>
+      <td>4</td>
+      <td>3</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Intento hacer un loop sobre todas las variables categoricas</span>
@@ -14837,7 +15269,7 @@ properties/co_M
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-11-d521703d13e8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">&lt;ipython-input-12-d521703d13e8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">     12</span>     df_tmp.plot.scatter(x = &#39;geometry/coordinates/0/4/0&#39;, 
 <span class="ansi-green-intense-fg ansi-bold">     13</span>         y <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;geometry/coordinates/0/4/1&#39;</span><span class="ansi-blue-fg">,</span>
 <span class="ansi-green-fg">---&gt; 14</span><span class="ansi-red-fg">         </span>c <span class="ansi-blue-fg">=</span> colors<span class="ansi-blue-fg">[</span>var<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-red-fg">#calidad_aire[&#39;properties/pm1&#39;], #&#39;properties/pm1&#39;,</span>
@@ -14871,6 +15303,22 @@ properties/co_M
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uso_bici</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bici_pc.csv&quot;</span><span class="p">,</span>
+                       <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="p">,</span>
+                       <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">uso_bici</span>
 </pre></div>
 
     </div>
