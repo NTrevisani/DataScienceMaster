@@ -9,31 +9,122 @@
 # - Cédric
 # - Nicolò
 
-# fichero original:
+# ## Introducción
+
+# El proyecto se propone encontrar una ciudad en España donde reemplazar una carretera tradicional por un carril bici, teniendo en cuenta principalmente dos aspectos:
+# - Las razones por las cuales los ciudadanos no suelen utilizar bicicleta para moverse, y selecionar una ciudad donde entre estas razones sean importantes:
+#     - La falta de un carril bici;
+#     - El excesivo tráfico.
+# - El nivel de contaminación del aire en las distintas zonas de la ciudad, con la idea de quitar tráfico alimentado por combustibles fósiles y empujar el uso de la bicicleta.   
+
+# ## Fuentes de datos
+
+# Para recaudar datos, se han utilizado dos repositorios de datos en abierto de España:
+# - El repositorio del Instituto Nacional de Estadistica (INE: https://www.ine.es/)
+# - El repositorio datos.gob.es (https://datos.gob.es/)
 # 
-# https://datosabiertos.malaga.eu/recursos/ambiente/calidadaire/2018.json
+# En particular, los dataset analizados, se refieren a:
+# - Porcentaje de personas de 16 y más años que usualmente no se desplazan caminando o en bicicleta, por comunidad autónoma de residencia y motivos por los que no lo hacen (https://www.ine.es/jaxi/tabla.do?type=pcaxis&path=/t25/p500/2008/p04/l0/&file=04017b.px), proporcionado directamente pr el Instituto Nacional de Estadistica en formato CSV [los decimales son definidos por commas: me descargué el CSV separado por punto-y-commas, y tranformé las commas en puntos <-- nota de curación];
+# - Calidad del aire 2018 (https://datosabiertos.malaga.eu/recursos/ambiente/calidadaire/2018.json), proporcionado por el Ayuntamiento de Malaga en formato json y posteriormente tranformado a CSV [esto lo he hecho con un programa encontrado en internet <-- nota de curación].
 
-# In[1]:
+# ## Analisis de los datos
+
+# ### 1. Elección de la ciudad
+
+# Para elegir la ciudad donde construir el carril bici, se ha inspeccionado un dataset que presenta las razones por las cuales ciudadanos de 16 años o mayores no utilizan habitualmente la bicicleta, agrupados por comunidad autonomia. Entre las diferentes razones, se han inspeccionado las que más parecen poderse resolver a través de la instalación de un carril bici y de una zona con tráfico limitado:
+# - Falta de una red completa de carriles bici;
+# - Demasiado tráfico;
+# - Falta de instalaciones de aparcamiento de bicicletas;
+# - Seguridad personal.
+# 
+# Como se puede observar, aunque Ceuta y Melilla sobresalga para *Falta de una red completa de carriles bici* y *Falta de instalaciones de aparcamiento de bicicletas*, el problema de tener demasiado tráfico y la seguridad personal no se ven como problemas fundamentales.
+# 
+# De la demás comunidades independientes, Andalucia está entre las que sistematicamente tienen un nivel de atención superior al promedio nacional para los criterios utilizados y, factor no trascurable para este trabajo, el Ayuntamiento de Malaga proprciona datos sobre calidad de aire.
+
+# In[ ]:
 
 
-# Load the Pandas libraries
+# Cargo las librerias necesarias
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-    
-# Read data from file 'filename.csv' 
-# (in the same directory that your python process is based)
-# Control delimiters, rows, column names with read_csv (see later) 
+
+
+# In[72]:
+
+
+# Cargo el dataset
+uso_bici = pd.read_csv("bici_pc.csv",
+                       sep = ';',
+                       skiprows = 4)
+
+# Cambio de nombre a la columna que no se entiende
+uso_bici['Comunidad'] = uso_bici['Unnamed: 0']
+
+# Elimino las columnas que no voy a usar
+uso_bici = uso_bici.drop(uso_bici.columns[[0,-2]], axis=1)
+
+# Imprimo el dataset
+uso_bici
+
+
+# In[69]:
+
+
+uso_bici.groupby('Comunidad')['Falta de una red completa de carriles bici'].mean().plot(kind='bar',
+    title = 'Falta de una red completa de carriles bici')
+
+
+# In[70]:
+
+
+uso_bici.groupby('Comunidad')['Demasiado tráfico'].mean().plot(kind='bar',
+    title = 'Demasiado tráfico')
+
+
+# In[68]:
+
+
+uso_bici.groupby('Comunidad')['Falta de instalaciones de aparcamiento de bicicletas'].mean().plot(kind='bar',
+    title = 'Falta de instalaciones de aparcamiento de bicicletas')
+
+
+# In[71]:
+
+
+uso_bici.groupby('Comunidad')['Seguridad personal'].mean().plot(kind='bar',
+    title = 'Seguridad personal')
+
+
+# ### 2. Elección del sitio donde construir el carril bici
+
+# Para elegir el sitio donde instalar el carril bici, se ha considerado el nivel de calidad de aire
+
+# In[ ]:
+
+
+# Cargo las librerias necesarias
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np    
+
+
+# In[73]:
+
+
+# Leo el dataset
 calidad_aire = pd.read_csv("calidad_aire_2018.csv") 
     
-# Preview the first 5 lines of the loaded data 
+# Miro las primeras lineas del dataset
 calidad_aire.head()
-list(calidad_aire)
+#list(calidad_aire)
 
-# Remove repeated/useless columns 
+# Quito las columnas que no voy a usar 
 calidad_aire = calidad_aire.drop(calidad_aire.columns[[0,1,2,3,4,5,6,7,8,11,18]], axis=1)
 
+# Miro las primeras lineas del dataset 'limpio'
 calidad_aire.head()
 
 
@@ -58,7 +149,7 @@ calidad_aire_num = calidad_aire.drop(calidad_aire.columns[calidad_aire.dtypes ==
 calidad_aire_num.head()
 
 
-# In[101]:
+# In[5]:
 
 
 droplist = calidad_aire.dtypes != object
@@ -169,13 +260,13 @@ for var in calidad_aire_obj.columns[2:]:
     #plt.scatter(x,y, c=colors[z])
 
 
-# In[106]:
+# In[11]:
 
 
 calidad_aire_obj.head()
 
 
-# In[117]:
+# In[ ]:
 
 
 # Quiero pasar de variables categoricas a numeros.
@@ -199,50 +290,24 @@ calidad_aire_obj_num[calidad_aire_obj_num.iloc[:,2:] == -1] = np.NaN
 calidad_aire_obj_num.head()
 
 
-# In[12]:
+# In[16]:
 
 
-# Intento hacer un loop sobre todas las variables categoricas
+# Añado una columna, que sea el promedio de las columnas, y la pinto
 
-for var in calidad_aire_obj.columns[2:]:
+calidad_aire_obj_num['average_quality'] = calidad_aire_obj_num.iloc[:,2:].mean(1)
 
-    print(calidad_aire_obj[var].unique())    
-    colors = np.array(calidad_aire_obj[var].unique())
-    
-    df_tmp = calidad_aire_obj[['geometry/coordinates/0/4/0','geometry/coordinates/0/4/1',var]]
-    df_tmp.dropna(how='any')
-
-    #calidad_aire
-    df_tmp.plot.scatter(x = 'geometry/coordinates/0/4/0', 
-        y = 'geometry/coordinates/0/4/1', 
-        c = colors[var], #calidad_aire['properties/pm1'], #'properties/pm1',
-        colormap='viridis',
-        s = 5)
-    
-    
-# https://stackoverflow.com/questions/52108558/how-does-parameters-c-and-cmap-behave-in-a-matplotlib-scatter-plot
-#plt.scatter(x,y, c=colors[z])
+calidad_aire_obj_num.plot.scatter(x = 'geometry/coordinates/0/4/0', 
+            y = 'geometry/coordinates/0/4/1', 
+            c = 'average_quality',
+            colormap='viridis',
+            s = 5)
 
 
 # In[ ]:
 
 
 
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-uso_bici = pd.read_csv("bici_pc.csv",
-                       sep = ';',
-                       skiprows = 4)
-uso_bici
 
 
 # In[ ]:
