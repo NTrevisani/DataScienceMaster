@@ -138,14 +138,54 @@ ind.coef.no.nulos <- which(as.numeric(coef(model.l1)) != 0)
 names(df)[ind.coef.no.nulos]
 cat(paste("Number of variables selected:", length(ind.coef.no.nulos)))
 
-# (No son exactamente las mismas que salian con el metodo anterior de selección de variables)
-
 pred.l1 <- predict(model.l1,as.matrix(df[-1]),type = "response")
 auc.l1 <- roc.area(df$diagnosis,pred.l1)$A
 roc.plot(df$diagnosis,pred.l1, main=sprintf("Curva ROC Regularización L1 (AUC = %g)", auc.l1))
 
-pred.test.l1 <- predict(model.l1,as.matrix(df.test[-1]),type = "response")
-auc.test.l1 <- roc.area(df.test$diagnosis,pred.test.l1)$A
+# Busco el valor optimo de lambda
+
+# Uso la distancia L1 --> alpha = 1
+cv <- cv.glmnet(as.matrix(df.train[-1]),
+                df.train$diagnosis,
+                family = "binomial",
+                alpha = 1)
+cv$lambda.1se
+
+# Ahora entreno un modelo lineal regularizado a través del valor lambda que me da 'cv.glmnet'
+# usando solo el conjunto de entrenamiento
+model.train.l1 <- glmnet(as.matrix(df.train[-1]), 
+                   df.train$diagnosis, 
+                   family = "binomial", 
+                   alpha = 1, 
+                   lambda = cv$lambda.1se)
+
+# Estoy usando norma L1: algunas variables tendrán coeficiente 0
+# Las que tienen coeficiente no nulo son las 'buenas'
+ind.coef.no.nulos <- which(as.numeric(coef(model.train.l1)) != 0)
+names(df)[ind.coef.no.nulos]
+cat(paste("Number of variables selected:", length(ind.coef.no.nulos)))
+
+# ROC del conjunto de train
+pred.train.l1 <- predict(model.train.l1,
+                        as.matrix(df.train[-1]),
+                        type = "response")
+
+auc.train.l1 <- roc.area(df.train$diagnosis,
+                        pred.train.l1)$A
+
+roc.plot(df.train$diagnosis,
+         pred.train.l1, 
+         main=sprintf("Curva ROC Regularización L1 (AUC = %g)", 
+         auc.train.l1))
+
+# ROC del conjunto de test
+pred.test.l1 <- predict(model.train.l1,
+                        as.matrix(df.test[-1]),
+                        type = "response")
+
+auc.test.l1 <- roc.area(df.test$diagnosis,
+                        pred.test.l1)$A
+
 roc.plot(df.test$diagnosis,
          pred.test.l1, 
          main=sprintf("Curva ROC Regularización L1 (AUC = %g)", 
@@ -162,15 +202,50 @@ model.l2 <- glmnet(as.matrix(df[-1]), df$diagnosis, family = "binomial", alpha =
 ind.coef.no.nulos.l2 <- which(as.numeric(coef(model.l2)) != 0)
 cat(paste("Number of variables selected:", length(ind.coef.no.nulos.l2)))
 
-# tengo 30 variables porque usando la norma L2 no pongo ningun coeficiente a 0
-
 pred.l2 <- predict(model.l2,as.matrix(df[-1]),type = "response")
 auc.l2 <- roc.area(df$diagnosis,pred.l2)$A
 roc.plot(df$diagnosis,pred.l2, main=sprintf("Curva ROC Regularización L2 (AUC = %g)", auc.l2))
 
+# Uso la distancia L2 --> alpha = 0
+
+# Busco el lambda optimo
+cv2 <- cv.glmnet(as.matrix(df.train[-1]),
+                 df.train$diagnosis,
+                 family = "binomial",
+                 alpha = 0)
+cv2$lambda.1se
+
+# Ahora entreno el modelo lineal con el lambda optimo
+model.train.l2 <- glmnet(as.matrix(df.train[-1]), 
+                         df.train$diagnosis, 
+                         family = "binomial", 
+                         alpha = 0, 
+                         lambda = cv2$lambda.1se)
+
+ind.coef.no.nulos.l2 <- which(as.numeric(coef(model.train.l2)) != 0)
+cat(paste("Number of variables selected:", length(ind.coef.no.nulos.l2)))
+
+# Miro como funciona el modelo 'model.l2' sobre el conjunto de train
+pred.train.l2 <- predict(model.train.l2, 
+                         as.matrix(df.train[-1]),
+                         type = "response")
+
+auc.train.l2 <- roc.area(df.train$diagnosis,
+                         pred.train.l2)$A
+
+roc.plot(df.train$diagnosis,
+         pred.train.l2, 
+         main=sprintf("Curva ROC Regularización L1 (AUC = %g)", 
+         auc.train.l2))
+
 # Miro como funciona el modelo 'model.l2' sobre el conjunto de test
-pred.test.l2 <- predict(model.l2, as.matrix(df.test[-1]),type = "response")
-auc.test.l2 <- roc.area(df.test$diagnosis,pred.test.l2)$A
+pred.test.l2 <- predict(model.train.l2, 
+                        as.matrix(df.test[-1]),
+                        type = "response")
+
+auc.test.l2 <- roc.area(df.test$diagnosis,
+                        pred.test.l2)$A
+
 roc.plot(df.test$diagnosis,
          pred.test.l2, 
          main=sprintf("Curva ROC Regularización L1 (AUC = %g)", 
