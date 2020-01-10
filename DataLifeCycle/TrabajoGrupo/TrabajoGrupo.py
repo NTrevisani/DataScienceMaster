@@ -99,7 +99,27 @@ uso_bici.groupby('Comunidad')['Seguridad personal'].mean().plot(kind='bar',
 
 # ### 2. Elección del sitio donde construir el carril bici
 
-# Para elegir el sitio donde instalar el carril bici, se ha considerado el nivel de calidad de aire
+# Para elegir el sitio donde instalar el carril bici, se ha considerado el nivel de calidad de aire en las distintas zonas de la ciudad de Malaga.
+# 
+# El dataset utilizado presenta dos tipos de datos, por cada una de las sustancias consideradas:
+# - la cantidad, en diferentes unidades, de la sustancia;
+# - un indicador cuálitativo asociado a la cantidad medida de dicha sustancia.
+# 
+# Por cada medida, se proporcionan además las coordenadas geografica, de manera que se puede reconstruir un 'mapa' de Malaga donde aparecen las informaciones.
+# 
+# Observando los datos, nos damos cuenta de que es complicado utilizar las cantidades numericas:
+# - pueden tener ordenes de magnitud distintas
+#     - no es trivial operar sobre ellas para sacar medias, etc;
+#     - hay que conocer, por cada sustancia, los niveles considerado peligrosos.
+# 
+# Resulta mucho más sencillo operar con los datos categoricos, que ya collevan las informaciones normalizadas con respecto a los niveles recomendados, no obstante haya que hacer un pequeño trabajo de curación para que se puedan hacer analisis númericas. En particular, se asocia a cada valor calitativo, un número:
+# - good = 4;
+# - moderate = 3;
+# - unhealthy-low = 2;
+# - unhealthy = 1;
+# - unhealthy-high = 0.
+# 
+# Sacando el promedio de esta 'nota' de calidad de aire por cada punto, se puede obtener un mapa de 'resumen': la zona ideal para poner un carril bici donde ahora está una carretera normal será la que tiene calidad de aire globalmente peor.
 
 # In[ ]:
 
@@ -128,29 +148,38 @@ calidad_aire = calidad_aire.drop(calidad_aire.columns[[0,1,2,3,4,5,6,7,8,11,18]]
 calidad_aire.head()
 
 
-# In[2]:
+# In[74]:
 
 
+# Lista de los nombres de las columnas del dataset (exluyo las coordenadas)
 list(calidad_aire)[2:]
 
 
 # In[3]:
 
 
+# Miro cuales variables son 'object': son las variables categoricas ('good', 'moderate', ...)
+# Separo el data-frame en dos:
+# - uno solo con variables continuas
+# - uno solo con variables categoricas
+
 droplist = calidad_aire.dtypes != object
 droplist[0:2] = False
 droplist
 
 
-# In[4]:
+# In[76]:
 
 
+# Quito las variables categoricas: creo el data-frame de variables continuas
 calidad_aire_num = calidad_aire.drop(calidad_aire.columns[calidad_aire.dtypes == object], axis=1)
 calidad_aire_num.head()
 
 
-# In[5]:
+# In[77]:
 
+
+# Quito las variables continuas: creo el data-frame de variables categoricas
 
 droplist = calidad_aire.dtypes != object
 droplist[0:2] = False
@@ -176,6 +205,7 @@ calidad_aire_num.plot.scatter(x = 'geometry/coordinates/0/4/0',
 # In[7]:
 
 
+# Hago una lista de las variables 
 all_z_variables = list(calidad_aire)[3:]
 print(all_z_variables)
 
@@ -256,8 +286,6 @@ for var in calidad_aire_obj.columns[2:]:
     # Define la posición de los ticks de la barra de color y las etiquetas a usar
     cb.set_ticks(cb.get_ticks()+0.589)
     cb.set_ticklabels(category)
-    
-    #plt.scatter(x,y, c=colors[z])
 
 
 # In[11]:
@@ -266,7 +294,7 @@ for var in calidad_aire_obj.columns[2:]:
 calidad_aire_obj.head()
 
 
-# In[ ]:
+# In[86]:
 
 
 # Quiero pasar de variables categoricas a numeros.
@@ -290,7 +318,7 @@ calidad_aire_obj_num[calidad_aire_obj_num.iloc[:,2:] == -1] = np.NaN
 calidad_aire_obj_num.head()
 
 
-# In[16]:
+# In[87]:
 
 
 # Añado una columna, que sea el promedio de las columnas, y la pinto
@@ -304,14 +332,10 @@ calidad_aire_obj_num.plot.scatter(x = 'geometry/coordinates/0/4/0',
             s = 5)
 
 
-# In[ ]:
+# In[85]:
 
 
-
-
-
-# In[ ]:
-
-
-
+# Guardo el data-frame en un fichero CSV
+calidad_aire_obj_num_save = calidad_aire_obj_num.iloc[:,[0,1,-1]]
+calidad_aire_obj_num_save.to_csv("calidad_aire_obj_num_save.csv", index = False)
 

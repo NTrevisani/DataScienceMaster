@@ -13758,7 +13758,30 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Para elegir el sitio donde instalar el carril bici, se ha considerado el nivel de calidad de aire</p>
+<p>Para elegir el sitio donde instalar el carril bici, se ha considerado el nivel de calidad de aire en las distintas zonas de la ciudad de Malaga.</p>
+<p>El dataset utilizado presenta dos tipos de datos, por cada una de las sustancias consideradas:</p>
+<ul>
+<li>la cantidad, en diferentes unidades, de la sustancia;</li>
+<li>un indicador cuálitativo asociado a la cantidad medida de dicha sustancia.</li>
+</ul>
+<p>Por cada medida, se proporcionan además las coordenadas geografica, de manera que se puede reconstruir un 'mapa' de Malaga donde aparecen las informaciones.</p>
+<p>Observando los datos, nos damos cuenta de que es complicado utilizar las cantidades numericas:</p>
+<ul>
+<li>pueden tener ordenes de magnitud distintas<ul>
+<li>no es trivial operar sobre ellas para sacar medias, etc;</li>
+<li>hay que conocer, por cada sustancia, los niveles considerado peligrosos.</li>
+</ul>
+</li>
+</ul>
+<p>Resulta mucho más sencillo operar con los datos categoricos, que ya collevan las informaciones normalizadas con respecto a los niveles recomendados, no obstante haya que hacer un pequeño trabajo de curación para que se puedan hacer analisis númericas. En particular, se asocia a cada valor calitativo, un número:</p>
+<ul>
+<li>good = 4;</li>
+<li>moderate = 3;</li>
+<li>unhealthy-low = 2;</li>
+<li>unhealthy = 1;</li>
+<li>unhealthy-high = 0.</li>
+</ul>
+<p>Sacando el promedio de esta 'nota' de calidad de aire por cada punto, se puede obtener un mapa de 'resumen': la zona ideal para poner un carril bici donde ahora está una carretera normal será la que tiene calidad de aire globalmente peor.</p>
 
 </div>
 </div>
@@ -13990,10 +14013,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">calidad_aire</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Lista de los nombres de las columnas del dataset (exluyo las coordenadas)</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">calidad_aire</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
 </pre></div>
 
     </div>
@@ -14006,7 +14030,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[74]:</div>
 
 
 
@@ -14074,7 +14098,12 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">droplist</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">!=</span> <span class="nb">object</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Miro cuales variables son &#39;object&#39;: son las variables categoricas (&#39;good&#39;, &#39;moderate&#39;, ...)</span>
+<span class="c1"># Separo el data-frame en dos:</span>
+<span class="c1"># - uno solo con variables continuas</span>
+<span class="c1"># - uno solo con variables categoricas</span>
+
+<span class="n">droplist</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">!=</span> <span class="nb">object</span>
 <span class="n">droplist</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">droplist</span>
 </pre></div>
@@ -14157,10 +14186,11 @@ dtype: bool</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">calidad_aire_num</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">calidad_aire</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="nb">object</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Quito las variables categoricas: creo el data-frame de variables continuas</span>
+<span class="n">calidad_aire_num</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">calidad_aire</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="nb">object</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">calidad_aire_num</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -14174,7 +14204,7 @@ dtype: bool</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt output_prompt">Out[76]:</div>
 
 
 
@@ -14355,10 +14385,12 @@ dtype: bool</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">droplist</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">!=</span> <span class="nb">object</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Quito las variables continuas: creo el data-frame de variables categoricas</span>
+
+<span class="n">droplist</span> <span class="o">=</span> <span class="n">calidad_aire</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">!=</span> <span class="nb">object</span>
 <span class="n">droplist</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">droplist</span>
 
@@ -14377,7 +14409,7 @@ dtype: bool</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[77]:</div>
 
 
 
@@ -14615,7 +14647,8 @@ dtype: bool</pre>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_z_variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calidad_aire</span><span class="p">)[</span><span class="mi">3</span><span class="p">:]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hago una lista de las variables </span>
+<span class="n">all_z_variables</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calidad_aire</span><span class="p">)[</span><span class="mi">3</span><span class="p">:]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">all_z_variables</span><span class="p">)</span>
 </pre></div>
 
@@ -15055,8 +15088,6 @@ properties/co_M
     <span class="c1"># Define la posición de los ticks de la barra de color y las etiquetas a usar</span>
     <span class="n">cb</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span><span class="o">+</span><span class="mf">0.589</span><span class="p">)</span>
     <span class="n">cb</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
-    
-    <span class="c1">#plt.scatter(x,y, c=colors[z])</span>
 </pre></div>
 
     </div>
@@ -15672,7 +15703,7 @@ properties/co_M
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Quiero pasar de variables categoricas a numeros.</span>
@@ -15700,10 +15731,194 @@ properties/co_M
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[86]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry/coordinates/0/4/0</th>
+      <th>geometry/coordinates/0/4/1</th>
+      <th>properties/co_F_level</th>
+      <th>properties/pm1_F_level</th>
+      <th>properties/pm1_level</th>
+      <th>properties/co_level</th>
+      <th>properties/o3_level</th>
+      <th>properties/pm10_F_level</th>
+      <th>properties/iuca.level_F_global</th>
+      <th>properties/pm25_F_level</th>
+      <th>...</th>
+      <th>properties/iuca.level_APP_global</th>
+      <th>properties/pm25_M_level</th>
+      <th>properties/o3_M_level</th>
+      <th>properties/co_M_level</th>
+      <th>properties/iaq_APP_level</th>
+      <th>properties/pm10_APP_level</th>
+      <th>properties/iuca.level_M_global</th>
+      <th>properties/pm10_M_level</th>
+      <th>properties/pm1_M_level</th>
+      <th>properties/co_APP_level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-4.439850</td>
+      <td>36.698456</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-4.428864</td>
+      <td>36.709442</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-4.340973</td>
+      <td>36.717682</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-4.424744</td>
+      <td>36.734161</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-4.496155</td>
+      <td>36.701202</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[87]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Añado una columna, que sea el promedio de las columnas, y la pinto</span>
@@ -15727,13 +15942,13 @@ properties/co_M
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[87]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f44c5ba2690&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f44c4c9d250&gt;</pre>
 </div>
 
 </div>
@@ -15759,23 +15974,12 @@ properties/co_M
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Guardo el data-frame en un fichero CSV</span>
+<span class="n">calidad_aire_obj_num_save</span> <span class="o">=</span> <span class="n">calidad_aire_obj_num</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">calidad_aire_obj_num_save</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;calidad_aire_obj_num_save.csv&quot;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
