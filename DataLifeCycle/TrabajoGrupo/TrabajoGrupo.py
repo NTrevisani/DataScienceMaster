@@ -41,7 +41,7 @@
 # 
 # De la demás comunidades independientes, Andalucia está entre las que sistematicamente tienen un nivel de atención superior al promedio nacional para los criterios utilizados y, factor no trascurable para este trabajo, el Ayuntamiento de Malaga proprciona datos sobre calidad de aire.
 
-# In[ ]:
+# In[1]:
 
 
 # Cargo las librerias necesarias
@@ -51,7 +51,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-# In[72]:
+# In[2]:
 
 
 # Cargo el dataset
@@ -69,28 +69,28 @@ uso_bici = uso_bici.drop(uso_bici.columns[[0,-2]], axis=1)
 uso_bici
 
 
-# In[69]:
+# In[3]:
 
 
 uso_bici.groupby('Comunidad')['Falta de una red completa de carriles bici'].mean().plot(kind='bar',
     title = 'Falta de una red completa de carriles bici')
 
 
-# In[70]:
+# In[4]:
 
 
 uso_bici.groupby('Comunidad')['Demasiado tráfico'].mean().plot(kind='bar',
     title = 'Demasiado tráfico')
 
 
-# In[68]:
+# In[5]:
 
 
 uso_bici.groupby('Comunidad')['Falta de instalaciones de aparcamiento de bicicletas'].mean().plot(kind='bar',
     title = 'Falta de instalaciones de aparcamiento de bicicletas')
 
 
-# In[71]:
+# In[6]:
 
 
 uso_bici.groupby('Comunidad')['Seguridad personal'].mean().plot(kind='bar',
@@ -121,7 +121,7 @@ uso_bici.groupby('Comunidad')['Seguridad personal'].mean().plot(kind='bar',
 # 
 # Sacando el promedio de esta 'nota' de calidad de aire por cada punto, se puede obtener un mapa de 'resumen': la zona ideal para poner un carril bici donde ahora está una carretera normal será la que tiene calidad de aire globalmente peor.
 
-# In[ ]:
+# In[7]:
 
 
 # Cargo las librerias necesarias
@@ -131,7 +131,7 @@ import matplotlib.pyplot as plt
 import numpy as np    
 
 
-# In[73]:
+# In[8]:
 
 
 # Leo el dataset
@@ -148,14 +148,14 @@ calidad_aire = calidad_aire.drop(calidad_aire.columns[[0,1,2,3,4,5,6,7,8,11,18]]
 calidad_aire.head()
 
 
-# In[74]:
+# In[9]:
 
 
 # Lista de los nombres de las columnas del dataset (exluyo las coordenadas)
 list(calidad_aire)[2:]
 
 
-# In[3]:
+# In[10]:
 
 
 # Miro cuales variables son 'object': son las variables categoricas ('good', 'moderate', ...)
@@ -168,7 +168,7 @@ droplist[0:2] = False
 droplist
 
 
-# In[76]:
+# In[11]:
 
 
 # Quito las variables categoricas: creo el data-frame de variables continuas
@@ -176,7 +176,7 @@ calidad_aire_num = calidad_aire.drop(calidad_aire.columns[calidad_aire.dtypes ==
 calidad_aire_num.head()
 
 
-# In[77]:
+# In[12]:
 
 
 # Quito las variables continuas: creo el data-frame de variables categoricas
@@ -190,7 +190,7 @@ calidad_aire_obj = calidad_aire.drop(calidad_aire.columns[droplist], axis=1)
 calidad_aire_obj.head()
 
 
-# In[6]:
+# In[13]:
 
 
 # Pinto una variable numerica: BIEN
@@ -202,7 +202,7 @@ calidad_aire_num.plot.scatter(x = 'geometry/coordinates/0/4/0',
             s = 5)
 
 
-# In[7]:
+# In[14]:
 
 
 # Hago una lista de las variables 
@@ -210,7 +210,7 @@ all_z_variables = list(calidad_aire)[3:]
 print(all_z_variables)
 
 
-# In[8]:
+# In[15]:
 
 
 # Intento hacer un loop sobre todas las variables numericas BIEN!
@@ -230,7 +230,7 @@ for var in calidad_aire_num.columns[6:]:
             s = 5)
 
 
-# In[9]:
+# In[16]:
 
 
 # Lista de colores para mapear con los valores de la variable
@@ -249,7 +249,7 @@ def attribute_color(valor):
         return dictCol.get(valor)
 
 
-# In[10]:
+# In[17]:
 
 
 # Intento hacer un loop sobre todas las variables categoricas
@@ -259,7 +259,6 @@ bounds = np.linspace(0,7,7)
 # Mapa de colores
 cmap = mpl.colors.ListedColormap(color)
 
-# Pinto solo la primera variable, no se si las demás tienen los mismos valores discretos.
 for var in calidad_aire_obj.columns[2:]:
 
     # Variables que contiene el plotteo
@@ -275,9 +274,9 @@ for var in calidad_aire_obj.columns[2:]:
     # La lista de colores será la que se le pase al scatter plot en el parámetro c.
     ax.scatter(x = df_tmp['geometry/coordinates/0/4/0'], 
         y = df_tmp['geometry/coordinates/0/4/1'], 
-        c = color_variable,#calidad_aire['properties/pm1'], #'properties/pm1',
+        c = color_variable, #calidad_aire['properties/pm1'], #'properties/pm1',
         s = 5)
-    
+    ax.title.set_text(var)
     # Situa la barra de color
     ax2 = fig.add_axes([0.95, 0.1, 0.03, 0.8])
     # Crea la barra de color
@@ -288,13 +287,13 @@ for var in calidad_aire_obj.columns[2:]:
     cb.set_ticklabels(category)
 
 
-# In[11]:
+# In[18]:
 
 
 calidad_aire_obj.head()
 
 
-# In[86]:
+# In[19]:
 
 
 # Quiero pasar de variables categoricas a numeros.
@@ -318,24 +317,100 @@ calidad_aire_obj_num[calidad_aire_obj_num.iloc[:,2:] == -1] = np.NaN
 calidad_aire_obj_num.head()
 
 
-# In[87]:
+# In[46]:
 
 
 # Añado una columna, que sea el promedio de las columnas, y la pinto
 
 calidad_aire_obj_num['average_quality'] = calidad_aire_obj_num.iloc[:,2:].mean(1)
 
-calidad_aire_obj_num.plot.scatter(x = 'geometry/coordinates/0/4/0', 
+pl = calidad_aire_obj_num.plot.scatter(x = 'geometry/coordinates/0/4/0', 
             y = 'geometry/coordinates/0/4/1', 
             c = 'average_quality',
             colormap='viridis',
+            title = calidad_aire_obj_num.average_quality.name,
             s = 5)
 
+pl.get_figure().savefig('Calidad_aire_average.pdf')
 
-# In[85]:
+
+# In[47]:
 
 
 # Guardo el data-frame en un fichero CSV
 calidad_aire_obj_num_save = calidad_aire_obj_num.iloc[:,[0,1,-1]]
 calidad_aire_obj_num_save.to_csv("calidad_aire_obj_num_save.csv", index = False)
+
+
+# In[48]:
+
+
+# Cargo las imagenes de Malaga que voy a necesitar
+img_mapa_urbano = plt.imread("malaga_Mapa_Urbano.png")
+img_mapa_satelite = plt.imread("malaga_Mapa_Satelite.png")
+img_mapa_relieve = plt.imread("malaga_Mapa_Relieve.png")
+
+
+# In[50]:
+
+
+# Miro los extremos de los ejes de mi mapa de calidad de aire
+pl.axis()
+
+
+# In[54]:
+
+
+# Pinto mi mapa sobre los mapas de Malaga
+fig, ax = plt.subplots(figsize=(13, 9))
+
+d = ax.scatter(x = calidad_aire_obj_num['geometry/coordinates/0/4/0'], 
+            y = calidad_aire_obj_num['geometry/coordinates/0/4/1'], 
+            c = calidad_aire_obj_num['average_quality'],
+            cmap='jet',
+            s = 5,
+            zorder=1)
+ext = pl.axis()
+ext2 = [-4.6, -4.30, 36.625, 36.837]
+ax.imshow(img_mapa_urbano, extent=ext, zorder = 0)
+
+fig.colorbar(d)
+
+
+# In[52]:
+
+
+# Pinto mi mapa sobre los mapas de Malaga
+fig, ax = plt.subplots(figsize=(13, 9))
+
+d = ax.scatter(x = calidad_aire_obj_num['geometry/coordinates/0/4/0'], 
+            y = calidad_aire_obj_num['geometry/coordinates/0/4/1'], 
+            c = calidad_aire_obj_num['average_quality'],
+            cmap='viridis',
+            s = 5,
+            zorder=1)
+ext = pl.axis()
+ext2 = [-4.6, -4.30, 36.625, 36.837]
+ax.imshow(img_mapa_satelite, extent=ext, zorder = 0)
+
+fig.colorbar(d)
+
+
+# In[53]:
+
+
+# Pinto mi mapa sobre los mapas de Malaga
+fig, ax = plt.subplots(figsize=(13, 9))
+
+d = ax.scatter(x = calidad_aire_obj_num['geometry/coordinates/0/4/0'], 
+            y = calidad_aire_obj_num['geometry/coordinates/0/4/1'], 
+            c = calidad_aire_obj_num['average_quality'],
+            cmap='jet',
+            s = 5,
+            zorder=1)
+ext = pl.axis()
+ext2 = [-4.6, -4.30, 36.625, 36.837]
+ax.imshow(img_mapa_relieve, extent=ext, zorder = 0)
+
+fig.colorbar(d)
 
