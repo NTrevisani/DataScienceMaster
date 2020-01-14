@@ -46,8 +46,7 @@ select us.*
 select act.*, se.*
     from ACTORES act
         inner join REPARTO re on act.idActor = re.idActor
-        inner join SERIES se on se.idSerie = re.idSerie
-            order by idActor;
+        inner join SERIES se on se.idSerie = re.idSerie;
     
 
 -- 7. Mostrar los datos de los usuarios que no hayan realizado nunca ninguna valoración
@@ -63,8 +62,7 @@ select us.*
 
 select us.*, pr.profesion
     from PROFESIONES pr
-        left join USUARIOS us on us.idProfesion = pr.idProfesion
-            order by us.idUsuario desc;
+        left join USUARIOS us on us.idProfesion = pr.idProfesion;
 
 
 -- 9. Retornar los datos de las series que estén en idioma español, y cuyo título comience
