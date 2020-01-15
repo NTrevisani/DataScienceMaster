@@ -69,32 +69,44 @@ uso_bici = uso_bici.drop(uso_bici.columns[[0,-2]], axis=1)
 uso_bici
 
 
-# In[3]:
+# In[12]:
 
 
 uso_bici.groupby('Comunidad')['Falta de una red completa de carriles bici'].mean().plot(kind='bar',
     title = 'Falta de una red completa de carriles bici')
 
+plt.axhline(y=uso_bici.loc[0,'Falta de una red completa de carriles bici'], color='r', linestyle='-')
+plt.show()
 
-# In[4]:
+
+# In[13]:
 
 
 uso_bici.groupby('Comunidad')['Demasiado tráfico'].mean().plot(kind='bar',
     title = 'Demasiado tráfico')
 
+plt.axhline(y=uso_bici.loc[0,'Demasiado tráfico'], color='r', linestyle='-')
+plt.show()
 
-# In[5]:
+
+# In[14]:
 
 
 uso_bici.groupby('Comunidad')['Falta de instalaciones de aparcamiento de bicicletas'].mean().plot(kind='bar',
     title = 'Falta de instalaciones de aparcamiento de bicicletas')
 
+plt.axhline(y=uso_bici.loc[0,'Falta de instalaciones de aparcamiento de bicicletas'], color='r', linestyle='-')
+plt.show()
 
-# In[6]:
+
+# In[15]:
 
 
 uso_bici.groupby('Comunidad')['Seguridad personal'].mean().plot(kind='bar',
     title = 'Seguridad personal')
+
+plt.axhline(y=uso_bici.loc[0,'Seguridad personal'], color='r', linestyle='-')
+plt.show()
 
 
 # ### 2. Elección del sitio donde construir el carril bici
@@ -358,7 +370,7 @@ img_mapa_relieve = plt.imread("malaga_Mapa_Relieve.png")
 pl.axis()
 
 
-# In[54]:
+# In[57]:
 
 
 # Pinto mi mapa sobre los mapas de Malaga
@@ -376,8 +388,10 @@ ax.imshow(img_mapa_urbano, extent=ext, zorder = 0)
 
 fig.colorbar(d)
 
+d.get_figure().savefig('Malaga_mapa_urbano.pdf')
 
-# In[52]:
+
+# In[58]:
 
 
 # Pinto mi mapa sobre los mapas de Malaga
@@ -395,8 +409,10 @@ ax.imshow(img_mapa_satelite, extent=ext, zorder = 0)
 
 fig.colorbar(d)
 
+d.get_figure().savefig('Malaga_mapa_satelite.pdf')
 
-# In[53]:
+
+# In[56]:
 
 
 # Pinto mi mapa sobre los mapas de Malaga
@@ -413,4 +429,6 @@ ext2 = [-4.6, -4.30, 36.625, 36.837]
 ax.imshow(img_mapa_relieve, extent=ext, zorder = 0)
 
 fig.colorbar(d)
+
+d.get_figure().savefig('Malaga_mapa_relieve.pdf')
 
