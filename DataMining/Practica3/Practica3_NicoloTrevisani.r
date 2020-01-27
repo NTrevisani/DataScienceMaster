@@ -7,7 +7,10 @@ meteo <- read.csv("meteo.csv", row.name = 1)
 meteo.slim <- meteo[cor(meteo,  method = "spearman")[1,] > 0.4 | cor(meteo,  method = "spearman")[1,] < -0.4]
 ncol(meteo.slim)
 
-# Fijo el seed
+head(meteo.slim)
+
+# Fijo el seed, para que el sample que uso para separar en train y test
+# de siempre el mismo resultado.
 set.seed(23)
 
 # Separo en set de train y de test. En total, uso solo los primeros 5000 días del dataset 
@@ -21,17 +24,20 @@ meteo.slim.train <- meteo.slim[indtrain,]
 indtest <- setdiff(1:n, indtrain)      
 meteo.slim.test  <- meteo.slim[indtest,]
 
+# Dataset de entrenamiento: meteo.slim.train
+# Dataset de test:          meteo.slim.test  
+
 # converto la variable objetivo en categórica
 rain = ifelse(meteo.slim$y < 1, 0, 1)
 meteo.slim$rain = as.factor(rain)
 
-# Cargo la libreria necesaria a usar los trees
+# Cargo la libreria necesaria para usar los trees
 library(tree)
 
 # Quito 'y' y me quedo solo con 'rain' 
 meteo.rain <- meteo.slim[,2:ncol(meteo.slim)]
 
-meteo.rain
+head(meteo.rain)
 
 # Entreno un arbol que dejo crecer sin limites
 t.tree = tree(formula = rain ~ ., 
@@ -50,8 +56,8 @@ text(t.tree, pretty = F)
 print(paste("El arbol completo tiene",
 length(t.tree$frame$var[t.tree$frame$var == '<leaf>']), "hojas"))
 
-# Ahora uso cross-validation para entrenar un arbol menos complejo
-# y de paso más generalizable
+# Ahora uso cross-validation para podar el arbol completo,
+# haciendo que sea más generalizable, o más útil para predecir
 
 # Preparo la validación cruzada
 tree.cv <- cv.tree(object = t.tree,
@@ -86,6 +92,7 @@ pred.test  = predict(opt.tree, newdata = meteo.rain.test, type = "class")
 meteo.cont.rain <- meteo.slim[meteo.slim$rain == 1,]
 meteo.cont.rain <- meteo.cont.rain[1:ncol(meteo.cont.rain)-1]
 head(meteo.cont.rain)
+nrow(meteo.cont.rain)
 
 # Preparo el dataset de entrenamiento que tenga 
 # tanto los días sin lluvia como los días sin lluvia
@@ -93,6 +100,7 @@ head(meteo.cont.rain)
 
 meteo.cont <- meteo.slim[1:ncol(meteo.slim)-1]
 head(meteo.cont)
+nrow(meteo.cont)
 
 # Entreno un arbol que dejo crecer sin limites
 # Uso el dataset de entrenamiento completo
@@ -114,8 +122,8 @@ text(full.tree, pretty = F)
 print(paste("El arbol completo tiene",
 length(full.tree$frame$var[full.tree$frame$var == '<leaf>']), "hojas"))
 
-# Ahora uso cross-validation para entrenar un arbol menos complejo
-# y de paso más generalizable
+# Ahora uso cross-validation para podar el arbol completo,
+# haciendo que sea más generalizable, o más útil para predecir
 
 # Preparo la validación cruzada
 full.tree.cv <- cv.tree(object = full.tree,
@@ -136,8 +144,9 @@ text(opt.tree.full, pretty = F)
 
 summary(opt.tree.full)
 
+print(opt.tree.full)
+
 # Preparo los dataset de train y de test
-# Dataset: la cantidad de lluvia es continua, uso todos los eventos
 meteo.cont.full.train <- meteo.cont[indtrain,]
 meteo.cont.full.test <- meteo.cont[-indtrain,]
 
@@ -165,8 +174,8 @@ text(rain.tree, pretty = F)
 print(paste("El arbol completo entrenado solo con días de lluvia tiene",
 length(rain.tree$frame$var[rain.tree$frame$var == '<leaf>']), "hojas"))
 
-# Ahora uso cross-validation para entrenar un arbol menos complejo
-# y de paso más generalizable
+# Ahora uso cross-validation para podar el arbol completo,
+# haciendo que sea más generalizable, o más útil para predecir
 
 # Preparo la validación cruzada
 rain.tree.cv <- cv.tree(object = rain.tree,
@@ -179,28 +188,35 @@ plot(rain.tree.cv$size, rain.tree.cv$dev / length(indtrain), type = "b",
      xlim = c(0,10))
 
 # Podo el arbol completo según lo resultados de la validación cruzada
+# Vemos que el arbol optimo deberia tener 5 hojas finales.
 opt.tree.rain <- prune.tree(rain.tree, best = 5)
 
 # Pinto el arbol optimo
 plot(opt.tree.rain)
 text(opt.tree.rain, pretty = F)
+print(opt.tree.rain)
 
-summary(opt.tree.rain)
+# Podriamos pensar que la usar solo 5 hojas implique
+# reducir la acpacidad del arbol en describir la variabilidad 
+# de la cantidad de lluvia. Intentamos usar 10 hojas
+opt.tree.rain.10 <- prune.tree(rain.tree, best = 10)
+
+# Pinto el arbol optimo
+plot(opt.tree.rain.10)
+text(opt.tree.rain.10, pretty = F)
+print(opt.tree.rain.10)
 
 # Preparo los dataset de train y de test
-# Dataset: la cantidad de lluvia es continua, uso solo los eventos con lluvia (y > 1mm)
 meteo.cont.rain.train <- meteo.cont.rain[indtrain,]
 meteo.cont.rain.test <- meteo.cont.rain[-indtrain,]
 
-# Quito los 'na'
-meteo.cont.rain.train <- na.omit(meteo.cont.rain.train)
-meteo.cont.rain.test <- na.omit(meteo.cont.rain.test)
-
 # Guardo las predicciones del arbol optimo
-# En este caso, hago el test usando el dataset con lluvia y sin lluvia
-pred.cont.rain.test.all = predict(opt.tree.rain, newdata = meteo.cont.full.test)#, type = "class")
-# En este caso, hago el test usando el dataset con solo lluvia
-pred.cont.rain.test     = predict(opt.tree.rain, newdata = meteo.cont.rain.test) #, type = "class")
+pred.cont.rain.test.all = predict(opt.tree.rain, newdata = meteo.cont.full.test)
+pred.cont.rain.test     = predict(opt.tree.rain, newdata = meteo.cont.full.test)
+
+# Guardo las predicciones del arbol con 10 hojas
+pred.cont.rain.test.all.10 = predict(opt.tree.rain.10, newdata = meteo.cont.full.test)
+pred.cont.rain.test.10     = predict(opt.tree.rain.10, newdata = meteo.cont.full.test)
 
 # Mido el accuracy de la classificación binaria lluvia/no-lluvia
 print("Accuracy de la clasificación lluvia/no-lluvia")
@@ -210,65 +226,61 @@ print("Accuracy de la clasificación lluvia/no-lluvia")
 meteo.rain.test[1:20,"rain"]
 pred.test[1:20]
 
+# Y la matriz de confusión, para evaluar los falsos positivos/negativos
+table(pred.test, meteo.rain.test$rain)
+
+table(pred.test)
+table(meteo.rain.test$rain)
+
+# Construyo la predicción completa
+pred.test.num <- as.numeric(pred.test) - 1
+pred.cont.full.test.complete <- pred.test.num*pred.cont.full.test
+
 # Pinto los valores original contra la predicción
-plot(pred.cont.full.test, meteo.cont.full.test[,'y'])
+plot(pred.cont.full.test.complete, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.cont.full.test)^2))
+rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.cont.full.test.complete)^2))
 rmse.full
 
 # Correlación - mejor si es alta
-corr.full <- cor(meteo.cont.full.test[,'y'], pred.cont.full.test,  method = "spearman")
+corr.full <- cor(meteo.cont.full.test[,'y'], pred.cont.full.test.complete,  method = "spearman")
 corr.full
 
-# Comparo solo la predicción de cuanta lluvia cae en los dias de lluvia
-# con el dataset que contiene solo dias de lluvia
+# Construyo la predicción completa
+pred.test.num <- as.numeric(pred.test) - 1
+pred.cont.rain.test.complete <- pred.test.num*pred.cont.rain.test
 
 # Pinto los valores original contra la predicción
-plot(pred.cont.rain.test, meteo.cont.rain.test[,'y'])
+plot(pred.cont.rain.test.complete, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.rain <- sqrt(mean((meteo.cont.rain.test[,'y'] - pred.cont.rain.test)^2))
+rmse.rain <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.cont.rain.test.complete)^2))
 rmse.rain
 
 # Correlación - mejor si es alta
-corr.rain <- cor(meteo.cont.rain.test[,'y'], pred.cont.rain.test,  method = "spearman")
+corr.rain <- cor(meteo.cont.full.test[,'y'], pred.cont.rain.test.complete,  method = "spearman")
 corr.rain
 
-# Comparo la predicción de cuanta lluvia cae en los dias de lluvia y en los dias sin lluvia
-# con el dataset que contiene dias de lluvia y dias sin lluvia
+# Lo mismo, pero con el arbol de 10 hoajs
+
+# Construyo la predicción completa
+pred.test.num <- as.numeric(pred.test) - 1
+pred.cont.rain.test.complete.10 <- pred.test.num*pred.cont.rain.test.10
 
 # Pinto los valores original contra la predicción
-plot(pred.cont.rain.test.all, meteo.cont.full.test[,'y'])
+plot(pred.cont.rain.test.complete.10, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.rain <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.cont.rain.test.all)^2))
+rmse.rain <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.cont.rain.test.complete.10)^2))
 rmse.rain
 
 # Correlación - mejor si es alta
-corr.rain <- cor(meteo.cont.full.test[,'y'], pred.cont.rain.test.all,  method = "spearman")
+corr.rain <- cor(meteo.cont.full.test[,'y'], pred.cont.rain.test.complete.10,  method = "spearman")
 corr.rain
-
-# Defino el variance ratio
-
-variance.ratio <- function(x,y) {
-  v1<-var(x)
-  v2<-var(y)
-  if (var(x) > var(y)) {
-      vr<-var(x)/var(y)
-      df1<-length(x)-1
-      df2<-length(y)-1
-  }
-  else { 
-      vr<-var(y)/var(x)
-      df1<-length(y)-1
-      df2<-length(x)-1
-  }
-  2*(1-pf(vr,df1,df2)) 
-}
 
 library(randomForest)
 
