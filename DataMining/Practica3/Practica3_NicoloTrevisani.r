@@ -207,8 +207,8 @@ text(opt.tree.rain.10, pretty = F)
 print(opt.tree.rain.10)
 
 # Preparo los dataset de train y de test
-meteo.cont.rain.train <- meteo.cont.rain[indtrain,]
-meteo.cont.rain.test <- meteo.cont.rain[-indtrain,]
+meteo.cont.rain.train <- na.omit(meteo.cont.rain[indtrain,])
+meteo.cont.rain.test  <- na.omit(meteo.cont.rain[-indtrain,])
 
 # Guardo las predicciones del arbol optimo
 pred.cont.rain.test.all = predict(opt.tree.rain, newdata = meteo.cont.full.test)
@@ -378,6 +378,20 @@ rf.cont.rain.opt
 
 pred.rf.cont.rain.opt = predict(rf.cont.rain.opt, meteo.cont.full.test)
 
+# Mido el accuracy de la classificación binaria lluvia/no-lluvia
+print("Accuracy de la clasificación lluvia/no-lluvia")
+100*sum(diag(table(meteo.rain.test[,"rain"], pred.rf.test))) / length(pred.rf.test)
+
+# Y la matriz de confusión, para evaluar los falsos positivos/negativos
+table(pred.rf.test, meteo.rain.test$rain)
+
+# Miro también 'a ojo' las primeras 20 predicciones, comparadas con el dataset original de test
+meteo.rain.test[1:20,"rain"]
+pred.rf.test[1:20]
+
+table(pred.rf.test)
+table(meteo.rain.test$rain)
+
 # Predicción completa
 pred.complete.full <- pred.rf.full.opt.test * (as.numeric(pred.rf.test) - 1)
 
@@ -443,10 +457,11 @@ hist(out.lin.model, main = "Histograma de salida del modelo")
 # Histograma de salida del modelo (con variable categorica)
 hist(out.bin.lin.model, main = "Histograma de salida del modelo (con variable categorica)")
 
-# Tasa de acierto (test)
+# Preparo la predicción de clasificación de días de lluvia/no lluvia
 out.test.rain <- predict(object = lin.model, newdata = meteo.rain.test);
 out.bin.test.rain <- as.double(out.test.rain > 0.5)
 
+# Tasa de acierto (test)
 print("Accuracy sobre el datset de test:")
 100*sum(diag(table(meteo.rain.test$rain, out.bin.test.rain))) / length(out.bin.test.rain)
 
@@ -569,4 +584,45 @@ plot(knn)
 
 # knn.reg(train, test = NULL, y, k = 3, algorithm=c("kd_tree", "cover_tree", "brute"))
 
-?repeatedcv
+# Predigo en el dataset de test usando k = 20 vecinos cercanos
+k = 20
+
+pred.knn.opt <- knn.reg(train = scale(meteo.cont.full.train[,-1]), 
+                        test = scale(meteo.cont.full.test[,-1]), 
+                        y = meteo.cont.full.train$y, 
+                        k = k)
+
+
+# Ahora lo mismo, pero con solo 1 vecino (K = 1)
+k = 1
+
+pred.knn.1 <- knn.reg(train = scale(meteo.cont.full.train[,-1]), 
+                      test = scale(meteo.cont.full.test[,-1]), 
+                      y = meteo.cont.full.train$y, 
+                      k = k)
+
+# Pinto los valores original contra la predicción - caso k = 20
+plot(pred.knn.opt$pred, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.knn.opt$pred)^2))
+rmse.full
+
+# Correlación - mejor si es alta
+corr.full <- cor(meteo.cont.full.test[,'y'], pred.knn.opt$pred,  method = "spearman")
+corr.full
+
+# Pinto los valores original contra la predicción - caso k = 1
+plot(pred.knn.1$pred, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.knn.1$pred)^2))
+rmse.full
+
+# Correlación - mejor si es alta
+corr.full <- cor(meteo.cont.full.test[,'y'], pred.knn.1$pred,  method = "spearman")
+corr.full
+
+
