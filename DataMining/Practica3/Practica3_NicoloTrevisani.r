@@ -248,6 +248,10 @@ rmse.full
 corr.full <- cor(meteo.cont.full.test[,'y'], pred.cont.full.test.complete,  method = "spearman")
 corr.full
 
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.full <- var(pred.cont.full.test.complete) / var(meteo.cont.full.test[,'y'])
+variance.ratio.full
+
 # Construyo la predicción completa
 pred.test.num <- as.numeric(pred.test) - 1
 pred.cont.rain.test.complete <- pred.test.num*pred.cont.rain.test
@@ -263,6 +267,10 @@ rmse.rain
 # Correlación - mejor si es alta
 corr.rain <- cor(meteo.cont.full.test[,'y'], pred.cont.rain.test.complete,  method = "spearman")
 corr.rain
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.rain <- var(pred.cont.rain.test.complete) / var(meteo.cont.full.test[,'y'])
+variance.ratio.rain
 
 # Lo mismo, pero con el arbol de 10 hoajs
 
@@ -281,6 +289,10 @@ rmse.rain
 # Correlación - mejor si es alta
 corr.rain <- cor(meteo.cont.full.test[,'y'], pred.cont.rain.test.complete.10,  method = "spearman")
 corr.rain
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.rain <- var(pred.cont.rain.test.complete) / var(meteo.cont.full.test[,'y'])
+variance.ratio.rain
 
 library(randomForest)
 
@@ -400,12 +412,16 @@ plot(pred.complete.full, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.complete.full)^2))
-rmse.full
+rmse.rf.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.complete.full)^2))
+rmse.rf.full
 
 # Correlación - mejor si es alta
-corr.full <- cor(meteo.cont.full.test[,'y'], pred.complete.full,  method = "spearman")
-corr.full
+corr.rf.full <- cor(meteo.cont.full.test[,'y'], pred.complete.full,  method = "spearman")
+corr.rf.full
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.rf.full <- var(pred.complete.full) / var(meteo.cont.full.test[,'y'])
+variance.ratio.rf.full
 
 pred.complete.rain <- pred.rf.cont.rain.opt * (as.numeric(pred.rf.test) - 1)
 
@@ -414,12 +430,16 @@ plot(pred.complete.rain, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.complete.rain)^2))
-rmse.full
+rmse.rf.rain <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.complete.rain)^2))
+rmse.rain
 
 # Correlación - mejor si es alta
-corr.full <- cor(meteo.cont.full.test[,'y'], pred.complete.rain,  method = "spearman")
-corr.full
+corr.rf.rain <- cor(meteo.cont.full.test[,'y'], pred.complete.rain,  method = "spearman")
+corr.rf.rain
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.rf.rain <- var(pred.complete.rain) / var(meteo.cont.full.test[,'y'])
+variance.ratio.rf.rain
 
 # Ya tengo los datasets de entrenamiento y de test listos:
 
@@ -522,12 +542,16 @@ plot(glm.complete.rain, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - glm.complete.rain)^2))
-rmse.full
+rmse.lm.full <- sqrt(mean((meteo.cont.full.test[,'y'] - glm.complete.rain)^2))
+rmse.lm.full
 
 # Correlación - mejor si es alta
-corr.full <- cor(meteo.cont.full.test[,'y'], glm.complete.rain,  method = "spearman")
-corr.full
+corr.lm.full <- cor(meteo.cont.full.test[,'y'], glm.complete.rain,  method = "spearman")
+corr.lm.full
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.lm.rain <- var(glm.complete.rain) / var(meteo.cont.full.test[,'y'])
+variance.ratio.lm.rain
 
 # Ya tengo los datasets de entrenamiento y de test listos:
 
@@ -606,23 +630,130 @@ plot(pred.knn.opt$pred, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.knn.opt$pred)^2))
-rmse.full
+rmse.knn.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.knn.opt$pred)^2))
+rmse.knn.full
 
 # Correlación - mejor si es alta
-corr.full <- cor(meteo.cont.full.test[,'y'], pred.knn.opt$pred,  method = "spearman")
-corr.full
+corr.knn.full <- cor(meteo.cont.full.test[,'y'], pred.knn.opt$pred,  method = "spearman")
+corr.knn.full
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.knn.full <- var(pred.knn.opt$pred) / var(meteo.cont.full.test[,'y'])
+variance.ratio.knn.full
 
 # Pinto los valores original contra la predicción - caso k = 1
 plot(pred.knn.1$pred, meteo.cont.full.test[,'y'])
 abline(0,1)
 
 # RMSE - mejor si es baja
-rmse.full <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.knn.1$pred)^2))
-rmse.full
+rmse.knn.full.1 <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.knn.1$pred)^2))
+rmse.knn.full.1
 
 # Correlación - mejor si es alta
-corr.full <- cor(meteo.cont.full.test[,'y'], pred.knn.1$pred,  method = "spearman")
-corr.full
+corr.knn.full.1 <- cor(meteo.cont.full.test[,'y'], pred.knn.1$pred,  method = "spearman")
+corr.knn.full.1
 
+# Ratio de varianzas - mejor si cerca de 1
+variance.ratio.knn.full.1 <- var(pred.knn.1$pred) / var(meteo.cont.full.test[,'y'])
+variance.ratio.knn.full.1
 
+out.bin.test.rain.003 <- as.double(out.test.rain > -0.03)
+
+# Matriz de confusión de test
+print("Matriz de confusión de test:")
+table(meteo.rain.test$rain, out.bin.test.rain.003)
+
+# Clasificacíon GLM + árbol de regresión
+pred.glm.tree <- out.bin.test.rain.003*pred.cont.rain.test
+
+# Pinto los valores original contra la predicción
+plot(pred.glm.tree, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.glm.tree <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.glm.tree)^2))
+rmse.glm.tree
+
+# Correlación - mejor si es alta
+corr.glm.tree <- cor(meteo.cont.full.test[,'y'], pred.glm.tree,  method = "spearman")
+corr.glm.tree
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.glm.tree <- var(pred.glm.tree) / var(meteo.cont.full.test[,'y'])
+variance.glm.tree
+
+# Clasificacíon GLM + random forest
+pred.glm.rf <- out.bin.test.rain.003*pred.rf.cont.rain.opt
+
+# Pinto los valores original contra la predicción
+plot(pred.glm.rf, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.glm.rf <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.glm.rf)^2))
+rmse.glm.rf
+
+# Correlación - mejor si es alta
+corr.glm.rf <- cor(meteo.cont.full.test[,'y'], pred.glm.rf,  method = "spearman")
+corr.glm.rf
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.glm.rf <- var(pred.glm.rf) / var(meteo.cont.full.test[,'y'])
+variance.glm.rf
+
+# Clasificacíon GLM + GLM
+pred.glm.glm <- out.bin.test.rain.003*out.train.rain.cont.all
+
+# Pinto los valores original contra la predicción
+plot(pred.glm.glm, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.glm.glm <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.glm.glm)^2))
+rmse.glm.glm
+
+# Correlación - mejor si es alta
+corr.glm.glm <- cor(meteo.cont.full.test[,'y'], pred.glm.glm,  method = "spearman")
+corr.glm.glm
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.glm.glm <- var(pred.glm.glm) / var(meteo.cont.full.test[,'y'])
+variance.glm.glm
+
+# Clasificacíon GLM + KNN (K = 20)
+pred.glm.knn.20 <- out.bin.test.rain.003*pred.knn.opt$pred
+
+# Pinto los valores original contra la predicción
+plot(pred.glm.knn.20, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.glm.knn.20 <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.glm.knn.20)^2))
+rmse.glm.knn.20
+
+# Correlación - mejor si es alta
+corr.glm.knn.20 <- cor(meteo.cont.full.test[,'y'], pred.glm.knn.20,  method = "spearman")
+corr.glm.knn.20
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.glm.knn.20 <- var(pred.glm.knn.20) / var(meteo.cont.full.test[,'y'])
+variance.glm.knn.20
+
+# Clasificacíon GLM + KNN (K = 1)
+pred.glm.knn.1 <- out.bin.test.rain.003*pred.knn.1$pred
+
+# Pinto los valores original contra la predicción
+plot(pred.glm.knn.1, meteo.cont.full.test[,'y'])
+abline(0,1)
+
+# RMSE - mejor si es baja
+rmse.glm.knn.1 <- sqrt(mean((meteo.cont.full.test[,'y'] - pred.glm.knn.1)^2))
+rmse.glm.knn.1
+
+# Correlación - mejor si es alta
+corr.glm.knn.1 <- cor(meteo.cont.full.test[,'y'], pred.glm.knn.1,  method = "spearman")
+corr.glm.knn.1
+
+# Ratio de varianzas - mejor si cerca de 1
+variance.glm.knn.1 <- var(pred.glm.knn.1) / var(meteo.cont.full.test[,'y'])
+variance.glm.knn.1
