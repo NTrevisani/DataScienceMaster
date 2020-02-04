@@ -5,9 +5,9 @@
 #install.packages("readr")
 #install.packages("mclust")
 #install.packages("caret")
-#install.packages("e1071")
+install.packages("e1071")
 #install.packages("sparcl")
-#install.packages("kohonen")
+install.packages("kohonen")
 #install.packages("cluster")
 #install.packages("FNN")
 
@@ -280,18 +280,6 @@ stringa = c('Cluster 1: verano', 'Cluster 2: otonyo', 'Cluster 3: primavera', 'C
 for (i in 1:4){
     rain.cluster <- mean(y[km$cluster == i])
     print(paste(stringa[i],rain.cluster,"mm"))
-}
-
-# Preparo el clustering con 12 clusters
-
-# Temperatura del aire en superficie (columnas 161:200),
-km <- kmeans(x2[,161:200], 12, iter.max = 1000, nstart = 20)
-
-# Pinto los meses de cada Cluster
-par(mfrow=c(4,3))
-
-for (i in 1:12){
-    plot(x2$meses[which(km$cluster == i)])    
 }
 
 #install.packages(c('fields','FNN','class'))
