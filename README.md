@@ -73,7 +73,7 @@ or, to install for all the users of the system:
     
 To automatically save your jupyter notebook in 'ipynb', 'html', and as a script of the language you are using (e.g. 'py', 'r', ...), create a configuration file for jupyter:
 
-    ./jupyter notebook --generate-config
+    jupyter notebook --generate-config
 
 And add the following script to the config file just created (in my case, named: .jupyter/jupyter_notebook_config.py):
 
