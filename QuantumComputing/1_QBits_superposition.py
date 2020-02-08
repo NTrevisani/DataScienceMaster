@@ -4,6 +4,15 @@
 # $\newcommand{\ket}[1]{\left|#1\right>}$
 # 
 
+# # Q-Bits and superposition
+# 
+# Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
+# https://quantum-computing.ibm.com/
+
+# All the following examples need the Qiskit library to run. Install it running the command:
+# 
+#     pip install qiskit
+
 # ## Example 1
 # 
 # #### Simple q-bit measurement
@@ -37,6 +46,8 @@ single_q_measurement.measure(q, c)
 # Draw the circuit
 single_q_measurement.draw()
 
+
+# The M gate simply measures the state of the q-bit.
 
 # In[5]:
 
@@ -89,6 +100,8 @@ excited_state.measure(q, c)
 # Draw the circuit
 excited_state.draw()
 
+
+# Here we used the X gate to put the q-bit in the excited state.
 
 # In[11]:
 
@@ -167,7 +180,7 @@ print(result.get_counts(superposition_state))
 # 
 # #### Two superpoistions
 
-# Let's try now putting two H gates one after the other.
+# Let's now try putting two H gates one after the other.
 
 # In[19]:
 
@@ -217,11 +230,13 @@ result = job.result()
 print(result.get_counts(superposition_state_xbasis))
 
 
+# By putting two H gates one after the other, we obtain the original state.
+
 # ## Example 5
 # 
 # #### Negative superpoistion
 
-# In[37]:
+# In[25]:
 
 
 # negative_superposition_state.py
@@ -359,7 +374,9 @@ print(result.get_counts(negative_superposition_state_xbasis))
 # \begin{bmatrix}
 #     1 \\
 #     1 \\
-# \end{bmatrix} = \ket{+}
+# \end{bmatrix} = 
+# \dfrac{\ket{0} + \ket{1}}{\sqrt{2}} = 
+# \ket{+}
 # $
 
 # Similarly, applying H to the excited state
@@ -381,7 +398,9 @@ print(result.get_counts(negative_superposition_state_xbasis))
 # \begin{bmatrix}
 #     1 \\
 #     -1 \\
-# \end{bmatrix} = \ket{-}
+# \end{bmatrix} = 
+# \dfrac{\ket{0} - \ket{1}}{\sqrt{2}} = 
+# \ket{-}
 # $
 
 # Here, $\ket{+}$ and $\ket{-}$ are the representation of the superposition state in the superposition base.
@@ -435,3 +454,28 @@ print(result.get_counts(negative_superposition_state_xbasis))
 # $
 
 # Again, with some algebra, we can easily explain the results obtained when we applied twice the H operator: the system is always in the state it was before the double manipulation.
+# 
+# In other words, $HH = 1$:
+
+# $ 
+# HH = 
+# \dfrac{1}{\sqrt{2}}
+# \begin{bmatrix}
+#     1 & 1 \\
+#     1 & -1 
+# \end{bmatrix}
+# \dfrac{1}{\sqrt{2}}
+# \begin{bmatrix}
+#     1 & 1 \\
+#     1 & -1 
+# \end{bmatrix} = 
+# \dfrac{1}{2}
+# \begin{bmatrix}
+#     2 & 0 \\
+#     0 & 2 
+# \end{bmatrix} = 
+# \begin{bmatrix}
+#     1 & 0 \\
+#     0 & 1 
+# \end{bmatrix}
+# $
