@@ -13085,7 +13085,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Q-Bits-and-superposition">Q-Bits and superposition<a class="anchor-link" href="#Q-Bits-and-superposition">&#182;</a></h1><p>Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
+<h1 id="Qubits-and-superposition">Qubits and superposition<a class="anchor-link" href="#Qubits-and-superposition">&#182;</a></h1><p>Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
 <a href="https://quantum-computing.ibm.com/">https://quantum-computing.ibm.com/</a></p>
 
 </div>
@@ -13097,6 +13097,79 @@ div#notebook {
 <p>All the following examples need the Qiskit library to run. Install it running the command:</p>
 
 <pre><code>pip install qiskit</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-qubit">The qubit<a class="anchor-link" href="#The-qubit">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The quantum bit, or qubit, is the fundamental piece of a quantum computer.</p>
+<p>It can be considered as the analogous of the bit in a standard computer, but with the difference that while a bit can assume values 0 or 1, a qubit has two levels $\ket{0}$ and $\ket{1}$ and can be in any state which is the linear superposition of $\ket{0}$ and $\ket{1}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>On a quantum mechanical point of view, $\ket{0}$ is the fundamental state and $\ket{1}$ the first excited state.</p>
+<p>In the canonical base, they can be expressed as:</p>
+<p>$\ket{0} = \begin{bmatrix}
+    1 \\
+    0 \\
+\end{bmatrix}$</p>
+<p>$\ket{1} = \begin{bmatrix}
+    0 \\
+    1 \\
+\end{bmatrix}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As said, a qubit state $\ket{\psi}$ is the superposition of $\ket{0}$ and $\ket{1}$:</p>
+<p>$\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$</p>
+<p>where $\alpha$ and $\beta$ are complex coefficients that satisfy the relation:</p>
+<p>$ |\alpha|^2 + |\beta|^2 = 1 $</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These coefficients express the probability of observing the qubit in a certain state when performing a measurement. In our case, for example, if the qubit is in the state:</p>
+<p>$\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>when performing a measurement on its state, the probability:</p>
+<ul>
+<li>of observing it in the state $\ket{0}$ is $|\alpha|^2$;</li>
+<li>of observing it in the state $\ket{1}$ is $|\beta|^2$.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the unitary relation already introduced for the coefficients, the sum of the two probabilities is going to be 1.</p>
 
 </div>
 </div>

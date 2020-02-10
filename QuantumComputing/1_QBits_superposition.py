@@ -4,7 +4,7 @@
 # $\newcommand{\ket}[1]{\left|#1\right>}$
 # 
 
-# # Q-Bits and superposition
+# # Qubits and superposition
 # 
 # Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
 # https://quantum-computing.ibm.com/
@@ -12,6 +12,44 @@
 # All the following examples need the Qiskit library to run. Install it running the command:
 # 
 #     pip install qiskit
+
+# ## The qubit
+
+# The quantum bit, or qubit, is the fundamental piece of a quantum computer.
+# 
+# It can be considered as the analogous of the bit in a standard computer, but with the difference that while a bit can assume values 0 or 1, a qubit has two levels $\ket{0}$ and $\ket{1}$ and can be in any state which is the linear superposition of $\ket{0}$ and $\ket{1}$.
+
+# On a quantum mechanical point of view, $\ket{0}$ is the fundamental state and $\ket{1}$ the first excited state.
+# 
+# In the canonical base, they can be expressed as:
+# 
+# $\ket{0} = \begin{bmatrix}
+#     1 \\
+#     0 \\
+# \end{bmatrix}$
+# 
+# $\ket{1} = \begin{bmatrix}
+#     0 \\
+#     1 \\
+# \end{bmatrix}$
+
+# As said, a qubit state $\ket{\psi}$ is the superposition of $\ket{0}$ and $\ket{1}$:
+# 
+# $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$
+# 
+# where $\alpha$ and $\beta$ are complex coefficients that satisfy the relation:
+# 
+# $ |\alpha|^2 + |\beta|^2 = 1 $
+
+# These coefficients express the probability of observing the qubit in a certain state when performing a measurement. In our case, for example, if the qubit is in the state: 
+# 
+# $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$
+
+# when performing a measurement on its state, the probability:
+# - of observing it in the state $\ket{0}$ is $|\alpha|^2$;
+# - of observing it in the state $\ket{1}$ is $|\beta|^2$.
+
+# From the unitary relation already introduced for the coefficients, the sum of the two probabilities is going to be 1.
 
 # ## Example 1
 # 
