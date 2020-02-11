@@ -5,15 +5,11 @@ from urllib import request
 from datetime import datetime
 import time
 
-
-
 ###currentdate=time.strftime('%Y-%m-%d')
 currentdate='2018-01-01'
 
-
-
 ############# To be modified #############                                                                  
-TOPIC = "[Cc]onference|[Rr]oadshow|[Ii]nvestor"#[ *][Dd]ay[(*s*)*]"                                         
+TOPIC = "((?!\s[Pp]ress)[Cc]onference(?!\s[Cc]all))|[Rr]oadshow|[Ii]nvestor\sday?s"
 pagename="Straumann"
 ID="1199"
 address="https://www.straumann.com/group/en/home/investors/news-an-events/investor-calendar.html"
@@ -39,11 +35,9 @@ def findrows(soup_browser):
         
         # Get all the lines from the web page
         all_lines = soup_browser.find_all("table")[0].find_all("td", {"class": "search-result-entry"})
-        #print(all_lines)
         
         # Get the text from the lines
         text_lines = ["$".join([e.strip() for e in lines.recursiveChildGenerator() if isinstance(e,str) and len(e.strip())]) for lines in all_lines]
-        #print(text_lines)
         
         # The sponsor is embedded in the event title
         # Let's see if there is a match between the list of sponsors in the dictionary
@@ -76,14 +70,12 @@ def output(m,spondict,citydict):
         # Start by defining groups 
         # group 1: title
         title = m.group(1)
-        #print("title", title)
             
         # group 2: date
         date = m.group(2)
         date = date.replace(".","")
         date = datetime.strptime(date, "%d %b %Y")
         date = date.strftime('%Y-%m-%d')
-        #print("date:", date)        
         
         # group 3: city
         city = m.group(3)
@@ -93,29 +85,17 @@ def output(m,spondict,citydict):
         else:
             city = "Not available"
             
-        #print("city:", city)        
-        
+        # We are not using this
         # group 4: country
-        country = m.group(4)
-        #print("country:", country)        
+        # country = m.group(4)
+        # print("country:", country)        
         
         # group 5: sponsor
         sponsor = m.group(5)
         if sponsor == "":
-            sponsor = "Not available"
-        ###print("SPONSOR:", sponsor)        
+            sponsor = "Not available"        
         
-        ##solucion problema (cojo los parametros en una lista)
-        val=m.group(1).split('$')
-
-        ##tomo valores de fecha
-        fech=val[-1]
-
-        ##valores de conferencia
-        conf=val[0:len(val)-1]
-        conf=' '.join(conf)        
-
-        ##defino todos los valores
+        ## Define output
         ti,d,c,s=title,date,city,sponsor
 
         ###########################################
@@ -130,26 +110,23 @@ def processhtml(pageID,pageAddress,pcities,psponsors):
     ############# To be modified #############
     url=request.urlopen(pageAddress,timeout=None).read()
     soup = BeautifulSoup(url,"lxml")
-    #print(soup)
+ 
     r="(.*)\$(.*)\$(.*)\$(.*)\$(.*)"   
     for line in findrows(soup):
         m1=re.search(TOPIC,line)
         if m1:
             # Type of event: 1 = Roadshow; 2 = Conference; 3 = Investor
             t = 0 # this must be changed accordingly
-            print("M1 =", m1.group(0))
+            
             pattern_road = re.compile("[Rr]oadshow")
-            pattern_conf = re.compile("[Cc]onference")
-            pattern_inve = re.compile("[Ii]nvestor")
+            pattern_conf = re.compile("((?!\s[Pp]ress)[Cc]onference(?!\s[Cc]all))")
+            pattern_inve = re.compile("[Ii]nvestor\sday?s")
             if pattern_road.match(m1.group(0)):
-            #if m1.group(0) == "Roadshow":
-                t = 1
+                 t = 1
             elif pattern_conf.match(m1.group(0)):
-            #elif m1.group(0) == "Conference":
-                t = 2
+                 t = 2
             elif pattern_inve.match(m1.group(0)):
-                #elif m1.group(0) == "Investor":
-                t = 3
+                 t = 3
             else:
                 t = "Not available"
             m2=re.search(r,line)
