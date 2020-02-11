@@ -103,7 +103,7 @@ def output(m,spondict,citydict):
         sponsor = m.group(5)
         if sponsor == "":
             sponsor = "Not available"
-        #print("SPONSOR:", sponsor)        
+        ###print("SPONSOR:", sponsor)        
         
         ##solucion problema (cojo los parametros en una lista)
         val=m.group(1).split('$')
