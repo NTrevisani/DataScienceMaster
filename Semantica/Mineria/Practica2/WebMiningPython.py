@@ -7,7 +7,7 @@ import time
 
 
 
-##currentdate=time.strftime('%Y-%m-%d')
+###currentdate=time.strftime('%Y-%m-%d')
 currentdate='2018-01-01'
 
 
