@@ -43,9 +43,9 @@ def findrows(soup_browser):
         
         # Get the text from the lines
         text_lines = ["$".join([e.strip() for e in lines.recursiveChildGenerator() if isinstance(e,str) and len(e.strip())]) for lines in all_lines]
-        print(text_lines)
+        #print(text_lines)
         
-        # The sponsor seems to be embedded in the event title
+        # The sponsor is embedded in the event title
         # Let's see if there is a match between the list of sponsors in the dictionary
         for line in text_lines:
             if line != "":
@@ -135,7 +135,23 @@ def processhtml(pageID,pageAddress,pcities,psponsors):
     for line in findrows(soup):
         m1=re.search(TOPIC,line)
         if m1:
-            t=2 # this must be changed accordingly
+            # Type of event: 1 = Roadshow; 2 = Conference; 3 = Investor
+            t = 0 # this must be changed accordingly
+            print("M1 =", m1.group(0))
+            pattern_road = re.compile("[Rr]oadshow")
+            pattern_conf = re.compile("[Cc]onference")
+            pattern_inve = re.compile("[Ii]nvestor")
+            if pattern_road.match(m1.group(0)):
+            #if m1.group(0) == "Roadshow":
+                t = 1
+            elif pattern_conf.match(m1.group(0)):
+            #elif m1.group(0) == "Conference":
+                t = 2
+            elif pattern_inve.match(m1.group(0)):
+                #elif m1.group(0) == "Investor":
+                t = 3
+            else:
+                t = "Not available"
             m2=re.search(r,line)
             if m2:
                 ti,d,c,s=output(m2,psponsors,pcities)
