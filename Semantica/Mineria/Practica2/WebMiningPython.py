@@ -5,11 +5,14 @@ from urllib import request
 from datetime import datetime
 import time
 
-###currentdate=time.strftime('%Y-%m-%d')
-currentdate='2018-01-01'
+
+currentdate=time.strftime('%Y-%m-%d')
+
+# This was just for testing purposes
+# currentdate='2018-01-01'
 
 ############# To be modified #############                                                                  
-TOPIC = "((?!\s[Pp]ress)[Cc]onference(?!\s[Cc]all))|[Rr]oadshow|[Ii]nvestor\sday?s"
+TOPIC = "((?![Pp]ress\s)[Cc]onference(?!\s[Cc]all))|[Rr]oadshow|[Ii]nvestor\sday?s"
 pagename="Straumann"
 ID="1199"
 address="https://www.straumann.com/group/en/home/investors/news-an-events/investor-calendar.html"
@@ -40,7 +43,7 @@ def findrows(soup_browser):
         text_lines = ["$".join([e.strip() for e in lines.recursiveChildGenerator() if isinstance(e,str) and len(e.strip())]) for lines in all_lines]
         
         # The sponsor is embedded in the event title
-        # Let's see if there is a match between the list of sponsors in the dictionary
+        # Let's see if there is a match in the list of sponsors in the dictionary
         for line in text_lines:
             if line != "":
                 for sponsor in psponsors.keys():
@@ -52,8 +55,7 @@ def findrows(soup_browser):
                         # If no sponsor found, add an empty line
                         sponsor_line = "$".join((line, '')).strip()
                 # Append to the list of lines
-                rows.append(sponsor_line)
-                   
+                rows.append(sponsor_line)                  
     ##########################################
 
     except e:
@@ -64,7 +66,7 @@ def findrows(soup_browser):
 def output(m,spondict,citydict):
     ############# To be modified #############
     # This was the original, example code
-    #ti,d,c,s="UBS Conference","2018-11-13/14","London","UBS"
+    # ti,d,c,s="Press Conference","2021-11-13/14","London","UBS"
 
     try:
         # Start by defining groups 
@@ -73,8 +75,11 @@ def output(m,spondict,citydict):
             
         # group 2: date
         date = m.group(2)
+        # The date always has a point --> remove it
         date = date.replace(".","")
+        # Read the string 'date' and convert it to a datetime object from format "dd mm yyyy"
         date = datetime.strptime(date, "%d %b %Y")
+        # Now that we have a datetime object, change its format as requested
         date = date.strftime('%Y-%m-%d')
         
         # group 3: city
@@ -115,11 +120,11 @@ def processhtml(pageID,pageAddress,pcities,psponsors):
     for line in findrows(soup):
         m1=re.search(TOPIC,line)
         if m1:
-            # Type of event: 1 = Roadshow; 2 = Conference; 3 = Investor
+            # Type of event: 1 = Roadshow; 2 = Conference (but not Press Conference or Conference Call); 3 = Investor day(s)
             t = 0 # this must be changed accordingly
             
             pattern_road = re.compile("[Rr]oadshow")
-            pattern_conf = re.compile("((?!\s[Pp]ress)[Cc]onference(?!\s[Cc]all))")
+            pattern_conf = re.compile("((?![Pp]ress\s)[Cc]onference(?!\s[Cc]all))")
             pattern_inve = re.compile("[Ii]nvestor\sday?s")
             if pattern_road.match(m1.group(0)):
                  t = 1
@@ -140,7 +145,6 @@ def processhtml(pageID,pageAddress,pcities,psponsors):
     ##########################################                    
     
                             
-
 if __name__ == "__main__":
     ## Read cities list from file    
     cities=dict([line.strip().split(";") for line in open("city.csv", encoding='ISO-8859-1').readlines()[1:]])
