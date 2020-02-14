@@ -14022,12 +14022,12 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[228]:</div>
+<div class="prompt input_prompt">In&nbsp;[285]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Defino aquí la función de back propagation</span>
 
-<span class="c1"># h = numero de neuronas de la capa oculta</span>
+<span class="c1"># h = numero de neuronas de cada capa oculta</span>
 <span class="n">backprop_mlp</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">0.1</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">))</span> <span class="p">{</span>
     
     <span class="c1"># Inicializar matrices y listas</span>
@@ -14041,9 +14041,11 @@ height=420
 
     <span class="c1"># Lista de las matrices de los pesos</span>
     <span class="n">Weights</span> <span class="o">=</span> <span class="nf">list</span><span class="p">()</span>
-        
-    <span class="c1"># length(h) = numero de capas ocultas</span>
-    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="m">+1</span><span class="p">)){</span>
+      
+    <span class="c1"># Numero de capas ocultas = length(h)</span>
+    <span class="n">n_layers</span> <span class="o">=</span> <span class="nf">length</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    
+    <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="n">n_layers</span> <span class="o">+</span> <span class="m">1</span><span class="p">)){</span>
         <span class="c1"># Creo la lista de matrices de los pesos, con valores generados al azar</span>
         <span class="n">Weights[[i]]</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">neurons[i]</span><span class="o">*</span><span class="n">neurons[i</span><span class="m">+1</span><span class="n">]</span><span class="p">,</span> <span class="n">min</span> <span class="o">=</span> <span class="m">-1</span><span class="p">,</span> <span class="n">max</span> <span class="o">=</span> <span class="m">1</span><span class="p">),</span>
             <span class="n">nrow</span> <span class="o">=</span> <span class="n">neurons[i</span><span class="m">+1</span><span class="n">]</span><span class="p">,</span> 
@@ -14063,77 +14065,43 @@ height=420
         
         <span class="c1"># Trato los primeros elementos de las lista de manera distinta (h[[1]] quiere x, no h)</span>
         <span class="c1"># aux[[1]] no necesita tratamiento especial, pero así meto todo en un solo bucle for</span>
-        <span class="n">h[[1]]</span> <span class="o">&lt;-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">x</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[1]]</span><span class="p">))</span>
-        <span class="n">aux[[1]]</span> <span class="o">&lt;-</span> <span class="n">h[[1]]</span> <span class="o">*</span> <span class="p">(</span><span class="m">1</span> <span class="o">-</span> <span class="n">h[[1]]</span><span class="p">)</span>
-        <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">2</span><span class="o">:</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="m">+1</span><span class="p">)){</span>
-            <span class="n">h[[i]]</span> <span class="o">&lt;-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">h[[i</span><span class="m">-1</span><span class="n">]]</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[i]]</span><span class="p">))</span>
-         <span class="c1">#   }</span>
-
-        <span class="c1">#for (i in 2:(length(h)+1)){</span>
-            <span class="n">aux[[i]]</span> <span class="o">&lt;-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">h[[i</span><span class="m">-1</span><span class="n">]]</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[i]]</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="m">1</span> <span class="o">-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">h[[i</span><span class="m">-1</span><span class="n">]]</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[i]]</span><span class="p">)))</span>
+        <span class="n">h[[1]]</span> <span class="o">&lt;-</span> <span class="n">x</span> <span class="c1">#activation(x %*% t(Weights[[1]]))</span>
+        <span class="c1">#aux[[1]] &lt;- h[[1]] * (1 - h[[1]])</span>
+        <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="n">n_layers</span> <span class="o">+</span> <span class="m">1</span><span class="p">)){</span>
+            <span class="n">h[[i</span><span class="m">+1</span><span class="n">]]</span> <span class="o">&lt;-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">h[[i]]</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[i]]</span><span class="p">))</span>
+            <span class="n">aux[[i]]</span> <span class="o">&lt;-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">h[[i]]</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[i]]</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="m">1</span> <span class="o">-</span> <span class="nf">activation</span><span class="p">(</span><span class="n">h[[i]]</span> <span class="o">%*%</span> <span class="nf">t</span><span class="p">(</span><span class="n">Weights[[i]]</span><span class="p">)))</span>
         <span class="p">}</span>
-        <span class="c1">#print(aux[[1]])</span>
-        <span class="c1">#print(aux[[2]])</span>
 
-        <span class="c1"># print(&quot;aux[[1]]&quot;)</span>
-        <span class="c1"># print(aux[[1]])</span>
-
-        <span class="c1"># print(&quot;aux[[2]]&quot;)</span>
-        <span class="c1"># print(aux[[2]])</span>
-
-        <span class="c1"># valores de salida</span>
-        <span class="c1">#y_out &lt;- activation(h[[1]] %*% t(Weights[[2]]))</span>
-        <span class="c1">#print(&quot;y_out&quot;)</span>
-        <span class="c1">#print(y_out)</span>
-        <span class="c1">#print(&quot;h[[2]]&quot;)</span>
-        <span class="c1">#print(h[[2]])</span>
-        <span class="c1">#print(&quot;------------&quot;)</span>
         <span class="c1"># Lista de los DeltaW</span>
         <span class="n">Wdelta</span> <span class="o">=</span> <span class="nf">list</span><span class="p">()</span>
         
-        <span class="n">y_out</span> <span class="o">=</span> <span class="n">h[[2]]</span>  <span class="c1">#[[length(h)]]</span>
-        <span class="c1">#print(y_out)</span>
+        <span class="n">y_out</span> <span class="o">=</span> <span class="n">h[[n_layers</span> <span class="o">+</span> <span class="m">2</span><span class="n">]]</span>
+        
         <span class="c1"># error = (b - b^)</span>
         <span class="n">error</span> <span class="o">&lt;-</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_out</span>
-                
-        <span class="c1">#aux_1 &lt;- y_out * (1 - y_out)</span>
-        <span class="c1">#print(aux_1) # == aux[[2]]</span>
-        
+             
+        <span class="c1"># Lista de soporte para poder iterar sobre los deltaW</span>
         <span class="n">supp</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">()</span>
+        <span class="n">supp[[n_layers</span> <span class="o">+</span> <span class="m">1</span><span class="n">]]</span> <span class="o">&lt;-</span> <span class="n">error</span> <span class="o">*</span> <span class="n">aux[[n_layers</span> <span class="o">+</span> <span class="m">1</span><span class="n">]]</span>        
+        
         <span class="c1"># Calculo los DeltaW</span>
         <span class="c1"># Para los pesos de capa oculta a salida: DeltaWeights_2 = - eta * (aux*h_1)</span>
-        <span class="n">supp[[2]]</span> <span class="o">&lt;-</span> <span class="n">error</span> <span class="o">*</span> <span class="n">aux[[2]]</span>
-        <span class="c1">#print(supp[[2]])</span>
-        <span class="c1">#print(error * aux[[2]])</span>
         
-        <span class="n">Wdelta[[2]]</span>  <span class="o">&lt;-</span> <span class="nf">t</span><span class="p">(</span><span class="n">supp[[2]]</span><span class="p">)</span> <span class="o">%*%</span> <span class="n">h[[1]]</span>
-        <span class="n">Weights[[2]]</span> <span class="o">&lt;-</span> <span class="n">Weights[[2]]</span> <span class="o">+</span> <span class="p">(</span><span class="n">eta</span> <span class="o">*</span> <span class="n">Wdelta[[2]]</span><span class="p">)</span>
-        
-        <span class="c1"># Para los pesos de entrada a capa oculta: DeltaWeights_1 = - eta * (aux*Weights_2*aux_2*x)</span>
-        <span class="c1">#aux_2 &lt;- h[[1]] * (1 - h[[1]]) # == aux[[1]]</span>
-        
-        <span class="c1">#print(&quot;aux2&quot;)</span>
-        <span class="c1">#print(aux_2)</span>
-        
-        <span class="c1">#aux = list()</span>
-        <span class="c1">#aux[[1]] = h[[1]]*(1 - h[[1]])</span>
-        <span class="c1">#print(&quot;aux[[1]]&quot;)</span>
-        <span class="c1">#print(aux[[1]])</span>
-        
-        <span class="c1">#print(&quot;h[[1]]&quot;)</span>
-        <span class="c1">#print(h[[1]]*(1 - h[[1]]))</span>
-        
-        <span class="n">supp[[1]]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">supp[[2]]</span> <span class="o">%*%</span> <span class="n">Weights[[2]]</span><span class="p">)</span> <span class="o">*</span> <span class="n">aux[[1]]</span>
-        <span class="n">Wdelta[[1]]</span>  <span class="o">&lt;-</span> <span class="nf">t</span><span class="p">(</span><span class="n">supp[[1]]</span><span class="p">)</span> <span class="o">%*%</span> <span class="n">x</span> <span class="c1">#t(((error * aux[[2]]) %*% Weights[[2]]) * aux[[1]]) %*% x</span>
-        <span class="n">Weights[[1]]</span> <span class="o">&lt;-</span> <span class="n">Weights[[1]]</span> <span class="o">+</span> <span class="p">(</span><span class="n">eta</span> <span class="o">*</span> <span class="n">Wdelta[[1]]</span><span class="p">)</span>
-                
+        <span class="c1"># Back propagation: el bucle for va al revés</span>
+        <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="nf">in </span><span class="p">(</span><span class="n">n_layers</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span><span class="o">:</span><span class="m">1</span><span class="p">){</span>
+            <span class="n">Wdelta[[i]]</span>  <span class="o">&lt;-</span> <span class="nf">t</span><span class="p">(</span><span class="n">supp[[i]]</span><span class="p">)</span> <span class="o">%*%</span> <span class="n">h[[i]]</span>
+            <span class="n">Weights[[i]]</span> <span class="o">&lt;-</span> <span class="n">Weights[[i]]</span> <span class="o">+</span> <span class="p">(</span><span class="n">eta</span> <span class="o">*</span> <span class="n">Wdelta[[i]]</span><span class="p">)</span>
+            <span class="nf">if </span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="m">1</span><span class="p">){</span>
+                <span class="n">supp[[i</span> <span class="o">-</span> <span class="m">1</span><span class="n">]]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="n">supp[[i]]</span> <span class="o">%*%</span> <span class="n">Weights[[i]]</span><span class="p">)</span> <span class="o">*</span> <span class="n">aux[[i</span> <span class="m">-1</span><span class="n">]]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
         <span class="c1"># Error output</span>
         <span class="n">errors</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="nf">sum</span><span class="p">(</span><span class="n">error</span><span class="o">**</span><span class="m">2</span><span class="p">))</span>
-<span class="p">}</span>
-    
-<span class="c1">### Return values</span>
+<span class="p">}</span>    
+<span class="c1"># Return values</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>  
-<span class="c1">#Weights = list(Weights_1, Weights_2)    </span>
+
+<span class="c1"># Weights = list(Weights_1, Weights_2)    </span>
 <span class="nf">return</span><span class="p">(</span><span class="n">Weights</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
@@ -14145,12 +14113,12 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[229]:</div>
+<div class="prompt input_prompt">In&nbsp;[303]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
 
-<span class="nf">backprop_mlp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="m">5</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span> <span class="m">1000</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">0.1</span><span class="p">)</span>
+<span class="nf">backprop_mlp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">),</span> <span class="n">epochs</span><span class="o">=</span> <span class="m">1000</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">0.1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14430,32 +14398,6 @@ height=420
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
