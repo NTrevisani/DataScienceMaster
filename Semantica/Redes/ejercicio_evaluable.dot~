@@ -1,0 +1,7 @@
+# dot -Tpng ejercicio_evaluable.dot -o ejercicio_evaluable.png
+digraph ejercicio6{
+        node  [style="rounded,filled,bold", shape=box, fontname="Nimbus", color="lightgray"]
+        edge  [fontname="Nimbus" weight=2, fontsize=12]
+
+
+	A [label = "Gato"]
