@@ -27,7 +27,7 @@ activation <- function(z) {
 
 # h = numero de neuronas de cada capa oculta
 # in = coeficiente de inercia (por defecto es 0)
-backprop_mlp <- function(x, y, epochs = 10, eta = 0.1, h = c(2), inertia = 0) {
+backprop_mlp <- function(x, y, epochs = 10, eta = 0.1, h = c(2), inertia = 0, plotErrors = TRUE) {
     
     # Inicializar matrices y listas
     errors <- c()
@@ -107,11 +107,16 @@ backprop_mlp <- function(x, y, epochs = 10, eta = 0.1, h = c(2), inertia = 0) {
         Wdelta_old = Wdelta
     }
     
-# Return values
-plot(errors)  
-
-# Weights = list(Weights_1, Weights_2)    
-return(Weights)
+    # Return values
+    if (plotErrors == TRUE){
+        plot(errors)  
+    }
+    
+    print("Error after the lasat epoch:")
+    print(errors[length(errors)])
+    
+    # Weights = list(Weights_1, Weights_2)    
+    return(Weights)
 }
 
 set.seed(1)
@@ -170,4 +175,22 @@ lines(circle[ind,1]/2 + 0.5,
       type="p",
       col="black")
 
+set.seed(1)
 
+# Empiezo fijando el numero de neuronas a 5, y muevo eta 
+etas = c(0.001, 0.01, 0.02, 0.05, 0.1, 0.2, 0,3, 0.5, 1)
+
+for (eta in etas){
+    print(paste("Eta value:", eta))
+    backprop_mlp(a, b, h = c(5), epochs= 1000, eta = eta, inertia = 0.0, plotErrors = FALSE) 
+    print("===========")
+}
+
+#set.seed(1)
+n_neurons = list(c(1),c(2),c(3),c(4),c(5),c(6),c(7),c(8),c(9),c(10))
+
+for (h in n_neurons){
+    print(paste("Number of neurons:", h))
+    backprop_mlp(a, b, h = h, epochs= 1000, eta = 0.2, inertia = 0.0, plotErrors = FALSE) 
+    print("===========")
+}

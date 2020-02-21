@@ -13074,9 +13074,16 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Tarea-1:-Back-Propagation">Tarea 1: Back Propagation<a class="anchor-link" href="#Tarea-1:-Back-Propagation">&#182;</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Cargo el dataset</span>
@@ -13110,12 +13117,12 @@ div#notebook {
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>-0,9719350</td><td> 0,846927</td><td>0</td></tr>
-	<tr><th scope=row>2</th><td>-0,5529950</td><td>-0,576830</td><td>0</td></tr>
-	<tr><th scope=row>3</th><td>-0,0949043</td><td>-0,298862</td><td>1</td></tr>
-	<tr><th scope=row>4</th><td>-0,8095640</td><td> 0,856891</td><td>0</td></tr>
-	<tr><th scope=row>5</th><td> 0,3990090</td><td> 0,690462</td><td>0</td></tr>
-	<tr><th scope=row>6</th><td>-0,6736180</td><td>-0,684443</td><td>0</td></tr>
+	<tr><th scope=row>1</th><td>-0.9719350</td><td> 0.846927</td><td>0</td></tr>
+	<tr><th scope=row>2</th><td>-0.5529950</td><td>-0.576830</td><td>0</td></tr>
+	<tr><th scope=row>3</th><td>-0.0949043</td><td>-0.298862</td><td>1</td></tr>
+	<tr><th scope=row>4</th><td>-0.8095640</td><td> 0.856891</td><td>0</td></tr>
+	<tr><th scope=row>5</th><td> 0.3990090</td><td> 0.690462</td><td>0</td></tr>
+	<tr><th scope=row>6</th><td>-0.6736180</td><td>-0.684443</td><td>0</td></tr>
 </tbody>
 </table>
 
@@ -13129,7 +13136,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Miro que pinta tiene</span>
@@ -14006,7 +14013,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Defino la función de activación (la sigmoide en este caso)</span>
@@ -14022,14 +14029,14 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[319]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Defino aquí la función de back propagation</span>
 
 <span class="c1"># h = numero de neuronas de cada capa oculta</span>
 <span class="c1"># in = coeficiente de inercia (por defecto es 0)</span>
-<span class="n">backprop_mlp</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">0.1</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">),</span> <span class="n">inertia</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">backprop_mlp</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">0.1</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">),</span> <span class="n">inertia</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">plotErrors</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
     
     <span class="c1"># Inicializar matrices y listas</span>
     <span class="n">errors</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">()</span>
@@ -14109,11 +14116,16 @@ height=420
         <span class="n">Wdelta_old</span> <span class="o">=</span> <span class="n">Wdelta</span>
     <span class="p">}</span>
     
-<span class="c1"># Return values</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>  
-
-<span class="c1"># Weights = list(Weights_1, Weights_2)    </span>
-<span class="nf">return</span><span class="p">(</span><span class="n">Weights</span><span class="p">)</span>
+    <span class="c1"># Return values</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">plotErrors</span> <span class="o">==</span> <span class="kc">TRUE</span><span class="p">){</span>
+        <span class="nf">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>  
+    <span class="p">}</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="s">&quot;Error after the lasat epoch:&quot;</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">errors</span><span class="nf">[length</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span><span class="n">]</span><span class="p">)</span>
+    
+    <span class="c1"># Weights = list(Weights_1, Weights_2)    </span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">Weights</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -14124,7 +14136,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[323]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
@@ -14140,6 +14152,18 @@ height=420
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,2945606
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -14432,7 +14456,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[316]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Quiero evaluar como mi red separa los puntos</span>
@@ -14644,7 +14668,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[406]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Ahora creo una función que use los pesos de la red neuronal para evaluar los puntos</span>
@@ -14669,7 +14693,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[407]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Ahora evaluo los puntos de la rejilla</span>
@@ -15507,18 +15531,196 @@ height=420
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Optimizaci&#243;n-del-parametro-$\eta$-y-del-n&#250;mero-de-neuronas">Optimizaci&#243;n del parametro $\eta$ y del n&#250;mero de neuronas<a class="anchor-link" href="#Optimizaci&#243;n-del-parametro-$\eta$-y-del-n&#250;mero-de-neuronas">&#182;</a></h3><p>Ahora que he verificado que mi función de back-propagation funciona de manera razonable, puedo intentar optimizar los parametros de la red:</p>
+<ul>
+<li>la tasa de aprendizaje $\eta$;</li>
+<li>el número de neuronas en la (única) capa oculta.</li>
+</ul>
+<p>Por ahora no voy a utilizar intercia ni más de una capa oculta.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+
+<span class="c1"># Empiezo fijando el numero de neuronas a 5, y muevo eta </span>
+<span class="n">etas</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">0.001</span><span class="p">,</span> <span class="m">0.01</span><span class="p">,</span> <span class="m">0.02</span><span class="p">,</span> <span class="m">0.05</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">eta</span> <span class="n">in</span> <span class="n">etas</span><span class="p">){</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Eta value:&quot;</span><span class="p">,</span> <span class="n">eta</span><span class="p">))</span>
+    <span class="nf">backprop_mlp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">),</span> <span class="n">epochs</span><span class="o">=</span> <span class="m">1000</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="n">eta</span><span class="p">,</span> <span class="n">inertia</span> <span class="o">=</span> <span class="m">0.0</span><span class="p">,</span> <span class="n">plotErrors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="s">&quot;===========&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Eta value: 0,001&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 20,22316
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0,01&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 19,81625
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0,02&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 18,44397
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0,05&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 1,841035
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0,1&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 1,018543
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0,2&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,3921135
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 34,39597
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 3&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 28,9999
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 0,5&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 28,99998
+[1] &#34;===========&#34;
+[1] &#34;Eta value: 1&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 29
+[1] &#34;===========&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>El error más pequeño se obtiene con $\eta = 0.2$.
+Fijo este valor, y miro lo que pasa cambiando el numero de neuronas.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1">#set.seed(1)</span>
+<span class="n">n_neurons</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">6</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">7</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">8</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">9</span><span class="p">),</span><span class="nf">c</span><span class="p">(</span><span class="m">10</span><span class="p">))</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">h</span> <span class="n">in</span> <span class="n">n_neurons</span><span class="p">){</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Number of neurons:&quot;</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+    <span class="nf">backprop_mlp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span> <span class="m">1000</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="m">0.2</span><span class="p">,</span> <span class="n">inertia</span> <span class="o">=</span> <span class="m">0.0</span><span class="p">,</span> <span class="n">plotErrors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="s">&quot;===========&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Number of neurons: 1&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 18,20985
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 2&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 14,67321
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 3&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 2,710638
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 4&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,321412
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 5&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,3484879
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 6&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,3260561
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 7&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,6607831
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 8&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,5170712
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 9&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 0,7009714
+[1] &#34;===========&#34;
+[1] &#34;Number of neurons: 10&#34;
+[1] &#34;Error after the lasat epoch:&#34;
+[1] 28,98993
+[1] &#34;===========&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Aunque sea imposible obtener exactamente el mismo valor del error final, no obstante se haya intentado fijar el mismo seed en dos celdas distintas, o fijando el seed en la primera y manteniendolo en la siguiente, parece que, cuando $\eta = 0.2$, usar entre 4 y 6 neuronas sea una buena elección.</p>
+<p>Se puede llegar a la conclusión que para este problema el mejor compromiso entre tasa de aprendizaje y número de neuronas en la capa oculta es:</p>
+<ul>
+<li>$\eta = 2$;</li>
+<li>número de neuronas = 5.</li>
+</ul>
+
+</div>
+</div>
 </div>
     </div>
   </div>
