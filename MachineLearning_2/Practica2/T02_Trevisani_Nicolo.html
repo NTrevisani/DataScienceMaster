@@ -13084,13 +13084,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.-Escribe-una-funci&#243;n-que-descargue-autom&#225;ticamente-el-fichero-de-datos-con-medidas-mensuales-de-la-URL-ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt-y-que-lo-convierta-a-un-formato-num&#233;rico-(dataframe,-numpy-arrays,-etc.).">1. Escribe una funci&#243;n que descargue autom&#225;ticamente el fichero de datos con medidas mensuales de la URL ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt y que lo convierta a un formato num&#233;rico (dataframe, numpy arrays, etc.).<a class="anchor-link" href="#1.-Escribe-una-funci&#243;n-que-descargue-autom&#225;ticamente-el-fichero-de-datos-con-medidas-mensuales-de-la-URL-ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt-y-que-lo-convierta-a-un-formato-num&#233;rico-(dataframe,-numpy-arrays,-etc.).">&#182;</a></h3><h3 id="2.-Obten-las-variables-months-y-avg_ppmvs.">2. Obten las variables months y avg_ppmvs.<a class="anchor-link" href="#2.-Obten-las-variables-months-y-avg_ppmvs.">&#182;</a></h3>
+<h3 id="1.-Escribe-una-funci&#243;n-que-descargue-autom&#225;ticamente-el-fichero-de-datos-con-medidas-mensuales-de-la-URL-ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt-y-que-lo-convierta-a-un-formato-num&#233;rico-(dataframe,-numpy-arrays,-etc.).">1. Escribe una funci&#243;n que descargue autom&#225;ticamente el fichero de datos con medidas mensuales de la URL ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt y que lo convierta a un formato num&#233;rico (dataframe, numpy arrays, etc.).<a class="anchor-link" href="#1.-Escribe-una-funci&#243;n-que-descargue-autom&#225;ticamente-el-fichero-de-datos-con-medidas-mensuales-de-la-URL-ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt-y-que-lo-convierta-a-un-formato-num&#233;rico-(dataframe,-numpy-arrays,-etc.).">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Download the dataset (if the server responds)</span>
@@ -13105,16 +13105,23 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-Obten-las-variables-months-y-avg_ppmvs.">2. Obten las variables months y avg_ppmvs.<a class="anchor-link" href="#2.-Obten-las-variables-months-y-avg_ppmvs.">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the dataset</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;file.csv&quot;</span><span class="p">,</span> 
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> 
                <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;   &quot;</span><span class="p">,</span>
                <span class="n">header</span> <span class="o">=</span> <span class="mi">71</span><span class="p">)</span>
 
@@ -13147,7 +13154,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[74]:</div>
 
 
 
@@ -13244,7 +13251,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the &#39;load_mauna_loa_atmospheric_co2()&#39; function</span>
@@ -13338,7 +13345,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RationalQuadratic</span>
@@ -13372,7 +13379,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
@@ -13388,7 +13395,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[67]:</div>
+    <div class="prompt output_prompt">Out[77]:</div>
 
 
 
@@ -13408,7 +13415,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%0.3f</span><span class="s2">s&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
@@ -13435,7 +13442,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Elapsed time: 16.092s
+<pre>Elapsed time: 16.010s
 
 Learned kernel: 31.6**2 * RBF(length_scale=28) + 3.3**2 * RBF(length_scale=141) * ExpSineSquared(length_scale=1.64, periodicity=1) + 0.634**2 * RationalQuadratic(alpha=0.533, length_scale=1.1) + 0.206**2 * RBF(length_scale=0.116) + WhiteKernel(noise_level=0.0477)
 Log-marginal-likelihood: -209.986
@@ -13456,7 +13463,7 @@ Log-marginal-likelihood: -209.986
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the X_ for the next 20 years</span>

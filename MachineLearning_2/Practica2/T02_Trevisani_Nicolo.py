@@ -4,10 +4,8 @@
 # # Métodos kernel para regresión
 
 # ### 1. Escribe una función que descargue automáticamente el fichero de datos con medidas mensuales de la URL ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt y que lo convierta a un formato numérico (dataframe, numpy arrays, etc.).
-# 
-# ### 2. Obten las variables months y avg_ppmvs.
 
-# In[1]:
+# In[73]:
 
 
 # Download the dataset (if the server responds)
@@ -17,14 +15,16 @@ url = 'ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt'
 my_file = urllib.request.urlretrieve(url, 'file.txt')
 
 
-# In[2]:
+# ### 2. Obten las variables months y avg_ppmvs.
+
+# In[74]:
 
 
 # Read the dataset
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("file.csv", 
+df = pd.read_csv("file.txt", 
                sep = "   ",
                header = 71)
 
@@ -37,7 +37,7 @@ df.head(5)
 
 # ### 3. Comprueba si los datos coinciden con los datos usados en la práctica (devueltos por load_mauna_loa_atmospheric_co2()) para las fechas en que existen datos en ambos conjuntos.
 
-# In[65]:
+# In[75]:
 
 
 # Prepare the 'load_mauna_loa_atmospheric_co2()' function
@@ -97,7 +97,7 @@ plt.grid(True)
 
 # ### 4. Busca los mejores hiperparámetros del GP para predecir la serie temporal del CO2 usando datos hasta la fecha más reciente. Compara estos hiperparámetros con los que se encontraron al usar datos hasta diciembre de 2001 (los datos usados en la práctica).
 
-# In[66]:
+# In[76]:
 
 
 from sklearn.gaussian_process.kernels import RationalQuadratic
@@ -122,13 +122,13 @@ gp = GaussianProcessRegressor(kernel=kernel, alpha=0,
 t0 = time()
 
 
-# In[67]:
+# In[77]:
 
 
 gp.fit(X2, y2)
 
 
-# In[68]:
+# In[78]:
 
 
 print("Elapsed time: %0.3fs"%(time() - t0))
@@ -143,7 +143,7 @@ y_pred, y_std = gp.predict(X_, return_std=True)
 
 # ### 5. Haz una figura que muestre la serie temporal completa y una predicción de los próximos 20 años, incluso bandas de confianza.
 
-# In[72]:
+# In[79]:
 
 
 # Prepare the X_ for the next 20 years
