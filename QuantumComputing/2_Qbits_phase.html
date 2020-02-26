@@ -13074,9 +13074,187 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\newcommand{\ket}[1]{\left|#1\right&gt;}$</p>
+<p>$\newcommand{\bra}[1]{\left&lt;#1\right|}$</p>
+<p>$\newcommand{\braket}[2]{\left&lt;#1 | #2\right&gt;}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Qubits-phases">Qubits phases<a class="anchor-link" href="#Qubits-phases">&#182;</a></h1><p>Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
+<a href="https://quantum-computing.ibm.com/">https://quantum-computing.ibm.com/</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Generalised-superposition">Generalised superposition<a class="anchor-link" href="#Generalised-superposition">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we said, a qubit can be in every superposition state in the form:</p>
+<p>$\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$</p>
+<p>where $\alpha$ and $\beta$ are complex coefficients that satisfy the relation:</p>
+<p>$ |\alpha|^2 + |\beta|^2 = 1 $</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the previous notebook, we put a qubit in a couple of very specific superposition states:</p>
+<p>$ \ket{+} = \dfrac{\ket{0} + \ket{1}}{\sqrt{2}} $</p>
+<p>$ \ket{-} = \dfrac{\ket{0} - \ket{1}}{\sqrt{2}} $</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The coefficients, for the states $\ket{+}$ and $\ket{-}$ are real numbers:</p>
+<ul>
+<li>$\ket{+}$: $\alpha = \beta = \dfrac{1}{\sqrt{2}} $</li>
+<li>$\ket{-}$: $\alpha = - \beta = \dfrac{1}{\sqrt{2}} $</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In general, as the $\alpha$ and $\beta$ are complex, they have a modulus and a phase:</p>
+<p>$ \alpha = |\alpha| e^{i\phi}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And we can write the state of a qubit as:</p>
+<p>$\ket{\psi} = |\alpha| e^{i\phi_{\alpha}} \ket{0} + |\beta| e^{i\phi_{\beta}} \ket{1}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since the phases are not observables and the square of the coefficients is the probability of observing the qubit in a given status, we can redefine the moduli as:</p>
+<ul>
+<li>$|\alpha| = \sqrt{p}$;</li>
+<li>$|\beta| = \sqrt{1 - p}$.</li>
+</ul>
+<p>Additionally, we can introduce a rotation $e^{-i \phi_{\alpha}}$ such that the phases can be redefined as follow:</p>
+<ul>
+<li>$\phi_{\alpha} \rightarrow \phi_{\alpha} - \phi_{\alpha} = 0$;</li>
+<li>$\phi_{\beta} \rightarrow \phi_{\beta} - \phi_{\alpha} = \phi$.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This allows us to rewrite the state $\ket{\psi}$ of the qubit using just the parameters p and $\phi$:</p>
+<p>$\ket{\psi} = \sqrt{p} \ket{0} + e^{i\phi} \sqrt{1 - p} \ket{1} = 
+\begin{bmatrix}
+    \sqrt{p} &amp; 0                       \\
+    0        &amp; e^{i \phi} \sqrt{1 - p} 
+\end{bmatrix}
+$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is possible to modify the quantum phase $\phi$ by using the T gate, represented by the following operator:</p>
+<p>$ T = 
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; e^{i \pi/4} 
+\end{bmatrix}
+$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>which applies a change of the phase (e.g. a rotation) of 45$^{\circ}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To understand the meaning of the quantum phase and the effect of changing it, we can look at the following examples.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example-1">Example 1<a class="anchor-link" href="#Example-1">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this example, we will operate on a single qubit.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First of all, we will put it in a superposition state using the H gate, then we will apply a variable number of times (from n = 0 to n = 7) the T operator, rotating its state of multiples of 45$^{\circ}$ and finally apply again the H gate before measuring its state, which can be written as:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\ket{\psi} = H T^n H \ket{0} = H T^n \ket{+}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Applying twice the operator H, allows us to measure the final state in terms of probability of being in the $\ket{0}$ state, as:</p>
+<p>P = $| \braket{0}{\psi} |^2$ = $| \bra{0} H T^n H \ket{0} |^2 = | \bra{+} T^n \ket{+} |^2$</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># quantum_phase.py</span>
@@ -13091,7 +13269,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the Quantum and Classical Registers</span>
@@ -13106,7 +13284,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Build the circuits</span>
@@ -13132,7 +13310,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Draw the circuits</span>
@@ -13204,7 +13382,7 @@ q0_0: |0&gt;┤ H ├─░─┤ T ├┤ T ├┤ T ├┤ T ├┤ T ├┤ T
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute the circuits</span>
@@ -13220,7 +13398,7 @@ q0_0: |0&gt;┤ H ├─░─┤ T ├┤ T ├┤ T ├┤ T ├┤ T ├┤ T
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print the result</span>
@@ -13252,13 +13430,13 @@ q0_0: |0&gt;┤ H ├─░─┤ T ├┤ T ├┤ T ├┤ T ├┤ T ├┤ T
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>exp 0: [1.0, 0] X length = 1.0
-exp 1: [0.8505859375, 0.1494140625] X length = 0.701171875
-exp 2: [0.4931640625, 0.5068359375] X length = -0.013671875
-exp 3: [0.138671875, 0.861328125] X length = -0.72265625
+exp 1: [0.859375, 0.140625] X length = 0.71875
+exp 2: [0.5029296875, 0.4970703125] X length = 0.005859375
+exp 3: [0.1513671875, 0.8486328125] X length = -0.697265625
 exp 4: [0, 1.0] X length = -1.0
-exp 5: [0.171875, 0.828125] X length = -0.65625
-exp 6: [0.4921875, 0.5078125] X length = -0.015625
-exp 7: [0.853515625, 0.146484375] X length = 0.70703125
+exp 5: [0.142578125, 0.857421875] X length = -0.71484375
+exp 6: [0.5224609375, 0.4775390625] X length = 0.044921875
+exp 7: [0.8515625, 0.1484375] X length = 0.703125
 </pre>
 </div>
 </div>
@@ -13266,6 +13444,243 @@ exp 7: [0.853515625, 0.146484375] X length = 0.70703125
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Asimptotically, with an infininte number of shots, we would get:</p>
+<table>
+<thead><tr>
+<th>Experiment</th>
+<th>Phase angle</th>
+<th>Gates</th>
+<th>Prob $\ket{0}$</th>
+<th>Prob $\ket{1}$</th>
+<th>X length (Prob $\ket{0}$ - Prob $\ket{1}$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>$\pi$/4</td>
+<td>T</td>
+<td>0.8535533</td>
+<td>0.1464466</td>
+<td>0.7071067</td>
+</tr>
+<tr>
+<td>2</td>
+<td>$\pi$/2</td>
+<td>T$^2$</td>
+<td>0.5</td>
+<td>0.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3$\pi$/4</td>
+<td>T$^3$</td>
+<td>0.1464466</td>
+<td>0.8535533</td>
+<td>-0.707106</td>
+</tr>
+<tr>
+<td>4</td>
+<td>$\pi$</td>
+<td>T$^4$</td>
+<td>0</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5$\pi$/4</td>
+<td>T$^5$</td>
+<td>0.1464466</td>
+<td>0.8535533</td>
+<td>-0.707106</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3$\pi$/2</td>
+<td>T$^6$</td>
+<td>0.5</td>
+<td>0.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>7$\pi$/4</td>
+<td>T$^7$</td>
+<td>0.8535533</td>
+<td>0.1464466</td>
+<td>0.7071067</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With these examples, we observed that even if the probability of observing a qubit in a specific state is given by the module of its complex coefficient, modifying the phase of the coefficient can affect this probability.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the T operator, it is possible to define additional operators, that help in make the notation more compact when dealing with phase modification:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$ S = T^2 =  
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; i 
+\end{bmatrix}
+$</p>
+<p>$ Z = T^4 =   
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; -1 
+\end{bmatrix}
+$</p>
+<p>$ S^{\dagger} = T^6 =  
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; -i 
+\end{bmatrix}
+$</p>
+<p>$ T^{\dagger} = T^7 =  
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; e^{-i \pi/4} 
+\end{bmatrix}
+$</p>
+<p>and</p>
+<p>$ Y =   
+\begin{bmatrix}
+    0 &amp; -i \\
+    i &amp; 0 
+\end{bmatrix} = 
+XZ
+$</p>
+<p>where:</p>
+<p>$ X =   
+\begin{bmatrix}
+    0 &amp; i \\
+    i &amp; 0 
+\end{bmatrix} 
+$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All the above operators are defined in Qiskit as gates that can be used to operate on the state of qubits.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is now possible to introduce an additional basis (on top of the computational basis $\{ \ket{0}, \ket{1} \}$ and the superposition basis $\{ \ket{+}, \ket{-} \}$), which we call the circular (or $Y$) basis, defined as:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\ket{\circlearrowright} = \dfrac{\ket{0} + i \ket{1}}{\sqrt{2}} = 
+\dfrac{1}{\sqrt{2}} 
+\begin{bmatrix}
+    1 \\
+    i 
+\end{bmatrix} = 
+\dfrac{1}{\sqrt{2}} 
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; i 
+\end{bmatrix} 
+\begin{bmatrix}
+    1 \\
+    1
+\end{bmatrix}= 
+\dfrac{1}{\sqrt{2}} 
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; i 
+\end{bmatrix}
+\begin{bmatrix}
+    1 &amp; 1 \\
+    1 &amp; -1 
+\end{bmatrix}
+\begin{bmatrix}
+    1 \\
+    0 
+\end{bmatrix} = 
+SH \ket{0}
+$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\ket{\circlearrowleft}  = \dfrac{\ket{0} - i \ket{1}}{\sqrt{2}} = 
+\dfrac{1}{\sqrt{2}} 
+\begin{bmatrix}
+    1 \\
+    -i 
+\end{bmatrix} = 
+\dfrac{1}{\sqrt{2}} 
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; -i 
+\end{bmatrix} 
+\begin{bmatrix}
+    1 \\
+    1
+\end{bmatrix}= 
+\dfrac{1}{\sqrt{2}} 
+\begin{bmatrix}
+    1 &amp; 0 \\
+    0 &amp; -i 
+\end{bmatrix}
+\begin{bmatrix}
+    1 &amp; 1 \\
+    1 &amp; -1 
+\end{bmatrix}
+\begin{bmatrix}
+    1 \\
+    0 
+\end{bmatrix} = 
+S^{\dagger}H \ket{0}
+$</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
