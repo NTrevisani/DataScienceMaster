@@ -13090,7 +13090,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Download the dataset (if the server responds)</span>
@@ -13114,21 +13114,25 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the dataset</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="c1"># Load the dataset as a pandas dataframe</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> 
                <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;   &quot;</span><span class="p">,</span>
                <span class="n">header</span> <span class="o">=</span> <span class="mi">71</span><span class="p">)</span>
 
+<span class="c1"># Name the columns so that it is easy to drop the ones I do not want to use</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;months&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_ppmvs&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;interpolated&#39;</span><span class="p">,</span>  <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;trend&#39;</span><span class="p">,</span> <span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">]</span>
 
+<span class="c1"># Drop the unused columns</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 
+<span class="c1"># Take a look at the dataset I selected</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
@@ -13146,15 +13150,15 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/nicolo/miniconda3/lib/python3.7/site-packages/ipykernel_launcher.py:7: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
-  import sys
+<pre>/home/nicolo/miniconda3/lib/python3.7/site-packages/ipykernel_launcher.py:8: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[74]:</div>
+    <div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -13251,7 +13255,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the &#39;load_mauna_loa_atmospheric_co2()&#39; function</span>
@@ -13345,7 +13349,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RationalQuadratic</span>
@@ -13379,7 +13383,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
@@ -13395,7 +13399,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[77]:</div>
+    <div class="prompt output_prompt">Out[7]:</div>
 
 
 
@@ -13412,6 +13416,13 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Paramters-obtained-in-the-current-exercise">Paramters obtained in the current exercise<a class="anchor-link" href="#Paramters-obtained-in-the-current-exercise">&#182;</a></h4>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -13453,6 +13464,176 @@ Log-marginal-likelihood: -209.986
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>31.6**2 * RBF(length_scale=28) 
++ 3.3**2 * RBF(length_scale=141) * ExpSineSquared(length_scale=1.64, periodicity=1) 
++ 0.634**2 * RationalQuadratic(alpha=0.533, length_scale=1.1) 
++ 0.206**2 * RBF(length_scale=0.116) 
++ WhiteKernel(noise_level=0.0477)
+
+Log-marginal-likelihood: -209.986</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Parameters-used-in-the-original-paper">Parameters used in the original paper<a class="anchor-link" href="#Parameters-used-in-the-original-paper">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RationalQuadratic</span>
+
+<span class="c1"># Kernel with parameters given in GPML book</span>
+<span class="n">k1</span> <span class="o">=</span> <span class="mi">66</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="mi">67</span><span class="p">)</span>  <span class="c1"># long term smooth rising trend</span>
+<span class="n">k2</span> <span class="o">=</span> <span class="mf">2.4</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="o">*</span> <span class="n">ExpSineSquared</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">periodicity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># seasonal component</span>
+<span class="n">k3</span> <span class="o">=</span> <span class="mf">0.66</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RationalQuadratic</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.78</span><span class="p">)</span> <span class="c1"># medium term irregularity</span>
+<span class="n">k4</span> <span class="o">=</span> <span class="mf">0.18</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="mf">0.134</span><span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="mf">0.19</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># noise terms</span>
+<span class="n">kernel_gpml</span> <span class="o">=</span> <span class="n">k1</span> <span class="o">+</span> <span class="n">k2</span> <span class="o">+</span> <span class="n">k3</span> <span class="o">+</span> <span class="n">k4</span>
+
+<span class="n">gp</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel_gpml</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                              <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GPML kernel: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernel_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Log-marginal-likelihood: </span><span class="si">%.3f</span><span class="s2">&quot;</span>
+      <span class="o">%</span> <span class="n">gp</span><span class="o">.</span><span class="n">log_marginal_likelihood</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">theta</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>GPML kernel: 66**2 * RBF(length_scale=67) + 2.4**2 * RBF(length_scale=90) * ExpSineSquared(length_scale=1.3, periodicity=1) + 0.66**2 * RationalQuadratic(alpha=0.78, length_scale=1.2) + 0.18**2 * RBF(length_scale=0.134) + WhiteKernel(noise_level=0.0361)
+Log-marginal-likelihood: -226.868
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>66**2 * RBF(length_scale=67) 
++ 2.4**2 * RBF(length_scale=90) * ExpSineSquared(length_scale=1.3, periodicity=1) 
++ 0.66**2 * RationalQuadratic(alpha=0.78, length_scale=1.2) 
++ 0.18**2 * RBF(length_scale=0.134) 
++ WhiteKernel(noise_level=0.0361)
+
+Log-marginal-likelihood: -226.868</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Parameters-extracted-in-the-exercise-in-class">Parameters extracted in the exercise in class<a class="anchor-link" href="#Parameters-extracted-in-the-exercise-in-class">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RationalQuadratic</span>
+
+<span class="c1"># Kernel with parameters given in GPML book</span>
+<span class="n">k1</span> <span class="o">=</span> <span class="mf">31.6</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="mf">45.6</span><span class="p">)</span>  <span class="c1"># long term smooth rising trend</span>
+<span class="n">k2</span> <span class="o">=</span> <span class="mf">3.16</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="mf">97.1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ExpSineSquared</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.58</span><span class="p">,</span> <span class="n">periodicity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># seasonal component</span>
+<span class="n">k3</span> <span class="o">=</span> <span class="mf">0.536</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RationalQuadratic</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">0.967</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">3.06</span><span class="p">)</span> <span class="c1"># medium term irregularity</span>
+<span class="n">k4</span> <span class="o">=</span> <span class="mf">0.189</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="mf">0.122</span><span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="mf">0.0367</span><span class="p">)</span> <span class="c1"># noise terms</span>
+<span class="n">kernel_gpml</span> <span class="o">=</span> <span class="n">k1</span> <span class="o">+</span> <span class="n">k2</span> <span class="o">+</span> <span class="n">k3</span> <span class="o">+</span> <span class="n">k4</span>
+
+<span class="n">gp</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel_gpml</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                              <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GPML kernel: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernel_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Log-marginal-likelihood: </span><span class="si">%.3f</span><span class="s2">&quot;</span>
+      <span class="o">%</span> <span class="n">gp</span><span class="o">.</span><span class="n">log_marginal_likelihood</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">theta</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>GPML kernel: 31.6**2 * RBF(length_scale=45.6) + 3.16**2 * RBF(length_scale=97.1) * ExpSineSquared(length_scale=1.58, periodicity=1) + 0.536**2 * RationalQuadratic(alpha=3.06, length_scale=0.967) + 0.189**2 * RBF(length_scale=0.122) + WhiteKernel(noise_level=0.0367)
+Log-marginal-likelihood: -229.645
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>31.6**2 * RBF(length_scale=45.6) 
++ 3.16**2 * RBF(length_scale=97.1) * ExpSineSquared(length_scale=1.58, periodicity=1) 
++ 0.536**2 * RationalQuadratic(alpha=3.06, length_scale=0.967) 
++ 0.189**2 * RBF(length_scale=0.122) 
++ WhiteKernel(noise_level=0.0367)
+
+Log-marginal-likelihood: -229.645</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Interpretation-of-the-results">Interpretation of the results<a class="anchor-link" href="#Interpretation-of-the-results">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As expected, the largest value for the Log-marginal-likelihood, is given by the kernel specifically tuned for the most updated data.</p>
+<p>The main difference in the parameters can be observed in the first term, (RBF alone), which fits the long term rising trend. This can be interpreted as a change in the trend of the rising in Co2 concentration in the atmosphere.</p>
+<p>This hypotesis seems to be strengthen by the fact that the other kernel that shows different parameters is the RationalQuadratic one, responsible of explaining the medium-term irregularities, while the noise term and the seasonal components appear to be just fluctuating around the same value, with small differences given more by the oscillation of the fine tuning than by a real change in the fitted data.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
