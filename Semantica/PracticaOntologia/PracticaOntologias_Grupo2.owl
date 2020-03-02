@@ -126,6 +126,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Abe -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Abe">
+        <rdf:type rdf:resource="http://owl.man.ac.uk/2006/07/sssw/people#man"/>
+        <has_son rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Homer"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Bart -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Bart">
@@ -141,6 +150,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Homer">
         <rdf:type rdf:resource="http://owl.man.ac.uk/2006/07/sssw/people#male"/>
+        <people:works_for rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Mr._Burns"/>
         <has_daughter rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Lisa"/>
         <has_daughter rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Maggie"/>
         <has_son rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Bart"/>
@@ -176,6 +186,28 @@
         <has_daughter rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Maggie"/>
         <has_husband rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Homer"/>
         <has_son rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Bart"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Mr._Burns -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Mr._Burns">
+        <rdf:type rdf:resource="http://owl.man.ac.uk/2006/07/sssw/people#man"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Santa&apos;s_little_helper -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Santa&apos;s_little_helper">
+        <rdf:type rdf:resource="http://owl.man.ac.uk/2006/07/sssw/people#dog"/>
+        <rdf:type rdf:resource="http://owl.man.ac.uk/2006/07/sssw/people#pet"/>
+        <people:is_pet_of rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Bart"/>
+        <people:is_pet_of rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Homer"/>
+        <people:is_pet_of rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Lisa"/>
+        <people:is_pet_of rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Maggie"/>
+        <people:is_pet_of rdf:resource="http://www.semanticweb.org/nicolo/ontologies/2020/1/untitled-ontology-7#Marge"/>
     </owl:NamedIndividual>
 </rdf:RDF>
 
