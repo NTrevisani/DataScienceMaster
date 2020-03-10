@@ -86,7 +86,7 @@ model.summary()
 # - Print the fourth image of the training dataset
 # 
 
-# In[4]:
+# In[2]:
 
 
 from keras.datasets import mnist
@@ -112,7 +112,7 @@ pyplot.show()
 
 # Next you will give the appropriate shape to the training and test datasets in order to put them into the neural network. Convert the labels, which right now are numbers, into their categorical form.
 
-# In[5]:
+# In[3]:
 
 
 train_images = train_images.reshape((60000, 28, 28, 1))
@@ -164,7 +164,7 @@ print('Test accuracy:', test_acc)
 
 # Create an image with a handwritting number and check the prediction. Try with several numbers ...does it work properly?
 
-# In[17]:
+# In[12]:
 
 
 from keras.preprocessing import image
@@ -177,6 +177,7 @@ img_height=28
 img = image.load_img('cuatro.png', target_size=(img_width, img_height), color_mode = "grayscale")
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
+x = x.astype('float32') / 255
 
 # Pinto mi nueva imagen de un numero
 x_to_plot = np.reshape(x, (28,-1))
@@ -185,7 +186,7 @@ pyplot.imshow(x_to_plot, cmap=pyplot.get_cmap('gray'))
 pyplot.show()
 
 
-# In[18]:
+# In[13]:
 
 
 # Veo como se clasifica
@@ -202,7 +203,7 @@ model.save('net_numbers.h5')
 # Load the model that you just saved and make a prediction (predict_classes) with the number you just generated. 
 # 
 
-# In[20]:
+# In[6]:
 
 
 from keras.models import load_model
@@ -216,7 +217,7 @@ print('Test loss:', test_loss)
 print('Test accuracy:', test_acc)
 
 
-# In[21]:
+# In[15]:
 
 
 from keras.preprocessing import image
@@ -226,9 +227,10 @@ from matplotlib import pyplot as plt
 img_width=28
 img_height=28
 
-img = image.load_img('tres.png', target_size=(img_width, img_height), color_mode = "grayscale")
+img = image.load_img('cuatro.png', target_size=(img_width, img_height), color_mode = "grayscale")
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
+x = x.astype('float32') / 255
 
 x_to_plot = np.reshape(x, (28,-1))
 pyplot.subplot(240 + 1)
@@ -238,13 +240,11 @@ pyplot.show()
 y = loaded_model.predict_classes(x)
 print("Lo reconozco como un", y[0])
 
-# No muy bien, la verdad ...
+
+# In[9]:
 
 
-# In[22]:
-
-
-# Miro que pasa con las imagenes originales de test: mucho mejor
+# Miro que pasa con las imagenes originales de test
 j = 100
 
 pyplot.subplot(240 + 1)
@@ -257,4 +257,10 @@ pyplot.title(labels)
 test_image = np.expand_dims(test_images[j], axis=0)
 y = loaded_model.predict_classes(test_image)
 print("Lo reconozco como un", y[0])
+
+
+# In[ ]:
+
+
+
 
