@@ -233,12 +233,16 @@ model.summary()
 
 # Para el paso de compilación utilizaremos el optimizador `RMSprop`(lr=1e-4). Como nuestra red termina con una única unidad sigmoide, vamos a utilizar binary crossentropy como nuestra función de pérdida.
 
-# In[ ]:
+# In[29]:
 
 
 from keras import optimizers
 
-model.compile(       ,        , metrics=['acc'])
+rms = optimizers.RMSprop(lr=1e-4)
+
+model.compile(optimizer = rms, 
+              loss = "binary_crossentropy", 
+              metrics=['acc'])
 
 
 # ##  Data preprocessing
