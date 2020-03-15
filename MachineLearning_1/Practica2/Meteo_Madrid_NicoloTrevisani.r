@@ -38,11 +38,19 @@ xTest.norm <- sweep(sweep(xTest, 2L, trainMean), 2, trainSd, "/")
 
 head(xTest.norm)
 
+# Me quedo solo con las variables que tengas correlación con y grande
+# |corr(y,Xn)| > 0.4
+
+xTest.norm <- xTest.norm[,cor(xTrain.norm, yTrain, method = "spearman") > 0.4 | cor(xTrain.norm, yTrain, method = "spearman") < -0.4]
+xTrain.norm <- xTrain.norm[,cor(xTrain.norm, yTrain, method = "spearman") > 0.4 | cor(xTrain.norm, yTrain, method = "spearman") < -0.4]
+
+ncol(xTrain.norm)
+
 # Dataset de entrenamiento
-indtrain   <- sample(1:n, round(0.8*n)) 
-x_train    <- xTrain.norm[indtrain,]
-y_train    <- yTrain[indtrain]
-rain_train <- rain[indtrain]
+#indtrain   <- sample(1:n, round(0.8*n)) 
+x_train    <- xTrain.norm#[indtrain,]
+y_train    <- yTrain#[indtrain]
+rain_train <- rain#[indtrain]
 train      <- x_train
 
 # Añado las variables objetivo
@@ -52,24 +60,40 @@ train['rain'] <- as.factor(rain_train)
 # Miro el dataset
 head(train)
 
-# Dataset de validación
-indvalid   <- setdiff(1:n, indtrain)      
-x_valid    <- as.data.frame(xTrain[indvalid,])
-y_valid    <- yTrain[indvalid]
-rain_valid <- rain[indvalid]
-valid      <- x_valid
-
-# Añado las variables objetivo
-valid['y']    <- y_valid
-valid['rain'] <- as.factor(rain_valid)
-
-# Miro el dataset
-head(train)
-
 # Dataset de test (solo tengo la x, voy a producir la y en el ejercicio)
+
 test <- xTest.norm
 head(test)
 
+# Defino el modelo
+model.rain <- keras_model_sequential() 
 
+model.rain %>% 
+  layer_dense(units = 30, input_shape = ncol(train)-2, activation = "relu", kernel_regularizer = regularizer_l2(0.005)) %>% 
+  layer_dropout(0.5) %>%
+  layer_dense(units = 10, activation = "relu", kernel_regularizer = regularizer_l2(0.005)) %>%
+  layer_dropout(0.5) %>%
+  layer_dense(units = 2 , activation = "sigmoid")#"softmax") 
+str(model.rain)
+
+# Compilo el modelo
+model.rain %>% compile(
+  optimizer = optimizer_adagrad(lr = 0.005),
+  loss = "binary_crossentropy",
+  metrics = "binary_accuracy"
+)
+
+# Entreno el modelo
+
+my.train.x <- as.matrix(train[ , 1:ncol(test)])
+my.train.y <- to_categorical(train$rain, 2)
+
+history <- model.rain %>% fit(x = my.train.x, 
+                              y = my.train.y, 
+                              epochs = 500, 
+                              batch_size = 20,
+                              validation_split = 0.2)
+
+plot(history)
 
 
