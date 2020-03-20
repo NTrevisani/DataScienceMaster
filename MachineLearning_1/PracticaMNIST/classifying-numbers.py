@@ -86,7 +86,7 @@ model.summary()
 # - Print the fourth image of the training dataset
 # 
 
-# In[2]:
+# In[4]:
 
 
 from keras.datasets import mnist
@@ -112,7 +112,7 @@ pyplot.show()
 
 # Next you will give the appropriate shape to the training and test datasets in order to put them into the neural network. Convert the labels, which right now are numbers, into their categorical form.
 
-# In[3]:
+# In[5]:
 
 
 train_images = train_images.reshape((60000, 28, 28, 1))
@@ -148,7 +148,7 @@ model.compile(optimizer = "rmsprop",
 
 model.fit(x = train_images, 
           y = train_labels,
-          batch_size=4,
+          batch_size=64,
           epochs=5)
 
 
@@ -164,7 +164,7 @@ print('Test accuracy:', test_acc)
 
 # Create an image with a handwritting number and check the prediction. Try with several numbers ...does it work properly?
 
-# In[12]:
+# In[70]:
 
 
 from keras.preprocessing import image
@@ -174,7 +174,12 @@ from matplotlib import pyplot as plt
 img_width=28
 img_height=28
 
-img = image.load_img('cuatro.png', target_size=(img_width, img_height), color_mode = "grayscale")
+# Elige el número que quieres clasificar 
+# (zero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve)
+number = 'zero.png'
+
+img = image.load_img(number, target_size=(img_width, img_height), color_mode = "grayscale")
+
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
 x = x.astype('float32') / 255
@@ -186,7 +191,7 @@ pyplot.imshow(x_to_plot, cmap=pyplot.get_cmap('gray'))
 pyplot.show()
 
 
-# In[13]:
+# In[71]:
 
 
 # Veo como se clasifica
@@ -194,7 +199,7 @@ y = model.predict_classes(x)
 print(y[0])
 
 
-# In[19]:
+# In[72]:
 
 
 model.save('net_numbers.h5')
@@ -203,7 +208,7 @@ model.save('net_numbers.h5')
 # Load the model that you just saved and make a prediction (predict_classes) with the number you just generated. 
 # 
 
-# In[6]:
+# In[73]:
 
 
 from keras.models import load_model
@@ -217,7 +222,7 @@ print('Test loss:', test_loss)
 print('Test accuracy:', test_acc)
 
 
-# In[15]:
+# In[84]:
 
 
 from keras.preprocessing import image
@@ -227,7 +232,12 @@ from matplotlib import pyplot as plt
 img_width=28
 img_height=28
 
-img = image.load_img('cuatro.png', target_size=(img_width, img_height), color_mode = "grayscale")
+# Elige el número que quieres clasificar 
+# (zero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve)
+number = 'zero.png'
+
+img = image.load_img(number, target_size=(img_width, img_height), color_mode = "grayscale")
+
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
 x = x.astype('float32') / 255
@@ -241,7 +251,7 @@ y = loaded_model.predict_classes(x)
 print("Lo reconozco como un", y[0])
 
 
-# In[9]:
+# In[85]:
 
 
 # Miro que pasa con las imagenes originales de test
@@ -257,10 +267,4 @@ pyplot.title(labels)
 test_image = np.expand_dims(test_images[j], axis=0)
 y = loaded_model.predict_classes(test_image)
 print("Lo reconozco como un", y[0])
-
-
-# In[ ]:
-
-
-
 
