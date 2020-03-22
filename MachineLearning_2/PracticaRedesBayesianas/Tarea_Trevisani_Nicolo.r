@@ -95,4 +95,26 @@ plot(bn$niebla$prob)
 # Vuelvo a pintar el grafo
 plot(dag)
 
+# Verifico
+dsep(dag, x = "nieve", y = "granizo")
+
+# Verifico
+dsep(dag, x = "nieve", y = "granizo", z = "tormenta")
+
+# Verifico
+dsep(dag, x = "nieveSuelo", y = "neblina")
+
+# Verifico
+dsep(dag, x = "nieveSuelo", y = "neblina", z = "tormenta")
+
+bn$lluvia$prob
+
+library(gRain)
+junction <- compile(as.grain(bn))
+
+# Introducimos la nueva evidencia
+tormenta_ev = setEvidence(junction,nodes = "tormenta", states = "s")
+# Nueva probabilidad marginal dada la evidencia
+querygrain(tormenta_ev, nodes = "lluvia")$lluvia["s"]
+
 
