@@ -98,6 +98,14 @@ Some packages you may want to add to your R:
 
      install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest', 'caret', 'e1071', 'ISLR','rpart','rpart.plot','tree','arules','arulesViz','tidyverse','randomForest'))
 
+To install keras on R:
+
+     install.packages("keras")
+
+     library(keras)
+
+     install_keras(method = "conda")
+
 ## 4. Sqlitestudio
 
 To download sqlitestudio, visit:
