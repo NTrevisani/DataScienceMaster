@@ -1,4 +1,4 @@
-### ![grafo.png](attachment:grafo.png)
+#[grafo.png](attachment:grafo.png)
 
 library(bnlearn)
 
@@ -79,7 +79,6 @@ plot(dag)
 meteoro <- read.table("meteoro.txt", header = TRUE)
 
 bn = bn.fit(dag, data = meteoro, method = "bayes")
-#print(bn)
 
 # Verifico con el código
 nparams(bn)
@@ -163,41 +162,204 @@ bn.sim.tormenta.s <- simulate(red.tormenta.s, n = 100)
 # Verifico que tormenta siempre tenga como valor 's'
 bn.sim.tormenta.s$tormenta
 
+library(ggplot2)
+
+prob.lluvia <- nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$lluvia == 's',])/N
 print(paste("Probabilidad de lluvia, dada tormenta:", 
-            nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$lluvia == 's',])/N))
+            prob.lluvia))
 
+my.table = table(bn.sim.tormenta.s$lluvia)
+plot(my.table, type = "p", ylim = c(0,100))
+
+arrows(1, my.table["n"] + sqrt(my.table["n"]), 
+       1, my.table["n"] - sqrt(my.table["n"]), 
+       length=0.05, angle=90, code=3)
+points(1, 100*(1 - query1), col = "red")
+
+arrows(2, my.table["s"] + sqrt(my.table["s"]), 
+       2, my.table["s"] - sqrt(my.table["s"]), 
+       length=0.05, angle=90, code=3)
+points(2, 100*query1, col = "red")
+
+prob.viento <- nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$viento == 's',])/N
 print(paste("Probabilidad de viento, dada tormenta:", 
-            nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$viento == 's',])/N))
+            prob.viento))
 
+my.table = table(bn.sim.tormenta.s$viento)
+plot(my.table, type = "p", ylim = c(0,100))
+
+arrows(1, my.table["n"] + sqrt(my.table["n"]), 
+       1, my.table["n"] - sqrt(my.table["n"]), 
+       length=0.05, angle=90, code=3)
+points(1, 100*(1 - query2), col = "red")
+
+arrows(2, my.table["s"] + sqrt(my.table["s"]), 
+       2, my.table["s"] - sqrt(my.table["s"]), 
+       length=0.05, angle=90, code=3)
+points(2, 100*query2, col = "red")
+
+prob.viento.lluvia <- nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$viento == 's' & bn.sim.tormenta.s$lluvia == 's',])/N
 print(paste("Probabilidad de viento y lluvia, dada tormenta:", 
-            nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$viento == 's' & bn.sim.tormenta.s$lluvia == 's',])/N))
+            prob.viento.lluvia))
+
+my.table = table(bn.sim.tormenta.s$viento == 's' & bn.sim.tormenta.s$lluvia == 's')
+names(my.table) = c("n", "s")
+
+plot(my.table, type = "p", ylim = c(0,100))
+
+arrows(1, my.table["n"] + sqrt(my.table["n"]), 
+       1, my.table["n"] - sqrt(my.table["n"]), 
+       length=0.05, angle=90, code=3)
+points(1, 100*(1 - query3), col = "red")
+
+arrows(2, my.table["s"] + sqrt(my.table["s"]), 
+       2, my.table["s"] - sqrt(my.table["s"]), 
+       length=0.05, angle=90, code=3)
+points(2, 100*query3, col = "red")
 
 print(paste("La probabilidad de lluvia dado que hay tormenta es", 
-            nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$lluvia == 's',])/N))
+            prob.lluvia))
             
+prob.lluvia.no_cond <- nrow(bn.sim[bn.sim$lluvia == 's',])/N
 print(paste("Mientras que sin poner condiciones, la probabilidad de que llueva es", 
-            nrow(bn.sim.tormenta.s[bn.sim$lluvia == 's',])/N))
+            prob.lluvia.no_cond))
 
 print("Eso quiere decir que es más probable que llueva cuando hay tormenta.")
 
+my.table = table(bn.sim$lluvia)
+
+plot(my.table, type = "p", ylim = c(0,100))
+
+arrows(1, my.table["n"] + sqrt(my.table["n"]), 
+       1, my.table["n"] - sqrt(my.table["n"]), 
+       length=0.05, angle=90, code=3)
+points(1, 100*(1 - query4), col = "red")
+
+arrows(2, my.table["s"] + sqrt(my.table["s"]), 
+       2, my.table["s"] - sqrt(my.table["s"]), 
+       length=0.05, angle=90, code=3)
+points(2, 100*query4, col = "red")
+
 print(paste("La probabilidad de que haya viento dado que hay tormenta es", 
-            nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$viento == 's',])/N))
+            prob.viento))
             
+prob.viento.no_cond <- nrow(bn.sim[bn.sim$viento == 's',])/N
 print(paste("Mientras que sin poner condiciones, la probabilidad de que haya viento es", 
-            nrow(bn.sim.tormenta.s[bn.sim$viento == 's',])/N))
+            prob.viento.no_cond))
 
-print("Eso quiere decir que es más probable que haya viento cuando hay tormenta.")
+print("Eso quiere decir que es menos probable que haya viento cuando hay tormenta.")
 
-print(paste("Cuantitativamente, el aumento es del",
-           100 * (nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$viento == 's',]) / 
-            nrow(bn.sim.tormenta.s[bn.sim$viento == 's',]) - 1), "%"))
+print(paste("Cuantitativamente, disminuye del",
+           100 * (prob.viento / prob.viento.no_cond - 1), "%"))
 
+my.table = table(bn.sim$viento)
 
+plot(my.table, type = "p", ylim = c(0,100))
 
+arrows(1, my.table["n"] + sqrt(my.table["n"]), 
+       1, my.table["n"] - sqrt(my.table["n"]), 
+       length=0.05, angle=90, code=3)
+points(1, 100*(1 - query5), col = "red")
 
+arrows(2, my.table["s"] + sqrt(my.table["s"]), 
+       2, my.table["s"] - sqrt(my.table["s"]), 
+       length=0.05, angle=90, code=3)
+points(2, 100*query5, col = "red")
 
+# Uso arc.strength para valorar la significación de los arcos
+arc.strength(dag, data = meteoro, criterion = "x2")
 
+# Construyo el DAG usando el algoritmo Tabu search
+dag.tabu <- tabu(x = meteoro)
+dag.tabu
+plot(dag.tabu)
 
+# Construyo el DAG usando el algoritmo hill-climbing
+dag.hc <- hc(x = meteoro)
+dag.hc
+plot(dag.hc)
 
+# BIC score para el DAG original
+dag.score <- bnlearn::score(dag, data = meteoro)
+dag.score
+
+# BIC score para el DAG generado con el algoritmo Tabu search
+dag.tabu.score <- bnlearn::score(dag.tabu, data = meteoro)
+dag.tabu.score
+
+# BIC score para el DAG generado con el algoritmo hill-climbing
+dag.hc.score <- bnlearn::score(dag.hc, data = meteoro)
+dag.hc.score
+
+# Uso simplemente 'plot', porque graphviz.plot me dá el siguiente problema:
+graphviz.plot(dag)
+
+print("DAG experto")
+plot(dag)
+
+print("DAG tabu")
+plot(dag.tabu)
+# Uso arc.strength para valorar la significación de los arcos
+arc.strength(dag.tabu, data = meteoro, criterion = "x2")
+
+print("DAG hill-climbing")
+plot(dag.hc)
+# Uso arc.strength para valorar la significación de los arcos
+arc.strength(dag.hc, data = meteoro, criterion = "x2")
+
+# Preparo la whitelist
+whitelist <- matrix(c("viento", "lluvia",
+                      "tormenta", "granizo",
+                      "nieve", "nieveSuelo"),
+                    ncol = 2,
+                    dimnames = list(NULL, c("from", "to")))
+# Preparo la blacklst
+blacklist <- matrix(c("neblina", "granizo", 
+                      "granizo", "neblina",
+                      "tormenta", "niebla",
+                      "niebla", "tormenta"), 
+                    ncol = 2, byrow = TRUE,
+                    dimnames = list(NULL, c("from", "to")))
+
+# Construyo el DAG "semiexperto" usando el algoritmo Tabu search
+dag.tabu.semiexperto <- tabu(x = meteoro,
+                             whitelist = whitelist, 
+                             blacklist = blacklist)
+dag.tabu.semiexperto
+plot(dag.tabu.semiexperto)
+
+dag.tabu.score.semiexperto <- bnlearn::score(dag.tabu.semiexperto, data = meteoro)
+dag.tabu.score.semiexperto
+
+# Uso arc.strength para valorar la significación de los arcos
+arc.strength(dag.tabu.semiexperto, data = meteoro, criterion = "x2")
+
+# Construyo el DAG "semiexperto" usando el algoritmo hill-climbing search
+dag.hc.semiexperto <- hc(x = meteoro,
+                             whitelist = whitelist, 
+                             blacklist = blacklist)
+dag.hc.semiexperto
+plot(dag.hc.semiexperto)
+
+dag.hc.score.semiexperto <- bnlearn::score(dag.hc.semiexperto, data = meteoro)
+dag.hc.score.semiexperto
+
+# Uso arc.strength para valorar la significación de los arcos
+arc.strength(dag.hc.semiexperto, data = meteoro, criterion = "x2")
+
+# Preparo una tabla de resumen con todos los resultados de los scores
+
+summary.table <- matrix(c("DAG experto", dag.score, 
+                      "DAG Tabu", dag.tabu.score,
+                      "DAG hill-climbing", dag.hc.score,
+                      "DAG Tabu semi-experto", dag.tabu.score.semiexperto,
+                      "DAG hill-climbing semi-experto", dag.hc.score.semiexperto), 
+                    ncol = 2, byrow = TRUE,
+                    dimnames = list(NULL, c("DAG", "SCORE")))
+summary.table
+
+arc.strength(dag.hc, data = meteoro, criterion = "x2")
+
+arc.strength(dag.tabu, data = meteoro, criterion = "x2")
 
 
