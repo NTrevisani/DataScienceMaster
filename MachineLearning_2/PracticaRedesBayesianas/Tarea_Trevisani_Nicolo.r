@@ -1,4 +1,7 @@
-#[grafo.png](attachment:grafo.png)
+library("IRdisplay")
+
+# Enseño el grafo dado por el experto
+display_png(file="grafo.png")  
 
 library(bnlearn)
 
@@ -162,8 +165,6 @@ bn.sim.tormenta.s <- simulate(red.tormenta.s, n = 100)
 # Verifico que tormenta siempre tenga como valor 's'
 bn.sim.tormenta.s$tormenta
 
-library(ggplot2)
-
 prob.lluvia <- nrow(bn.sim.tormenta.s[bn.sim.tormenta.s$lluvia == 's',])/N
 print(paste("Probabilidad de lluvia, dada tormenta:", 
             prob.lluvia))
@@ -291,19 +292,24 @@ dag.tabu.score
 dag.hc.score <- bnlearn::score(dag.hc, data = meteoro)
 dag.hc.score
 
-# Uso simplemente 'plot', porque graphviz.plot me dá el siguiente problema:
+# graphviz.plot me dá el siguiente problema en local:
 graphviz.plot(dag)
 
+# Por esta razón, he dibujado los grafos en el datasciencehub (donde no logro instalar gRain) 
+# y los pego aquí abajo 
+
 print("DAG experto")
-plot(dag)
+display_png(file="DAG.png")  
 
 print("DAG tabu")
-plot(dag.tabu)
+display_png(file="DAG_Tabu.png")  
+
 # Uso arc.strength para valorar la significación de los arcos
 arc.strength(dag.tabu, data = meteoro, criterion = "x2")
 
 print("DAG hill-climbing")
-plot(dag.hc)
+display_png(file="DAG_hc.png")  
+
 # Uso arc.strength para valorar la significación de los arcos
 arc.strength(dag.hc, data = meteoro, criterion = "x2")
 
@@ -361,5 +367,3 @@ summary.table
 arc.strength(dag.hc, data = meteoro, criterion = "x2")
 
 arc.strength(dag.tabu, data = meteoro, criterion = "x2")
-
-
