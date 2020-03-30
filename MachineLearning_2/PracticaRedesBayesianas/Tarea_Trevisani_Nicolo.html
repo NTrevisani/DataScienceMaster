@@ -13153,7 +13153,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">bnlearn</span><span class="p">)</span>
@@ -13166,7 +13166,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1">## Defino el grafo vacío:</span>
@@ -13181,7 +13181,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Defino los arcos</span>
@@ -13228,9 +13228,9 @@ div#notebook {
   arcs:                                  10 
     undirected arcs:                     0 
     directed arcs:                       10 
-  average markov blanket size:           2,00 
-  average neighbourhood size:            2,00 
-  average branching factor:              1,00 
+  average markov blanket size:           2.00 
+  average neighbourhood size:            2.00 
+  average branching factor:              1.00 
 
   generation algorithm:                  Empty 
 
@@ -13729,7 +13729,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Verifico la factorización del punto anterior</span>
@@ -13769,7 +13769,7 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">for </span><span class="p">(</span><span class="n">node</span> <span class="n">in</span> <span class="nf">nodes</span><span class="p">(</span><span class="n">dag</span><span class="p">)){</span>
@@ -16431,7 +16431,7 @@ height=420
 <ul>
 <li>Que llueva, P(lluvia=s|tormenta=s)</li>
 <li>Que haya rachas de viento superiores a 50 Km/h, P(viento=s|tormenta=s)</li>
-<li>Que llueva y que además las rachas de viento superen los 50 Km/h, P(lluvia=s,viento=n|tormenta=s)</li>
+<li>Que llueva y que además las rachas de viento superen los 50 Km/h, P(lluvia=s,viento=s|tormenta=s)</li>
 <li>A partir de la información revelada por la red bayesiana, sabiendo que un día se producen tormentas:<ul>
 <li>¿Hay mayor probabilidad de que llueva cuando se producen tormentas que cualquier otro día?</li>
 <li>¿Aumenta o disminuye la probabilidad de tener rachas de viento mayores de 50 Km/h cuando se produce tormenta? ¿Cuánto?</li>
@@ -17153,6 +17153,36 @@ TRUE
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">gRain</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Compilo la red</span>
+<span class="n">red</span> <span class="o">&lt;-</span> <span class="nf">compile</span><span class="p">(</span><span class="nf">as.grain</span><span class="p">(</span><span class="n">bn</span><span class="p">))</span>
+
+<span class="c1"># Fijo el estado del nodo tormenta a &#39;s&#39;</span>
+<span class="n">red.tormenta.s</span> <span class="o">=</span> <span class="nf">setEvidence</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;tormenta&quot;</span><span class="p">,</span> <span class="n">states</span> <span class="o">=</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -17165,10 +17195,12 @@ TRUE
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">bn</span><span class="o">$</span><span class="n">lluvia</span><span class="o">$</span><span class="n">prob</span>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Consulto la red: P(lluvia=s|tormenta=s) = ?</span>
+<span class="n">query1</span> <span class="o">&lt;-</span> <span class="nf">querygrain</span><span class="p">(</span><span class="n">red.tormenta.s</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;lluvia&quot;</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;marginal&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">lluvia</span><span class="p">[</span><span class="s">&quot;s&quot;</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de lluvia dado que hay tormenta es&quot;</span><span class="p">,</span> <span class="n">query1</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -17184,142 +17216,8 @@ TRUE
     <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea ">
-<pre>      viento
-lluvia         n         s
-     n 0,4960889 0,1375132
-     s 0,5039111 0,8624868</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">gRain</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-Error in library(gRain): there is no package called ‘gRain’
-Traceback:
-
-1. library(gRain)</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RBGL</span><span class="p">)</span>
-<span class="n">junction</span> <span class="o">&lt;-</span> <span class="nf">compile</span><span class="p">(</span><span class="nf">as.grain</span><span class="p">(</span><span class="n">bn</span><span class="p">))</span>
-
-<span class="c1"># Introducimos la nueva evidencia</span>
-<span class="n">tormenta_ev</span> <span class="o">=</span> <span class="nf">setEvidence</span><span class="p">(</span><span class="n">junction</span><span class="p">,</span><span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;tormenta&quot;</span><span class="p">,</span> <span class="n">states</span> <span class="o">=</span> <span class="s">&quot;s&quot;</span><span class="p">)</span>
-<span class="c1"># Nueva probabilidad marginal dada la evidencia</span>
-<span class="nf">querygrain</span><span class="p">(</span><span class="n">tormenta_ev</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;lluvia&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">lluvia[</span><span class="s">&quot;s&quot;</span><span class="n">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Loading required package: graph
-
-Loading required package: BiocGenerics
-
-Loading required package: parallel
-
-
-Attaching package: ‘BiocGenerics’
-
-
-The following objects are masked from ‘package:parallel’:
-
-    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-    clusterExport, clusterMap, parApply, parCapply, parLapply,
-    parLapplyLB, parRapply, parSapply, parSapplyLB
-
-
-The following objects are masked from ‘package:bnlearn’:
-
-    path, score
-
-
-The following objects are masked from ‘package:stats’:
-
-    IQR, mad, sd, var, xtabs
-
-
-The following objects are masked from ‘package:base’:
-
-    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
-    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
-    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
-    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
-    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
-    union, unique, unsplit, which, which.max, which.min
-
-
-
-Attaching package: ‘graph’
-
-
-The following objects are masked from ‘package:bnlearn’:
-
-    degree, nodes, nodes&lt;-
-
-
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-Error in compile(as.grain(bn)): could not find function &#34;compile&#34;
-Traceback:
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de lluvia dado que hay tormenta es 0,95985401459854&#34;
 </pre>
 </div>
 </div>
@@ -17333,19 +17231,556 @@ Traceback:
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Que haya rachas de viento superiores a 50 Km/h, P(viento=s|tormenta=s)</li>
-<li>Que llueva y que además las rachas de viento superen los 50 Km/h, P(lluvia=s,viento=n|tormenta=s)</li>
-<li><p>A partir de la información revelada por la red bayesiana, sabiendo que un día se producen tormentas:</p>
-<ul>
-<li>¿Hay mayor probabilidad de que llueva cuando se producen tormentas que cualquier otro día?</li>
-<li>¿Aumenta o disminuye la probabilidad de tener rachas de viento mayores de 50 Km/h cuando se produce tormenta? ¿Cuánto?</li>
 </ul>
-</li>
-<li><p>Dado el ejercicio anterior, repetir ahora el ejercicio mediante inferencia aproximada, calculando para cada una de las estimaciones 100 realizaciones. Para cada una de las respuestas anteriores, representa un diagrama de cajas que represente la dispersión en la estimación de la probabilidad, marcando además el valor obtenido de manera exacta en el apartado anterior.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Consulto la red: P(viento=s|tormenta=s) = ?</span>
+<span class="n">query2</span> <span class="o">&lt;-</span> <span class="nf">querygrain</span><span class="p">(</span><span class="n">red.tormenta.s</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;viento&quot;</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;marginal&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">viento</span><span class="p">[</span><span class="s">&quot;s&quot;</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de viento dado que hay tormenta es&quot;</span><span class="p">,</span> <span class="n">query2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de viento dado que hay tormenta es 0,216860789374449&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Que llueva y que además las rachas de viento superen los 50 Km/h, P(lluvia=s,viento=s|tormenta=s)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Consulto la red: P(lluvia=s,viento=n|tormenta=s) = ?</span>
+<span class="n">query3</span> <span class="o">&lt;-</span> <span class="nf">querygrain</span><span class="p">(</span><span class="n">red.tormenta.s</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;lluvia&quot;</span><span class="p">,</span><span class="s">&quot;viento&quot;</span><span class="p">),</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;joint&quot;</span><span class="p">)[</span><span class="s">&quot;s&quot;</span><span class="p">,</span><span class="s">&quot;s&quot;</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de viento dado que hay tormenta es&quot;</span><span class="p">,</span> <span class="n">query3</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de viento dado que hay tormenta es 0,215067208034192&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>A partir de la información revelada por la red bayesiana, sabiendo que un día se producen tormentas:<ul>
+<li>¿Hay mayor probabilidad de que llueva cuando se producen tormentas que cualquier otro día?</li>
+</ul>
 </li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Miro la probabilidad de que llueva, sin poner condiciones</span>
+<span class="n">query4</span> <span class="o">&lt;-</span> <span class="nf">querygrain</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;lluvia&quot;</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;marginal&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">lluvia</span><span class="p">[</span><span class="s">&quot;s&quot;</span><span class="p">]</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de lluvia dado que hay tormenta es&quot;</span><span class="p">,</span> <span class="n">query1</span><span class="p">,</span> 
+            <span class="s">&quot;mientras que sin poner condiciones, la probabilidad de que llueva es&quot;</span><span class="p">,</span> <span class="n">query4</span><span class="p">,</span>
+            <span class="s">&quot;. Eso quiere decir que es más probable que llueva cuando hay tormenta.&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de lluvia dado que hay tormenta es 0,95985401459854 mientras que sin poner condiciones, la probabilidad de que llueva es 0,555673866747794 . Eso quiere decir que es más probable que llueva cuando hay tormenta.&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Y ahora:<ul>
+<li>¿Aumenta o disminuye la probabilidad de tener rachas de viento mayores de 50 Km/h cuando se produce tormenta? ¿Cuánto?    </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Miro la probabilidad de que haya viento, sin poner condiciones</span>
+<span class="n">query5</span> <span class="o">&lt;-</span> <span class="nf">querygrain</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;viento&quot;</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;marginal&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">viento</span><span class="p">[</span><span class="s">&quot;s&quot;</span><span class="p">]</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de que haya viento dado que hay tormenta es&quot;</span><span class="p">,</span> <span class="n">query2</span><span class="p">,</span> 
+            <span class="s">&quot;mientras que sin poner condiciones, la probabilidad de que haya viento es&quot;</span><span class="p">,</span> <span class="n">query5</span><span class="p">,</span>
+            <span class="s">&quot;. Eso quiere decir que es más probable que haya viento cuando hay tormenta.&quot;</span><span class="p">,</span>
+            <span class="s">&quot;Cuantitativamente, el aumento es del&quot;</span><span class="p">,</span> <span class="m">100</span><span class="o">*</span><span class="p">(</span><span class="n">query2</span> <span class="o">/</span> <span class="n">query5</span> <span class="o">-</span> <span class="m">1</span><span class="p">),</span> <span class="s">&quot;%&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de que haya viento dado que hay tormenta es 0,216860789374449 mientras que sin poner condiciones, la probabilidad de que haya viento es 0,14435655613021 . Eso quiere decir que es más probable que haya viento cuando hay tormenta. Cuantitativamente, el aumento es del 50,2257986667682 %&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Dado el ejercicio anterior, repetir ahora el ejercicio mediante inferencia aproximada, calculando para cada una de las estimaciones 100 realizaciones. Para cada una de las respuestas anteriores, representa un diagrama de cajas que represente la dispersión en la estimación de la probabilidad, marcando además el valor obtenido de manera exacta en el apartado anterior.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Fijo el numero de simulaciones a 100</span>
+<span class="n">N</span> <span class="o">=</span> <span class="m">100</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Simulo 100 veces lo que pasa a la red sin poner condiciones</span>
+<span class="n">bn.sim</span> <span class="o">&lt;-</span> <span class="nf">simulate</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># Verifico que tormenta tenga como valores tantos &#39;s&#39; como &#39;n&#39;</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Número de &#39;s&#39;&quot;</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim</span><span class="p">[</span><span class="n">bn.sim</span><span class="o">$</span><span class="n">tormenta</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])))</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Número de &#39;n&#39;&quot;</span><span class="p">,</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim</span><span class="p">[</span><span class="n">bn.sim</span><span class="o">$</span><span class="n">tormenta</span> <span class="o">==</span> <span class="s">&#39;n&#39;</span><span class="p">,])))</span>
+
+<span class="c1"># Miro la probabilidad de que haya tormenta, sin poner condiciones</span>
+<span class="c1"># para verificar que los números que saco tienen sentido</span>
+<span class="n">query.tormenta</span> <span class="o">&lt;-</span> <span class="nf">querygrain</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">nodes</span> <span class="o">=</span> <span class="s">&quot;tormenta&quot;</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;marginal&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">tormenta</span>
+<span class="n">query.tormenta</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Número de &#39;s&#39; 7&#34;
+[1] &#34;Número de &#39;n&#39; 93&#34;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style><dl class=dl-inline><dt>n</dt><dd>0,937480985701247</dd><dt>s</dt><dd>0,0625190142987526</dd></dl>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Simulo 100 veces lo que pasa a la red si siempre hay tormenta</span>
+<span class="n">bn.sim.tormenta.s</span> <span class="o">&lt;-</span> <span class="nf">simulate</span><span class="p">(</span><span class="n">red.tormenta.s</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="m">100</span><span class="p">)</span>
+
+<span class="c1"># Verifico que tormenta siempre tenga como valor &#39;s&#39;</span>
+<span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">tormenta</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li><li>s</li></ol>
+
+<details>
+	<summary style=display:list-item;cursor:pointer>
+		<strong>Levels</strong>:
+	</summary>
+	<style>
+	.list-inline {list-style: none; margin:0; padding: 0}
+	.list-inline>li {display: inline-block}
+	.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+	</style>
+	<ol class=list-inline><li>'n'</li><li>'s'</li></ol>
+</details>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora que tengo las simulaciones, puedo hacer consultas:</p>
+<ul>
+<li>Que llueva, P(lluvia=s|tormenta=s)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Probabilidad de lluvia, dada tormenta:&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">lluvia</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Probabilidad de lluvia, dada tormenta: 0,98&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Que haya rachas de viento superiores a 50 Km/h, P(viento=s|tormenta=s)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Probabilidad de viento, dada tormenta:&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">viento</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Probabilidad de viento, dada tormenta: 0,27&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Que llueva y que además las rachas de viento superen los 50 Km/h, P(lluvia=s,viento=s|tormenta=s)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[132]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Probabilidad de viento y lluvia, dada tormenta:&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">viento</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span> <span class="o">&amp;</span> <span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">lluvia</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;Probabilidad de viento y lluvia, dada tormenta: 0,27&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>A partir de la información revelada por la red bayesiana, sabiendo que un día se producen tormentas:<ul>
+<li>¿Hay mayor probabilidad de que llueva cuando se producen tormentas que cualquier otro día?</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[138]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de lluvia dado que hay tormenta es&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">lluvia</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+            
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Mientras que sin poner condiciones, la probabilidad de que llueva es&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim</span><span class="o">$</span><span class="n">lluvia</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Eso quiere decir que es más probable que llueva cuando hay tormenta.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de lluvia dado que hay tormenta es 0,98&#34;
+[1] &#34;Mientras que sin poner condiciones, la probabilidad de que llueva es 0,59&#34;
+[1] &#34;Eso quiere decir que es más probable que llueva cuando hay tormenta.&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Y ahora:<ul>
+<li>¿Aumenta o disminuye la probabilidad de tener rachas de viento mayores de 50 Km/h cuando se produce tormenta? ¿Cuánto?    </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;La probabilidad de que haya viento dado que hay tormenta es&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">viento</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+            
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Mientras que sin poner condiciones, la probabilidad de que haya viento es&quot;</span><span class="p">,</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim</span><span class="o">$</span><span class="n">viento</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span><span class="o">/</span><span class="n">N</span><span class="p">))</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Eso quiere decir que es más probable que haya viento cuando hay tormenta.&quot;</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Cuantitativamente, el aumento es del&quot;</span><span class="p">,</span>
+           <span class="m">100</span> <span class="o">*</span> <span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim.tormenta.s</span><span class="o">$</span><span class="n">viento</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span> <span class="o">/</span> 
+            <span class="nf">nrow</span><span class="p">(</span><span class="n">bn.sim.tormenta.s</span><span class="p">[</span><span class="n">bn.sim</span><span class="o">$</span><span class="n">viento</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">,])</span> <span class="o">-</span> <span class="m">1</span><span class="p">),</span> <span class="s">&quot;%&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;La probabilidad de que haya viento dado que hay tormenta es 0,27&#34;
+[1] &#34;Mientras que sin poner condiciones, la probabilidad de que haya viento es 0,18&#34;
+[1] &#34;Eso quiere decir que es más probable que haya viento cuando hay tormenta.&#34;
+[1] &#34;Cuantitativamente, el aumento es del 50 %&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -17373,6 +17808,58 @@ Traceback:
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
