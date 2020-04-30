@@ -2,12 +2,12 @@
 # coding: utf-8
 
 # $\newcommand{\ket}[1]{\left|#1\right>}$
-# 
 
 # # Qubits and superposition
 # 
 # Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
-# https://quantum-computing.ibm.com/
+# 
+# https://quantum-computing.ibm.com/docs/guide/wwwq/creating-superpositions
 
 # All the following examples need the Qiskit library to run. Install it running the command:
 # 
@@ -54,6 +54,8 @@
 # ## Example 1
 # 
 # #### Simple q-bit measurement
+# 
+# This example uses a single qubit, putting it in the fundamental state $\ket{0}$ and measuring it.
 
 # In[1]:
 
@@ -82,7 +84,7 @@ single_q_measurement.measure(q, c)
 
 
 # Draw the circuit
-single_q_measurement.draw()
+single_q_measurement.draw(output='mpl')
 
 
 # The M gate simply measures the state of the q-bit.
@@ -102,20 +104,31 @@ result = job.result()
 print(result.get_counts(single_q_measurement))
 
 
+# In[7]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(single_q_measurement))
+
+
 # All the results give 0 (fundamental state).
 
 # ## Example 2
 # 
 # #### Q-bit flip circuit
+# 
+# This example uses a single qubit, putting it in the excited state $\ket{1}$ and measuring it.
 
-# In[7]:
+# In[8]:
 
 
 # excited_state.py
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[8]:
+# In[9]:
 
 
 # Define the Quantum and Classical Registers
@@ -123,25 +136,26 @@ q = QuantumRegister(1)
 c = ClassicalRegister(1)
 
 
-# In[9]:
+# In[10]:
 
 
 # Build the circuit
 excited_state = QuantumCircuit(q, c)
 excited_state.x(q)
+
 excited_state.measure(q, c)
 
 
-# In[10]:
+# In[11]:
 
 
 # Draw the circuit
-excited_state.draw()
+excited_state.draw(output='mpl')
 
 
 # Here we used the X gate to put the q-bit in the excited state.
 
-# In[11]:
+# In[12]:
 
 
 # Execute the circuit
@@ -149,11 +163,20 @@ job = execute(excited_state, backend = Aer.get_backend('qasm_simulator'), shots=
 result = job.result()
 
 
-# In[12]:
+# In[13]:
 
 
 # Print the result
 print(result.get_counts(excited_state))
+
+
+# In[14]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(excited_state))
 
 
 # All the results give 1 (excited state).
@@ -161,15 +184,17 @@ print(result.get_counts(excited_state))
 # ## Example 3
 # 
 # #### Superpoistion
+# 
+# In this example, we consider a single qubit and put it in a superposition state and look at the result of performing a measurement.
 
-# In[13]:
+# In[15]:
 
 
 # superposition_state.py
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[14]:
+# In[16]:
 
 
 # Define the Quantum and Classical Registers
@@ -177,7 +202,7 @@ q = QuantumRegister(1)
 c = ClassicalRegister(1)
 
 
-# In[15]:
+# In[17]:
 
 
 # Build the circuit
@@ -186,18 +211,18 @@ superposition_state.h(q)
 superposition_state.measure(q, c)
 
 
-# In[16]:
+# In[18]:
 
 
 # Draw the circuit
-superposition_state.draw()
+superposition_state.draw(output='mpl')
 
 
 # H gate creates a superposition between fundamental state and excited state in the same q-bit:
 # 
 # $ \ket{+} = \dfrac{\ket{0} + \ket{1}}{\sqrt{2}} $ 
 
-# In[17]:
+# In[19]:
 
 
 # Execute the circuit
@@ -205,11 +230,20 @@ job = execute(superposition_state, backend = Aer.get_backend('qasm_simulator'), 
 result = job.result()
 
 
-# In[18]:
+# In[20]:
 
 
 # Print the result
 print(result.get_counts(superposition_state))
+
+
+# In[21]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(superposition_state))
 
 
 # Approximately half of the results are in the fundamental state and the other half in the excited state.
@@ -218,16 +252,18 @@ print(result.get_counts(superposition_state))
 # 
 # #### Two superpoistions
 
-# Let's now try putting two H gates one after the other.
+# In this example, we consider a single qubit and apply the operation that puts it in a superposition state (the H gate of the previous example) twice.
+# 
+# We then measure its state.
 
-# In[19]:
+# In[22]:
 
 
 # superposition_state_xbasis.py
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[20]:
+# In[23]:
 
 
 # Define the Quantum and Classical Registers
@@ -235,7 +271,7 @@ q = QuantumRegister(1)
 c = ClassicalRegister(1)
 
 
-# In[21]:
+# In[24]:
 
 
 # Build the circuit
@@ -246,14 +282,14 @@ superposition_state_xbasis.h(q)
 superposition_state_xbasis.measure(q, c)
 
 
-# In[22]:
+# In[25]:
 
 
 # Draw the circuit
-superposition_state_xbasis.draw()
+superposition_state_xbasis.draw(output='mpl')
 
 
-# In[23]:
+# In[26]:
 
 
 # Execute the circuit
@@ -261,11 +297,20 @@ job = execute(superposition_state_xbasis, backend = Aer.get_backend('qasm_simula
 result = job.result()
 
 
-# In[24]:
+# In[27]:
 
 
 # Print the result
 print(result.get_counts(superposition_state_xbasis))
+
+
+# In[28]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(superposition_state_xbasis))
 
 
 # By putting two H gates one after the other, we obtain the original state.
@@ -273,15 +318,21 @@ print(result.get_counts(superposition_state_xbasis))
 # ## Example 5
 # 
 # #### Negative superpoistion
+# 
+# Again, we consider a single qubit.
+# 
+# First of all, we put in the excited state $\ket{1}$ with the X gate and then put it in a superposition state using the H gate.
+# 
+# Finally, we observe the result of measuring its state.
 
-# In[25]:
+# In[29]:
 
 
 # negative_superposition_state.py
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[26]:
+# In[30]:
 
 
 # Define the Quantum and Classical Registers
@@ -289,7 +340,7 @@ q = QuantumRegister(1)
 c = ClassicalRegister(1)
 
 
-# In[27]:
+# In[31]:
 
 
 # Build the circuit
@@ -299,11 +350,11 @@ negative_superposition_state.h(q)
 negative_superposition_state.measure(q, c)
 
 
-# In[28]:
+# In[32]:
 
 
 # Draw thecircuit
-negative_superposition_state.draw()
+negative_superposition_state.draw(output='mpl')
 
 
 # We first excite the q-bit with the X gate and then create a superposition using the H gate:
@@ -312,7 +363,7 @@ negative_superposition_state.draw()
 # 
 # $ \ket{-} = \dfrac{\ket{0} - \ket{1}}{\sqrt{2}} $ 
 
-# In[29]:
+# In[33]:
 
 
 # Execute the circuit
@@ -320,25 +371,38 @@ job = execute(negative_superposition_state, backend = Aer.get_backend('qasm_simu
 result = job.result()
 
 
-# In[30]:
+# In[34]:
 
 
 # Print the result
 print(result.get_counts(negative_superposition_state))
 
 
+# In[35]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(negative_superposition_state))
+
+
 # ## Example 6
 # 
 # #### Two negative superpoistions
+# 
+# Similarly to exercise 4, here we apply the H gate twice to a single qubit and then measure its state.
+# 
+# The difference is that now the qubit was in the excited state $\ket{1}$.
 
-# In[31]:
+# In[36]:
 
 
 # negative_superposition_state_xbasis.py
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[32]:
+# In[37]:
 
 
 # Define the Quantum and Classical Registers
@@ -346,7 +410,7 @@ q = QuantumRegister(1)
 c = ClassicalRegister(1)
 
 
-# In[33]:
+# In[38]:
 
 
 # Build the circuit
@@ -358,14 +422,14 @@ negative_superposition_state_xbasis.h(q)
 negative_superposition_state_xbasis.measure(q, c)
 
 
-# In[34]:
+# In[39]:
 
 
 # Draw thecircuit
-negative_superposition_state_xbasis.draw()
+negative_superposition_state_xbasis.draw(output='mpl')
 
 
-# In[35]:
+# In[40]:
 
 
 # Execute the circuit
@@ -373,11 +437,20 @@ job = execute(negative_superposition_state_xbasis, backend = Aer.get_backend('qa
 result = job.result()
 
 
-# In[36]:
+# In[41]:
 
 
 # Print the result
 print(result.get_counts(negative_superposition_state_xbasis))
+
+
+# In[42]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(negative_superposition_state_xbasis))
 
 
 # ## Summary
@@ -517,3 +590,17 @@ print(result.get_counts(negative_superposition_state_xbasis))
 #     0 & 1 
 # \end{bmatrix}
 # $
+
+# The other fundamental operator that we used is the X gate, which flips a qbit in the $\ket{0}$ state to the $\ket{1}$ state and vice-versa, when applied to a qbit in the $\ket{1}$ state moves it to the$\ket{0}$ state:
+# 
+# $X \ket{0} = \ket{1}$
+# 
+# $X \ket{1} = \ket{0}$
+# 
+# This means that the matrix representation of X is:
+# 
+# $X = 
+# \begin{bmatrix}
+#     0 & 1 \\
+#     1 & 0 
+# \end{bmatrix}$
