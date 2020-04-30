@@ -10,7 +10,8 @@
 # # General representation of a qbit state
 # 
 # Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
-# https://quantum-computing.ibm.com/docs/guide/
+# 
+# https://quantum-computing.ibm.com/docs/guide/wwwq/the-bloch-sphere
 
 # We already saw that the state of a qubit can be represented as:
 # 
@@ -118,7 +119,18 @@ for exp_index in exp_vector:
     circuits.append(middle + meas)
 
 
-# In[2]:
+# In[6]:
+
+
+from qiskit.visualization import plot_histogram
+
+# Draw the first circuit.
+# This is the one with just one one u3 gate 
+# applying a rotation of delta = pi/25
+circuits[0].draw(output='mpl')
+
+
+# In[7]:
 
 
 # Execute the circuits
@@ -128,7 +140,7 @@ job = execute(circuits, backend = Aer.get_backend('qasm_simulator'),
 result = job.result()
 
 
-# In[3]:
+# In[8]:
 
 
 # Plot the result
@@ -171,7 +183,7 @@ Image("Bloch.png")
 # 
 # Since it is equivalent, we are going to use the operator u3($\theta$, $\phi$, $\lambda$), changing only the $\lambda$ parameter.
 
-# In[70]:
+# In[9]:
 
 
 # quantum_phase_bloch.py
@@ -214,10 +226,20 @@ for exp_index in exp_vector:
     circuits.append(pre + middle + meas_x)
     circuits.append(pre + middle + meas_y)
     circuits.append(pre + middle + meas_z)
-    
 
 
-# In[71]:
+# In[18]:
+
+
+from qiskit.visualization import plot_histogram
+
+# Draw the first circuit.
+# This is the one with just one one u3 gate 
+# applying a rotation of lambda = 0
+circuits[0].draw(output='mpl')
+
+
+# In[19]:
 
 
 # Execute the circuit
@@ -225,7 +247,7 @@ job = execute(circuits, backend = Aer.get_backend('qasm_simulator'), shots=1024)
 result = job.result()
 
 
-# In[72]:
+# In[20]:
 
 
 # Plot the result
@@ -247,8 +269,11 @@ for exp_index in exp_vector:
     plot_bloch_vector(bloch)
 
 
-# In[73]:
+# In[21]:
 
+
+# We need this function to plot inside a loop in a notebook
+import matplotlib.pyplot as plt
 
 def show_figure(fig):
     new_fig = plt.figure()
@@ -258,7 +283,7 @@ def show_figure(fig):
     plt.show(fig)
 
 
-# In[74]:
+# In[22]:
 
 
 from IPython.display import clear_output
@@ -276,7 +301,7 @@ for i in range(len(all_blochs)):
 # 
 # Since it is equivalent, we are going to use the operator u3($\theta$, $\phi$, $\lambda$), changing only the $\phi$ parameter.
 
-# In[57]:
+# In[23]:
 
 
 import numpy as np
@@ -317,10 +342,21 @@ for exp_index in exp_vector:
     middle.u3(0, phi_phase, 0, q)
     circuits.append(pre + middle + meas_x)
     circuits.append(pre + middle + meas_y)
-    circuits.append(pre + middle + meas_z)
+    circuits.append(pre + middle + meas_z)    
 
 
-# In[58]:
+# In[25]:
+
+
+from qiskit.visualization import plot_histogram
+
+# Draw the first circuit.
+# This is the one with just one one u3 gate 
+# applying a rotation of phi = 0
+circuits[0].draw(output='mpl')
+
+
+# In[26]:
 
 
 # Execute the circuit
@@ -328,7 +364,7 @@ job = execute(circuits, backend = Aer.get_backend('qasm_simulator'), shots=1024)
 result = job.result()
 
 
-# In[59]:
+# In[27]:
 
 
 # Plot the result
@@ -350,7 +386,7 @@ for exp_index in exp_vector:
     plot_bloch_vector(bloch)
 
 
-# In[60]:
+# In[28]:
 
 
 from IPython.display import clear_output
@@ -366,7 +402,7 @@ for i in range(len(all_blochs)):
 # 
 # To see the effect of changing the $\theta$ parameter, we are going to apply several times the u3($\theta$, $\phi$, $\lambda$) gate to a qbit state, touching only the $\theta$ parameter.
 
-# In[61]:
+# In[29]:
 
 
 import numpy as np
@@ -407,11 +443,21 @@ for exp_index in exp_vector:
     middle.u3(theta_phase, 0, 0, q)
     circuits.append(pre + middle + meas_x)
     circuits.append(pre + middle + meas_y)
-    circuits.append(pre + middle + meas_z)
-    
+    circuits.append(pre + middle + meas_z)    
 
 
-# In[62]:
+# In[30]:
+
+
+from qiskit.visualization import plot_histogram
+
+# Draw the first circuit.
+# This is the one with just one one u3 gate 
+# applying a rotation of theta = 0
+circuits[0].draw(output='mpl')
+
+
+# In[31]:
 
 
 # Execute the circuit
@@ -419,7 +465,7 @@ job = execute(circuits, backend = Aer.get_backend('qasm_simulator'), shots=1024)
 result = job.result()
 
 
-# In[63]:
+# In[32]:
 
 
 # Plot the result
@@ -441,7 +487,7 @@ for exp_index in exp_vector:
     plot_bloch_vector(bloch)
 
 
-# In[64]:
+# In[ ]:
 
 
 from IPython.display import clear_output
