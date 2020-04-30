@@ -10,7 +10,8 @@
 # # Qubits phases
 # 
 # Everything here is taken from the IBM quantum computing User Guide and introduction to quantum computing:
-# https://quantum-computing.ibm.com/
+# 
+# https://quantum-computing.ibm.com/docs/guide/wwwq/introducing-qubit-phase
 
 # ## Generalised superposition
 
@@ -83,7 +84,7 @@
 # 
 # P = $| \braket{0}{\psi} |^2$ = $| \bra{0} H T^n H \ket{0} |^2 = | \bra{+} T^n \ket{+} |^2$
 
-# In[11]:
+# In[1]:
 
 
 # quantum_phase.py
@@ -91,7 +92,7 @@ import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[12]:
+# In[2]:
 
 
 # Define the Quantum and Classical Registers
@@ -99,7 +100,7 @@ q = QuantumRegister(1)
 c = ClassicalRegister(1)
 
 
-# In[4]:
+# In[3]:
 
 
 # Build the circuits
@@ -118,15 +119,25 @@ for exp_index in exp_vector:
     middle.t(q)    
 
 
-# In[5]:
+# In[6]:
 
+
+# We need this function to plot inside a loop in a notebook
+import matplotlib.pyplot as plt
+
+def show_figure(fig):
+    new_fig = plt.figure()
+    new_mngr = new_fig.canvas.manager
+    new_mngr.canvas.figure = fig
+    fig.set_canvas(new_mngr.canvas)
+    plt.show(fig)
 
 # Draw the circuits
 for circuit in circuits:
-    print(circuit)
+    show_figure(circuit.draw(output='mpl'))
 
 
-# In[6]:
+# In[9]:
 
 
 # Execute the circuits
@@ -282,9 +293,3 @@ for exp_index in exp_vector:
 # \end{bmatrix} = 
 # S^{\dagger}H \ket{0}
 # $ 
-
-# In[ ]:
-
-
-
-
