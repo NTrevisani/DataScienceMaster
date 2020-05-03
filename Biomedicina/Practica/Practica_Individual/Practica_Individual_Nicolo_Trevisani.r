@@ -83,10 +83,10 @@ res
 
 plotMA(res)
 
-write.table(res,"ARID1A_results.txt",sep="\t", col.names=NA)
+write.table(res,"ARID2_results.txt",sep="\t", col.names=NA)
 
-Norm_ARID1A <- estimateSizeFactors(ARID1A_DESeq)
+Norm_ARID2 <- estimateSizeFactors(ARID2_DESeq)
 
-c <- counts(Norm_ARID1A,normalized=TRUE)
+c <- counts(Norm_ARID2,normalized=TRUE)
 
-write.table(c,"ARID1A_expresion_normalizada.txt",sep="\t",col.names=NA)
+write.table(c,"ARID2_expresion_normalizada.txt",sep="\t",col.names=NA)

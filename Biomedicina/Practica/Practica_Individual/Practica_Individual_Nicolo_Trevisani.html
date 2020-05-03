@@ -13085,9 +13085,9 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Desarrollo">Desarrollo<a class="anchor-link" href="#Desarrollo">&#182;</a></h1><p>En esta práctica, queremos saber qué efecto tiene la inactivación del gen ARID2 en celulas de cancer de pulmón.</p>
-<p>En particular, queremos saber como esto afecta la producción de determinadas proteinas. Para eso, vamos a recolectar los fragmentos de RNA producido por celulas del cáncer y por celulas de control.</p>
-<p>Sucesivamente, a través de la reacción de la transcriptasa reversa, los fragmentos se replican en sus correspondientes fragmentos de DNA, para que se pueda identificar a qué gen corresponden (haciendo una comparación con un genoma de referencia) y se contan.</p>
-<p>El efecto de la inactivación del gen ARID2 se refleja en diferencias estadisticamente significativas en la producción de fragmentos de RNA correspondientes a unos cuantos genes entre células <em>inactivadas</em> y células de control, que es lo que queremos descubrir.</p>
+<p>En particular, queremos saber como esto afecta la producción de determinadas proteinas. Para eso, vamos a recolectar los fragmentos de RNA producidos por celulas del cáncer y por celulas de control.</p>
+<p>Sucesivamente, a través de la reacción de la transcriptasa reversa, los fragmentos se replican en sus correspondientes fragmentos de DNA (cDNA), para que se pueda identificar a qué gen corresponden (haciendo una comparación con un genoma de referencia) y se contan.</p>
+<p>El efecto de la inactivación del gen ARID2 se refleja en diferencias estadisticamente significativas en la producción de fragmentos de RNA correspondientes a unos cuantos genes entre células del tumor, que han sufrido una mutación del gen ARID2, y células de control, que es lo que queremos descubrir.</p>
 
 </div>
 </div>
@@ -13096,9 +13096,9 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="1.-Generaci&#243;n-de-lecturas-crudas">1. Generaci&#243;n de lecturas crudas<a class="anchor-link" href="#1.-Generaci&#243;n-de-lecturas-crudas">&#182;</a></h2><p>Al tener ya ficheros de secuencias de DNA en formato binario (.bam), nuestro primer paso consiste en contar cuantos de los fragmentos que hemos producido corresponden a un determinado gen.</p>
-<p>Para eso, hacemos una comparación con un genoma de referencia, que usamos para identificar a qué gen corresponde cada uno de los fragmentos de DNA.</p>
-<p>La comparación se hace tanto para células del tumor cuyo gen ARID2 ha sido inactivado, como para células de control.</p>
-<p>Como hemos visto, la principal fuente de incertidumbre en las medidas de expresión diferencial es la varibilidad en la tasa de trancripción de DNA a partir de RNA en la reacción de la transcriptasa reversa. Para ser menos sensibles a este efecto, usamos cuatro distintas muestras por cada tipo de celulas, de manera que la tasa de transcripción global que observamos sea un promedio de las tasas individuales y sea más uniforme.</p>
+<p>Para eso, hacemos una comparación con un genoma de referencia, que usamos para identificar a qué gen corresponde cada uno de los fragmentos de cDNA.</p>
+<p>La comparación se hace tanto para células del tumor cuyo gen ARID2 ha sido inactivado, como para células de control procedentes de tejido sano.</p>
+<p>Como hemos visto, la principal fuente de incertidumbre en las medidas de expresión diferencial es la varibilidad en la tasa de trancripción de cDNA a partir de RNA en la reacción de la transcriptasa reversa. Para ser menos sensibles a este efecto, usamos cuatro distintas muestras por cada tipo de celulas, de manera que la tasa de transcripción global que observamos sea un promedio de las tasas individuales y sea más uniforme.</p>
 <p>Para ejecutar este paso, usamos el paquete HTSeq, a través del siguiente comando:</p>
 
 <pre><code>python -m HTSeq.scripts.count -s no -f bam Archivo.bam Genes.gtf &gt; Archivo.counts</code></pre>
@@ -13422,12 +13422,12 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Generaci&#243;n-de-tabla-de-expresi&#243;n">2. Generaci&#243;n de tabla de expresi&#243;n<a class="anchor-link" href="#2.-Generaci&#243;n-de-tabla-de-expresi&#243;n">&#182;</a></h2><p>Ahora que sabemos qué gen corresponde cada fragmento de DNA que hemos secuenciado, vamos a ordenar los datos en un data frame, para que sea más sencillo analizarlos.</p>
+<h2 id="2.-Generaci&#243;n-de-tabla-de-expresi&#243;n">2. Generaci&#243;n de tabla de expresi&#243;n<a class="anchor-link" href="#2.-Generaci&#243;n-de-tabla-de-expresi&#243;n">&#182;</a></h2><p>Ahora que sabemos qué gen corresponde cada fragmento de cDNA que hemos secuenciado, vamos a ordenar los datos en un data frame, para que sea más sencillo analizarlos.</p>
 <p>Vamos a preparar una tabla de expresión, donde:</p>
 <ul>
-<li>cada columna, representa una de las muestras;</li>
-<li>cada linea, representa un gen;</li>
-<li>cada celda representa el número de genes que se han contado en la muestra correspondiente.</li>
+<li>cada columna representa una de las muestras;</li>
+<li>cada linea representa un gen;</li>
+<li>cada celda representa el número copias de un gen especifico que se han contado en la muestra correspondiente.</li>
 </ul>
 
 </div>
@@ -13927,12 +13927,12 @@ __alignment_not_unique  0.299948482059524</pre>
 <h2 id="5.-Representaci&#243;n-de-los-resultados">5. Representaci&#243;n de los resultados<a class="anchor-link" href="#5.-Representaci&#243;n-de-los-resultados">&#182;</a></h2><p>Representamos ahora los resultados graficamente, para que sea más facil la interpretación.</p>
 <p>El grafico que vamos a producir presenta:</p>
 <ul>
-<li>en el eje x el número de fragmentos de DNA asociados a un dado gen;</li>
-<li>en el eje y cuanto los números de fragmento de DNA en células con mutaciones son estadisticamente incompatibles con los de células sin mutaciones.</li>
+<li>en el eje x el número de fragmentos de cDNA asociados a un dado gen;</li>
+<li>en el eje y cuanto los números de fragmento de cDNA en células del cáncer son estadisticamente incompatibles con los de células de tejido sano.</li>
 <li>en rojo, los genes que han visto afectada su expresión debido a la mutación, en negro los que presentan una frecuencia de expresión compatible en células con o sin mutación.</li>
 </ul>
 <p>Es interesante observar que para genes poco representados, tanto en las muestras de control como en las muestras objetivo, es más difícil decir si los cambios en la frecuencia de expresión se pueden atribuir a las mutaciones.
-De alguna manera, ahí los resultados siguen siendo afectados por la varibilidad en el número de copias de DNA producidas por cada fragmento de RNA.</p>
+De alguna manera, ahí los resultados siguen siendo afectados por la varibilidad en el número de copias de cDNA producidas por cada fragmento de RNA.</p>
 
 </div>
 </div>
@@ -14358,10 +14358,10 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">write.table</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="s">&quot;ARID1A_results.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="p">,</span> <span class="n">col.names</span><span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">write.table</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="s">&quot;ARID2_results.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="p">,</span> <span class="n">col.names</span><span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14379,14 +14379,14 @@ height=420
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="n">Norm_ARID1A</span> <span class="o">&lt;-</span> <span class="nf">estimateSizeFactors</span><span class="p">(</span><span class="n">ARID1A_DESeq</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">Norm_ARID2</span> <span class="o">&lt;-</span> <span class="nf">estimateSizeFactors</span><span class="p">(</span><span class="n">ARID2_DESeq</span><span class="p">)</span>
 
-<span class="n">c</span> <span class="o">&lt;-</span> <span class="nf">counts</span><span class="p">(</span><span class="n">Norm_ARID1A</span><span class="p">,</span><span class="n">normalized</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">&lt;-</span> <span class="nf">counts</span><span class="p">(</span><span class="n">Norm_ARID2</span><span class="p">,</span><span class="n">normalized</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 
-<span class="nf">write.table</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="s">&quot;ARID1A_expresion_normalizada.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
+<span class="nf">write.table</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="s">&quot;ARID2_expresion_normalizada.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
 </pre></div>
 
     </div>
