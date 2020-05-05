@@ -13080,6 +13080,7 @@ div#notebook {
 <p>$\newcommand{\ket}[1]{\left|#1\right&gt;}$</p>
 <p>$\newcommand{\bra}[1]{\left&lt;#1\right|}$</p>
 <p>$\newcommand{\braket}[2]{\left&lt;#1 | #2\right&gt;}$</p>
+<p>$\newcommand{\expectation}[1]{\left&lt;#1\right&gt;}$</p>
 
 </div>
 </div>
@@ -13118,9 +13119,309 @@ This is valid not only for measurements along the z-axis, but along any axis of 
 For example, if we measure the state of the first qbit along the z axis, we measure the state of the second qbit along the x axis. This is equivalent to measure if the first qbit is in the $\ket{0}$ state and if the second qbit is in the $\ket{+} = \dfrac{\ket{0} + \ket{1}}{\sqrt{2}}$ state.
 In this case, the result of the measurement of the first qbit state will not ensure anything about the state of the second qbit. So that, if we measure the first qbit to be in the $\ket{0}$ state, the second qbit may be in the $\ket{+}$ state or not, with 50% probability.</p>
 <p>So, the results of the measurements of the two qbits, if performed along two othogonal axes, are not correlated (correlation = 0).</p>
+<p>Up to this point, everything can be explained by the existence of hidden variables that makes it possible to have always fully correlated results when the measurement is made on the same axis for the two qbits. 
+On the other hand, these variables are not able to give any correlation on results extracted from measurements performed on orthogonal axes.
+We call them <em>hidden</em> variables since we don't have direct acces to them, we just see the result of (indirectly) setting them to the <em>correct</em> values, through the prepation of the entangled state.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Clauser-Horne-Shimony-Holt-inequality">The Clauser-Horne-Shimony-Holt inequality<a class="anchor-link" href="#The-Clauser-Horne-Shimony-Holt-inequality">&#182;</a></h3><p>Let's now consider another slightly different experimental setup:</p>
+<ul>
+<li>instead of measuring only one direction, each qbit state can be measured on two orthogonal direction (e.g. the first qbit can be measured along z-axis or along x-axis, so we can measure if it is in the $\ket{0}$ or if it is in the $\ket{+}$ state);</li>
+<li>the axis along which we measure two different qbits are rotated by 45$^{\circ}$. So, if the two axes we choose for measuring the first qbits are the z-axis (vertical axis) and the x-axis (horizontal axis), the two axis we use for measuring the second qbits are the ones shown in the following Figure.  </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='Bell.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What we want to do now is to choose one of the two axes for the first qbit measurement, on of the two axes for the second qbit measurement, and measure their states along those axes.</p>
+<p>Now let's define a set of scores:</p>
+<ul>
+<li>$\expectation{AB}$: measurement of 1st qbit along z-axis ($A$) and second qbit along 45$^{\circ}$-axis ($B$) is the same: +1 (-1 if different);</li>
+<li>$\expectation{AB'}$: measurement of 1st qbit along z-axis ($A$) and second qbit along 135$^{\circ}$-axis ($B'$) is the same: +1 (-1 if different);</li>
+<li>$\expectation{A'B}$: measurement of 1st qbit along x-axis ($A'$) and second qbit along 45$^{\circ}$-axis ($B$) is the same: +1 (-1 if different);</li>
+<li>$\expectation{A'B'}$: measurement of 1st qbit along x-axis ($A'$) and second qbit along 135$^{\circ}$-axis ($B'$) is the same: +1 (-1 if different).</li>
+</ul>
+<p>Clauser, Horne, Shimony, and Holt demonstrated that assuming:</p>
+<ul>
+<li>realism: all observables have a definite value independent of the measurement;</li>
+<li>locality: no information can travel faster than the speed of light.</li>
+</ul>
+<p>Then, the following inequality must be true:</p>
+<p>$ |C| = |\expectation{AB} - \expectation{AB'} + \expectation{A'B} + \expectation{A'B'}| \leq 2$</p>
+<p>Let's verify it in our case combining all the possible outcomes of our measurements, again considering that some hidden variables have been given some particular values when we created the entanglement between our two qbits, so that realism and locality are satisfied.</p>
+<p>In the following tables, we are going to list all the possible results we can get, and the corresponding values of C.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">Hidden variables states</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$A$: z-axis (1st qbit)</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+</tr>
+<tr>
+<td style="text-align:left">$B$: 45$^{\circ}$-axis (2nd qbit)</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+</tr>
+<tr>
+<td style="text-align:left">$A'$: x-axis (1st qbit)</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>+</td>
+</tr>
+<tr>
+<td style="text-align:left">$B'$: 135$^{\circ}$-axis (2nd qbit)</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>+</td>
+<td>−</td>
+<td>+</td>
+<td>−</td>
+<td>+</td>
+<td>−</td>
+<td>−</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">Score</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$\expectation{AB}$</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>-1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>+1</td>
+</tr>
+<tr>
+<td style="text-align:left">$\expectation{A'B}$</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+</tr>
+<tr>
+<td style="text-align:left">$\expectation{A'B'}$</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>−1</td>
+<td>+1</td>
+<td>−1</td>
+</tr>
+<tr>
+<td style="text-align:left">−$\expectation{AB'}$</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+<td>+1</td>
+<td>−1</td>
+<td>−1</td>
+</tr>
+<tr>
+<td style="text-align:left">$C$</td>
+<td>+2</td>
+<td>+2</td>
+<td>+2</td>
+<td>+2</td>
+<td>+2</td>
+<td>+2</td>
+<td>+2</td>
+<td>+2</td>
+<td>−2</td>
+<td>−2</td>
+<td>−2</td>
+<td>−2</td>
+<td>−2</td>
+<td>−2</td>
+<td>−2</td>
+<td>−2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>

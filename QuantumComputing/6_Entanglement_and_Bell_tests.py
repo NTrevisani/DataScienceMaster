@@ -6,6 +6,9 @@
 # $\newcommand{\bra}[1]{\left<#1\right|}$
 # 
 # $\newcommand{\braket}[2]{\left<#1 | #2\right>}$
+# 
+# $\newcommand{\expectation}[1]{\left<#1\right>}$
+# 
 
 # # Entanglement and Bell tests
 # 
@@ -41,3 +44,59 @@
 # In this case, the result of the measurement of the first qbit state will not ensure anything about the state of the second qbit. So that, if we measure the first qbit to be in the $\ket{0}$ state, the second qbit may be in the $\ket{+}$ state or not, with 50% probability.
 # 
 # So, the results of the measurements of the two qbits, if performed along two othogonal axes, are not correlated (correlation = 0).
+# 
+# 
+# Up to this point, everything can be explained by the existence of hidden variables that makes it possible to have always fully correlated results when the measurement is made on the same axis for the two qbits. 
+# On the other hand, these variables are not able to give any correlation on results extracted from measurements performed on orthogonal axes.
+# We call them *hidden* variables since we don't have direct acces to them, we just see the result of (indirectly) setting them to the *correct* values, through the prepation of the entangled state.
+
+# ### The Clauser-Horne-Shimony-Holt inequality
+# 
+# Let's now consider another slightly different experimental setup: 
+# - instead of measuring only one direction, each qbit state can be measured on two orthogonal direction (e.g. the first qbit can be measured along z-axis or along x-axis, so we can measure if it is in the $\ket{0}$ or if it is in the $\ket{+}$ state);
+# - the axis along which we measure two different qbits are rotated by 45$^{\circ}$. So, if the two axes we choose for measuring the first qbits are the z-axis (vertical axis) and the x-axis (horizontal axis), the two axis we use for measuring the second qbits are the ones shown in the following Figure.  
+
+# <img src='Bell.png'>
+
+# What we want to do now is to choose one of the two axes for the first qbit measurement, on of the two axes for the second qbit measurement, and measure their states along those axes.
+# 
+# Now let's define a set of scores:
+# - $\expectation{AB}$: measurement of 1st qbit along z-axis ($A$) and second qbit along 45$^{\circ}$-axis ($B$) is the same: +1 (-1 if different);
+# - $\expectation{AB'}$: measurement of 1st qbit along z-axis ($A$) and second qbit along 135$^{\circ}$-axis ($B'$) is the same: +1 (-1 if different);
+# - $\expectation{A'B}$: measurement of 1st qbit along x-axis ($A'$) and second qbit along 45$^{\circ}$-axis ($B$) is the same: +1 (-1 if different);
+# - $\expectation{A'B'}$: measurement of 1st qbit along x-axis ($A'$) and second qbit along 135$^{\circ}$-axis ($B'$) is the same: +1 (-1 if different).
+# 
+# Clauser, Horne, Shimony, and Holt demonstrated that assuming:
+# - realism: all observables have a definite value independent of the measurement;
+# - locality: no information can travel faster than the speed of light.
+# 
+# Then, the following inequality must be true:
+# 
+# $ |C| = |\expectation{AB} - \expectation{AB'} + \expectation{A'B} + \expectation{A'B'}| \leq 2$
+# 
+# Let's verify it in our case combining all the possible outcomes of our measurements, again considering that some hidden variables have been given some particular values when we created the entanglement between our two qbits, so that realism and locality are satisfied.
+# 
+# In the following tables, we are going to list all the possible results we can get, and the corresponding values of C. 
+
+# | Hidden variables states             |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+# |:------------------------------------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+# | $A$: z-axis (1st qbit)              | + | + | + | + | − | − | − | − | + | + | + | + | − | − | − | − |
+# | $B$: 45$^{\circ}$-axis (2nd qbit)   | + | + | + | − | − | − | − | + | + | − | − | − | + | + | + | − |
+# | $A'$: x-axis (1st qbit)             | + | + | − | − | − | − | + | + | − | + | + | − | + | − | − | + |
+# | $B'$: 135$^{\circ}$-axis (2nd qbit) | + | − | − | − | − | + | + | + | + | + | − | + | − | + | − | − |
+
+# | Score                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+# |:----------------------|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
+# | $\expectation{AB}$    | +1 | +1 | +1 | −1 | +1 | +1 | +1 | -1 | +1 | −1 | −1 | −1 | −1 | −1 | −1 | +1 |
+# | $\expectation{A'B}$   | +1 | +1 | −1 | +1 | +1 | +1 | −1 | +1 | −1 | −1 | −1 | +1 | +1 | −1 | −1 | −1 |
+# | $\expectation{A'B'}$  | +1 | −1 | +1 | +1 | +1 | −1 | +1 | +1 | −1 | +1 | −1 | −1 | −1 | −1 | +1 | −1 |
+# | −$\expectation{AB'}$  | −1 | +1 | +1 | +1 | −1 | +1 | +1 | +1 | −1 | −1 | +1 | −1 | −1 | +1 | −1 | −1 |
+# | $C$                   | +2 | +2 | +2 | +2 | +2 | +2 | +2 | +2 | −2 | −2 | −2 | −2 | −2 | −2 | −2 | −2 |
+
+# 
+
+# In[ ]:
+
+
+
+
