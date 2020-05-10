@@ -453,3 +453,443 @@
 # 
 # Which means that quantum mechanics does not respect the requirements needed by a theory to be realist and local.
 # This means that, if with our quantum computer agrees with quantum mechanics, we have to accept that no hidden variables can explain our results, that the act of measuring the state of our qbits make them *choose together* the outcome.  
+
+# ### Experimental verification
+# 
+# We can finally move to the experimental verification of our assumptions:
+# 1. Quantum mechanics is a local and realist theory and the peculiar behaviour of entangled state can be explained by the existence of hidden variables. In this case, $|C| \leq 2$;
+# 2. Quantum mechanics is not local nor realist, the measurement of the state of an entangled system has an active effect on it, making the qbits to choose *together* the outcome. In this case, $|C| \leq 2\sqrt{2}$.  
+# 
+# To do it, we will have to prepare a quantum circuit in the so-called Bell state: 
+# 
+# $\ket{\psi} = \dfrac{\ket{00} + \ket{11}}{\sqrt{2}}$
+# 
+# And then perform all the measurements along the pairs of axes we defined in the previous sections of the notebook.
+# By properly summing the results of each measurement, we will get the value of $C$.
+# 
+# To prepare the Bell state, we will use a $H$ gate to put the first qbit in the 
+# $\ket{+} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}$ 
+# superposition state and then we will apply a $CNOT$ gate to flip the state of the second qbit from $\ket{0}$ to $\ket{1}$ when the first qbit is in state $\ket{1}$.
+# 
+# Let's verify here if this works on a real quantum computer as backend.
+
+# In[1]:
+
+
+# Build the circuit
+
+from qiskit import QuantumCircuit, execute, IBMQ
+from qiskit import QuantumRegister, ClassicalRegister, Aer
+
+# Get access to IBM Q backend
+provider = IBMQ.load_account()
+
+# Define the Quantum and Classical Registers
+q = QuantumRegister(2)
+c = ClassicalRegister(2)
+
+# Create the circuit
+bell_state_measurement = QuantumCircuit(q, c)
+
+# Put the circuit in the Bell state |00> + |11>
+bell_state_measurement.h(0)
+bell_state_measurement.cnot(0,1)
+
+# Measure the state
+bell_state_measurement.measure(q, c)
+
+
+# In[2]:
+
+
+# Draw the circuit
+bell_state_measurement.draw(output='mpl')
+
+
+# In[3]:
+
+
+# Execute the circuit
+
+backend = provider.get_backend('ibmq_rome')
+
+job = execute(bell_state_measurement, 
+              backend = backend, 
+              shots=1024)
+
+result = job.result()
+
+
+# In[4]:
+
+
+# Print the result
+print(result.get_counts(bell_state_measurement))
+
+
+# In[5]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(result.get_counts(bell_state_measurement))
+
+
+# ### $\expectation{AB}$ measurement
+
+# In[6]:
+
+
+### Build the circuit
+
+from qiskit import QuantumCircuit, execute, IBMQ
+from qiskit import QuantumRegister, ClassicalRegister, Aer
+import numpy as np
+
+# Get access to IBM Q backend
+provider = IBMQ.load_account()
+
+# Define the Quantum and Classical Registers
+q = QuantumRegister(2)
+c = ClassicalRegister(2)
+
+# Create the circuit
+ab_measurement = QuantumCircuit(q, c)
+
+# Put the circuit in the Bell state |00> + |11>
+ab_measurement.h(0)
+ab_measurement.cnot(0,1)
+
+# I want to measure the second qbit along W = X + Z.
+# But I can measure it only along Z.
+# I rotate the state of the second qbit of the same angle
+# needed to rotate X + Z on Z --> theta = 45 degrees
+ab_measurement.u3(-np.pi/4, 0, 0, q[1])
+
+# Measure the state
+ab_measurement.measure(q, c)
+
+
+# In[7]:
+
+
+# Draw the circuit
+ab_measurement.draw(output='mpl')
+
+
+# In[8]:
+
+
+# Execute the circuit
+
+backend = provider.get_backend('ibmq_rome')
+shots = 1024
+
+job = execute(ab_measurement, 
+              backend = backend, 
+              shots=shots)
+
+ab_result = job.result()
+
+
+# In[9]:
+
+
+# Print the result
+print(ab_result.get_counts(ab_measurement))
+
+
+# In[10]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(ab_result.get_counts(ab_measurement))
+
+
+# In[11]:
+
+
+# Get the correlation value
+def correlator(result, circuit, shots):
+    my_dict = result.get_counts(circuit)
+    return (my_dict['00'] + my_dict['11'] - my_dict['10'] - my_dict['01']) / shots     
+
+
+# In[12]:
+
+
+ab_correlation = correlator(ab_result, ab_measurement, shots)
+ab_correlation
+
+
+# ### $\expectation{A'B}$ measurement
+
+# In[13]:
+
+
+### Build the circuit
+
+from qiskit import QuantumCircuit, execute, IBMQ
+from qiskit import QuantumRegister, ClassicalRegister, Aer
+import numpy as np
+
+# Get access to IBM Q backend
+provider = IBMQ.load_account()
+
+# Define the Quantum and Classical Registers
+q = QuantumRegister(2)
+c = ClassicalRegister(2)
+
+# Create the circuit
+apb_measurement = QuantumCircuit(q, c)
+
+# Put the circuit in the Bell state |00> + |11>
+apb_measurement.h(0)
+apb_measurement.cnot(0,1)
+
+# I want to measure the first qbit along X.
+# But I can measure it only along Z.
+# I apply a H gate to the first qbit,
+# to rotate it from X toward Z.
+apb_measurement.h(0)
+
+# I want to measure the second qbit along W = X + Z.
+# But I can measure it only along Z.
+# I rotate the state of the second qbit of the same angle
+# needed to rotate X + Z on Z --> theta = 45 degrees
+apb_measurement.u3(-np.pi/4, 0, 0, q[1])
+
+# Measure the state
+apb_measurement.measure(q, c)
+
+
+# In[14]:
+
+
+# Draw the circuit
+apb_measurement.draw(output='mpl')
+
+
+# In[15]:
+
+
+# Execute the circuit
+
+backend = provider.get_backend('ibmq_rome')
+shots = 1024
+
+job = execute(apb_measurement, 
+              backend = backend, 
+              shots=shots)
+
+apb_result = job.result()
+
+
+# In[16]:
+
+
+# Print the result
+print(apb_result.get_counts(apb_measurement))
+
+
+# In[17]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(apb_result.get_counts(apb_measurement))
+
+
+# In[18]:
+
+
+apb_correlation = correlator(apb_result, apb_measurement, shots)
+apb_correlation
+
+
+# ### $\expectation{AB'}$ measurement
+
+# In[19]:
+
+
+### Build the circuit
+
+from qiskit import QuantumCircuit, execute, IBMQ
+from qiskit import QuantumRegister, ClassicalRegister, Aer
+import numpy as np
+
+# Get access to IBM Q backend
+provider = IBMQ.load_account()
+
+# Define the Quantum and Classical Registers
+q = QuantumRegister(2)
+c = ClassicalRegister(2)
+
+# Create the circuit
+abp_measurement = QuantumCircuit(q, c)
+
+# Put the circuit in the Bell state |00> + |11>
+abp_measurement.h(0)
+abp_measurement.cnot(0,1)
+
+# I want to measure the second qbit along V = Z - X.
+# But I can measure it only along Z.
+# I rotate the state of the second qbit of the same angle
+# needed to rotate Z - X on Z --> theta = 45 degrees
+abp_measurement.u3(np.pi/4, 0, 0, q[1])
+
+# Measure the state
+abp_measurement.measure(q, c)
+
+
+# In[20]:
+
+
+# Draw the circuit
+abp_measurement.draw(output='mpl')
+
+
+# In[21]:
+
+
+# Execute the circuit
+
+backend = provider.get_backend('ibmq_rome')
+shots = 1024
+
+job = execute(abp_measurement, 
+              backend = backend, 
+              shots=shots)
+
+abp_result = job.result()
+
+
+# In[22]:
+
+
+# Print the result
+print(abp_result.get_counts(abp_measurement))
+
+
+# In[23]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(abp_result.get_counts(abp_measurement))
+
+
+# In[24]:
+
+
+abp_correlation = correlator(abp_result, abp_measurement, shots)
+abp_correlation
+
+
+# ### $\expectation{A'B'}$ measurement
+
+# In[25]:
+
+
+### Build the circuit
+
+from qiskit import QuantumCircuit, execute, IBMQ
+from qiskit import QuantumRegister, ClassicalRegister, Aer
+import numpy as np
+
+# Get access to IBM Q backend
+provider = IBMQ.load_account()
+
+# Define the Quantum and Classical Registers
+q = QuantumRegister(2)
+c = ClassicalRegister(2)
+
+# Create the circuit
+apbp_measurement = QuantumCircuit(q, c)
+
+# Put the circuit in the Bell state |00> + |11>
+apbp_measurement.h(0)
+apbp_measurement.cnot(0,1)
+
+# I want to measure the first qbit along X.
+# But I can measure it only along Z.
+# I apply a H gate to the first qbit,
+# to rotate it from X toward Z.
+apbp_measurement.h(0)
+
+# I want to measure the second qbit along V = Z - X.
+# But I can measure it only along Z.
+# I rotate the state of the second qbit of the same angle
+# needed to rotate Z - X on Z --> theta = 45 degrees
+apbp_measurement.u3(np.pi/4, 0, 0, q[1])
+
+# Measure the state
+apbp_measurement.measure(q, c)
+
+
+# In[26]:
+
+
+# Draw the circuit
+apbp_measurement.draw(output='mpl')
+
+
+# In[27]:
+
+
+# Execute the circuit
+
+backend = provider.get_backend('ibmq_rome')
+shots = 1024
+
+job = execute(apbp_measurement, 
+              backend = backend, 
+              shots=shots)
+
+apbp_result = job.result()
+
+
+# In[28]:
+
+
+# Print the result
+print(apbp_result.get_counts(apbp_measurement))
+
+
+# In[29]:
+
+
+# Plot the result
+from qiskit.visualization import plot_histogram
+
+plot_histogram(apbp_result.get_counts(apbp_measurement))
+
+
+# In[30]:
+
+
+apbp_correlation = correlator(apbp_result, apbp_measurement, shots)
+apbp_correlation
+
+
+# ### Put everything together
+# 
+# We can now compute $|C|$ the value, using the results just obtained, remembering that:
+# 
+# $ |C| = | \expectation{AB} + \expectation{A'B} + \expectation{AB'} - \expectation{A'B'}| $
+
+# In[33]:
+
+
+# Properly sum the correlations
+
+C = ab_correlation + apb_correlation + abp_correlation - apbp_correlation
+print("The C correlation value obtained is:", C)
+
+
+# Given the result we have just obtained, we can thus conclude that microscopic sytems that can be described by quantum mechanics are actually non-local and non-realist.
