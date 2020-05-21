@@ -104,6 +104,8 @@
 # Let's start by applying a CNOT gate keeping the control qbit in the fundamental state $\ket{0}$, when also the target qbit is in the $\ket{0}$ state.
 # 
 # We expect, in this case, to see no effect on the target qbit state.
+# 
+# <span style="color:red"> QISKIT inverts the order of the qbits when showing results: you have to read them from right to left. </span>
 
 # In[1]:
 
@@ -170,15 +172,17 @@ plot_histogram(result.get_counts(double_q_measurement))
 # Let's try something similar to the previous case, but now with the target qbit in the $\ket{1}$ state.
 # 
 # Also in this case, we expect to see no effect on the target qbit state.
+# 
+# <span style="color:red"> QISKIT inverts the order of the qbits when showing results: you have to read them from right to left. </span>
 
-# In[7]:
+# In[3]:
 
 
 from qiskit import QuantumCircuit, execute, IBMQ
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[8]:
+# In[4]:
 
 
 # Build the circuits
@@ -191,21 +195,21 @@ c = ClassicalRegister(2)
 double_q_measurement = QuantumCircuit(q, c)
 
 # Put the system in the |01> state
-double_q_measurement.x(0)
+double_q_measurement.x(1)
 
 # Use the qbit-0 to control the qbit-1 through a cnot 
-double_q_measurement.cnot(1,0)
+double_q_measurement.cnot(0,1)
 double_q_measurement.measure(q, c)
 
 
-# In[9]:
+# In[5]:
 
 
 # Draw the circuit
 double_q_measurement.draw(output='mpl')
 
 
-# In[10]:
+# In[6]:
 
 
 # Execute the circuit
@@ -216,14 +220,14 @@ job = execute(double_q_measurement,
 result = job.result()
 
 
-# In[11]:
+# In[7]:
 
 
 # Print the result
 print(result.get_counts(double_q_measurement))
 
 
-# In[12]:
+# In[8]:
 
 
 # Plot the result
@@ -239,15 +243,17 @@ plot_histogram(result.get_counts(double_q_measurement))
 # In this example, we will keep the target qbit in the fundamental state $\ket{0}$.
 # 
 # To summarize, we start in the $\ket{10}$ state and we expect to finish in the $\ket{11}$ state.
+# 
+# <span style="color:red"> QISKIT inverts the order of the qbits when showing results: you have to read them from right to left. </span>
 
-# In[13]:
+# In[9]:
 
 
 from qiskit import QuantumCircuit, execute, IBMQ
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[14]:
+# In[10]:
 
 
 # Build the circuits
@@ -260,21 +266,21 @@ c = ClassicalRegister(2)
 double_q_measurement = QuantumCircuit(q, c)
 
 # Put the system in the |10> state
-double_q_measurement.x(1)
+double_q_measurement.x(0)
 
 # Use the qbit-0 to control the qbit-1 through a cnot 
-double_q_measurement.cnot(1,0)
+double_q_measurement.cnot(0,1)
 double_q_measurement.measure(q, c)
 
 
-# In[15]:
+# In[11]:
 
 
 # Draw the circuit
 double_q_measurement.draw(output='mpl')
 
 
-# In[16]:
+# In[12]:
 
 
 # Execute the circuit
@@ -285,14 +291,14 @@ job = execute(double_q_measurement,
 result = job.result()
 
 
-# In[17]:
+# In[13]:
 
 
 # Print the result
 print(result.get_counts(double_q_measurement))
 
 
-# In[18]:
+# In[14]:
 
 
 # Plot the result
@@ -308,6 +314,8 @@ plot_histogram(result.get_counts(double_q_measurement))
 # In this last example, we will put the target qbit in the excited state $\ket{1}$.
 # 
 # To summarize, we start in the $\ket{11}$ state and we expect to finish in the $\ket{10}$ state.
+# 
+# <span style="color:red"> QISKIT inverts the order of the qbits when showing results: you have to read them from right to left. </span>
 
 # In[19]:
 
@@ -316,7 +324,7 @@ from qiskit import QuantumCircuit, execute, IBMQ
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
 
 
-# In[20]:
+# In[15]:
 
 
 # Build the circuits
@@ -328,23 +336,23 @@ c = ClassicalRegister(2)
 # Create the circuit
 double_q_measurement = QuantumCircuit(q, c)
 
-# Put the system in the |10> state
-double_q_measurement.x(1)
+# Put the system in the |11> state
 double_q_measurement.x(0)
+double_q_measurement.x(1)
 
 # Use the qbit-0 to control the qbit-1 through a cnot 
-double_q_measurement.cnot(1,0)
+double_q_measurement.cnot(0,1)
 double_q_measurement.measure(q, c)
 
 
-# In[21]:
+# In[16]:
 
 
 # Draw the circuit
 double_q_measurement.draw(output='mpl')
 
 
-# In[22]:
+# In[17]:
 
 
 # Execute the circuit
@@ -355,14 +363,14 @@ job = execute(double_q_measurement,
 result = job.result()
 
 
-# In[23]:
+# In[18]:
 
 
 # Print the result
 print(result.get_counts(double_q_measurement))
 
 
-# In[24]:
+# In[19]:
 
 
 # Plot the result
