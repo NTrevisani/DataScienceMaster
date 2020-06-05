@@ -248,7 +248,7 @@ print('\nBest solution = ' + str(xbest_brute) + ' cost = ' + str(best_cost_brute
 # 
 # We can use the Ising formulation to solve the problem through a quantum computer, for example by applying the VQE algorithm.
 
-# In[9]:
+# In[2]:
 
 
 from qiskit import BasicAer
@@ -280,10 +280,11 @@ print('operator:')
 print(op.print_details())
 
 
-# In[10]:
+# In[5]:
 
 
 from qiskit.circuit.library import RealAmplitudes
+from qiskit.aqua.components.optimizers import COBYLA
 
 qaoa_mes = QAOA(quantum_instance = BasicAer.get_backend('statevector_simulator'))
 
@@ -294,7 +295,7 @@ vqe_mes = VQE(quantum_instance = BasicAer.get_backend('statevector_simulator'),
 exact_mes = NumPyMinimumEigensolver()
 
 
-# In[7]:
+# In[6]:
 
 
 qaoa = MinimumEigenOptimizer(qaoa_mes)   # using QAOA
@@ -302,41 +303,23 @@ vqe = MinimumEigenOptimizer(vqe_mes)   # using VQE
 exact = MinimumEigenOptimizer(exact_mes)  # using the exact classical numpy minimum eigen solver
 
 
-# In[8]:
+# In[7]:
 
 
 exact_result = exact.solve(qubo)
 print(exact_result)
 
 
-# In[ ]:
+# In[8]:
 
 
 qaoa_result = qaoa.solve(qubo)
 print(qaoa_result)
 
 
-# In[6]:
+# In[9]:
 
 
 vqe_result = vqe.solve(qubo)
 print(vqe_result)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
