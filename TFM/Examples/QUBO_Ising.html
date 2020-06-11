@@ -13176,8 +13176,12 @@ $$ Q =
 
 <span class="c1"># computing all possible combinations</span>
 <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># x stores all the 2^n possible combinations of 0 and 1</span>
+    <span class="c1"># for a vector of length n </span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="n">b</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">n</span><span class="p">)))]</span>
     <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># scan all possible costs and keep the highest one</span>
+    <span class="c1"># (now we want to maximize our score!)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
             <span class="n">cost</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
@@ -13229,7 +13233,7 @@ Best solution = [1, 1, 0] cost = 19
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV0AAADnCAYAAAC9roUQAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADh0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uMy4xLjMsIGh0dHA6Ly9tYXRwbG90bGliLm9yZy+AADFEAAAgAElEQVR4nO3deVjU5drA8e8Mq+C+tGiJ5QpuLQYiLqmVW4HoAIKIIKm4Zai575piampiqCVaAoqMsrTYOeY52dFMw7I0rWObmmu5pLggMPP+Mb0dNVGRmXlmuT/XxXWMGWa+nktuH5/fgsZoNCKEEMI6tKoDhBDCmcjQFUIIK5KhK4QQViRDVwghrEiGrhBCWJHr7R6sWbOmsV69elZKEUIIx7Bnz57fjUZjrVs9dtuhW69ePfLz8y1TJYQQDkqj0Rwu7THZXhBCCCuSoSuEEFYkQ1cIIaxIhq4QQliRDF1hk4xG+Pe/oUcPqFYN3N3B2xsefhhmzICTJ1UXCnFvZOgKm6PXg48PBAfD5s1w/jwUFcHly/Drr5CUBPXqQUgInDqlulaIspGhK2zKnDkQEwNHj0JBgWnFe7OrV6GwED78EFq2hB9+sH6nEPdKhq6wGcuXw6uvwpUrd/f84mI4fRratTP9rxD2QIausAknTkBiomkLoSyMRjhzBoYNs0yXEOYmQ1fYhJSU2z16FggFvAEfIOOGR4uK4P334fffLZYnhNnI0BXKFRVBcrJpr/bWhgHuwCkgHRgCfHvDMzQaePttS1YKYR4ydIVyO3ZASUlpj14CNgKzgIpAWyAYWHvDs65ckaEr7IMMXaHcqVO3PkvB5L+AC9Dous+15OaVLpj2doWwdTJ0hXJFRbcbugVAlZs+VwW4+LdnFhebt0sIS5ChK5SrWhW0pf5JrAhcuOlzF4BKf39mRfN2CWEJMnSFck89ZbrY4dYaAcXAoes+9zXQ9IZnabXQoYNF8oQwKxm6Qrn774cuXUxnIPydN9ALmIrpoNoOIBfod8OzPD1hzBgLhwphBjJ0hU0YOxa8vEp79E3gCnAfEAmkcPNK18cHWrWyZKEQ5nHbH9cjhLW0aQP+/rBz563O160O5JT6tRUqwOLFlqwTwnxkpStsgkYDeXlQv74RrbbUDd6/cXEp5PXXjTz3nAXjhDAjGbrCZlSsCH36LKFixa/x8jLe5owG01aEp6eR2rUncu3aUutFClFOsr0gbMann35KcnIS33yzm1OnNCxYAO+9Bx4epvN4NRrTlWuVKpkOmsXFafjjjxEEBgbi6+vLs88+q/q3IMQdydAVNuHkyZNERkayZs0afHzq4uMDGzaYrjLbuxfOnTMN3wcegCef/N95vdWq1SMzM5OwsDC2b99Ow4YN1f5GhLgDGbpCueLiYiIjI3nxxRfp2rXrDY/VqAGdO9/+69u3b8+sWbMICQlh586dVKly8xVsQtgO2dMVyk2dOhU3NzemTp16z68xaNAgOnXqRFRUFCWl3z1HCOVk6Aql3nvvPdLS0khPT8fFxaVcr7Vo0SKuXLnCxIkTzVQnhPnJ0BXK/Pzzz8THx7N+/Xpq1apV7tdzc3MjKysLvV5PWlqaGQqFMD/Z0xVKXL16FZ1Ox8SJE2nTpo3ZXrdGjRrk5eXRsWNHGjVqhL+/v9leWwhzkJWuUCIxMZFHH32UkSNHmv21mzZtyqpVq+jVqxfHjh0z++sLUR6y0hVWl5aWxtatW8nPz0dz67vclNsLL7zA/v37CQ0NZdu2bVSoUMEi7yNEWclKV1jV/v37SUxMZOPGjVSuXNmi7zV+/HgaNGjAwIEDMZZ+l3QhrEqGrrCaixcvotPpWLBgAc2bN7f4+2k0GlatWsV3333H/PnzLf5+QtwN2V4QVmE0GnnxxRdp164d/fv3t9r7VqhQgZycHAICAvDz8+P555+32nsLcSsydIVVJCcnc+jQIT777DOrv/dDDz3Exo0bCQ4O5pNPPsHPz8/qDUL8P9leEBb3+eefM2vWLLKysvD09FTS0Lp1axYsWEBwcDBnz55V0iAEyNAVFvb7778TERHBW2+9Rf369ZW2xMTEEBoaSnh4OMXyo4OFIjJ0hcUYDAaio6OJiIggJCREdQ4ASUlJuLm5MWrUKNUpwknJ0BUWM3v2bK5cucKcOXNUp/zFxcWFdevW8c9//pO33npLdY5wQnIgTVjEli1bWL58OXv27MHV1bb+mFWtWpW8vDzatWtHkyZNaNeuneok4URkpSvM7tdffyUmJob09HQefPBB1Tm31KhRI9auXUtERASHDx9WnSOciAxdYVZFRUWEh4fz0ksv0bFjR9U5t/Xcc88xduxYQkJCKCgoUJ0jnIQMXWFW48aNo0aNGowbN051yl0ZOXIkTzzxBLGxsRgMBtU5wgnI0BVmo9fryc7O5p133kF7ux/la0M0Gg0pKSmcOHGCWbNmqc4RTsC2jnAIu/Xf//6XIUOGsHnzZqpXr646p0w8PDzYtGkT/v7+NGvWjN69e6tOEg7MPpYjwqZdvnwZnU7HrFmzaNWqleqce3L//feTnZ1NQkICe/fuVZ0jHJgMXVEuRqORoUOH0qJFCwYPHqw6p1yeeOIJli1bRs+ePTl9+rTqHOGgZHtBlMuqVavIz89n165dFrshuTWFh4ezf/9+evfuzdatW3F3d1edJByMrHTFPfvqq6+YMGECer0eb29v1TlmM336dGrWrMmwYcPk5ufC7GTointy/vx5dDodS5cupUmTJqpzzEqr1bJ27Vp27dpFcnKy6hzhYGR7QZSZ0WgkNjaW7t2706dPH9U5FlGxYkVyc3MJDAzE19eXZ555RnWScBCy0hVltmDBAk6ePMnChQtVp1jUI488QmZmJn379uWHH35QnSMchAxdUSaffvopCxcuZMOGDU5xkKlDhw7MnDmT4OBgLly4oDpHOAAZuuKunTx5ksjISNasWUPdunVV51jN4MGD6dixI1FRUZSUlKjOEXZOhq64K8XFxURFRREfH0/Xrl1V51jd4sWLuXTpEpMmTVKdIuycDF1xV6ZOnYqLiwvTpk1TnaKEm5sbWVlZZGVlkZ6erjpH2DE5e0Hc0fvvv8/atWv58ssvcXFxUZ2jTM2aNcnNzaVTp040atSIp556SnWSsEOy0hW39fPPPxMfH8/69eupVauW6hzlmjVrxttvv01oaCjHjx9XnSPskAxdUarCwkLCwsIYP348QUFBqnNsRnBwMEOHDqVnz55cuXJFdY6wMzJ0Ralefvll6tWrx8svv6w6xeZMmDCB+vXrM2jQILlUWJSJDF1xS2lpaWzdupXU1FSHuJGNuWk0GlatWsXBgwdZsGCB6hxhR+RAmvibb7/9lsTERLZu3UrlypVV59gsLy8vcnJyCAgIwM/Pjx49eqhOEnZAVrriBhcvXqR3797Mnz+fFi1aqM6xeQ899BB6vZ64uDgOHjyoOkfYARm64i9Go5GBAwfStm1bYmNjVefYjcDAQObPn09wcDBnz55VnSNsnGwviL8sW7aM77//ns8++0x1it3p378/+/btIyIigs2bN+PqKt9a4tZkpSsA2LVrFzNnzkSv11OhQgXVOXZp3rx5uLq6Mnr0aNUpwobJ0BWcOXOG8PBwVq5cSf369VXn2C0XFxfWrVvHRx99xNtvv606R9go+TeQkzMYDERHRxMeHk7Pnj1V59i9qlWrkpeXR/v27WnSpAlt27ZVnSRsjKx0ndyrr77KpUuXmDNnjuoUh9G4cWPeffddwsPDOXLkiOocYWNk6Dqxjz/+mJSUFNavX4+bm5vqHIfSpUsXXnnlFYKDg7l06ZLqHGFDZOg6qV9//ZV+/fqRnp5O7dq1Vec4pJdffpnHH3+c/v37YzAYVOcIGyFD1wkVFRURERHBiBEj6Nixo+och6XRaFi+fDnHjx9n9uzZqnOEjZADaU5o3LhxVKtWjfHjx6tOcXgeHh5s2rQJf39/mjVrRq9evVQnCcVk6DqZjRs3kp2dzZ49e9Bq5R861vDAAw+Qk5ND165dqV+/Pi1btlSdJBSS7zoncujQIRISEsjKyqJ69eqqc5zKE088wdKlSwkJCeH06dOqc4RCMnSdxOXLl9HpdMycOZNWrVqpznFKERERREdHo9PpuHbtmuocoYgMXSdgNBoZNmwYzZo1IyEhQXWOU5s5cybVq1dn+PDhcvNzJyVD1wmkpqaye/duVqxYITckV0yr1bJ27Vp27tzJsmXLVOcIBeRAmoPbu3cv48eP59NPP6VixYqqcwRQqVIl8vLyCAwMxNfXl86dO6tOElYkK10Hdv78eXQ6HUuXLsXX11d1jrjOI488wvr16+nbty8//vij6hxhRTJ0HZTRaCQuLo6uXbvSp08f1TniFp5++mmmT59OcHAwFy5cUJ0jrESGroNauHAhx48fZ+HChapTxG0kJCTQoUMH+vbtS0lJieocYQUydB3Qf/7zH+bPn8+GDRvw8PBQnSPuYMmSJRQUFDB58mTVKcIKZOg6mFOnThEZGcmaNWvw8fFRnSPugpubG1lZWWRmZpKRkaE6R1iYnL3gQIqLi4mMjCQuLo5u3bqpzhFlULNmTXJzc+ncuTMNGzbkqaeeUp0kLERWug5k2rRpaLVapk+frjpF3IPmzZvz1ltv0atXL44fP646R1iIrHQdxAcffMC7777Lnj17cHFxUZ0j7lFISAj79+8nNDSUbdu24enpqTpJmJmsdB3AL7/8woABA1i/fj333Xef6hxRThMnTuSRRx5h0KBBcqmwA5Kha+cKCwsJCwtj3LhxBAUFqc4RZqDRaEhNTeXbb7+VU/4ckGwv2LnExETq1q1LYmKi6hRhRl5eXuTk5NC6dWv8/Pzo3r276iRhJrLStWPp6els2bKF1NRUuZGNA3r44YfR6/XExsZy8OBB1TnCTGTo2qkDBw7w8ssvo9frqVKliuocYSGBgYHMmzeP4OBgzp07pzpHmIEMXTtUUFBA7969ee211+RHvziBuLg4XnjhBSIiIiguLladI8pJhq6dMRqNDBw4kDZt2hAXF6c6R1jJa6+9hlarZcyYMapTRDnJgTQ78+abb3Lw4EF27typOkVYkaurK+vXrycgIIDmzZsTHx+vOkncIxm6dmT37t3MmDGDzz77jAoVKqjOEVZWtWpV8vLyaNeuHU2aNJFTBO2UbC/YiTNnzhAeHs6KFSto0KCB6hyhSOPGjXn33XcJCwvjyJEjqnPEPZChawcMBgP9+vVDp9MRGhqqOkco1rVrV8aMGUNISAiXLl1SnSPKSIauHZgzZw4XL15k7ty5qlOEjUhMTKRly5bExsbKpcJ2Roaujfv444958803yczMxM3NTXWOsBEajYbly5fz66+/Mnv2bNU5ogzkQJoNO3bsGP369SMtLY3atWurzhE2xtPTk02bNhEQEECzZs1k68lOyErXRhUVFREREcHw4cPlR3SLUj344INkZ2czePBgvvnmG9U54i7I0LVR48ePp0qVKkyYMEF1irBxTz75JG+88QYhISH89ttvqnPEHcj2gg3atGkTGzdu5Msvv0Srlb8XxZ316dOHffv2odPp2LJlC+7u7qqTRCnkO9rGHDp0iMGDB5OVlUX16tVV5wg7MmvWLKpWrcqIESPkjAYbJkPXhly+fBmdTseMGTPkBxOKMtNqtaSlpbFjxw7efPNN1TmiFLK9YEOGDx9Os2bNGDJkiOoUYacqVapEXl4ebdq0wdfXl06dOqlOEjeRla6NSE1N5fPPP2fFihVyQ3JRLo8++ijr1q0jMjKSH3/8UXWOuIkMXRuwd+9exo0bx8aNG6lYsaLqHOEAOnbsyLRp0wgODubChQuqc8R1ZOgqdv78eXQ6HUuWLMHX11d1jnAgQ4cOpX379kRHR1NSUqI6R/xJhq5CRqORuLg4unTpQlRUlOoc4YCWLFnChQsXmDJliuoU8Sc5kKbQ66+/zrFjx1i/fr3qFOGg3N3dycrKwt/fn+bNmxMZGak6yenJ0FVk+/btvPbaa+zevRsPDw/VOcKB1apVi9zcXDp37kzDhg1p1aqV6iSnJtsLCpw6dYo+ffqwevVqfHx8VOcIJ9CiRQtWrlxJaGgoJ06cUJ3j1GToWllJSQmRkZHExsbSvXt31TnCiYSGhjJ48GBCQ0O5evWq6hynJUPXyqZNm4ZGo2HGjBmqU4QTmjRpEnXr1mXQoEFyqbAiMnSt6IMPPmDNmjWsW7cOFxcX1TnCCWk0GlavXs3+/ftZuHCh6hynJAfSrOTw4cMMGDCAjRs3ct9996nOEU7M29ubnJwcWrdujZ+fn2xzWZmsdK2gsLAQnU7H2LFjadu2reocIahbty56vZ7Y2Fi+++471TlORYauFYwaNYqHH36YUaNGqU4R4i9t2rQhKSmJ4OBgzp07pzrHacj2goVlZGTwj3/8gz179siNbITNGTBgAPv27SMiIoIPP/wQV1cZCZYmK10LOnDgACNHjkSv11OlShXVOULc0vz58wF45ZVXFJc4Bxm6FlJQUIBOp2PevHk89thjqnOEKJWrqyuZmZl88MEHpKamqs5xePJvCQswGo0MHDiQwMBABgwYoDpHiDuqVq0aeXl5tG/fnsaNGxMUFKQ6yWHJStcCUlJSOHDgAMnJyapThLhrTZo04Z133iEsLIwjR46oznFYMnTNbPfu3UybNg29Xk+FChVU5whRJt26dWPUqFGEhIRw6dIl1TkOSYauGZ05c4bw8HBWrFhBw4YNVecIcU9Gjx5NixYtiIuLk0uFLUCGrpkYDAb69etH79696dWrl+ocIe6ZRqNhxYoVHDlyhFdffVV1jsORA2lmMnfuXC5cuEBSUpLqFCHKzdPTk+zsbPz9/WnatCmhoaGqkxyGDF0z2Lp1K8nJyeTn5+Pm5qY6RwizePDBB8nOzqZbt27Ur1+fFi1aqE5yCLK9UE7Hjh0jOjqatLQ06tSpozpHCLNq1aoVb7zxBiEhIfz222+qcxyCDN1yKCoqIiIigmHDhtG5c2fVOUJYRGRkJJGRkeh0Oq5du6Y6x+7J0C2HCRMmULlyZSZOnKg6RQiLmj17NlWqVOGll16SMxrKSYbuPdq0aRN6vZ61a9ei1cr/jcKxabVa0tLS2L59OykpKapz7JocSLsHhw4dIiEhgffff58aNWqozhHCKipXrkxubi5BQUE0adKETp06qU6yS7JEK6MrV66g0+mYNm0a/v7+qnOEsKr69euTkZFBVFQUP/30k+ocuyRDt4yGDx9O06ZNGTp0qOoUIZTo1KkTU6ZMITg4mAsXLqjOsTsydMsgNTWVnTt3snLlSrkhuXBqQ4cOJSgoiOjoaAwGg+ocuyJD9y7t3buXcePGodfrqVixouocIZTSaDQsXbqUP/74gylTpqjOsSsydO/CH3/8gU6nY8mSJfj5+anOEcImuLu7o9frycjIYN26dapz7IacvXAHRqORuLg4unTpQlRUlOocIWxKrVq1yM3NpXPnzjRs2JBWrVqpTrJ5stK9g0WLFnH06FFef/111SlC2KQWLVqwYsUKQkNDOXHihOocmycr3dvYvn078+bNY9euXXh4eKjOEcJm9erVi/379xMaGsonn3yCp6en6iSbJSvdUpw+fZrIyEhSU1OpV6+e6hwhbN6UKVOoW7cuCQkJcqnwbcjQvYWSkhIiIyOJiYmhR48eqnOEsAsajYbVq1fz9ddfy3bcbcj2wi1Mnz4dgJkzZ6oNEcLOeHt7k5ubS0BAAH5+fnTr1k11ks2Rle5NNm/ezOrVq8nIyMDFxUV1jhB2p27duuj1evr37893332nOsfmyNC9zuHDh4mNjWXdunXcf//9qnOEsFtBQUEkJSUREhLCuXPnVOfYFBm6fyosLCQsLIxXXnmFdu3aqc4Rwu4NGDCAbt260adPH4qLi1Xn2AwZun8aPXo0derUYfTo0apThHAYCxYswGAwMHbsWNUpNkMOpAHr1q3jo48+Ij8/X25kI4QZubq6kpmZSUBAAM2bNycuLk51knJOP3QPHDjASy+9xJYtW6hatarqHCEcTvXq1cnLy6NDhw40btyYNm3aqE5Syqm3FwoKCtDpdCQlJfHYY4+pzhHCYfn6+rJmzRp0Oh1Hjx5VnaOU0w5do9HIoEGDaN26NfHx8apzhHB43bt3JzExkZCQEC5fvqw6RxmnHbrLly/n22+/JTk5WXWKEE5jzJgxNGvWjLi4OKe9VNgph+4XX3zB1KlT0ev1eHl5qc4RwmloNBpWrlzJL7/8wpw5c1TnKOF0B9LOnDlDWFgYK1asoGHDhqpzhHA6np6eZGdnExAQQNOmTenZs6fqJKtyqpWuwWAgJiaG3r1706tXL9U5Qjit2rVrs2nTJgYOHMi+fftU51iVUw3dpKQkzp8/T1JSkuoUIZzeU089xZIlSwgJCeH3339XnWM1TrO9sHXrVpYuXUp+fj5ubm6qc4QQQFRUFPv27UOn07Flyxan+N50ipXusWPHiI6OZu3atdSpU0d1jhDiOrNnz6ZSpUq89NJLqlOswuGHblFREX369GHo0KE888wzqnOEEDdxcXEhPT2dbdu2kZKSojrH4hx+e2HixIlUqlSJSZMmqU4RQpSicuXK5OXlERQURJMmTejYsaPqJItx6JVudnY2GzZsYO3atWi1Dv1bFcLuNWjQgIyMDCIjI/npp59U51iMw06iH374gUGDBrFhwwZq1KihOkcIcRc6d+7M5MmTCQkJ4eLFi6pzLMIhh+6VK1fQ6XRMmzaNgIAA1TlCiDIYNmwYgYGBREdHYzAYVOeYnUMO3REjRuDr68uwYcNUpwghykij0ZCcnMy5c+eYOnWq6hyzc7gDaatXr2bHjh3s3r1bbkguhJ1yd3dn48aN+Pv707x5cyIiIlQnmY1DDd2vv/6asWPH8sknn1CpUiXVOUKIcqhVqxY5OTk888wzNGjQgCeffFJ1klk4zPbCH3/8gU6nY/HixTRt2lR1jhDCDFq2bMny5csJDQ3l5MmTqnPMwiGGrtFoZMCAATz77LP07dtXdY4Qwox69+5NfHw8oaGhFBYWqs4pN4cYuosXL+bIkSMsWrRIdYoQwgKmTJlCnTp1SEhIsPubn9v90N2xYwdJSUlkZWXh4eGhOkcIYQFarZZ33nmHr776yu4XV3Z9IO306dNERESwatUq6tWrpzpHCGFB3t7e5Obm0rp1a/z8/OjatavqpHtityvdkpISoqKiiImJ4fnnn1edI4SwAh8fH7KysoiJieH7779XnXNP7HbozpgxA4PBwMyZM1WnCCGsqG3btsyZM4fg4GDOnz+vOqfM7HLobt68mdTUVDIyMnB1tesdEiHEPXjxxRfp2rUrffr0obi4WHVOmdjd0D18+DCxsbFkZGTwwAMPqM4RQiiycOFCSkpKGDdunOqUMrGroVtYWEh4eDhjxoyhffv2qnOEEAq5urqSmZlJXl4ea9asUZ1z1+zq3+Zjxoyhdu3ajBkzRnWKEMIGVK9endzcXJ5++mkaN25MYGCg6qQ7spuV7vr169m8eTOrV6+WG9kIIf7i5+fH6tWr0el0HD16VHXOHdnF0D148CAjRowgKyuLqlWrqs4RQtiYHj16MHLkSHr27Mnly5dV59yWzQ/dgoICevfuzdy5c3n88cdV5wghbNQrr7yCr68vAwYMsOlLhW166BqNRhISEggICCA+Pl51jhDChmk0Gt566y1++ukn5s6dqzqnVDZ9IG358uV88803fP7557KPK4S4owoVKpCTk4O/vz9NmzYlJCREddLf2OzQ/eKLL5g6dSo7duzAy8tLdY4Qwk7Url2bTZs20aNHDx599FGaN2+uOukGNrm9cPbsWcLDw0lJSaFRo0aqc4QQdsbf359FixYREhLC77//rjrnBjY3dA0GAzExMYSGhqLT6VTnCCHsVHR0NGFhYYSFhVFUVKQ65y82N3STkpI4d+4c8+bNU50ihLBzc+bMwdvbm5EjR6pO+YtN7en+61//YunSpXzxxRe4ubmpzhFC2DkXFxcyMjJo3bo1KSkpDBky5K/HjEbYuROOHIHLl6FKFWjeHCy9o2kzQ/f48eNER0fz7rvv8tBDD6nOEUI4iMqVK5OXl0dQUBC+vr489tjTrF4NCxbAhQug0YDBAC4uUFQEzZrBuHEQHAyWWPvZxNAtKioiIiKChIQEnn32WdU5QggH06BBA9LT0wkNTeHatfaAltIuXPviC4iNhVq14N//Bh8f87ZYfugaDHDyJJw7Z/pro1YtqFbthqdMmjQJb29vJk+ebPEcIYRzunTpGS5d6kBR0Z0PZRUUwJUr8MQTkJ8Pjzxivg7LHUg7e9a0fq9TB+rXh8BAePJJuP9+CAqCvDwoKSEnJ4fMzEzS0tLQam3uuJ4QwgHs3QtRUVBUdPf7BSUlcP48PP00XLpkvhbzr3SNRpg8GV5/HbRa/lrDX736v+d89hn07UuJmxurDQYyP/qImjVrmj1FCCEAJk0yrVz/LhlYA+wDIv/89f8YDHDmDKSnw6BB5mkx79LSYDD9dbJ4sWnI3u5uPwUFuJw7h/7yZVqfOGHWDCGE+H/Hj8PWrab14N/VBiYDA0r9+kuX4LXXSvv6sjPv0B071rRtUIZbq7kVFUF0tOncDSGEMLPly2/3aC+gJ1Djtq9x8iR8/rl5esw3dH/5BZYt+9vALQTiAR+gEvA4sPnmr7182XxrdyGEuM7WrVBYWL7XKCoy37rQfHu6ycmm7YWbFAMPA9uAusCHQDimHZR61z/xp5/gq69A7pkrhMUZjUZKSkooKSnBYDD89euyfM6azynPa+/fPwco37n/166ZTsAyB/MM3cJCWLnSVHYTb2D6df/9PPAIsIebhm5hoeng29q1ZkkS9uX6IeBo3/S2+P5GoxGtVouLiwsuLi43/Lq0z93Nc+7168ryHA8PjzJ93bZtXly4UL4/n1oteHqa58+6eYZufr7pso67cAr4L9D05gdKSuCDD8ySYw73MgQc7RvTmu9/8xCw5W/6mz93/RBQ8f738nUajcZp7lGt15su9S2PChXgwQfN02OeoXv27F0N3SKgL9AfaHKLx4vPnyeuXz+bGDqA8m+Me2jSoaYAAAKFSURBVH1tV1dXm/+mv/lzzjQEhHUNGgSffAIXL97q0eI/P0r+/LiKaSzeOBpLSiA01Dw9VrsM2AD0A9wxnRl3KxqtlmeffdYmBoNcqCGEY+jWDTw8Shu6s4EZ1/13GjCN6zdFtVrTwL3pQtp7Zp6hW7PmbU9iMwLxmLYWPgRKuybEpUoVYmJizJIkhBBgupFNYiLMnn2rCySmc+NRp7/z9ITRo83XY57lXKtWt91eGAIcBN4DKpT2JBcX863fhRDiOmPGQIsW4O5etq/z8oJRo0x3MDAX8wxdNzcYOtS0hr/JYWAFsBd4AKj450f6zU90dzf9dSSEEGbm7g7/+Idp8FYodeV3Iy8vePFFmDnTvC3m27gcOvSWq10fTNsLV4GC6z763vzEJk2g6d/OaRBCCLOoUgW2bzeNqooVTR+3UrGi6T5dy5bBkiV3fWLWXTPf0H3oIdOdf+/lJ/d6ecGqVWZLEUKIW/HwMN388PRp0/Vcjz9uutts5cqmU8K6dIGcHDh61HRPXUvQGG9zAKxVq1bG/Pz8u381oxGGDDFd4HC391/w8oLsbHjuubt/HyGEsGEajWaP0WhsdavHzHtelEYDKSkwYwZ4e5e+ftdoTI/5+MC2bTJwhRBOw/wno2o0pkOFp06ZbvHYoAG4uppWtJ6epoNu3bvD++/Dzz+bznwQQggnYbmLI7y9IT7e9FFQYLpbhLu76Qzjsp63IYQQDsI6V6Td7lChEEI4EbnWVQghrEiGrhBCWJEMXSGEsCIZukIIYUW3vThCo9H8hun2CUIIIe6ej9ForHWrB247dIUQQpiXbC8IIYQVydAVQggrkqErhBBWJENXCCGsSIauEEJY0f8B4gCxirt88dsAAAAASUVORK5CYII=
 "
 >
 </div>
@@ -13339,45 +13343,91 @@ Additionally, the formalism used so far is well designed if we work with a class
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verify-with-our-example">Verify with our example<a class="anchor-link" href="#Verify-with-our-example">&#182;</a></h3><p>To check that our statement is correct, let's try and find the Ising Hamiltonian for our problem.
+<h3 id="Verify-with-our-example">Verify with our example<a class="anchor-link" href="#Verify-with-our-example">&#182;</a></h3><p>Source: <a href="https://quantumcomputing.stackexchange.com/questions/11663/how-to-convert-qubo-problem-to-ising-hamiltonian">https://quantumcomputing.stackexchange.com/questions/11663/how-to-convert-qubo-problem-to-ising-hamiltonian</a></p>
+<p>To check that our statement is correct, let's try and find the Ising Hamiltonian for our problem.
 Following the steps we listed above:</p>
 $$ F(x) = 10 x_1 + 5 x_2 + 0 x_3 + 4 x_1 x_2 + 2 x_1 x_3 - 12 x_2 x_3 $$<p>is equivalent to:</p>
-$$ H_f = 10 \cdot \begin{bmatrix}
+$$
+\begin{align}
+H_f = 10 &amp;\cdot \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
-                  \end{bmatrix}_1 + 
-          5 \cdot \begin{bmatrix}
+                  \end{bmatrix}_1 
+            \otimes \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_2       
+            \otimes \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_3       
+                  + \\
+          5 &amp;\cdot \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_1       
+            \otimes \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
-                  \end{bmatrix}_2 + 
-          0 \cdot \begin{bmatrix}
+                  \end{bmatrix}_2 
+            \otimes \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_3
+                  + \\
+          0 &amp;\cdot \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_1       
+            \otimes \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_2       
+            \otimes \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
-                  \end{bmatrix}_3 + 
-          4 \cdot \begin{bmatrix}
+                  \end{bmatrix}_3
+                  + \\ 
+          4 &amp;\cdot \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
                   \end{bmatrix}_1
-                  \begin{bmatrix}
+            \otimes \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
-                  \end{bmatrix}_2 + 
-          2 \cdot \begin{bmatrix}
+                  \end{bmatrix}_2 
+            \otimes \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_3       
+                  + \\
+          2 &amp;\cdot \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
                   \end{bmatrix}_1
-                  \begin{bmatrix}
+            \otimes \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_2       
+            \otimes \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
-                  \end{bmatrix}_3 + \\ -
-         12 \cdot \begin{bmatrix}
+                  \end{bmatrix}_3 
+                  + \\ -
+         12 &amp;\cdot \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1
+                  \end{bmatrix}_1       
+            \otimes \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
                   \end{bmatrix}_2
-                  \begin{bmatrix}
+            \otimes \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 0
-                  \end{bmatrix}_3 $$
+                  \end{bmatrix}_3 
+\end{align}
+$$
 </div>
 </div>
 </div>
@@ -13408,7 +13458,7 @@ $$ H_f = 10 \cdot \begin{bmatrix}
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="VQE">VQE<a class="anchor-link" href="#VQE">&#182;</a></h2><p>We can use the Ising formulation to solve the problem through a quantum computer, for example by applying the VQE algorithm.</p>
+<p>We can also try and make a simple function that translates our QUBO problem to a Ising  Hamiltonian automatically.</p>
 
 </div>
 </div>
@@ -13418,8 +13468,144 @@ $$ H_f = 10 \cdot \begin{bmatrix}
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the 2x2 matrices we need</span>
+
+<span class="c1"># (1 + sigma_z)/2</span>
+<span class="n">sigma_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="c1"># Identity</span>
+<span class="n">id_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The actual function</span>
+<span class="k">def</span> <span class="nf">qubo_to_ising</span><span class="p">(</span><span class="n">input_Q</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_Q</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;input:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">input_Q</span><span class="p">)</span>
+    <span class="c1">#print(n)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># initialize H</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># compute the contribution of the i,j term to the Hamiltonian</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>            
+            <span class="c1">#print(i,j)</span>
+            <span class="c1"># first term</span>
+            <span class="n">matrix_ij</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1">#print(&quot;i == 0&quot;)</span>
+                <span class="n">matrix_ij</span> <span class="o">=</span> <span class="n">sigma_z</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#print(&quot;i != 0&quot;)</span>
+                <span class="n">matrix_ij</span> <span class="o">=</span> <span class="n">id_matrix</span>
+            
+            <span class="c1"># tensor product n times</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+                <span class="c1">#print(&quot;k ==&quot;,k)</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">k</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="c1">#print(&quot;j == k&quot;)</span>
+                    <span class="n">new_term</span> <span class="o">=</span> <span class="n">sigma_z</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1">#print(&quot;j != k&quot;)</span>
+                    <span class="n">new_term</span> <span class="o">=</span> <span class="n">id_matrix</span>                
+                <span class="n">matrix_ij</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">matrix_ij</span><span class="p">,</span> <span class="n">new_term</span><span class="p">)</span>
+
+            <span class="c1"># multiply by the i,j term of input_Q </span>
+            <span class="n">matrix_ij</span> <span class="o">=</span> <span class="n">matrix_ij</span> <span class="o">*</span> <span class="n">input_Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+            <span class="c1">#print(matrix_ij)</span>
+            
+            <span class="c1"># sum</span>
+            <span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">matrix_ij</span>
+            <span class="c1">#print(&quot;&quot;)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="o">-</span><span class="n">H</span><span class="p">)</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Translate our QUBO matrix to a Ising Hamiltonian</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">qubo_to_ising</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ising Hamiltonian dimensions:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ising Hamiltonian:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>input:
+[[10  2  1]
+ [ 2  5 -6]
+ [ 1 -6  0]]
+
+Ising Hamiltonian dimensions:(8, 8)
+
+Ising Hamiltonian:
+[[ -9   0   0   0   0   0   0   0]
+ [  0 -19   0   0   0   0   0   0]
+ [  0   0 -12   0   0   0   0   0]
+ [  0   0   0 -10   0   0   0   0]
+ [  0   0   0   0   7   0   0   0]
+ [  0   0   0   0   0  -5   0   0]
+ [  0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="VQE">VQE<a class="anchor-link" href="#VQE">&#182;</a></h2><p>We can use the Ising formulation to solve the problem through a quantum computer, for example by applying the VQE algorithm.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">BasicAer</span>
-<span class="kn">from</span> <span class="nn">qiskit.aqua.algorithms</span> <span class="kn">import</span> <span class="n">QAOA</span><span class="p">,</span> <span class="n">NumPyMinimumEigensolver</span><span class="p">,</span> <span class="n">VQE</span>
+<span class="kn">from</span> <span class="nn">qiskit.aqua.algorithms</span> <span class="kn">import</span> <span class="n">QAOA</span><span class="p">,</span> <span class="n">VQE</span><span class="p">,</span> <span class="n">NumPyMinimumEigensolver</span>
 <span class="kn">from</span> <span class="nn">qiskit.optimization.algorithms</span> <span class="kn">import</span> <span class="n">MinimumEigenOptimizer</span><span class="p">,</span> <span class="n">RecursiveMinimumEigenOptimizer</span>
 <span class="kn">from</span> <span class="nn">qiskit.optimization</span> <span class="kn">import</span> <span class="n">QuadraticProgram</span>
 <span class="kn">from</span> <span class="nn">qiskit.optimization.converters</span> <span class="kn">import</span> <span class="n">QuadraticProgramToIsing</span>
@@ -13432,7 +13618,7 @@ $$ H_f = 10 \cdot \begin{bmatrix}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a QUBO</span>
@@ -13485,7 +13671,7 @@ End
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">qp2op</span> <span class="o">=</span> <span class="n">QuadraticProgramToIsing</span><span class="p">()</span>
@@ -13528,7 +13714,7 @@ ZZI	(-3+0j)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.circuit.library</span> <span class="kn">import</span> <span class="n">RealAmplitudes</span>
@@ -13550,7 +13736,7 @@ ZZI	(-3+0j)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">qaoa</span> <span class="o">=</span> <span class="n">MinimumEigenOptimizer</span><span class="p">(</span><span class="n">qaoa_mes</span><span class="p">)</span>   <span class="c1"># using QAOA</span>
@@ -13565,7 +13751,7 @@ ZZI	(-3+0j)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">exact_result</span> <span class="o">=</span> <span class="n">exact</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">qubo</span><span class="p">)</span>
@@ -13597,7 +13783,7 @@ ZZI	(-3+0j)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">qaoa_result</span> <span class="o">=</span> <span class="n">qaoa</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">qubo</span><span class="p">)</span>
@@ -13629,7 +13815,7 @@ ZZI	(-3+0j)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">vqe_result</span> <span class="o">=</span> <span class="n">vqe</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">qubo</span><span class="p">)</span>

@@ -86,8 +86,12 @@ best_cost_brute = 0
 
 # computing all possible combinations
 for b in range(2**n):
+    # x stores all the 2^n possible combinations of 0 and 1
+    # for a vector of length n 
     x = [int(t) for t in reversed(list(bin(b)[2:].zfill(n)))]
     cost = 0
+    # scan all possible costs and keep the highest one
+    # (now we want to maximize our score!)
     for i in range(n):
         for j in range(n):
             cost = cost + Q[i,j]*x[i]*x[j]
@@ -179,6 +183,8 @@ print('\nBest solution = ' + str(xbest_brute) + ' cost = ' + str(best_cost_brute
 
 # ### Verify with our example
 # 
+# Source: https://quantumcomputing.stackexchange.com/questions/11663/how-to-convert-qubo-problem-to-ising-hamiltonian
+# 
 # To check that our statement is correct, let's try and find the Ising Hamiltonian for our problem.
 # Following the steps we listed above:
 # 
@@ -186,42 +192,87 @@ print('\nBest solution = ' + str(xbest_brute) + ' cost = ' + str(best_cost_brute
 # 
 # is equivalent to:
 # 
-# $$ H_f = 10 \cdot \begin{bmatrix}
+# $$
+# \begin{align}
+# H_f = 10 &\cdot \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
-#                   \end{bmatrix}_1 + 
-#           5 \cdot \begin{bmatrix}
+#                   \end{bmatrix}_1 
+#             \otimes \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_2       
+#             \otimes \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_3       
+#                   + \\
+#           5 &\cdot \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_1       
+#             \otimes \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
-#                   \end{bmatrix}_2 + 
-#           0 \cdot \begin{bmatrix}
+#                   \end{bmatrix}_2 
+#             \otimes \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_3
+#                   + \\
+#           0 &\cdot \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_1       
+#             \otimes \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_2       
+#             \otimes \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
-#                   \end{bmatrix}_3 + 
-#           4 \cdot \begin{bmatrix}
+#                   \end{bmatrix}_3
+#                   + \\ 
+#           4 &\cdot \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
 #                   \end{bmatrix}_1
-#                   \begin{bmatrix}
+#             \otimes \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
-#                   \end{bmatrix}_2 + 
-#           2 \cdot \begin{bmatrix}
+#                   \end{bmatrix}_2 
+#             \otimes \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_3       
+#                   + \\
+#           2 &\cdot \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
 #                   \end{bmatrix}_1
-#                   \begin{bmatrix}
+#             \otimes \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_2       
+#             \otimes \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
-#                   \end{bmatrix}_3 + \\ -
-#          12 \cdot \begin{bmatrix}
+#                   \end{bmatrix}_3 
+#                   + \\ -
+#          12 &\cdot \begin{bmatrix}
+#                   1 & 0 \\
+#                   0 & 1
+#                   \end{bmatrix}_1       
+#             \otimes \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
 #                   \end{bmatrix}_2
-#                   \begin{bmatrix}
+#             \otimes \begin{bmatrix}
 #                   1 & 0 \\
 #                   0 & 0
-#                   \end{bmatrix}_3 $$
+#                   \end{bmatrix}_3 
+# \end{align}
+# $$
 
 # where the subscript under each matrix indicates on which qbit it acts on.
 # 
@@ -244,21 +295,97 @@ print('\nBest solution = ' + str(xbest_brute) + ' cost = ' + str(best_cost_brute
 # $\bra{111} H_f \ket{111} = 10 \cdot 1 + 5 \cdot 1 + 0 \cdot 1 + 4 \cdot 1 \cdot 1 + 2 \cdot 1 \cdot 1 -12 \cdot 1 \cdot 1 = 9$
 # 
 
-# ## VQE
-# 
-# We can use the Ising formulation to solve the problem through a quantum computer, for example by applying the VQE algorithm.
+# We can also try and make a simple function that translates our QUBO problem to a Ising  Hamiltonian automatically.
 
 # In[2]:
 
 
+# Define the 2x2 matrices we need
+
+# (1 + sigma_z)/2
+sigma_z = np.array([[1, 0], [0, 0]])
+
+# Identity
+id_matrix = np.array([[1, 0], [0, 1]])
+
+
+# In[3]:
+
+
+# The actual function
+def qubo_to_ising(input_Q):
+    n = len(input_Q)
+    print("input:")
+    print(input_Q)
+    #print(n)
+    print("")
+    
+    # initialize H
+    H = 0
+
+    # compute the contribution of the i,j term to the Hamiltonian
+    for i in range(n):
+        for j in range(n):            
+            #print(i,j)
+            # first term
+            matrix_ij = 0
+            if i == 0 or j == 0:
+                #print("i == 0")
+                matrix_ij = sigma_z
+            else:
+                #print("i != 0")
+                matrix_ij = id_matrix
+            
+            # tensor product n times
+            for k in range(1,n):
+                #print("k ==",k)
+                if j == k or i == k:
+                    #print("j == k")
+                    new_term = sigma_z
+                else:
+                    #print("j != k")
+                    new_term = id_matrix                
+                matrix_ij = np.kron(matrix_ij, new_term)
+
+            # multiply by the i,j term of input_Q 
+            matrix_ij = matrix_ij * input_Q[i,j]
+            #print(matrix_ij)
+            
+            # sum
+            H = H + matrix_ij
+            #print("")
+    
+    return(-H) 
+
+
+# In[4]:
+
+
+# Translate our QUBO matrix to a Ising Hamiltonian
+H = qubo_to_ising(Q)
+
+print('Ising Hamiltonian dimensions:' + str(H.shape))
+print("")
+
+print("Ising Hamiltonian:")
+print(H)
+
+
+# ## VQE
+# 
+# We can use the Ising formulation to solve the problem through a quantum computer, for example by applying the VQE algorithm.
+
+# In[5]:
+
+
 from qiskit import BasicAer
-from qiskit.aqua.algorithms import QAOA, NumPyMinimumEigensolver, VQE
+from qiskit.aqua.algorithms import QAOA, VQE, NumPyMinimumEigensolver
 from qiskit.optimization.algorithms import MinimumEigenOptimizer, RecursiveMinimumEigenOptimizer
 from qiskit.optimization import QuadraticProgram
 from qiskit.optimization.converters import QuadraticProgramToIsing
 
 
-# In[3]:
+# In[6]:
 
 
 # create a QUBO
@@ -270,7 +397,7 @@ qubo.minimize(linear=[10,5,0], quadratic={('prof', 'student'): 4, ('prof', 'cat'
 print(qubo.export_as_lp_string())
 
 
-# In[4]:
+# In[7]:
 
 
 qp2op = QuadraticProgramToIsing()
@@ -280,7 +407,7 @@ print('operator:')
 print(op.print_details())
 
 
-# In[5]:
+# In[8]:
 
 
 from qiskit.circuit.library import RealAmplitudes
@@ -295,7 +422,7 @@ vqe_mes = VQE(quantum_instance = BasicAer.get_backend('statevector_simulator'),
 exact_mes = NumPyMinimumEigensolver()
 
 
-# In[6]:
+# In[9]:
 
 
 qaoa = MinimumEigenOptimizer(qaoa_mes)   # using QAOA
@@ -303,21 +430,21 @@ vqe = MinimumEigenOptimizer(vqe_mes)   # using VQE
 exact = MinimumEigenOptimizer(exact_mes)  # using the exact classical numpy minimum eigen solver
 
 
-# In[7]:
+# In[10]:
 
 
 exact_result = exact.solve(qubo)
 print(exact_result)
 
 
-# In[8]:
+# In[11]:
 
 
 qaoa_result = qaoa.solve(qubo)
 print(qaoa_result)
 
 
-# In[9]:
+# In[12]:
 
 
 vqe_result = vqe.solve(qubo)
