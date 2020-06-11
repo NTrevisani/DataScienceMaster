@@ -371,6 +371,28 @@ print("Ising Hamiltonian:")
 print(H)
 
 
+# In[18]:
+
+
+# In case the matrix is too large, we can draw it
+
+import matplotlib.pylab as plt
+
+plt.rcParams['figure.figsize'] = [8, 8]
+
+nums = []
+
+fig=plt.figure(figsize = (180, 160), 
+               dpi = 0, 
+               facecolor = 'w', 
+               edgecolor = 'k')
+
+for j in range(0, 2**n): nums.append(j)
+partial_matrix = H[nums, :] 
+
+plt.matshow(partial_matrix, fignum=100)
+
+
 # ## VQE
 # 
 # We can use the Ising formulation to solve the problem through a quantum computer, for example by applying the VQE algorithm.
