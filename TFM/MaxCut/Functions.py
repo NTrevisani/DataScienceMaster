@@ -4,6 +4,7 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, 
 from qiskit import IBMQ
 import pickle
 import sys
+import matplotlib.pyplot as plt 
 
 
 # The actual function
@@ -402,3 +403,11 @@ def sizeof_fmt(num, suffix='B'):
             return "%3.1f %s%s" % (num, unit, suffix)
         num /= 1024.0
     return "%.1f %s%s" % (num, 'Yi', suffix)
+
+
+# QUBO matrix used as example
+W = np.array([[0, 1, 2, 0, 0],
+              [1, 0, 2, 0, 0],
+              [2, 2, 0, 2, 2],
+              [0, 0, 2, 0, 1],
+              [0, 0, 2, 1, 0]])
