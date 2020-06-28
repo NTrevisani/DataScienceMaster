@@ -150,7 +150,6 @@ def cost_function_cobyla(params,
         print("backend = ", backend_name)
     
     circuit = VQE_circuit(params, n_qbits, depth)
-    circuit.draw(output = "mpl")
     
     if backend_name == 'qasm_simulator':
         backend = Aer.get_backend('qasm_simulator')
@@ -171,7 +170,7 @@ def cost_function_cobyla(params,
     abundancies = list(results.get_counts().values())
     
     # number of shots 
-    shots = sum(result.get_counts().values())
+    shots = sum(results.get_counts().values())
     
     # initialize the cost function
     cost = 0
@@ -185,10 +184,6 @@ def cost_function_cobyla(params,
     if (verbosity == True):
         print("cost = ", -cost/shots)
 
-    job     = None
-    results = None
-    circuit = None
-    
     return -cost / shots
 
 
@@ -270,13 +265,6 @@ def time_vs_shots(shots,
     counts = execute(optimal_circuit, 
                      backend, 
                      shots = final_eval_shots).result().get_counts(optimal_circuit)
-    
-    # Freeing memory???
-    res             = None    
-    optimal_circuit = None
-    theta_0         = None
-    theta_1         = None
-    theta           = None
     
     return elapsed_time, counts, shots, n_func_evaluations, final_eval_shots
 
@@ -411,3 +399,6 @@ W = np.array([[0, 1, 2, 0, 0],
               [2, 2, 0, 2, 2],
               [0, 0, 2, 0, 1],
               [0, 0, 2, 1, 0]])
+
+# PI declaration
+PI = np.pi
