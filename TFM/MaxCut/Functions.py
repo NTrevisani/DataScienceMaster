@@ -373,6 +373,66 @@ def F_opt_finder(results_obj,
     return F_opt
 
 
+# CVaR definition
+def cv_a_r(results, weights, alpha):
+    """ The function computes the conditional value at risk of a solution.
+
+    Inputs:
+    results: the eigenstates-abundances dictionary returned by the optimization,
+    weights: the original QUBO matrix,
+    alpha: the parameter of CVaR. Alpha c (0,1] and represents the fraction of 
+    eigenstates considered in the computation. 
+
+    The computation of CVaR considers first the eigenstates associated to the lowest 
+    eigenvalues and moves to eigenstates associated to increasing eigenvalues.
+    """
+
+    # the eigenstates obtained by the evaluation of the circuit
+    eigenstates = list(results.keys())
+    
+    # create ndarray of eigenvalues
+    eigenvalues = np.array([])
+    for k in range(len(eigenstates)):
+        # ndarray of the digits extracted from the eigenstate string 
+        x = np.array([int(num) for num in eigenstates[k]])
+        eigenvalues = np.append(eigenvalues, -x.dot(W.dot(1-x)))
+    
+    # Create a dataframe to manage all the variables used
+    # Start from the 'results' dictionary
+    cv_df = pd.DataFrame.from_dict(results, orient = 'index')
+    cv_df.reset_index(level=0, inplace=True)
+    cv_df.columns = ["eigenstate", "abundance"]
+    # Adding eigenvalues
+    cv_df['eigenvalue'] = eigenvalues
+    
+    # Sort by eigenvalues (smaller first)
+    cv_df.sort_values(by = ["eigenvalue"], inplace = True)
+    
+    # Define 'cumulative eigenstate abundace': we want to sum
+    # term until cumul_abund is less or equal to alpha
+    cv_df["cumul_abund"] = np.cumsum(cv_df["abundance"])
+
+    # We are overstimating the abundace of the last term of CVaR
+    # by this quantity    
+    diff = cv_df[cv_df["cumul_abund"] > 0.5].iloc[0].cumul_abund - alpha
+    # corrected value
+    new_abundance = cv_df[cv_df["cumul_abund"] > 0.5].iloc[0].abundance - diff
+    
+    # location of the value to be corrected
+    qq = cv_df[cv_df["cumul_abund"] > 0.5].iloc[0]    
+    # corrected abundance value
+    cv_df.at[qq.name, "abundance"]   = new_abundance
+
+    # Actual CVaR computation
+    cv_df["cv"] = (cv_df["abundance"] * cv_df["eigenvalue"]) / alpha   
+    cv_df["cumul_cv"] = np.cumsum(cv_df["cv"])
+
+    # CVaR value
+    cvar = cv_df.at[qq.name, "cumul_cv"]
+    
+    return cvar
+
+
 # We can save the results to produce them once and analyze them later
 #https://stackoverflow.com/questions/4529815/saving-an-object-data-persistence
 def save_object(obj, filename):
