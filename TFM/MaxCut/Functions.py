@@ -71,7 +71,7 @@ def cost_function_C(results, weights):
         # ndarray of the digits extracted from the eigenstate string 
         x = np.array([int(num) for num in eigenstates[k]])
         # Cost function due to the k-th eigenstate
-        cost = cost + x.dot(W.dot(1-x)) * abundancies[k]
+        cost = cost + x.dot(weights.dot(1-x)) * abundancies[k]
     
     return -cost / shots
 
@@ -120,11 +120,15 @@ def VQE_circuit(theta, n, depth):
 
 
 # In case you want to use a real quantum device as backend
+from qiskit import IBMQ
+
 def cost_function_cobyla(params, 
                          weights,   # = W, 
                          n_qbits,   # = 5, 
                          depth,     # = 2,
                          shots,     # = 1024
+                         cost,
+                         alpha = 0.5,
                          backend_name = 'qasm_simulator',
                          verbosity    = False):
     """Creates a circuit, executes it and computes the cost function.
@@ -134,6 +138,11 @@ def cost_function_cobyla(params,
     n_qbits: number of qbits of the circuit,
     depth: number of layers of the ciruit,
     shots: number of evaluations of the circuit state,
+    cost: the cost function to be used. It can be: 
+     - 'cost': mean value of all measured eigenvalues
+     - 'cvar': conditional value at risk = mean of the
+               alpha*shots lowest eigenvalues,
+    alpha: 'cvar' alpha parameter
     verbosity: activate/desactivate some control printouts.
     
     The function calls 'VQE_circuit' to create the circuit, then
@@ -147,6 +156,8 @@ def cost_function_cobyla(params,
         print("qbits   = ", n_qbits)
         print("depth   = ", depth)
         print("shots   = ", shots)
+        print("cost    = ", cost)
+        print("alpha   = ", alpha)
         print("backend = ", backend_name)
     
     circuit = VQE_circuit(params, n_qbits, depth)
@@ -163,32 +174,22 @@ def cost_function_cobyla(params,
                   shots   = shots)
     results = job.result()
     
-    # the eigenstates obtained by the evaluation of the circuit
-    eigenstates = list(results.get_counts().keys())
-    
-    # how many times each eigenstate has been sampled
-    abundancies = list(results.get_counts().values())
-    
-    # number of shots 
-    shots = sum(results.get_counts().values())
-    
-    # initialize the cost function
-    cost = 0
-    
-    for k in range(len(eigenstates)):
-        # ndarray of the digits extracted from the eigenstate string 
-        x = np.array([int(num) for num in eigenstates[k]])
-        # Cost function due to the k-th eigenstate
-        cost = cost + x.dot(W.dot(1-x)) * abundancies[k]
+    if cost == 'cost':
+        output = cost_function_C(results.get_counts(), weights)
+    elif cost == 'cvar':
+        output = cv_a_r(results.get_counts(), weights, alpha)
+    else:
+        raise ValueError("Please select a valid cost function")
     
     if (verbosity == True):
-        print("cost = ", -cost/shots)
+        print("cost = ", output)
 
-    return -cost / shots
+    return output
 
 
 # Is time a good figure of merit?
 # https://stackoverflow.com/questions/27728483/understanding-the-output-of-scipy-optimize-basinhopping
+
 import time
 from scipy.optimize import minimize
 
@@ -198,6 +199,8 @@ def time_vs_shots(shots,
                   depth,
                   backend_name,
                   final_eval_shots,
+                  cost,
+                  alpha = 0.5,
                   verbosity = False):
     """Returns the time taken to solve a VQE problem
     as a function of the shots.    
@@ -209,6 +212,11 @@ def time_vs_shots(shots,
     depth: number of layers of the ciruit,
     backend_name: the name of the device where the optimization will be performed,
     final_eval_shots: number of shots for the evaluation of the optimized circuit,
+    cost: the cost function to be used. It can be: 
+     - 'cost': mean value of all measured eigenvalues
+     - 'cvar': conditional value at risk = mean of the
+               alpha*shots lowest eigenvalues,
+    alpha: 'cvar' alpha parameter
     verbosity: activate/desactivate some control printouts.
     
     Output:
@@ -236,7 +244,10 @@ def time_vs_shots(shots,
                               n_qbits, 
                               depth, 
                               shots,
-                              backend_name))    # the arguments of 'cost_function_cobyla', except 'params'
+                              cost,
+                              alpha,
+                              backend_name,
+                              verbosity))    # the arguments of 'cost_function_cobyla', except 'params'
 
     # Time stops when the optimization stops
     end_time = time.time()
@@ -314,7 +325,7 @@ def best_candidate_finder(results_dict,
         # ndarray of the digits extracted from the eigenstate string 
         x = np.array([int(num) for num in eigenstates[k]])
         # Cost function of to the k-th eigenstate
-        cost = x.dot(W.dot(1-x))
+        cost = x.dot(weights.dot(1-x))
         if cost > min_cost:
             min_cost = cost
             best_candidate = eigenstates[k]
@@ -325,7 +336,7 @@ def best_candidate_finder(results_dict,
 # Function to compute F_opt
 def F_opt_finder(results_obj,
                  n_shots,
-                 W,
+                 weights,
                  opt_sol,
                  n_eigenstates = 1000):
     """Returns the fraction of optimal solutions.
@@ -356,7 +367,7 @@ def F_opt_finder(results_obj,
             # sum 1 to the number of repetitions
             N_rep += 1
             # Find best candidate
-            bc = best_candidate_finder(res[1], W)
+            bc = best_candidate_finder(res[1], weights)
             # best candidate must contain the optimal solution
             if bc in opt_sol:
                 # best candidate must have less than 'n_eigenstates' eigenstates
@@ -376,32 +387,35 @@ def F_opt_finder(results_obj,
 # CVaR definition
 def cv_a_r(results, weights, alpha):
     """ The function computes the conditional value at risk of a solution.
-
     Inputs:
     results: the eigenstates-abundances dictionary returned by the optimization,
     weights: the original QUBO matrix,
-    alpha: the parameter of CVaR. Alpha c (0,1] and represents the fraction of 
-    eigenstates considered in the computation. 
-
-    The computation of CVaR considers first the eigenstates associated to the lowest 
+    alpha: the parameter of CVaR. Alpha c (0,1] and represents the fraction of
+    eigenstates considered in the computation.
+    
+    The computation of CVaR considers first the eigenstates associated to the lowest
     eigenvalues and moves to eigenstates associated to increasing eigenvalues.
     """
-
     # the eigenstates obtained by the evaluation of the circuit
     eigenstates = list(results.keys())
-    
+
     # create ndarray of eigenvalues
     eigenvalues = np.array([])
     for k in range(len(eigenstates)):
         # ndarray of the digits extracted from the eigenstate string 
         x = np.array([int(num) for num in eigenstates[k]])
-        eigenvalues = np.append(eigenvalues, -x.dot(W.dot(1-x)))
+        eigenvalues = np.append(eigenvalues, -x.dot(weights.dot(1-x)))
     
+    # number of shots 
+    shots = sum(results.values())
+
     # Create a dataframe to manage all the variables used
     # Start from the 'results' dictionary
     cv_df = pd.DataFrame.from_dict(results, orient = 'index')
     cv_df.reset_index(level=0, inplace=True)
     cv_df.columns = ["eigenstate", "abundance"]
+    cv_df["abundance"] = cv_df.abundance / shots
+    
     # Adding eigenvalues
     cv_df['eigenvalue'] = eigenvalues
     
@@ -422,6 +436,7 @@ def cv_a_r(results, weights, alpha):
     qq = cv_df[cv_df["cumul_abund"] > 0.5].iloc[0]    
     # corrected abundance value
     cv_df.at[qq.name, "abundance"]   = new_abundance
+    cv_df.at[qq.name, "cumul_abund"] = 0.5
 
     # Actual CVaR computation
     cv_df["cv"] = (cv_df["abundance"] * cv_df["eigenvalue"]) / alpha   
@@ -453,6 +468,43 @@ def sizeof_fmt(num, suffix='B'):
     return "%.1f %s%s" % (num, 'Yi', suffix)
 
 
+# Comparison of a list of quantities on the same canvas
+def plot_comparison(x, y, legend, leg_loc = "upper right",
+                    title = "", xlabel = "", ylabel = "", save_as = "", 
+                    ylim = (-9999, -9999)):
+    """Compares a list of plots on the same canvas.
+        
+    The x and the y must be manually defined as a list, as
+    the corresponding legend labels.
+    """
+    fig, ax = plt.subplots()
+
+    # First plot
+    for nplot in range(len(y)):
+        local_plot1 = ax.scatter(x     = x[nplot],
+                                 y     = y[nplot],
+                                 label = legend[nplot])
+
+    # Title
+    ax.set_title(title)
+
+    # Cosmetics
+    if ylim == (-9999, -9999):
+        ax.set_ylim(0.0, 1.5*np.max(y))
+    else:    
+        ax.set_ylim(ylim)
+    ax.set_xlim(0.0, 1.1*np.max(x))
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+
+    ax.legend(loc = leg_loc)
+
+    # Save as png and pdf
+    if save_as != "":
+        plt.savefig(save_as + '.png')
+        plt.savefig(save_as + '.pdf')
+        
+        
 # QUBO matrix used as example
 W = np.array([[0, 1, 2, 0, 0],
               [1, 0, 2, 0, 0],
