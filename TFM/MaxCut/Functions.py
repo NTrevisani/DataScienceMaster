@@ -5,6 +5,11 @@ from qiskit import IBMQ
 import pickle
 import sys
 import matplotlib.pyplot as plt 
+import networkx as nx
+
+
+# PI declaration
+PI = np.pi
 
 
 # The actual function
@@ -201,6 +206,7 @@ def time_vs_shots(shots,
                   final_eval_shots,
                   cost,
                   alpha = 0.5,
+                  theta = 1,
                   verbosity = False):
     """Returns the time taken to solve a VQE problem
     as a function of the shots.    
@@ -217,19 +223,27 @@ def time_vs_shots(shots,
      - 'cvar': conditional value at risk = mean of the
                alpha*shots lowest eigenvalues,
     alpha: 'cvar' alpha parameter
+    theta: the ansatz initial parameters. If set to 1, the 
+    standard ry ansatz parameters are used.
     verbosity: activate/desactivate some control printouts.
     
     Output:
     elapsed_time: time taken for the optimization (in seconds)
-    counts: the results of the optimization
+    counts: dictionaty the results of the optimization
     shots: the 'shots' input parameter (it may be useful for analysis)
-    """
+    n_func_evaluations: number of evaluations of the cost function
+    final_eval_shots: shots for the optimal circuit evaluation
+    optimal_angles: the theta parameters given by the optimization,
+    final_cost: the cost function of the optimal circuit.
     
-    # Create the rotation angles for the ansatz
-    theta_0       = np.repeat(PI/2, n_qbits)
-    theta_0.shape = (1, n_qbits)
-    theta_1       = np.zeros((depth, n_qbits))
-    theta         = np.concatenate((theta_0, theta_1), axis = 0) 
+    """
+    # Do this only if no initial parameters have been given
+    if isinstance(theta, (int)):
+        # Create the rotation angles for the ansatz
+        theta_0       = np.repeat(PI/2, n_qbits)
+        theta_0.shape = (1, n_qbits)
+        theta_1       = np.zeros((depth, n_qbits))
+        theta         = np.concatenate((theta_0, theta_1), axis = 0) 
     
     # Time starts with the optimization
     start_time = time.time()
@@ -249,7 +263,7 @@ def time_vs_shots(shots,
                               backend_name,
                               verbosity))    # the arguments of 'cost_function_cobyla', except 'params'
 
-    # Time stops when the optimization stops
+    # Time stops when the optimization stopshttps://qiskit.org/
     end_time = time.time()
     
     # Total time taken for the optimization
@@ -277,7 +291,13 @@ def time_vs_shots(shots,
                      backend, 
                      shots = final_eval_shots).result().get_counts(optimal_circuit)
     
-    return elapsed_time, counts, shots, n_func_evaluations, final_eval_shots
+    # The optimized rotation angles
+    optimal_angles = res.x
+    
+    # The cost function of the optimal circuit
+    final_cost = res.fun
+    
+    return elapsed_time, counts, shots, n_func_evaluations, final_eval_shots, optimal_angles, final_cost
 
 
 # Plot function definition
@@ -504,7 +524,204 @@ def plot_comparison(x, y, legend, leg_loc = "upper right",
         plt.savefig(save_as + '.png')
         plt.savefig(save_as + '.pdf')
         
+
+# Define a random graph and return the corresponding QUBO matrix
+def random_graph_producer(n_vert, n_edge, seed = 2000, verbosity = False):
+    """Produces a random graph with n_vert vertices and n_edge edges.
+    
+    Returns the matrix associated to the graph generated.
+    If verbosity is True, the graph is drawn and the associated
+    matrix is printed.
+    """
+    # Set the seed to the input value
+    np.random.seed(seed)
+
+    # Random graph production 
+    G = nx.gnm_random_graph(n    = n_vert, 
+                            m    = n_edge,
+                            seed = seed)
+
+    # QUBO matrix definition
+    Q = np.zeros([n_vert, n_vert])
+
+    for i in range(n_vert):
+        for j in range(i):
+            temp = G.get_edge_data(i, j, default = 0)
+            if temp != 0:
+                Q[i,j] = np.random.randint(1,11)
+    Q += Q.T
+
+    if verbosity == True:
+        print(Q)
+        nx.draw_networkx(G)
         
+    return Q
+
+
+# Solve a Max-Cut problem using brute force approach
+def brute_force_solver(Q, verbosity = False):
+    """Solve a Max-Cut problem using brute force approach.
+    
+    Returns the solutions as a list of strings. 
+    If verbosity is set to true, the graph is plotted
+    with the two subsets of vertices painted with different 
+    colors.
+    """
+    # The graph associated to the QUBO matrix
+    G = nx.from_numpy_matrix(Q)
+    # Initialize best cost function value
+    best_cost_brute = 0 
+    # Get matrix shape
+    n = Q.shape[0]
+    # computing all possible combinations
+    # initialize output
+    xbest_brute = []
+    for b in range(2**n):
+        # x stores all the 2^n possible combinations of 0 and 1
+        # for a vector of length n 
+        x = [int(t) for t in reversed(list(bin(b)[2:].zfill(n)))]
+
+        # initialize cost function value
+        cost = 0
+        # scan all possible costs and keep the highest one
+        # (now we want to maximize our score!)
+        for i in range(n):
+            for j in range(n):
+                cost = cost + Q[i,j]*x[i]*(1 - x[j])
+        if cost > best_cost_brute:
+            xbest_brute = [x] 
+            best_cost_brute = cost
+        elif cost == best_cost_brute:
+            xbest_brute.append(x) 
+    
+    # Showing results    
+    if verbosity == True:    
+        colors = ['r' if xbest_brute[0][i] == 0 else 'b' for i in range(n)]
+        nx.draw_networkx(G, node_color = colors)
+        print('\nBest solution = ' + str(xbest_brute) + ' cost = ' + str(best_cost_brute)) 
+    
+    # Transform the solution in a list of strings
+    for res in range(len(xbest_brute)):
+        xbest_brute[res] = ''.join(map(str, xbest_brute[res]))
+
+    return xbest_brute
+
+
+# Load results from pickle file and prepare them for analysis
+def load_files(file_name, shot_list):
+    """Load results from pickle file and prepare them for analysis.
+    
+    file_name: the initial part of the file name:
+    e.g. if the file to load is called "Scan_10qbits_128.pkl",
+    then file_name = 'Scan_10qbits'
+    shots_list: a list of the number of shots you want to load.
+    
+    The function returns a list of structured objects containing:
+    - optimization time; 
+    - dictionary of results {'eigenstate', normalized_frequency};
+    - number of shots used for the optimization;
+    - number of evaluation of the cost function;
+    - number of shots used for the evaluation of the optimal circuit,
+    - the optimized parameters (ansatza rotation angles),
+    - the optimal circuit cost function.
+    """
+    
+    # List of results. Every entry corresponds to a given file.
+    # Each file contains all the simulations of a given number of shots
+    scan = []
+    
+    # Actually load all the selected files for a chunk of optimizations
+    for shot in shot_list:
+        # Prepare the complete file name 
+        load_file_name = "{0}_{1}.pkl".format(file_name, str(shot))
+        # Actually load the results and append them to the list
+        with open(load_file_name, 'rb') as input:
+            for pick in pickle.load(input): 
+                scan.append(pick)
+    
+    # Normalize results for plotting
+    for res in scan:
+        for key, value in res[1].items():
+            res[1][key] = res[1][key] / res[4]
+
+    return scan
+
+
+# Analyzes the results loaded by 'load_files' function
+def analyze_results(scan, 
+                    shot_list, 
+                    weights, 
+                    brute_solution, 
+                    cost_function,
+                    alpha = 1):
+    """Analyzes the results loaded by 'load_files' function.
+    
+    scan: the object returned by 'load_files';
+    shots_list: a list of the number of shots you want to analyze;
+    weights: the original QUBO matrix;
+    brute_solution: the optimal solution computed using brute 
+    force approach;
+    cost_function: the cost function used in the optimization
+    ('cost' or 'cvar');
+    alpha: in case the cost function is 'cvar', the CVaR
+    alpha parameter used in the optimization.
+    
+    The function returns a 
+    """
+    # fraction of solution containing the optimal solution
+    frac_list = np.array([])
+    for shot in shot_list:
+        frac = F_opt_finder(scan, shot, weights, brute_solution)
+        frac_list = np.append(frac_list, frac)
+        
+    # Prepare the results so that it is easier to plot them
+    
+    # Create list of optimization times
+    ntimes = np.array([])
+    for i in range(len(scan)):
+        ntimes = np.append(ntimes, scan[i][0])
+
+    # Create list of nfev (number of cost function evaluations)
+    nfevs = np.array([])
+    for i in range(len(scan)):
+        nfevs = np.append(nfevs, scan[i][3])
+
+    # Create list of shots
+    nshots = np.array([])
+    for i in range(len(scan)):
+        nshots = np.append(nshots, scan[i][2])
+
+    # Create list of number of eigenstates in the solution
+    neigenst = np.array([])
+    for i in range(len(scan)):
+        neigenst = np.append(neigenst, len(scan[i][1]))
+
+    # Create list of optimized parameters
+    ntheta = []
+    for i in range(len(scan)):
+        ntheta.append(scan[i][5])
+        
+    # Create list of cost function values
+    ncost = np.array([])
+    for i in range(len(scan)):
+        ncost = np.append(ncost, scan[i][6])
+
+    # Put the lists in a dataframe
+    df = pd.DataFrame(list(zip(ntimes, nfevs, nshots, neigenst, ncost, ntheta)), 
+               columns = ['time', 'nfevs', 'shots', 'eigenstates', 'cost', 'theta'])
+
+    # Add the total number of circuit evaluation
+    df['ncircevs'] = df['nfevs'] * df['shots']
+    
+    # Group by shots and average
+    df_plot = df.groupby(['shots']).mean()
+    df_plot.reset_index(level=0, inplace=True)
+    df_plot["frac"] = frac_list
+    df_plot
+    
+    return df, df_plot
+
+
 # QUBO matrix used as example
 W = np.array([[0, 1, 2, 0, 0],
               [1, 0, 2, 0, 0],
@@ -512,5 +729,9 @@ W = np.array([[0, 1, 2, 0, 0],
               [0, 0, 2, 0, 1],
               [0, 0, 2, 1, 0]])
 
-# PI declaration
-PI = np.pi
+
+# groupby and select min
+# df_min_mean = df_mean.groupby('shots')['cost']
+# df_mean = df_mean.assign(min_cost=df_min_mean.transform(min))
+# df_mean.groupby('shots')
+# df_mean[df_mean['cost'] == df_mean['min_cost']]
