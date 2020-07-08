@@ -1,3 +1,5 @@
+# python3 loop_scan.py cost 1
+
 import sys, os
 
 if len(sys.argv) < 3:
