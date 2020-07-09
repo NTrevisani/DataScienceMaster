@@ -604,7 +604,7 @@ def brute_force_solver(Q, verbosity = False):
     for res in range(len(xbest_brute)):
         xbest_brute[res] = ''.join(map(str, xbest_brute[res]))
 
-    return xbest_brute
+    return xbest_brute, best_cost_brute
 
 
 # Load results from pickle file and prepare them for analysis
@@ -633,7 +633,7 @@ def load_files(file_name, shot_list):
     # Actually load all the selected files for a chunk of optimizations
     for shot in shot_list:
         # Prepare the complete file name 
-        load_file_name = "{0}_{1}.pkl".format(file_name, str(shot))
+        load_file_name = "{0}_{1}shots.pkl".format(file_name, str(shot))
         # Actually load the results and append them to the list
         with open(load_file_name, 'rb') as input:
             for pick in pickle.load(input): 
