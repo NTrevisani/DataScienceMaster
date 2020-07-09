@@ -301,9 +301,11 @@ def time_vs_shots(shots,
 
 
 # Plot function definition
+from scipy.optimize import curve_fit
 def scatter_plot(x, y, 
                  title = "", xlabel = "", ylabel = "", save_as = "", 
-                 ylim = (-9999, -9999)):
+                 ylim = (-9999, -9999),
+                 do_fit = False, fit_func = 0):
     # Plot declaration
     fig, ax = plt.subplots()
     local_plot = ax.scatter(x = x,
@@ -321,10 +323,62 @@ def scatter_plot(x, y,
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     
+    # Fit
+    if do_fit == True:
+        if fit_func == 'sqrt':
+            func = fit_sqrt
+            fit_label = 'Square root fit'
+        elif fit_func == 'pol0':
+            func = fit_pol0
+            fit_label = 'Constant fit'
+        elif fit_func == 'pol1':
+            func = fit_pol1
+            fit_label = 'Linear fit'
+        elif fit_func == 'pol2':
+            func = fit_pol2
+            fit_label = 'Quadratic fit'
+        elif fit_func == 'pol3':
+            func = fit_pol3
+            fit_label = 'Grade 3 polynomial fit'
+        elif fit_func == '1-exp':
+            func = fit_1_exp
+            fit_label = '1 - exp fit'
+        else:
+            raise ValueError("Please insert a valid fit function.")
+        popt, pcov = curve_fit(func, x, y)
+        print("Optimized parameters:") 
+        print(popt)
+        print("Parameters covariance:")
+        print(pcov)
+        plt.plot(x, func(x, *popt), 'g--',
+                 label=fit_label)
+        plt.legend()
+          
     # Save as png and pdf
     if save_as != "":
         plt.savefig(save_as + '.png')
         plt.savefig(save_as + '.pdf')
+
+        
+# A few possible fitting functions
+def fit_sqrt(x, a, b):
+    return a + b * np.sqrt(x)
+
+def fit_pol0(x, a):
+    return a + 0*x
+
+def fit_pol1(x, a, b):
+    return a + b * x
+
+def fit_pol2(x, a, b, c):
+    return a + b*x + c*x*x
+
+def fit_pol3(x, a, b, c, d):
+    return a + b*x + c*x*x + d*x**3
+
+def fit_1_exp(x, a, b):
+    return a*(1 - np.exp(-b*x))  
+
 
 
 # Compute the value of the cost function of each eigenstate in a solution
