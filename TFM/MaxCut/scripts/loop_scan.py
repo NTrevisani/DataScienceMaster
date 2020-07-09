@@ -1,4 +1,5 @@
 # python3 loop_scan.py cost 1
+# python3 loop_scan.py cvar 0.5
 
 import sys, os
 
