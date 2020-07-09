@@ -634,6 +634,7 @@ def load_files(file_name, shot_list):
     for shot in shot_list:
         # Prepare the complete file name 
         load_file_name = "{0}_{1}shots.pkl".format(file_name, str(shot))
+        load_file_name = "{0}_{1}shots.pkl".format(file_name, str(shot))
         # Actually load the results and append them to the list
         with open(load_file_name, 'rb') as input:
             for pick in pickle.load(input): 
