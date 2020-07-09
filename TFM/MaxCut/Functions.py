@@ -604,7 +604,7 @@ def brute_force_solver(Q, verbosity = False):
     for res in range(len(xbest_brute)):
         xbest_brute[res] = ''.join(map(str, xbest_brute[res]))
 
-    return xbest_brute
+    return xbest_brute, best_cost_brute
 
 
 # Load results from pickle file and prepare them for analysis
