@@ -11,6 +11,10 @@ from Functions import load_files, analyze_results
 import numpy as np
 import pandas as pd
 
+# Declare these variables in case they are not passed as input arguments
+n_n = 10
+n_E = 20
+
 # Input arguments
 if len(sys.argv) < 4:
     raise ValueError("Please insert number of shots, cost function type and CVaR alpha value")
@@ -18,13 +22,24 @@ n_shots = sys.argv[1]
 n_cost  = sys.argv[2]
 n_alpha = sys.argv[3]
 
+if len(sys.argv) > 4:
+    n_n     = sys.argv[4]
+if len(sys.argv) > 5:
+    n_E     = sys.argv[5]
 
+# Print input values
+print("Shots:         {0}".format(n_shots))
+print("Cost function: {0}".format(n_cost))
+print("Alpha:         {0}".format(n_alpha))
+print("N vertices:    {0}".format(n_n))
+print("N edges:       {0}".format(n_E))
+    
 # Create random Max-Cut problem
 # Number of vertices
-n = 10
+n = int(n_n)
 
 # Number of edges
-E = 20
+E = int(n_E)
 
 # Random seed
 seed = 2000
