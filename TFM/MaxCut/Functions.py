@@ -305,12 +305,21 @@ from scipy.optimize import curve_fit
 def scatter_plot(x, y, 
                  title = "", xlabel = "", ylabel = "", save_as = "", 
                  ylim = (-9999, -9999),
-                 do_fit = False, fit_func = 0):
+                 n_rep = 100,
+                 do_fit = False, fit_func = 0,
+                 x_err = 0, y_err = 0):
     # Plot declaration
     fig, ax = plt.subplots()
-    local_plot = ax.scatter(x = x,
-                            y = y)
+    #local_plot = ax.scatter(x = x,
+    #                        y = y)
 
+    # Now including error bars.
+    # Just statistical uncertainty due to the limited
+    # number of optimizations 
+    local_plot = ax.errorbar(x, y,
+                             yerr = y_err,
+                             xerr = x_err,
+                             fmt  = 'o')
     # Title
     ax.set_title(title)
 
