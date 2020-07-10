@@ -1,3 +1,11 @@
+# python mkPlot.py 10 mean 1   20
+# python mkPlot.py 10 cvar 0.5 20
+# python mkPlot.py 10 cvar 0.2 20
+
+# python mkPlot.py 11 mean 1   22
+# python mkPlot.py 11 cvar 0.5 22
+# python mkPlot.py 11 cvar 0.2 22
+
 import sys, os
 
 os.system("cp ../Functions.py .")
@@ -17,19 +25,14 @@ n_n = 10
 n_E = 20
 
 # Input arguments
-if len(sys.argv) < 4:
-    raise ValueError("Please insert number of shots, cost function type and CVaR alpha value")
-n_shots = sys.argv[1]
+if len(sys.argv) < 5:
+    raise ValueError("Please insert number of qbits, cost function type, CVaR alpha value and number of edges")
+n_n     = sys.argv[1]
 n_cost  = sys.argv[2]
 n_alpha = sys.argv[3]
-
-if len(sys.argv) > 4:
-    n_n     = sys.argv[4]
-if len(sys.argv) > 5:
-    n_E     = sys.argv[5]
+n_E     = sys.argv[4]
 
 # Print input values
-print("Shots:         {0}".format(n_shots))
 print("Cost function: {0}".format(n_cost))
 print("Alpha:         {0}".format(n_alpha))
 print("N vertices:    {0}".format(n_n))
@@ -57,7 +60,6 @@ brute_solution, brute_cost = brute_force_solver(W2, verbosity=True)
 WEIGHTS       = W2
 N_QBITS       = n
 DEPTH         = 2
-SHOTS         = int(n_shots)
 BACKEND       = 'qasm_simulator'
 FINAL_EVAL    = 128
 COST          = n_cost
@@ -65,17 +67,23 @@ ALPHA         = float(n_alpha)
 N_repetitions = 100
 shots_list    = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256]
 
+
 # Load results
-load_string = "../files/{0}qbits_{1}/Scan_{2}qbits".format(N_QBITS, COST, N_QBITS) 
+load_string = ""
+if COST == 'mean':
+    load_string = "../files/{0}qbits_{1}/Scan_{2}qbits".format(N_QBITS, COST, N_QBITS) 
+elif COST == 'cvar':
+    load_string = "../files/{0}qbits_cvar_{1}/Scan_{2}qbits".format(N_QBITS, ALPHA, N_QBITS) 
 results = load_files(load_string, shots_list)
 df, df_plot = analyze_results(results, shots_list, W2, brute_solution, COST)
+
 
 # Create folder for figures
 folder_name = ""
 if COST == 'mean':
-    folder_name = "figures/{0}qbits_mean/".format(n)
+    folder_name = "figures/{0}qbits_mean/".format(N_QBITS)
 elif COST == 'cvar':
-    folder_name = "figures/{0}qbits_cvar_{1}/".format(n, n_alpha)
+    folder_name = "figures/{0}qbits_cvar_{1}/".format(N_QBITS, ALPHA)
 save_command = "mkdir -p {0}".format(folder_name)
 os.system(save_command)
 

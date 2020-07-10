@@ -1,3 +1,6 @@
+# python mkComparison.py 10 20
+# python mkComparison.py 11 22
+
 import sys, os
 
 os.system("cp ../Functions.py .")
