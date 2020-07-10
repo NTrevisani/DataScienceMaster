@@ -49,14 +49,14 @@ W2 = random_graph_producer(n, E, seed, verbosity=True)
 
 
 # Variables declaration
-WEIGHTS    = W2
-N_QBITS    = n
-DEPTH      = 2
-SHOTS      = int(n_shots)
-BACKEND    = 'qasm_simulator'
-FINAL_EVAL = 128
-COST       = n_cost
-ALPHA      = float(n_alpha)
+WEIGHTS       = W2
+N_QBITS       = n
+DEPTH         = 2
+SHOTS         = int(n_shots)
+BACKEND       = 'qasm_simulator'
+FINAL_EVAL    = 128
+COST          = n_cost
+ALPHA         = float(n_alpha)
 N_repetitions = 100
 
 
@@ -98,3 +98,7 @@ os.system(new_dir_command)
 # Copy file there
 copy_command = "cp {0} ../{1}".format(file_name, folder_name)
 os.system(copy_command)
+
+# Finally, delete the original output folder
+delete_command = "rm {0}".format(file_name)
+os.system(delete_command)
