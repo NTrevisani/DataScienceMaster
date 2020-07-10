@@ -157,3 +157,15 @@ scatter_plot(x       = df_plot.nfevs*df_plot.shots,
              ylabel  = "Fraction of good solutions",
              y_err   = df_plot.frac * y_unc_rel,
              save_as = save_name)
+
+# Create new directory in upper folder
+new_dir_command = "mkdir -p ../{0}".format(folder_name)
+os.system(new_dir_command)
+
+# Copy file there
+copy_command = "cp {0}/* ../{1}/".format(folder_name, folder_name)
+os.system(copy_command)
+
+# Finally, delete the original output folder
+delete_command = "rm -r {0}".format(folder_name)
+os.system(delete_command)
