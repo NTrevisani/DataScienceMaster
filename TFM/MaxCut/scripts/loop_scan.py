@@ -18,20 +18,18 @@ import sys, os
 n_vertices = 10
 n_edges    = 20
 
-if len(sys.argv) < 3:
-    raise ValueError("Please insert number of shots, cost function type and CVaR alpha value")
-cost  = sys.argv[1]
-alpha = sys.argv[2]
-if len(sys.argv) > 3:
-    n_vertices  = sys.argv[3]
-if len(sys.argv) > 4:
-    n_edges     = sys.argv[4]
+if len(sys.argv) < 5:
+    raise ValueError("Please insert:\n cost function type\n CVaR alpha value\n number of vertices\n number of edges")
+cost       = sys.argv[1]
+alpha      = sys.argv[2]
+n_vertices = sys.argv[3]
+n_edges    = sys.argv[4]
 
 
 shots_list = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256]
 
 for shots in shots_list:
-    command = "python3.7 scan_script.py {0} {1} {2} {3} {4}&".format(shots,
+    command = "python3.7 scan_script.py {0} {1} {2} {3} {4} &".format(shots,
                                                                      cost,
                                                                      alpha,
                                                                      n_vertices,
