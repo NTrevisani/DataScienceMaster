@@ -26,7 +26,12 @@ n_E = 20
 
 # Input arguments
 if len(sys.argv) < 5:
-    raise ValueError("Please insert number of qbits, cost function type, CVaR alpha value and number of edges")
+    raise ValueError("""Please insert: 
+    number of qbits 
+    cost function type 
+    CVaR alpha value 
+    number of edges""")
+
 n_n     = sys.argv[1]
 n_cost  = sys.argv[2]
 n_alpha = sys.argv[3]
@@ -94,10 +99,10 @@ os.system(save_command)
 save_name = folder_name + "nfev_vs_shots"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
 
-scatter_plot(x       = df_plot.shots,
+scatter_plot(x       = df_plot.shots
              y       = df_plot.nfevs,
-             title   = "Number of cost function evaluations vs shots",
-             xlabel  = "Shots",
+             title   = "Number of cost function evaluations vs normalized shots",
+             xlabel  = "Shots / dim(H)",
              ylabel  = "Cost function evaluations",
              y_err   = df_plot.nfevs * y_unc_rel,
              save_as = save_name)

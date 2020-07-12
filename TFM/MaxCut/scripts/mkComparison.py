@@ -1,5 +1,7 @@
 # python mkComparison.py 10 20
 # python mkComparison.py 11 22
+# python mkComparison.py 12 24
+# python mkComparison.py 13 26
 
 import sys, os
 
@@ -21,9 +23,12 @@ n_E = 20
 
 # Input arguments
 if len(sys.argv) < 3:
-    raise ValueError("Please insert number of qbits and number of edges")
-n_n  = sys.argv[1]
-n_E  = sys.argv[2]
+    raise ValueError("""Please insert 
+    number of qbits 
+    number of edges""")
+
+n_n = sys.argv[1]
+n_E = sys.argv[2]
 
 # Print input values
 print("N vertices:    {0}".format(n_n))
