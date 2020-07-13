@@ -170,6 +170,33 @@ scatter_plot(x       = df_plot.shots,
              ylim    = (-brute_cost, 0))
 
 
+# Relative solution cost function vs shots/(Hilbert space dimension)
+save_name = folder_name + "rel_cost_vs_shots_o_dimH"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = df_plot.shots / 2**N_QBITS,
+             y       = df_plot.cost / brute_cost,
+             title   = "Relative solution cost function vs normalized shots",
+             xlabel  = "Shots / dim(H)",
+             ylabel  = "Relative solution cost function",
+             save_as = save_name,
+             y_err   = df_plot.cost * y_unc_rel,
+             ylim    = (-1, 0))
+
+# Relative solution cost function vs shots
+save_name = folder_name + "rel_cost_vs_shots"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = df_plot.shots,
+             y       = df_plot.cost / brute_cost,
+             title   = "Relative solution cost function vs shots",
+             xlabel  = "Shots",
+             ylabel  = "Relative solution cost function",
+             save_as = save_name,
+             y_err   = df_plot.cost * y_unc_rel,
+             ylim    = (-1, 0))
+
+
 # Fraction of good solutions vs shots/(Hilbert space dimension)
 save_name = folder_name + "frac_vs_shots_o_dimH"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))

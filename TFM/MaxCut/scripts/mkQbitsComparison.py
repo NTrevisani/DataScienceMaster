@@ -145,29 +145,29 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 save_as = save_name)
 
 
-# Average solution cost function vs shots/(Hilbert space dimension)
-save_name = folder_name + "cost_vs_shots_o_dimH"
+# Relative solution cost function vs shots/(Hilbert space dimension)
+save_name = folder_name + "rel_cost_vs_shots_o_dimH"
 
 plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(N_QBITS))],
-                y       = [df["cost"] for df in df_plot],
+                y       = [df_plot[i]["cost"]/brute_cost[i] for i in range(len(N_QBITS))],
                 legend  = legend_list,
-                title   = "Average solution cost function vs normalized shots",
+                title   = "Relative solution cost function vs normalized shots",
                 xlabel  = "Shots / dim(H)",
-                ylabel  = "Cost function",
-                ylim    = (-max(brute_cost), 0),
+                ylabel  = "Relative cost function",
+                ylim    = (-1, 0),
                 leg_loc = "upper right",
                 save_as = save_name)
 
-# Average solution cost function vs shots
-save_name = folder_name + "cost_vs_shots"
+# Relative solution cost function vs shots
+save_name = folder_name + "rel_cost_vs_shots"
 
 plot_comparison(x       = [df["shots"] for df in df_plot],
-                y       = [df["cost"] for df in df_plot],
+                y       = [df_plot[i]["cost"]/brute_cost[i] for i in range(len(N_QBITS))],
                 legend  = legend_list,
-                title   = "Average solution cost function vs shots",
+                title   = "Relative solution cost function vs shots",
                 xlabel  = "Shots",
-                ylabel  = "Cost function",
-                ylim    = (-max(brute_cost), 0),
+                ylabel  = "Relative cost function",
+                ylim    = (-1, 0),
                 leg_loc = "upper right",
                 save_as = save_name)
 

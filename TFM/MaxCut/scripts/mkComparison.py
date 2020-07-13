@@ -162,6 +162,33 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 save_as = save_name)
 
 
+# Relative solution cost function vs shots/(Hilbert space dimension)
+save_name = folder_name + "rel_cost_vs_shots_o_dimH"
+
+plot_comparison(x       = [df["shots"]/2**N_QBITS for df in df_plot],
+                y       = [df["cost"]/brute_cost for df in df_plot],
+                legend  = legend_list,
+                title   = "Relative solution cost function vs normalized shots",
+                xlabel  = "Shots / dim(H)",
+                ylabel  = "Relative cost function",
+                ylim    = (-1, 0),
+                leg_loc = "upper right",
+                save_as = save_name)
+
+# Relative solution cost function vs shots
+save_name = folder_name + "rel_cost_vs_shots"
+
+plot_comparison(x       = [df["shots"] for df in df_plot],
+                y       = [df["cost"]/brute_cost for df in df_plot],
+                legend  = legend_list,
+                title   = "Relative solution cost function vs shots",
+                xlabel  = "Shots",
+                ylabel  = "Relative cost function",
+                ylim    = (-1, 0),
+                leg_loc = "upper right",
+                save_as = save_name)
+
+
 # Fraction of good solutions vs shots/(Hilbert space dimension)
 save_name = folder_name + "frac_vs_shots_o_dimH"
 
