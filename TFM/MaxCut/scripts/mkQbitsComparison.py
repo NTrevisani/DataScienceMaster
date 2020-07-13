@@ -1,8 +1,7 @@
 """
-python mkComparison.py 10 20
-python mkComparison.py 11 22
-python mkComparison.py 12 24
-python mkComparison.py 13 26
+python mkQbitsComparison.py mean
+python mkQbitsComparison.py cvar_0.5
+python mkQbitsComparison.py cvar_0.2
 """
 
 import sys, os
@@ -20,60 +19,69 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Declare these variables in case they are not passed as input arguments
-n_n = 10
-n_E = 20
+n_n     = 10
+n_E     = 20
+n_cost  = "mean"
+n_alpha = 1
 
 # Input arguments
-if len(sys.argv) < 3:
+if len(sys.argv) < 2:
     raise ValueError("""Please insert 
-    number of qbits 
-    number of edges""")
+    cost function """)
 
-n_n = sys.argv[1]
-n_E = sys.argv[2]
+n_cost  = sys.argv[1]
+#n_alpha = sys.argv[2]
 
 # Print input values
-print("N vertices:    {0}".format(n_n))
-print("N edges:       {0}".format(n_E))
+print("Cost function: {0}".format(n_cost))
+#print("Alpha:         {0}".format(n_alpha))
     
 # Create random Max-Cut problem
 # Number of vertices
-n = int(n_n)
+n = [10, 11, 12, 13]
 
 # Number of edges
-E = int(n_E)
+E = [20, 22, 24, 26]
 
 # Random seed
 seed = 2000
 
-# Now create Max-Cut QUBO matrix
-W2 = random_graph_producer(n, E, seed, verbosity=True)
-
+# Now create Max-Cut QUBO matrices
+W2 = []
+for i in range(len(n)):
+    W = random_graph_producer(n[i], E[i], seed, verbosity=False)
+    W2.append(W)
+    
 # Solve the Max-Cut problem using brute-force approach
 # and save the solution
-brute_solution, brute_cost = brute_force_solver(W2, verbosity=True)
-
-
+brute_solution = []
+brute_cost     = [] 
+for i in range(len(n)):
+    bs, bc = brute_force_solver(W2[i], verbosity=False)
+    brute_solution.append(bs)
+    brute_cost.append(bc)
+    
 # Variables declaration
 WEIGHTS       = W2
 N_QBITS       = n
 DEPTH         = 2
-COSTS         = ["mean","cvar_0.5","cvar_0.2"]
+COST          = n_cost
 N_repetitions = 100
 shots_list    = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256]
+
 
 # Load results
 df      = []
 df_plot = []
-for i in range(len(COSTS)):
-    load_string = "../files/{0}qbits_{1}/Scan_{2}qbits".format(N_QBITS, COSTS[i], N_QBITS) 
+for i in range(len(N_QBITS)):
+    load_string = "../files/{0}qbits_{1}/Scan_{2}qbits".format(N_QBITS[i], COST, N_QBITS[i]) 
     results     = load_files(load_string, shots_list)
-    df1, df2 = analyze_results(results, shots_list, W2, brute_solution, COSTS[i])
+    df1, df2 = analyze_results(results, shots_list, W2[i], brute_solution[i], COST)
     df.append(df1)
     df_plot.append(df2)
     
 # Create folder for figures
-folder_name = "figures/{0}qbits_comparison/".format(n)
+folder_name = "figures/{0}_comparison/".format(COST)
 save_command = "mkdir -p {0}".format(folder_name)
 os.system(save_command)
 
@@ -82,13 +90,15 @@ os.system(save_command)
 
 # Legend declaration - valid for all plots
 # Still  too hard-coded
-legend_list = ["Mean", "CVaR, a = 0.5", "CVaR, a = 0.2"]
-
+legend_list = ["10 qbits",
+               "11 qbits",
+               "12 qbits",
+               "13 qbits"]
 
 # Cost function evaluations vs shots/(Hilbert space dimension)
 save_name = folder_name + "nfev_vs_shots_o_dimH"
 
-plot_comparison(x       = [df["shots"]/2**N_QBITS for df in df_plot],
+plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(N_QBITS))],
                 y       = [df["nfevs"] for df in df_plot],
                 legend  = legend_list,
                 title   = "Number of cost function evaluations vs normalized shots",
@@ -113,7 +123,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
 # Total circuit evaluations vs shots/(Hilbert space dimension)
 save_name = folder_name + "nfev_x_shots_vs_shots_o_dimH"
 
-plot_comparison(x       = [df["shots"]/2**N_QBITS for df in df_plot],
+plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(N_QBITS))],
                 y       = [df["shots"]*df["nfevs"] for df in df_plot],
                 legend  = legend_list,
                 title   = "Number of total circuit evaluations vs normalized shots",
@@ -138,13 +148,13 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
 # Average solution cost function vs shots/(Hilbert space dimension)
 save_name = folder_name + "cost_vs_shots_o_dimH"
 
-plot_comparison(x       = [df["shots"]/2**N_QBITS for df in df_plot],
+plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(N_QBITS))],
                 y       = [df["cost"] for df in df_plot],
                 legend  = legend_list,
                 title   = "Average solution cost function vs normalized shots",
                 xlabel  = "Shots / dim(H)",
                 ylabel  = "Cost function",
-                ylim    = (-brute_cost, 0),
+                ylim    = (-max(brute_cost), 0),
                 leg_loc = "upper right",
                 save_as = save_name)
 
@@ -157,7 +167,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 title   = "Average solution cost function vs shots",
                 xlabel  = "Shots",
                 ylabel  = "Cost function",
-                ylim    = (-brute_cost, 0),
+                ylim    = (-max(brute_cost), 0),
                 leg_loc = "upper right",
                 save_as = save_name)
 
@@ -165,7 +175,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
 # Fraction of good solutions vs shots/(Hilbert space dimension)
 save_name = folder_name + "frac_vs_shots_o_dimH"
 
-plot_comparison(x       = [df["shots"]/2**N_QBITS for df in df_plot],
+plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(N_QBITS))],
                 y       = [df["frac"] for df in df_plot],
                 legend  = legend_list,
                 title   = "Fraction of good solutions vs normalized shots",
@@ -191,8 +201,8 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
 # (Brute cost is positive)
 save_name = folder_name + "dist_vs_inv_shots_o_dimH"
 
-plot_comparison(x       = [np.sqrt(2**N_QBITS / df["shots"]) for df in df_plot],
-                y       = [brute_cost + df["cost"] for df in df_plot],
+plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in range(len(N_QBITS))],
+                y       = [brute_cost[j] + df_plot[j]["cost"] for j in range(len(brute_cost))],
                 legend  = legend_list,
                 title   = r"Mean distance from optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
                 xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
@@ -205,7 +215,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS / df["shots"]) for df in df_plot],
 save_name = folder_name + "dist_vs_inv_shots"
 
 plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
-                y       = [brute_cost + df["cost"] for df in df_plot],
+                y       = [brute_cost[j] + df_plot[j]["cost"] for j in range(len(brute_cost))],
                 legend  = legend_list,
                 title   = r"Mean distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
                 xlabel  = r"$1 / \sqrt{Shots}$",

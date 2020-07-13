@@ -1,10 +1,20 @@
-# python mkPlot.py 10 mean 1   20
-# python mkPlot.py 10 cvar 0.5 20
-# python mkPlot.py 10 cvar 0.2 20
+"""
+python mkPlot.py 10 mean     20
+python mkPlot.py 10 cvar_0.5 20
+python mkPlot.py 10 cvar_0.2 20
 
-# python mkPlot.py 11 mean 1   22
-# python mkPlot.py 11 cvar 0.5 22
-# python mkPlot.py 11 cvar 0.2 22
+python mkPlot.py 11 mean     22
+python mkPlot.py 11 cvar_0.5 22
+python mkPlot.py 11 cvar_0.2 22
+
+python mkPlot.py 12 mean     24
+python mkPlot.py 12 cvar_0.5 24
+python mkPlot.py 12 cvar_0.2 24
+
+python mkPlot.py 13 mean     26
+python mkPlot.py 13 cvar_0.5 26
+python mkPlot.py 13 cvar_0.2 26
+"""
 
 import sys, os
 
@@ -25,21 +35,18 @@ n_n = 10
 n_E = 20
 
 # Input arguments
-if len(sys.argv) < 5:
+if len(sys.argv) < 4:
     raise ValueError("""Please insert: 
     number of qbits 
     cost function type 
-    CVaR alpha value 
     number of edges""")
 
 n_n     = sys.argv[1]
 n_cost  = sys.argv[2]
-n_alpha = sys.argv[3]
-n_E     = sys.argv[4]
+n_E     = sys.argv[3]
 
 # Print input values
 print("Cost function: {0}".format(n_cost))
-print("Alpha:         {0}".format(n_alpha))
 print("N vertices:    {0}".format(n_n))
 print("N edges:       {0}".format(n_E))
     
@@ -68,43 +75,59 @@ DEPTH         = 2
 BACKEND       = 'qasm_simulator'
 FINAL_EVAL    = 128
 COST          = n_cost
-ALPHA         = float(n_alpha)
 N_repetitions = 100
 shots_list    = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256]
 
 
 # Load results
-load_string = ""
-if COST == 'mean':
-    load_string = "../files/{0}qbits_{1}/Scan_{2}qbits".format(N_QBITS, COST, N_QBITS) 
-elif COST == 'cvar':
-    load_string = "../files/{0}qbits_cvar_{1}/Scan_{2}qbits".format(N_QBITS, ALPHA, N_QBITS) 
+load_string = "../files/{0}qbits_{1}/Scan_{2}qbits".format(N_QBITS, COST, N_QBITS) 
 results = load_files(load_string, shots_list)
 df, df_plot = analyze_results(results, shots_list, W2, brute_solution, COST)
 
 
 # Create folder for figures
-folder_name = ""
-if COST == 'mean':
-    folder_name = "figures/{0}qbits_mean/".format(N_QBITS)
-elif COST == 'cvar':
-    folder_name = "figures/{0}qbits_cvar_{1}/".format(N_QBITS, ALPHA)
+folder_name = "figures/{0}qbits_{1}/".format(N_QBITS, COST)
 save_command = "mkdir -p {0}".format(folder_name)
 os.system(save_command)
 
 
 # Actual plotting
 
-# Cost function evaluations vs shots
-save_name = folder_name + "nfev_vs_shots"
+# Cost function evaluations vs shots/(Hilbert space dimension)
+save_name = folder_name + "nfev_vs_shots_o_dimH"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
 
-scatter_plot(x       = df_plot.shots
+scatter_plot(x       = df_plot.shots/2**N_QBITS,
              y       = df_plot.nfevs,
              title   = "Number of cost function evaluations vs normalized shots",
              xlabel  = "Shots / dim(H)",
              ylabel  = "Cost function evaluations",
              y_err   = df_plot.nfevs * y_unc_rel,
+             save_as = save_name)
+
+# Cost function evaluations vs shots
+save_name = folder_name + "nfev_vs_shots"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = df_plot.shots,
+             y       = df_plot.nfevs,
+             title   = "Number of cost function evaluations vs normalized shots",
+             xlabel  = "Shots / dim(H)",
+             ylabel  = "Cost function evaluations",
+             y_err   = df_plot.nfevs * y_unc_rel,
+             save_as = save_name)
+
+
+# Total circuit evaluations vs shots/(Hilbert space dimension)
+save_name = folder_name + "nfev_x_shots_vs_shots_o_dimH"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = df_plot.shots/2**N_QBITS,
+             y       = df_plot.nfevs*df_plot.shots,
+             title   = "Number of total circuit evaluations vs normalized shots",
+             xlabel  = "Shots / dim(H)",
+             ylabel  = "Total circuits evaluations",
+             y_err   = (df_plot.nfevs*df_plot.shots) * y_unc_rel,
              save_as = save_name)
 
 # Total circuit evaluations vs shots
@@ -119,6 +142,20 @@ scatter_plot(x       = df_plot.shots,
              y_err   = (df_plot.nfevs*df_plot.shots) * y_unc_rel,
              save_as = save_name)
 
+
+# Average solution cost function vs shots/(Hilbert space dimension)
+save_name = folder_name + "cost_vs_shots_o_dimH"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = df_plot.shots/2**N_QBITS,
+             y       = df_plot.cost,
+             title   = "Average solution cost function vs normalized shots",
+             xlabel  = "Shots / dim(H)",
+             ylabel  = "Average solution cost function",
+             save_as = save_name,
+             y_err   = df_plot.cost * y_unc_rel,
+             ylim    = (-brute_cost, 0))
+
 # Average solution cost function vs shots
 save_name = folder_name + "cost_vs_shots"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
@@ -132,6 +169,19 @@ scatter_plot(x       = df_plot.shots,
              y_err   = df_plot.cost * y_unc_rel,
              ylim    = (-brute_cost, 0))
 
+
+# Fraction of good solutions vs shots/(Hilbert space dimension)
+save_name = folder_name + "frac_vs_shots_o_dimH"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = df_plot.shots/2**N_QBITS,
+             y       = df_plot.frac,
+             title   = "Fraction of good solutions vs normalized shots",
+             xlabel  = "Shots / dim(H)",
+             ylabel  = "Fraction of good solutions",
+             y_err   = df_plot.frac * y_unc_rel,
+             save_as = save_name)
+
 # Fraction of good solutions vs shots
 save_name = folder_name + "frac_vs_shots"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
@@ -143,6 +193,7 @@ scatter_plot(x       = df_plot.shots,
              ylabel  = "Fraction of good solutions",
              y_err   = df_plot.frac * y_unc_rel,
              save_as = save_name)
+
 
 # Mean distance from optimal cost function value vs 1/sqrt(shots)
 # (Brute cost is positive)
@@ -159,6 +210,7 @@ scatter_plot(x       = 1 / np.sqrt(df_plot.shots),
              y_err   = (brute_cost + df_plot.cost) * y_unc_rel,
              save_as = save_name)
 
+
 # Fraction of good solutions vs total circuit evaluations
 save_name = folder_name + "frac_vs_nfev_x_shots"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
@@ -170,6 +222,7 @@ scatter_plot(x       = df_plot.nfevs*df_plot.shots,
              ylabel  = "Fraction of good solutions",
              y_err   = df_plot.frac * y_unc_rel,
              save_as = save_name)
+
 
 # Create new directory in upper folder
 new_dir_command = "mkdir -p ../{0}".format(folder_name)
