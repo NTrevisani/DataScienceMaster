@@ -195,20 +195,66 @@ scatter_plot(x       = df_plot.shots,
              save_as = save_name)
 
 
+# Mean distance from optimal cost function value vs sqrt(Hilbert space dimension/shots)
+# (Brute cost is positive)
+save_name = folder_name + "dist_vs_inv_shots_o_dimH"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x       = np.sqrt(2**N_QBITS/df_plot.shots),
+             y       = brute_cost + df_plot.cost,
+             #do_fit   = True,
+             #fit_func = "1-exp",
+             title   = r"Mean distance from optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
+             xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
+             ylabel  = "Distance from optimal cost function value",
+             y_err   = (brute_cost + df_plot.cost) * y_unc_rel,
+             save_as = save_name)
+
 # Mean distance from optimal cost function value vs 1/sqrt(shots)
 # (Brute cost is positive)
 save_name = folder_name + "dist_vs_inv_shots"
 y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
 
-scatter_plot(x       = 1 / np.sqrt(df_plot.shots),
-             y       = brute_cost + df_plot.cost,
-             do_fit   = True,
-             fit_func = "1-exp",
-             title   = r"Mean distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
-             xlabel  = r"$1 / \sqrt{Shots}$",
-             ylabel  = "Distance from optimal cost function value",
-             y_err   = (brute_cost + df_plot.cost) * y_unc_rel,
-             save_as = save_name)
+scatter_plot(x        = 1 / np.sqrt(df_plot.shots),
+             y        = brute_cost + df_plot.cost,
+             #do_fit   = True,
+             #fit_func = "1-exp",
+             title    = r"Mean distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
+             xlabel   = r"$1 / \sqrt{Shots}$",
+             ylabel   = "Distance from optimal cost function value",
+             y_err    = (brute_cost + df_plot.cost) * y_unc_rel,
+             save_as  = save_name)
+
+
+# Relative distance from optimal cost function value vs sqrt(Hilbert space dimension/shots)
+# (Brute cost is positive)
+save_name = folder_name + "rel_dist_vs_inv_shots_o_dimH"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x        = np.sqrt(2**N_QBITS/df_plot.shots),
+             y        = 1 + df_plot.cost/brute_cost,
+             #do_fit   = True,
+             #fit_func = "1-exp",
+             title    = r"Relative distance from optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
+             xlabel   = r"$\sqrt{\frac{dim(H)}{Shots}}$",
+             ylabel   = "Relative distance from optimal cost function value",
+             y_err    = (1 + df_plot.cost/brute_cost) * y_unc_rel,
+             save_as  = save_name)
+
+# Relative distance from optimal cost function value vs 1/sqrt(shots)
+# (Brute cost is positive)
+save_name = folder_name + "rel_dist_vs_inv_shots"
+y_unc_rel = 1 / (np.sqrt(df_plot.shots) * np.sqrt(N_repetitions))
+
+scatter_plot(x        = 1 / np.sqrt(df_plot.shots),
+             y        = 1 + df_plot.cost/brute_cost,
+             #do_fit   = True,
+             #fit_func = "1-exp",
+             title    = r"Relative distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
+             xlabel   = r"$1 / \sqrt{Shots}$",
+             ylabel   = "Relative distance from optimal cost function value",
+             y_err    = (1 + df_plot.cost/brute_cost) * y_unc_rel,
+             save_as  = save_name)
 
 
 # Fraction of good solutions vs total circuit evaluations

@@ -214,6 +214,33 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 save_as = save_name)
 
 
+# Relative distance from optimal cost function value vs sqrt(Hilbert space dimension/shots)
+# (Brute cost is positive)
+save_name = folder_name + "rel_dist_vs_inv_shots_o_dimH"
+
+plot_comparison(x       = [np.sqrt(2**N_QBITS / df["shots"]) for df in df_plot],
+                y       = [1 + df["cost"]/brute_cost for df in df_plot],
+                legend  = legend_list,
+                title   = r"Relative distance from optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
+                xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
+                ylabel  = "Relative distance from optimal cost function value",
+                leg_loc = "upper left",
+                save_as = save_name)
+
+# Relative distance from optimal cost function value vs 1/sqrt(shots)
+# (Brute cost is positive)
+save_name = folder_name + "rel_dist_vs_inv_shots"
+
+plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
+                y       = [1 + df["cost"]/brute_cost for df in df_plot],
+                legend  = legend_list,
+                title   = r"Relative distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
+                xlabel  = r"$1 / \sqrt{Shots}$",
+                ylabel  = "Relative distance from optimal cost function value",
+                leg_loc = "upper left",
+                save_as = save_name)
+
+
 # Create new directory in upper folder
 new_dir_command = "mkdir -p ../{0}".format(folder_name)
 os.system(new_dir_command)
