@@ -13,19 +13,22 @@ import pandas as pd
 
 # Declare these variables in case they are not passed as input arguments
 n_n = 10
-n_E = 20
+n_E = int(0.5*n_n*(n_n-1))
 
 # Input arguments
 if len(sys.argv) < 4:
-    raise ValueError("Please insert number of shots, cost function type and CVaR alpha value")
+    raise ValueError("""Please insert 
+    number of shots 
+    cost function type 
+    CVaR alpha value
+    number of vertices
+    number of edges""")
+
 n_shots = sys.argv[1]
 n_cost  = sys.argv[2]
 n_alpha = sys.argv[3]
-
-if len(sys.argv) > 4:
-    n_n     = sys.argv[4]
-if len(sys.argv) > 5:
-    n_E     = sys.argv[5]
+n_n     = sys.argv[4]
+n_E     = sys.argv[5]
 
 # Print input values
 print("Shots:         {0}".format(n_shots))
@@ -63,9 +66,9 @@ N_repetitions = 100
 # Create folder for output file
 folder_name = ""
 if COST == 'cost':
-    folder_name = "files/{0}qbits_mean".format(n)
+    folder_name = "files/{0}qbits_{1}edges_mean".format(n, E)
 elif COST == 'cvar':
-    folder_name = "files/{0}qbits_cvar_{1}".format(n, n_alpha)
+    folder_name = "files/{0}qbits_{1}edges_cvar_{2}".format(n, E, n_alpha)
 save_command = "mkdir -p {0}".format(folder_name)
 os.system(save_command)
 
@@ -73,7 +76,7 @@ os.system(save_command)
 # Actual optimizations
 results_current = []
 output = 0
-file_name = "{0}/Scan_{1}qbits_{2}shots.pkl".format(folder_name, str(n), str(SHOTS))
+file_name = "{0}/Scan_{1}shots.pkl".format(folder_name, SHOTS)
 print(file_name)
 for rep in range(N_repetitions):
     output = time_vs_shots(SHOTS,

@@ -1,17 +1,22 @@
 # 10-qbits problem
-# python3 loop_scan.py cost 1   10 20
-# python3 loop_scan.py cvar 0.5 10 20
-# python3 loop_scan.py cvar 0.2 10 20
+# python3 loop_scan.py cost 1   10 22
+# python3 loop_scan.py cvar 0.5 10 22
+# python3 loop_scan.py cvar 0.2 10 22
 
 # 11-qbits problem
-# python3 loop_scan.py cost 1   11 22
-# python3 loop_scan.py cvar 0.5 11 22
-# python3 loop_scan.py cvar 0.2 11 22
+# python3 loop_scan.py cost 1   11 27
+# python3 loop_scan.py cvar 0.5 11 27
+# python3 loop_scan.py cvar 0.2 11 27
 
 # 12-qbits problem
-# python3 loop_scan.py cost 1   12 24
-# python3 loop_scan.py cvar 0.5 12 24
-# python3 loop_scan.py cvar 0.2 12 24
+# python3 loop_scan.py cost 1   12 33
+# python3 loop_scan.py cvar 0.5 12 33
+# python3 loop_scan.py cvar 0.2 12 33
+
+# 13-qbits problem
+# python3 loop_scan.py cost 1   13 39
+# python3 loop_scan.py cvar 0.5 13 39
+# python3 loop_scan.py cvar 0.2 13 39
 
 import sys, os
 
@@ -25,6 +30,8 @@ alpha      = sys.argv[2]
 n_vertices = sys.argv[3]
 n_edges    = sys.argv[4]
 
+# keep the ratio n_edges/max(n_edges) constant for all n_vertices values
+n_edges = int(0.5*n_vertices*(n_vertices-1) * 0.5)
 
 shots_list = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256]
 
