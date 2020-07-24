@@ -33,7 +33,7 @@ n_edges    = sys.argv[4]
 # keep the ratio n_edges/max(n_edges) constant for all n_vertices values
 n_edges = int(0.5*n_vertices*(n_vertices-1) * 0.5)
 
-shots_list = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256]
+shots_list = [1, 2, 4, 8, 12, 16, 24, 32, 64, 96, 128, 192, 256, 512]
 
 for shots in shots_list:
     command = "python3.7 scan_script.py {0} {1} {2} {3} {4} &".format(shots,

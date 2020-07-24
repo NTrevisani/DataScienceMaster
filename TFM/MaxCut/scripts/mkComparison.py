@@ -51,7 +51,8 @@ W2 = random_graph_producer(n, E, seed, verbosity=True)
 
 # Solve the Max-Cut problem using brute-force approach
 # and save the solution
-brute_solution, brute_cost = brute_force_solver(W2, verbosity=True)
+brute_solution, brute_cost, eigenvalues = brute_force_solver(W2, verbosity=True)
+mean_eig = np.mean(eigenvalues)
 
 
 # Variables declaration
@@ -214,56 +215,87 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 save_as = save_name)
 
 
-# Mean distance from optimal cost function value vs sqrt(Hilbert space dimension/shots)
+# Mean difference with optimal cost function value vs sqrt(Hilbert space dimension/shots)
 # (Brute cost is positive)
 save_name = folder_name + "dist_vs_inv_shots_o_dimH"
 
 plot_comparison(x       = [np.sqrt(2**N_QBITS / df["shots"]) for df in df_plot],
                 y       = [brute_cost + df["cost"] for df in df_plot],
                 legend  = legend_list,
-                title   = r"Mean distance from optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
+                title   = r"Mean difference with optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
                 xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
-                ylabel  = "Distance from optimal cost function value",
+                ylabel  = "Difference with optimal cost function value",
                 leg_loc = "upper left",
                 save_as = save_name)
 
-# Mean distance from optimal cost function value vs 1/sqrt(shots)
+# Mean difference with optimal cost function value vs 1/sqrt(shots)
 # (Brute cost is positive)
 save_name = folder_name + "dist_vs_inv_shots"
 
 plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 y       = [brute_cost + df["cost"] for df in df_plot],
                 legend  = legend_list,
-                title   = r"Mean distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
+                title   = r"Mean difference with optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
                 xlabel  = r"$1 / \sqrt{Shots}$",
-                ylabel  = "Distance from optimal cost function value",
+                ylabel  = "Difference with optimal cost function value",
                 leg_loc = "upper left",
                 save_as = save_name)
 
 
-# Relative distance from optimal cost function value vs sqrt(Hilbert space dimension/shots)
+# Difference with mean cost function value vs sqrt(Hilbert space dimension/shots)
+# (Brute cost is positive)
+save_name = folder_name + "diff_mean_vs_inv_shots_o_dimH"
+
+plot_comparison(x       = [np.sqrt(2**N_QBITS / df["shots"]) for df in df_plot],
+                y       = [mean_eig + df["cost"] for df in df_plot],
+                legend  = legend_list,
+                title   = r"Difference with mean cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
+                xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
+                ylabel  = "Difference with mean cost function",
+                leg_loc = "upper left",
+                ylim    = (-brute_cost + mean_eig, 10),        
+                save_as = save_name)
+
+# Difference with mean cost function value vs 1/sqrt(shots)
+# (Brute cost is positive)
+save_name = folder_name + "diff_mean_vs_inv_shots"
+y_unc = [df["cost"] / np.sqrt(N_repetitions) for df in df_plot]
+
+plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
+                y       = [mean_eig + df["cost"] for df in df_plot],
+                legend  = legend_list,
+                title   = r"Difference with mean cost function value vs $\frac{1}{\sqrt{Shots}}$",
+                xlabel  = r"$1 / \sqrt{Shots}$",
+                ylabel  = "Difference with mean cost function",
+		ylim    = (-brute_cost + mean_eig, 10),
+                y_err   = [df["cost"] / np.sqrt(N_repetitions) for df in df_plot], #y_unc, 
+                leg_loc = "upper left",
+                save_as = save_name)
+
+
+# Relative difference with optimal cost function value vs sqrt(Hilbert space dimension/shots)
 # (Brute cost is positive)
 save_name = folder_name + "rel_dist_vs_inv_shots_o_dimH"
 
 plot_comparison(x       = [np.sqrt(2**N_QBITS / df["shots"]) for df in df_plot],
                 y       = [1 + df["cost"]/brute_cost for df in df_plot],
                 legend  = legend_list,
-                title   = r"Relative distance from optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
+                title   = r"Relative difference with optimal cost function value vs $\sqrt{\frac{dim(H)}{Shots}}$",
                 xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
-                ylabel  = "Relative distance from optimal cost function value",
+                ylabel  = "Relative difference with optimal cost function value",
                 leg_loc = "upper left",
                 save_as = save_name)
 
-# Relative distance from optimal cost function value vs 1/sqrt(shots)
+# Relative difference with optimal cost function value vs 1/sqrt(shots)
 # (Brute cost is positive)
 save_name = folder_name + "rel_dist_vs_inv_shots"
 
 plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 y       = [1 + df["cost"]/brute_cost for df in df_plot],
                 legend  = legend_list,
-                title   = r"Relative distance from optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
+                title   = r"Relative difference with optimal cost function value vs $\frac{1}{\sqrt{Shots}}$",
                 xlabel  = r"$1 / \sqrt{Shots}$",
-                ylabel  = "Relative distance from optimal cost function value",
+                ylabel  = "Relative difference with optimal cost function value",
                 leg_loc = "upper left",
                 save_as = save_name)
 

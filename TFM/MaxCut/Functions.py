@@ -224,7 +224,7 @@ def time_vs_shots(shots,
                alpha*shots lowest eigenvalues,
     alpha: 'cvar' alpha parameter
     theta: the ansatz initial parameters. If set to 1, the 
-    standard ry ansatz parameters are used.
+        standard ry ansatz parameters are used.
     verbosity: activate/desactivate some control printouts.
     
     Output:
@@ -304,6 +304,7 @@ def time_vs_shots(shots,
 from scipy.optimize import curve_fit
 def scatter_plot(x, y, 
                  title = "", xlabel = "", ylabel = "", save_as = "", 
+                 xlim = (-9999, -9999),
                  ylim = (-9999, -9999),
                  n_rep = 100,
                  do_fit = False, fit_func = 0,
@@ -314,8 +315,6 @@ def scatter_plot(x, y,
     #                        y = y)
 
     # Now including error bars.
-    # Just statistical uncertainty due to the limited
-    # number of optimizations 
     local_plot = ax.errorbar(x, y,
                              yerr = y_err,
                              xerr = x_err,
@@ -328,7 +327,11 @@ def scatter_plot(x, y,
         ax.set_ylim(0.0, 1.5*np.max(y))
     else:    
         ax.set_ylim(ylim)
-    ax.set_xlim(0.0, 1.1*np.max(x))
+    if xlim == (-9999, -9999):
+        ax.set_xlim(0.0, 1.1*np.max(x))
+    else:    
+        ax.set_xlim(xlim)
+
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     
@@ -367,6 +370,9 @@ def scatter_plot(x, y,
     if save_as != "":
         plt.savefig(save_as + '.png')
         plt.savefig(save_as + '.pdf')
+
+    # Close
+    plt.close()
 
         
 # A few possible fitting functions
@@ -554,7 +560,8 @@ def sizeof_fmt(num, suffix='B'):
 # Comparison of a list of quantities on the same canvas
 def plot_comparison(x, y, legend, leg_loc = "upper right",
                     title = "", xlabel = "", ylabel = "", save_as = "", 
-                    ylim = (-9999, -9999)):
+                    ylim = (-9999, -9999),
+                    x_err = [], y_err = []):
     """Compares a list of plots on the same canvas.
         
     The x and the y must be manually defined as a list, as
@@ -562,11 +569,25 @@ def plot_comparison(x, y, legend, leg_loc = "upper right",
     """
     fig, ax = plt.subplots()
 
+    print("Printing {0}".format(save_as))
+    
+    if x_err == []:
+        x_err = np.zeros(len(x))
+    if y_err == []:
+        y_err = np.zeros(len(y))
+    
     # First plot
     for nplot in range(len(y)):
-        local_plot1 = ax.scatter(x     = x[nplot],
-                                 y     = y[nplot],
-                                 label = legend[nplot])
+        #local_plot1 = ax.scatter(x     = x[nplot],
+        #                         y     = y[nplot],
+        #                         label = legend[nplot])
+        # Now including error bars.
+        local_plot1 = ax.errorbar(x     = x[nplot],
+                                  y     = y[nplot],
+                                  label = legend[nplot],
+                                  yerr  = y_err[nplot],
+                                  xerr  = x_err[nplot],
+                                  fmt   = 'o')
 
     # Title
     ax.set_title(title)
@@ -586,8 +607,11 @@ def plot_comparison(x, y, legend, leg_loc = "upper right",
     if save_as != "":
         plt.savefig(save_as + '.png')
         plt.savefig(save_as + '.pdf')
-        
 
+    # Close
+    plt.close()
+
+        
 # Define a random graph and return the corresponding QUBO matrix
 def random_graph_producer(n_vert, n_edge, seed = 2000, verbosity = False):
     """Produces a random graph with n_vert vertices and n_edge edges.
@@ -639,11 +663,12 @@ def brute_force_solver(Q, verbosity = False):
     # computing all possible combinations
     # initialize output
     xbest_brute = []
+    # store all the eigenvalues to get mean and std-dev
+    eigenvalues = np.array([])
     for b in range(2**n):
         # x stores all the 2^n possible combinations of 0 and 1
         # for a vector of length n 
         x = [int(t) for t in reversed(list(bin(b)[2:].zfill(n)))]
-
         # initialize cost function value
         cost = 0
         # scan all possible costs and keep the highest one
@@ -651,6 +676,8 @@ def brute_force_solver(Q, verbosity = False):
         for i in range(n):
             for j in range(n):
                 cost = cost + Q[i,j]*x[i]*(1 - x[j])
+        # store the cost function value as a eigenvalue
+        eigenvalues = np.append(eigenvalues, cost)
         if cost > best_cost_brute:
             xbest_brute = [x] 
             best_cost_brute = cost
@@ -667,7 +694,7 @@ def brute_force_solver(Q, verbosity = False):
     for res in range(len(xbest_brute)):
         xbest_brute[res] = ''.join(map(str, xbest_brute[res]))
 
-    return xbest_brute, best_cost_brute
+    return xbest_brute, best_cost_brute, eigenvalues
 
 
 # Load results from pickle file and prepare them for analysis
@@ -696,7 +723,6 @@ def load_files(file_name, shot_list):
     # Actually load all the selected files for a chunk of optimizations
     for shot in shot_list:
         # Prepare the complete file name 
-        load_file_name = "{0}_{1}shots.pkl".format(file_name, str(shot))
         load_file_name = "{0}_{1}shots.pkl".format(file_name, str(shot))
         # Actually load the results and append them to the list
         with open(load_file_name, 'rb') as input:
@@ -776,12 +802,17 @@ def analyze_results(scan,
 
     # Add the total number of circuit evaluation
     df['ncircevs'] = df['nfevs'] * df['shots']
-    
+
     # Group by shots and average
     df_plot = df.groupby(['shots']).mean()
     df_plot.reset_index(level=0, inplace=True)
     df_plot["frac"] = frac_list
-    df_plot
+    
+    # Group by shots and take standard deviation - used for cost function only
+    df_std_dev = df.groupby(['shots']).std()
+    df_std_dev.reset_index(level=0, inplace=True)
+    # Add cost function std-dev to df_plot
+    df_plot["cost_std_dev"] = df_std_dev["cost"]    
     
     return df, df_plot
 
