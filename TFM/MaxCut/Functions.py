@@ -560,8 +560,10 @@ def sizeof_fmt(num, suffix='B'):
 # Comparison of a list of quantities on the same canvas
 def plot_comparison(x, y, legend, leg_loc = "upper right",
                     title = "", xlabel = "", ylabel = "", save_as = "", 
+                    xlim = (-9999, -9999),
                     ylim = (-9999, -9999),
-                    x_err = [], y_err = []):
+                    x_err = [], y_err = [],
+                    leg_col = 2):
     """Compares a list of plots on the same canvas.
         
     The x and the y must be manually defined as a list, as
@@ -601,7 +603,7 @@ def plot_comparison(x, y, legend, leg_loc = "upper right",
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
 
-    ax.legend(loc = leg_loc)
+    ax.legend(loc = leg_loc, ncol = leg_col)
 
     # Save as png and pdf
     if save_as != "":

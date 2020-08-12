@@ -38,10 +38,10 @@ print("Cost function: {0}".format(n_cost))
     
 # Create random Max-Cut problem
 # Number of vertices
-n = [10, 11, 12, 13]
+n = [10, 11, 12, 13, 16, 18]
 
 # Number of edges
-E = [22, 27, 33, 39]
+E = [22, 27, 33, 39, 60, 76]
 
 # Random seed
 seed = 2000
@@ -65,7 +65,8 @@ for i in range(len(n)):
     mean_eig.append(np.mean(eig))
     std_dev_eig.append(np.std(eig))
     print(np.mean(eig),np.std(eig))
-    
+
+
 # Variables declaration
 WEIGHTS       = W2
 N_QBITS       = n
@@ -98,7 +99,9 @@ os.system(save_command)
 legend_list = ["10 qbits",
                "11 qbits",
                "12 qbits",
-               "13 qbits"]
+               "13 qbits",
+               "16 qbits",
+               "18 qbits"]
 
 
 # Solution eigenvalues standard deviation vs sqrt(shots/dim(H))
@@ -403,6 +406,23 @@ plot_comparison(x       = [np.sqrt(df["shots"]) for df in df_plot],
                 legend  = legend_list,
                 title   = r"Relative difference with mean cost function value vs $\sqrt{shots}$",
                 xlabel  = r"\sqrt{shots}",
+                ylabel  = "Relative difference with mean cost function ",
+                leg_loc = "upper left",
+                ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
+                           0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                save_as = save_name)
+
+
+# Relative difference with mean cost function value vs 1/shots
+# (Brute cost is positive)
+save_name = folder_name + "rel_diff_mean_vs_1_o_shots"
+
+plot_comparison(x       = [1 / df["shots"] for df in df_plot],
+                y       = [(mean_eig[j] + df_plot[j]["cost"]) / (abs(mean_eig[j] - brute_cost[j]))
+                           for j in range(len(brute_cost))],
+                legend  = legend_list,
+                title   = r"Relative difference with mean cost function value vs $\sqrt{shots}$",
+                xlabel  = "shots",
                 ylabel  = "Relative difference with mean cost function ",
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),

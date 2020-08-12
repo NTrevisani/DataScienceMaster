@@ -116,6 +116,7 @@ plot_comparison(x       = [np.sqrt(df_plot[i]["shots"]/2**N_QBITS[i]) for i in r
                 xlabel  = r"$\sqrt{\frac{shots}{dim(H)}}$",
                 ylabel  = "Solution $\sigma$(eigenvalues)",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # Solution eigenvalues standard deviation vs sqrt(shots)
@@ -128,6 +129,7 @@ plot_comparison(x       = [np.sqrt(df_plot[i]["shots"]) for i in range(len(N_QBI
                 xlabel  = r"$\sqrt{shots}$",
                 ylabel  = "Solution $\sigma$(eigenvalues)",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -141,6 +143,7 @@ plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(
                 xlabel  = "Shots / dim(H)",
                 ylabel  = "Cost function evaluations",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # Cost function evaluations vs shots
@@ -153,6 +156,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 xlabel  = "Shots",
                 ylabel  = "Cost function evaluations",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -166,6 +170,7 @@ plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(
                 xlabel  = "Shots / dim(H)",
                 ylabel  = "Total circuits evaluations",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # Total circuit evaluations vs shots
@@ -178,6 +183,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 xlabel  = "Shots",
                 ylabel  = "Total circuits evaluations",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -205,6 +211,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 ylabel  = "Relative cost function",
                 ylim    = (-1, 0),
                 leg_loc = "upper right",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -218,6 +225,7 @@ plot_comparison(x       = [df_plot[i]["shots"]/2**N_QBITS[i] for i in range(len(
                 xlabel  = "Shots / dim(H)",
                 ylabel  = "Fraction of good solutions",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # Fraction of good solutions vs shots
@@ -230,6 +238,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 xlabel  = "Shots",
                 ylabel  = "Fraction of good solutions",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -246,6 +255,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 # Difference with mean cost function value vs shots
@@ -263,6 +273,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) for j in range(len(brute_cost))])),
                 #y_err   = y_unc, 
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -281,6 +292,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) for j in range(len(brute_cost))])),
                 y_err   = y_unc, 
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -297,6 +309,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / std_dev_eig[j] for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / std_dev_eig[j] for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 # Difference with mean cost function over std_dev(eig) vs 1/sqrt(shots)
@@ -313,6 +326,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / std_dev_eig[j] for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / std_dev_eig[j] for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -329,6 +343,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 # Difference with mean cost function times std_dev(eig) vs 1/sqrt(shots)
@@ -345,6 +360,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -362,6 +378,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 # Relative difference with mean cost function value vs 1/sqrt(shots)   
@@ -378,6 +395,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -395,6 +413,7 @@ plot_comparison(x       = [df["shots"] for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -412,6 +431,7 @@ plot_comparison(x       = [np.sqrt(df["shots"]) for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -429,6 +449,7 @@ plot_comparison(x       = [1 / df["shots"] for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -446,6 +467,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 # Normalized relative difference with mean cost function value vs 1/sqrt(shots)   
@@ -462,6 +484,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) * std_dev_eig[j] / (abs(mean_eig[j] - brute_cost[j])) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -479,6 +502,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j]) * std_dev_eig[j]) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j]) * std_dev_eig[j]) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 # Normalized relative difference with mean cost function value vs 1/sqrt(shots)   
@@ -495,6 +519,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j]) * std_dev_eig[j]) for j in range(len(brute_cost))]),
                            0.5*max([(brute_cost[j] - mean_eig[j]) / (abs(mean_eig[j] - brute_cost[j]) * std_dev_eig[j]) for j in range(len(brute_cost))])),
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -509,6 +534,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
                 ylabel  = "difference with optimal cost function value",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # Mean difference with optimal cost function value vs 1/sqrt(shots)
@@ -522,6 +548,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 xlabel  = r"$1 / \sqrt{Shots}$",
                 ylabel  = "difference with optimal cost function value",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -536,6 +563,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
                 ylabel  = "Difference with optimal solution over number of edges",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # (Mean difference with optimal cost function value / n_edges) vs 1/sqrt(shots)
@@ -549,6 +577,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 xlabel  = r"$1 / \sqrt{Shots}$",
                 ylabel  = "Difference with optimal solution over number of edges",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -563,6 +592,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 xlabel  = r"$\sqrt{\frac{dim(H)}{Shots}}$",
                 ylabel  = "Relative difference with optimal cost function value",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 # Relative difference with optimal cost function value vs 1/sqrt(shots)
@@ -576,6 +606,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 xlabel  = r"$1 / \sqrt{Shots}$",
                 ylabel  = "Relative difference with optimal cost function value",
                 leg_loc = "upper left",
+                leg_col = 3,
                 save_as = save_name)
 
 
@@ -591,6 +622,7 @@ plot_comparison(x       = [np.sqrt(2**N_QBITS[i] / df_plot[i]["shots"]) for i in
                 ylabel  = "Relative difference with optimal solution over edges",
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j]) / (brute_cost[j] * E[j]) for j in range(len(brute_cost))]), 0),                
+                leg_col = 3,
                 save_as = save_name)
 
 # (Relative difference with optimal cost function value / n_edges) vs 1/sqrt(shots)
@@ -605,6 +637,7 @@ plot_comparison(x       = [1 / np.sqrt(df["shots"]) for df in df_plot],
                 ylabel  = "Relative difference with optimal solution over edges",
                 leg_loc = "upper left",
                 ylim    = (-max([(brute_cost[j]) / (brute_cost[j] * E[j]) for j in range(len(brute_cost))]), 0),                
+                leg_col = 3,
                 save_as = save_name)
 
 
