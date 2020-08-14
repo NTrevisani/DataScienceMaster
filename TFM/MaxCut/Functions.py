@@ -14,6 +14,18 @@ PI = np.pi
 
 # The actual function
 def qubo_to_ising(input_Q):
+
+    # Define the 2x2 matrices we need
+
+    # (1 + pauli_z)/2
+    sigma_z = np.array([[1, 0], [0, 0]])
+
+    # (1 - sigma_z)
+    minus_z = np.array([[0, 0], [0, 1]])
+
+    # Identity
+    id_matrix = np.array([[1, 0], [0, 1]])
+
     n = len(input_Q)
     print("input:")
     print(input_Q)
@@ -81,7 +93,7 @@ def cost_function_C(results, weights):
     return -cost / shots
 
 
-# Write the circuit as a parametric function
+# Write a VQE circuit as a parametric function
 def VQE_circuit(theta, n, depth): 
     """Creates a variational-form RY ansatz.
     
@@ -124,6 +136,58 @@ def VQE_circuit(theta, n, depth):
     return circuit    
 
 
+# Write a QAOA circuit as a parametric function
+def QAOA_circuit(gamma_beta, QUBO, depth): 
+    """Creates a QAOA circuit.
+    
+    gamma_beta: input rotation angles.
+    The first half of the variable contains the gamma angles
+    and the second half the beta angles,
+    QUBO: the original QUBO problem matrix,
+    depth: number of layers.
+    """
+            
+    # prepare the quantum and classical registers
+    n_vertices = len(QUBO)
+
+    if len(gamma_beta) != 2*depth:
+        raise ValueError("'gamma_beta' parameter length must be equal to twice 'depth' parameter")
+
+    gamma = gamma_beta[0:depth]
+    beta  = gamma_beta[depth:2*depth]
+    
+    # Define the Quantum and Classical Registers
+    q = QuantumRegister(n_vertices)
+    c = ClassicalRegister(n_vertices)
+
+    # Build the circuit
+    circuit = QuantumCircuit(q, c)
+
+    # apply the layer of Hadamard gates to all qubits
+    circuit.h(range(n_vertices))
+    circuit.barrier()
+    
+    # Repeat the circuit structure 'depth' times
+    for k in range(depth):
+        # apply the Ising type gates with angle gamma along the edges in E
+        for i in range(n_vertices):
+            for j in range(i,n_vertices):
+                if QUBO[i,j] != 0:
+                    circuit.cu1(-2*gamma[k]*QUBO[i,j], i, j)
+                    circuit.u1(gamma[k], i)
+                    circuit.u1(gamma[k], j)
+    
+        # then apply the single qubit X-rotations with angle beta to all qubits
+        circuit.barrier()
+        circuit.rx(2*beta[k], range(n_vertices))
+
+    # Finally measure the result in the computational basis
+    circuit.barrier()
+    circuit.measure(range(n_vertices),range(n_vertices))
+    
+    return circuit    
+
+
 # In case you want to use a real quantum device as backend
 from qiskit import IBMQ
 
@@ -133,7 +197,8 @@ def cost_function_cobyla(params,
                          depth,     # = 2,
                          shots,     # = 1024
                          cost,
-                         alpha = 0.5,
+                         algorithm    = "VQE", 
+                         alpha        = 0.5,
                          backend_name = 'qasm_simulator',
                          verbosity    = False):
     """Creates a circuit, executes it and computes the cost function.
@@ -155,17 +220,21 @@ def cost_function_cobyla(params,
     """
     
     if (verbosity == True):
-        print("Arguments:")
-        print("params  = \n", params)
-        print("weights = \n", weights)
-        print("qbits   = ", n_qbits)
-        print("depth   = ", depth)
-        print("shots   = ", shots)
-        print("cost    = ", cost)
-        print("alpha   = ", alpha)
-        print("backend = ", backend_name)
+        print("Arguments:")  
+        print("params    = \n", params)
+        print("weights   = \n", weights)
+        print("qbits     = ", n_qbits)
+        print("depth     = ", depth)
+        print("shots     = ", shots)
+        print("cost      = ", cost)
+        print("algorithm = ", algorithm)
+        print("alpha     = ", alpha)
+        print("backend   = ", backend_name)
     
-    circuit = VQE_circuit(params, n_qbits, depth)
+    if algorithm == "VQE":
+        circuit = VQE_circuit(params, n_qbits, depth)
+    elif algorithm == "QAOA":
+        circuit = QAOA_circuit(params, weights, depth)
     
     if backend_name == 'qasm_simulator':
         backend = Aer.get_backend('qasm_simulator')
