@@ -276,6 +276,7 @@ def time_vs_shots(shots,
                   cost,
                   alpha = 0.5,
                   theta = 1,
+                  algorithm = "VQE",
                   verbosity = False):
     """Returns the time taken to solve a VQE problem
     as a function of the shots.    
@@ -293,7 +294,8 @@ def time_vs_shots(shots,
                alpha*shots lowest eigenvalues,
     alpha: 'cvar' alpha parameter
     theta: the ansatz initial parameters. If set to 1, the 
-        standard ry ansatz parameters are used.
+        standard ry ansatz parameters are used,
+    algorithm: the optimization algorithm to be used (VQE or QAOA),
     verbosity: activate/desactivate some control printouts.
     
     Output:
@@ -308,11 +310,14 @@ def time_vs_shots(shots,
     """
     # Do this only if no initial parameters have been given
     if isinstance(theta, (int)):
-        # Create the rotation angles for the ansatz
-        theta_0       = np.repeat(PI/2, n_qbits)
-        theta_0.shape = (1, n_qbits)
-        theta_1       = np.zeros((depth, n_qbits))
-        theta         = np.concatenate((theta_0, theta_1), axis = 0) 
+        if algorithm == "VQE":
+            # Create the rotation angles for the ansatz
+            theta_0       = np.repeat(PI/2, n_qbits)
+            theta_0.shape = (1, n_qbits)
+            theta_1       = np.zeros((depth, n_qbits))
+            theta         = np.concatenate((theta_0, theta_1), axis = 0) 
+        elif algorithm == "QAOA":
+            theta = np.zeros(2*depth)
     
     # Time starts with the optimization
     start_time = time.time()
@@ -328,6 +333,7 @@ def time_vs_shots(shots,
                               depth, 
                               shots,
                               cost,
+                              algorithm,
                               alpha,
                               backend_name,
                               verbosity))    # the arguments of 'cost_function_cobyla', except 'params'
@@ -342,9 +348,16 @@ def time_vs_shots(shots,
     n_func_evaluations = res.nfev
 
     # Obtain the output distribution using the final parameters
-    optimal_circuit = VQE_circuit(res.x, 
-                                  n_qbits, 
-                                  depth)
+    # VQE
+    if algorithm == "VQE":
+        optimal_circuit = VQE_circuit(res.x, 
+                                      n_qbits, 
+                                      depth)
+    # QAOA
+    elif algorithm == "QAOA":
+        optimal_circuit = QAOA_circuit(res.x, 
+                                       weights, 
+                                       depth)
 
     # Define the backend for the evaluation of the optimal circuit
     # - in case it is a simulator
